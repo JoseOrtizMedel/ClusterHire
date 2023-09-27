@@ -1,0 +1,44 @@
+@font-face {
+  font-family: 'fellows'; /* Nombre de la fuente que asignarás */
+  src: url('fellows.ttf' ) format('truetype')
+  /* Puedes agregar más formatos si tienes disponibles (TTF, OTF, EOT, etc.) */
+}
+
+body{
+  background-color: #e5e5e5;
+}
+
+#titulo{
+  font-size: 60px;
+  text-align: center;
+  color: #003e77;
+  font-family: 'fellows';
+  }
+
+#formulario {
+  padding: 20px;
+  background: rgb(255, 255, 255);
+  color: #000000;
+  box-shadow:
+  0 0 10px rgba(0, 0, 0, 0.0), /* Sombra interna */
+  0 0 20px rgba(0, 0, 0, 0.0), /* Sombra intermedia */
+  0 0 40px rgb(173, 173, 173, 1); /* Sombra exterior */;
+
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.back-button {
+  margin-left: 10px; /* Espacio a la izquierda del botón */
+  background-color: #007bff; /* Color de fondo del botón */
+  color: #fff; /* Color del texto del botón */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Borde redondeado */
+  padding: 10px 20px; /* Espaciado interno del botón */
+  cursor: pointer; /* Cambia el cursor al pasar el ratón */
+}
+
+.registrar-button {
+  margin-right: 0.1cm; /* Margen a la derecha de 1 cm */
+}
