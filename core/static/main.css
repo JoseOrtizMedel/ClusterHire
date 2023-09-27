@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'fellows'; /* Nombre de la fuente que asignarás */
+    src: url('fellows.ttf' ) format('truetype')
+    /* Puedes agregar más formatos si tienes disponibles (TTF, OTF, EOT, etc.) */
+  }
+  
+  #titulo{
+    font-size: 60px;
+    text-align: center;
+    color: #003e77;
+    font-family: 'fellows';
+    }
+  
