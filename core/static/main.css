@@ -42,3 +42,13 @@ body{
 .registrar-button {
   margin-right: 0.1cm; /* Margen a la derecha de 1 cm */
 }
+
+#izq {
+  background-color: #003e77;
+}
+
+#logoLogin {
+
+  width: 300px;
+  height: 300px;
+}

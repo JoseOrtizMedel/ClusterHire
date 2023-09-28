@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+<!-- Como se muestra arriba es como se carga parte del codigo, en esta hoja solo se trabajaria el body -->
+
+{% load static %}
+
+{% block content %}
+<br> 
+
+
+
+<div id= "titulo">
+    <h1>
+    Nueva oferta
+    </h1>
+</div>
+
+<!-- <div class="container">
+    <a href="#" class="btn btn-danger">Volver</a>
+</div> -->
+
+<br>
+
+<div class="container-fluid">
+    <form name="registration" id="formulario"> 
+        <div class="row">
+            <div class="col-md-6">
+                <div class="container-fluid" id="izq">
+                    <img src="{% static 'imagenes/logo.png' %}" alt="" id="logoLogin">
+                </div>
+            </div>
+        </div>      
+
+    <p></p>
+
+        <!-- Botón a la derecha con margen -->
+        <div class="row">
+            <div class="col">
+                <!-- Columna vacía para empujar el botón hacia la derecha -->
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-primary registrar-button" type="submit">Registrar oferta</button>
+            </div>
+        </div> 
+    </form>  
+</div>
+
+
+
+  
+{% endblock %}

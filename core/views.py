@@ -8,5 +8,8 @@ def home(request):
 def registro(request):
     return render(request,'registro.html')
 
-def nueva_oferta(request):
-    return render(request,'nueva_oferta.html')
+#def nueva_oferta(request):
+#   return render(request,'nueva_oferta.html')
+
+def login(request):
+    return render(request,'login.html')
