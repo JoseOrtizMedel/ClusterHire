@@ -10,3 +10,8 @@ def registro(request):
 
 def nueva_oferta(request):
     return render(request,'nueva_oferta.html')
+
+def ofertas_admin(request):
+    return render(request,'ofertas_admin.html')
+
+
