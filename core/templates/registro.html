@@ -1,66 +1,72 @@
 {% extends 'layout.html' %}
-{% block content %}
+<!-- Como se muestra arriba es como se carga parte del codigo, en esta hoja solo se trabajaria el body -->
+
 {% load static %}
 
+{% block content %}
+<br>
+
+
+
+<!-- <div id= "titulo">
+    <h1>
+    Nueva oferta
+    </h1>
+</div> -->
+
+<!-- <div class="container">
+    <a href="#" class="btn btn-danger">Volver</a>
+</div> -->
+
+<br>
 
 <div class="container-fluid">
-    <section class="contact-box" id="contacto">
-      <div class="row no-gutters bg-dark" id="cuadro">
-        <div class="col-xl-5 col-lg-12 register-bg">
-          <div class="position-absolute testiomonial p-4">
-            <h2 class="font-weight-bold text-light">FrikiTime</h2>
-            <p class="lead text-light">La tienda más Friki</p>
-          </div>
-        </div>
-        <div class="col-xl-7 col-lg-12 d-flex">
-          <div class="container align-self-center p-6">
-            <h1><i class="fas fa-jedi"></i> Crear Cuenta</h1>
-            <div class="form-group">
-            </div>
-            <p class="text-muted mb-5">Ingresa la siguiente información para registrarte.</p>
-
-
-            <form id="registro" name="registro">
-              <div class="form-row mb-2">
-                <div class="form-group col-md-6">
-                  <label class="font-weight-bold">Nombre <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" placeholder="Tu nombre" id="nombre" name="name">
-                </div>
-                <div class="form-group col-md-6">
-                  <label class="font-weight-bold">Apellido <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" placeholder="Tu apellido" id="Apellido" name="surname">
-                </div>
-              </div>
-              <div class="form-group mb-3">
-                <label class="font-weight-bold">Rut <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" placeholder="Formato: 11.111.111-1" id="rut" name="rut">
-              </div>
-              <div class="form-group mb-3">
-                <label class="font-weight-bold">Correo electrónico <span class="text-danger">*</span></label>
-                <input type="email" class="form-control" placeholder="Ingresa tu correo electrónico" id="correo" name="email">
-              </div>
-              <div class="form-group mb-3">
-                <label class="font-weight-bold">Contraseña <span class="text-danger">*</span></label>
-                <input type="password" class="form-control" placeholder="Ingresa una contraseña" id="contra" name="password">
-              </div>
-              <div class="form-group mb-3">
-                <label class="font-weight-bold">Teléfono <span class="text-danger">*</span></label>
-                <input type="tel" class="form-control" placeholder="Ejemplo: 9 9999 9999" id="numero" name="number">
-              </div>
-              <div class="form-group mb-5">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox">
-                  <label class="form-check-label text-muted" id="check">Al seleccionar esta casilla aceptas nuestro aviso de
-                    privacidad y los términos y condiciones</label>
-                </div>
-              </div>
-              <button class="btn btn-primary width-100" id="boton-crear"><i class="fas fa-arrow-right"></i> Crear Cuenta FrikiTime</button>
-            </form>
-            <small class="d-inline-block text-muted mt-5">Todos los derechos reservados | © 2021 FrikiTime</small>
-          </div>
+  <form name="registration" id="formulario">
+    <div class="row" id="row">
+      <div class="col-md-6" id="izq">
+        <div class="container-fluid">
+          <img src="{% static 'imagenes/ClusterHire5.png' %}" alt="" id="logoLogin">
         </div>
       </div>
-    </section>
-  </div>
+      <div class="col-md-6">
+        <div id="titulo">
+          <h3>Registro</h3>
+        </div>
 
-  {% endblock %}
+        <div class="form-group">
+          <label for="Correo">Correo</label>
+          <input type="email" class="form-control form-control-sm" id="Correo" aria-describedby="emailHelp">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="Contraseña">Contraseña</label>
+          <input type="password" class="form-control form-control-sm" id="Contraseña">
+        </div>
+
+        <div class="form-group">
+          <label for="Nombre">Nombre</label>
+          <input type="text" class="form-control form-control-sm" id="Nombre">
+        </div>
+
+        <div class="form-group">
+          <label for="Apellido">Apellido(s)</label>
+          <input type="text" class="form-control form-control-sm" id="Apellido">
+        </div>
+
+        <div class="form-group">
+          <label for="Telefono">Telefono</label>
+          <input type="text" class="form-control form-control-sm" id="Telefono">
+        </div>
+
+        <button class="btn btn-primary registrar-button" type="submit">Registrarse</button>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+
+
+
+{% endblock %}
