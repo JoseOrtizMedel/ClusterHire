@@ -7,3 +7,6 @@ def home(request):
 
 def registro(request):
     return render(request,'registro.html')
+
+def recuperar_contrasenia(request):
+    return render(request,'recuperar_contrasenia.html')
