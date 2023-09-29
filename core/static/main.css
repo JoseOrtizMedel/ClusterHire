@@ -9,20 +9,19 @@ body{
 }
 
 #titulo{
-  font-size: 60px;
+  font-size: 90px;
   text-align: center;
   color: #003e77;
   font-family: 'fellows';
   }
 
-#formulario {
-/*   padding: 20px; */
+/* #formulario {
   background: rgb(255, 255, 255);
   color: #000000;
   box-shadow:
-  0 0 10px rgba(0, 0, 0, 0.0), /* Sombra interna */
-  0 0 20px rgba(0, 0, 0, 0.0), /* Sombra intermedia */
-  0 0 40px rgb(173, 173, 173, 1); /* Sombra exterior */;
+  0 0 10px rgba(0, 0, 0, 0.0),
+  0 0 20px rgba(0, 0, 0, 0.0),
+  0 0 40px rgb(173, 173, 173, 1);
 
   -moz-border-radius: 5px;
   -webkit-border-radius: 4px;
@@ -31,17 +30,17 @@ body{
 }
 
 .back-button {
-  margin-left: 10px; /* Espacio a la izquierda del botón */
-  background-color: #007bff; /* Color de fondo del botón */
-  color: #fff; /* Color del texto del botón */
-  border: none; /* Sin borde */
-  border-radius: 5px; /* Borde redondeado */
-  padding: 10px 20px; /* Espaciado interno del botón */
-  cursor: pointer; /* Cambia el cursor al pasar el ratón */
+  margin-left: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
 }
 
 .registrar-button {
-  margin-right: 0.1cm; /* Margen a la derecha de 1 cm */
+  margin-right: 0.1cm;
 }
 
 #izq {
@@ -57,4 +56,4 @@ body{
   padding: 30px;
   width: 500px;
   height: 500px;
-}
+} */
