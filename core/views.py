@@ -14,4 +14,5 @@ def nueva_oferta(request):
 def ofertas_admin(request):
     return render(request,'ofertas_admin.html')
 
-
+def ofertas_user(request):
+    return render(request,'ofertas_user.html')
