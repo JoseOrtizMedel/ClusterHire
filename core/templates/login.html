@@ -28,7 +28,28 @@
                     <img src="{% static 'imagenes/ClusterHire5.png' %}" alt="" id="logoLogin">
                 </div>
             </div>
-        </div>      
+            <form name="registration" id="formulario"> 
+                <div class="form-group"> <!-- Agregar la clase text-center para centrar el contenido -->
+                    <h1><b>¡Bienvenid@!</b></h1>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Correo electrónico" required>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required>
+                    <div id="a">
+                        <a href="#" id="recuperarPw"><u>Recuperar Contraseña</u></a>
+                    </div>
+                    <button class="btn btn-primary registrar-button" type="submit" id="btnRegistrar">REGISTRARSE</button>
+                    <button class="btn btn-primary registrar-button" type="submit" id="btnEntrar">INICIAR SESIÓN</button>
+                </div>
+            </form>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <!-- Columna vacía para empujar el botón hacia la derecha -->
+            </div>
+
+        </div>       
 
     <p></p>
 
