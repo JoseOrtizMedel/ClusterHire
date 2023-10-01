@@ -11,6 +11,13 @@
 
 <section class="text-center text-lg-start">
   <style>
+    #titulo {
+      font-size: 90px;
+      text-align: center;
+      color: #003e77;
+      font-family: 'fellows';
+    }
+
     .rounded-t-5 {
       border-top-left-radius: 40px;
       border-top-right-radius: 40px;
@@ -30,15 +37,34 @@
       }
     }
 
-    #label{
-      color: black;
+    #formulario {
+      padding: 20px;
+      background: rgb(255, 255, 255);
+      color: #000000;
+      box-shadow:
+        0 0 10px rgba(0, 0, 0, 0.0),
+        /* Sombra interna */
+        0 0 20px rgba(0, 0, 0, 0.0),
+        /* Sombra intermedia */
+        0 0 40px rgb(173, 173, 173, 1);
+      /* Sombra exterior */
+      ;
+
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      border-radius: 4px;
     }
 
+    #label {
+      color: black;
+    }
   </style>
-  <div class="card mb-3">
+  <div class="card mb-3" id="formulario">
     <div class="row g-0 d-flex align-items-center">
       <div class="col-lg-4 d-none d-lg-flex move-right" style="background-color: #003e77; width: 500px; height: 500px;">
-        <img src="{% static 'imagenes/ClusterHire5.png' %}" alt="" class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5 " style="width: 500px; height: 350px; margin-top: 60px;"/>
+        <img src="{% static 'imagenes/ClusterHire5.png' %}" alt=""
+          class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5 "
+          style="width: 500px; height: 350px; margin-top: 60px;" />
       </div>
       <div class="col-lg-8">
         <div class="card-body py-5 px-md-5">

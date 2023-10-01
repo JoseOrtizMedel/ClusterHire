@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('registro/', views.registro, name='registro'),
-    path('recuperar_contrasenia/', views.recuperar_contrasenia, name='recuperar_contrasenia')
+    path('recuperar_contrasenia/', views.recuperar_contrasenia, name='recuperar_contrasenia'),
+    path('registrar_ncontrasenia/', views.registrar_ncontrasenia, name='registrar_ncontrasenia')
 ]
