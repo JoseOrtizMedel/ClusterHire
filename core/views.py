@@ -16,3 +16,9 @@ def ofertas_admin(request):
 
 def ofertas_user(request):
     return render(request,'ofertas_user.html')
+  
+def recuperar_contrasenia(request):
+    return render(request,'recuperar_contrasenia.html')
+
+def registrar_ncontrasenia(request):
+    return render(request, 'registrar_ncontrasenia.html')
