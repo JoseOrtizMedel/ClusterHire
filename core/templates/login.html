@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+<!-- Como se muestra arriba es como se carga parte del codigo, en esta hoja solo se trabajaria el body -->
+
+{% load static %}
+
+{% block content %}
+<br> 
+
+
+
+<!-- <div id= "titulo">
+    <h1>
+    Nueva oferta
+    </h1>
+</div> -->
+
+<!-- <div class="container">
+    <a href="#" class="btn btn-danger">Volver</a>
+</div> -->
+
+<br>
+
+<div class="container-fluid">
+    <form name="registration" id="formulario"> 
+        <div class="row" id="row">
+            <div class="col-md-6" id="izq">
+                <h1 id="tituloLogin">¡Bienvenid@!</h1>
+                    <img src="{% static 'imagenes/ClusterHire5.png' %}" alt="" id="logoLogin">
+            </div>
+            <form name="registration" id="formulario"> 
+                    <img src="{% static 'imagenes/ClusterHire.png' %}" alt="" id="logoLogin2">
+                <div class="form-group" id="login"> <!-- Agregar la clase text-center para centrar el contenido -->
+                    <h1 id="tituloForm"><b>¡Bienvenid@!</b></h1>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Correo electrónico" required>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required>
+                    <div id="a">
+                        <a href="#" id="recuperarPw"><u>Recuperar contraseña</u></a>
+                    </div>
+                    <button class="btn btn-primary registrar-button" type="submit" id="btnRegistrar">REGISTRARSE</button>
+                    <button class="btn btn-primary registrar-button" type="submit" id="btnEntrar">INICIAR SESIÓN</button>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col">
+                <!-- Columna vacía para empujar el botón hacia la derecha -->
+            </div>
+
+        </div>       
+
+    <p></p>
+
+        <!-- Botón a la derecha con margen -->
+        <div class="row">
+            <div class="col">
+                <!-- Columna vacía para empujar el botón hacia la derecha -->
+            </div>
+            <div class="col-auto">
+<!--                 <button class="btn btn-primary registrar-button" type="submit">Registrar oferta</button> -->
+            </div>
+        </div> 
+    </form>  
+</div>
+
+
+
+  
+{% endblock %}

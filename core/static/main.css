@@ -1,0 +1,475 @@
+@font-face {
+  font-family: 'fellows'; /* Nombre de la fuente que asignarás */
+  src: url('fellows.ttf' ) format('truetype')
+  /* Puedes agregar más formatos si tienes disponibles (TTF, OTF, EOT, etc.) */
+}
+
+body{
+  background-color: #e5e5e5;
+}
+
+#titulo{
+  font-size: 60px;
+  text-align: center;
+  color: #003e77;
+  font-family: 'fellows';
+  }
+
+#formulario {
+/*   padding: 20px; */
+  background: rgb(255, 255, 255);
+  color: #000000;
+  box-shadow:
+  0 0 10px rgba(0, 0, 0, 0.0), /* Sombra interna */
+  0 0 20px rgba(0, 0, 0, 0.0), /* Sombra intermedia */
+  0 0 40px rgb(173, 173, 173, 1); /* Sombra exterior */;
+
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  height: auto;
+}
+
+.back-button {
+  margin-left: 10px; /* Espacio a la izquierda del botón */
+  background-color: #007bff; /* Color de fondo del botón */
+  color: #fff; /* Color del texto del botón */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Borde redondeado */
+  padding: 10px 20px; /* Espaciado interno del botón */
+  cursor: pointer; /* Cambia el cursor al pasar el ratón */
+}
+
+.registrar-button {
+  margin-right: 0.1cm; /* Margen a la derecha de 1 cm */
+}
+
+#izq {
+  background-color: #003e77;
+  border-radius: 10px 0px 0px 10px;
+}
+
+#row {
+  margin-top: 100px;
+  display: flex;
+  margin-right: -15px;
+  margin-left: -15px;
+  flex-wrap: nowrap;
+}
+
+#tituloLogin {
+  margin-top: 0px;
+  margin-left: 0px;
+  font-size: 0px;
+  opacity: 1;
+}
+
+#logoLogin {
+  padding: 30px;
+  width: 500px;
+  height: 500px;
+}
+
+#logoLogin2 {
+/*     margin-left: 35px; */
+/*     padding: 30px; */
+    width: 0px;
+    height: 0px;
+    opacity: 1;
+  }
+
+h1 {
+  margin-top: 70px;
+  margin-left: 150px;
+}
+
+#email {
+  margin-top: 60px;
+  margin-left: 60px;
+}
+
+#password {
+  margin-top: 15px;
+  margin-left: 60px;
+}
+
+#a {
+  margin-top: 10px;
+}
+
+#recuperarPw {
+  margin-left: 62px;
+}
+
+#btnEntrar {
+  margin-left: 30px;
+  margin-top: 60px;
+}
+
+#btnRegistrar {
+  margin-left: 130px;
+  margin-top: 60px;
+}
+
+/* @media (max-width: 375px) {
+
+  #row {
+    margin-top: 0px
+  }
+
+  #izq {
+    border-radius: 5px 5px 0px 0px;
+    width: 400px;
+    margin-top: -20px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  #login {
+    width: 250px;
+  }
+
+  #logoLogin {
+    width: 0px;
+    height: 0px;
+    opacity: 1;
+  }
+
+  #logoLogin2 {
+    margin-left: 80px;
+    margin-top: 10px;
+    margin-bottom: -20px;
+    width: 150px;
+    height: 150px;
+  }
+
+  #tituloLogin {
+        margin-top: 30px;
+        margin-bottom: -30px;
+        margin-left: 55px;
+        font-size: 30px;
+        color: white;
+
+      }
+
+  #tituloForm {
+    margin-top: 0px;
+    margin-left: 0px;
+    font-size: 0px;
+    opacity: 1;
+  }
+
+  #email{
+    margin-top: 30px;
+    margin-left: 50px;
+  }
+
+  #password{
+    margin-top: 10px;
+    margin-left: 50px;
+  }
+
+  #a {
+    margin-left: -10px;
+  }
+
+  #btnEntrar {
+    margin-left: 40px;
+    margin-top: -65.5px;
+  }
+
+  #btnRegistrar {
+    margin-left: 185px;
+    margin-top: 40px;
+  }
+
+} */
+
+@media (max-width: 1620px) {
+
+  #row {
+    margin-top: 10px;
+  }
+
+  #email {
+    margin-left: 80px;
+  }
+
+  #password {
+    margin-left: 80px;
+  }
+
+  #recuperarPw {
+    margin-left: 80px;
+  }
+
+  .form-control {
+    width: 85%;
+  }
+
+  #tituloForm {
+    margin-left: 32%;
+  }
+
+  #btnRegistrar {
+    margin-left: 110px;
+  }
+
+}
+
+@media (max-width: 420px) {
+
+  #row {
+    margin-top: 0px;
+    flex-wrap: wrap;
+  }
+
+  #izq {
+    border-radius: 5px 5px 0px 0px;
+    width: 400px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  #login {
+    width: 250px;
+    margin-left: -10px;
+  }
+
+  #logoLogin {
+/*     margin-left: 35px; */
+/*     padding: 30px; */
+    width: 0px;
+    height: 0px;
+    opacity: 1;
+  }
+
+  #logoLogin2 {
+    margin-left: 80px;
+    margin-top: 20px;
+    margin-bottom: -50px;
+/*         padding: 5px; */
+    width: 200px;
+    height: 200px;
+/*         opacity: 0; */
+  }
+
+  #tituloLogin {
+    margin-top: 30px;
+    margin-bottom: -30px;
+    margin-left: 55px;
+    font-size: 30px;
+    color: white;
+/*         opacity: 1; */
+  }
+
+  #tituloForm {
+    margin-top: 0px;
+    margin-left: 0px;
+    font-size: 0px;
+    opacity: 1;
+  }
+
+  #btnEntrar {
+    margin-left: 55px;
+    margin-top: -67px;
+  }
+
+  #btnRegistrar {
+    margin-left: 200px;
+    margin-top: 25px;
+  }
+
+}
+
+/* @media (max-width: 415px) {
+
+  #row {
+    margin-top: 0px;
+    flex-wrap: wrap;
+  }
+
+  #izq {
+    border-radius: 5px 5px 0px 0px;
+    width: 400px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  #login {
+    width: 250px;
+    margin-left: 5px;
+  }
+
+  #logoLogin {
+    margin-left: 35px;
+    width: 0px;
+    height: 0px;
+    opacity: 1;
+  }
+
+  #logoLogin2 { 
+    margin-left: 90px;
+    margin-top: 20px;
+    margin-bottom: -50px;
+    width: 200px;
+    height: 200px;
+  }
+
+  #tituloLogin {
+    margin-top: 30px;
+    margin-bottom: -30px;
+    margin-left: 65px;
+    font-size: 30px;
+    color: white;
+
+  }
+
+  #tituloForm {
+    margin-top: 0px;
+    margin-left: 0px;
+    font-size: 0px;
+    opacity: 1;
+  }
+
+  #btnEntrar {
+    margin-left: 55px;
+    margin-top: -67px;
+  }
+
+  #btnRegistrar {
+    margin-left: 200px;
+    margin-top: 25px;
+  }
+
+} */
+
+@media (max-width: 412px) {
+
+  #row {
+    margin-top: 0px;
+    flex-wrap: wrap;
+  }
+
+  #izq {
+    border-radius: 5px 5px 0px 0px;
+    width: 400px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  #login {
+    width: 250px;
+    margin-left: 0px;
+  }
+
+  #logoLogin {
+    margin-left: 35px;
+/*     padding: 30px; */
+    width: 0px;
+    height: 0px;
+    opacity: 1;
+  }
+
+  #logoLogin2 {
+    margin-left: 85px;
+    margin-top: 20px;
+    margin-bottom: -50px;
+/*         padding: 5px; */
+    width: 200px;
+    height: 200px;
+/*         opacity: 0; */
+  }
+
+  #tituloLogin {
+    margin-top: 30px;
+    margin-bottom: -30px;
+    margin-left: 55px;
+    font-size: 30px;
+    color: white;
+/*         opacity: 1; */
+  }
+
+  #tituloForm {
+    margin-top: 0px;
+    margin-left: 0px;
+    font-size: 0px;
+    opacity: 1;
+  }
+
+  #btnEntrar {
+    margin-left: 55px;
+    margin-top: -67px;
+  }
+
+  #btnRegistrar {
+    margin-left: 200px;
+    margin-top: 25px;
+  }
+
+}
+
+@media (max-width: 360px) {
+
+  #row {
+    margin-top: 0px;
+    flex-wrap: wrap;
+  }
+
+  #izq {
+    border-radius: 5px 5px 0px 0px;
+    width: 400px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  #login {
+    width: 250px;
+    margin-left: -23px;
+  }
+
+  #logoLogin {
+    margin-left: 35px;
+/*     padding: 30px; */
+    width: 0px;
+    height: 0px;
+    opacity: 1;
+  }
+
+  #logoLogin2 {
+    margin-left: 60px;
+    margin-top: 20px;
+    margin-bottom: -50px;
+/*         padding: 5px; */
+    width: 200px;
+    height: 200px;
+/*         opacity: 0; */
+  }
+
+  #tituloLogin {
+    margin-top: 30px;
+    margin-bottom: -30px;
+    margin-left: 45px;
+    font-size: 30px;
+    color: white;
+/*         opacity: 1; */
+  }
+
+  #tituloForm {
+    margin-top: 0px;
+    margin-left: 0px;
+    font-size: 0px;
+    opacity: 1;
+  }
+
+  #btnEntrar {
+    margin-left: 55px;
+    margin-top: -67px;
+  }
+
+  #btnRegistrar {
+    margin-left: 200px;
+    margin-top: 25px;
+  }
+
+}
