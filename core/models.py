@@ -9,7 +9,7 @@ from django.db import models
 
 
 class Ciudad(models.Model):
-    id_ciudad = models.BigIntegerField(primary_key=True)
+    id_ciudad = models.BigAutoField(primary_key=True)
     nom_ciudad = models.CharField(max_length=250)
 
     class Meta:
@@ -18,7 +18,7 @@ class Ciudad(models.Model):
 
 
 class Competencia(models.Model):
-    id_competencia = models.BigIntegerField(primary_key=True)
+    id_competencia = models.BigAutoField(primary_key=True)
     nombre_competencia = models.CharField(max_length=250)
 
     class Meta:
@@ -37,7 +37,7 @@ class CompetenciaUsuario(models.Model):
 
 
 class Comuna(models.Model):
-    id_comuna = models.BigIntegerField(primary_key=True)
+    id_comuna = models.BigAutoField(primary_key=True)
     nom_comuna = models.CharField(max_length=250)
     fk_id_ciudad = models.ForeignKey(Ciudad, models.DO_NOTHING, db_column='fk_id_ciudad')
 
@@ -47,7 +47,7 @@ class Comuna(models.Model):
 
 
 class Debilidad(models.Model):
-    id_debilidad = models.BigIntegerField(primary_key=True)
+    id_debilidad = models.BigAutoField(primary_key=True)
     nom_debilidad = models.CharField(max_length=250)
 
     class Meta:
@@ -66,7 +66,7 @@ class DebilidadUsuario(models.Model):
 
 
 class Direccion(models.Model):
-    id_direccion = models.BigIntegerField(primary_key=True)
+    id_direccion = models.BigAutoField(primary_key=True)
     numeracion = models.IntegerField()
     nombre_calle = models.CharField(max_length=200)
     fk_d_comuna = models.ForeignKey(Comuna, models.DO_NOTHING, db_column='fk_d_comuna')
@@ -78,7 +78,7 @@ class Direccion(models.Model):
 
 
 class Educacion(models.Model):
-    id_educacion = models.BigIntegerField(primary_key=True)
+    id_educacion = models.BigAutoField(primary_key=True)
     annio_inicio_educ = models.IntegerField()
     annio_fin_educ = models.IntegerField()
     fk_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='fk_id_usuario')
@@ -91,13 +91,13 @@ class Educacion(models.Model):
 
 
 class Experiencia(models.Model):
-    id_experiencia = models.BigIntegerField(primary_key=True)
+    id_experiencia = models.BigAutoField(primary_key=True)
     cargo_empleo = models.CharField(max_length=250, db_comment='ejemplo: responsable de ventas')
     nombre_empleo = models.CharField(max_length=250)
     modo_trabajo = models.CharField(max_length=100, db_comment='Hibrido\nPresencial\nOnline')
     fecha_inicio_exp = models.DateField()
     fecha_termino_exp = models.DateField()
-    descripcion = models.BinaryField()
+    descripcion = models.TextField()
     fk_id_comuna = models.ForeignKey(Comuna, models.DO_NOTHING, db_column='fk_id_comuna')
     fk_id_tipo_empleo = models.ForeignKey('TipoEmpleo', models.DO_NOTHING, db_column='fk_id_tipo_empleo')
     fk_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='fk_id_usuario')
@@ -108,7 +108,7 @@ class Experiencia(models.Model):
 
 
 class FormacionAcademica(models.Model):
-    id_formacion = models.BigIntegerField(primary_key=True)
+    id_formacion = models.BigAutoField(primary_key=True)
     tipo_formacion = models.CharField(max_length=250, db_comment='Basica completa\nMedia completa\nSuperior completa\n')
 
     class Meta:
@@ -117,11 +117,11 @@ class FormacionAcademica(models.Model):
 
 
 class Formulario(models.Model):
-    id_formulario = models.BigIntegerField(primary_key=True)
+    id_formulario = models.BigAutoField(primary_key=True)
     fecha_formulario = models.DateField()
     pretencion_renta = models.IntegerField()
     carta_recomendacion = models.BinaryField(blank=True, null=True)
-    info_adicional = models.BinaryField(blank=True, null=True)
+    info_adicional = models.TextField(blank=True, null=True)
     fk_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='fk_id_usuario')
     fk_id_oferta = models.ForeignKey('Oferta', models.DO_NOTHING, db_column='fk_id_oferta')
 
@@ -131,7 +131,7 @@ class Formulario(models.Model):
 
 
 class Habilidad(models.Model):
-    id_habilidad = models.BigIntegerField(primary_key=True)
+    id_habilidad = models.BigAutoField(primary_key=True)
     nombre_habilidad = models.CharField(max_length=250)
 
     class Meta:
@@ -150,7 +150,7 @@ class HabilidadUsuario(models.Model):
 
 
 class Idioma(models.Model):
-    id_idioma = models.BigIntegerField(primary_key=True)
+    id_idioma = models.BigAutoField(primary_key=True)
     nombre_idioma = models.CharField(max_length=250)
 
     class Meta:
@@ -169,7 +169,7 @@ class IdiomaUsuario(models.Model):
 
 
 class Institucion(models.Model):
-    id_institucion = models.BigIntegerField(primary_key=True)
+    id_institucion = models.BigAutoField(primary_key=True)
     nombre_institucion = models.CharField(max_length=250)
     tipo_institucion = models.CharField(max_length=250, db_comment='Instituto\nUniversidad\nColegio\nLiceo\netc')
 
@@ -179,9 +179,9 @@ class Institucion(models.Model):
 
 
 class LogroAcademico(models.Model):
-    id_logro_academico = models.BigIntegerField(primary_key=True)
+    id_logro_academico = models.BigAutoField(primary_key=True)
     nom_logro = models.CharField(max_length=250)
-    descripcion_logro = models.BinaryField()
+    descripcion_logro = models.TextField()
 
     class Meta:
         managed = False
@@ -189,9 +189,9 @@ class LogroAcademico(models.Model):
 
 
 class Oferta(models.Model):
-    id_oferta = models.BigIntegerField(primary_key=True)
+    id_oferta = models.BigAutoField(primary_key=True)
     nom_oferta = models.CharField(max_length=250)
-    descripcion_oferta = models.BinaryField()
+    descripcion_oferta = models.TextField()
     fecha_oferta = models.DateField()
     fk_id_tipo_cargo = models.ForeignKey('TipoCargo', models.DO_NOTHING, db_column='fk_id_tipo_cargo')
 
@@ -201,7 +201,7 @@ class Oferta(models.Model):
 
 
 class TipoCargo(models.Model):
-    id_tipo_cargo = models.BigIntegerField(primary_key=True)
+    id_tipo_cargo = models.BigAutoField(primary_key=True)
     nom_cargo = models.CharField(max_length=250)
 
     class Meta:
@@ -210,7 +210,7 @@ class TipoCargo(models.Model):
 
 
 class TipoEmpleo(models.Model):
-    id_tipo_empleo = models.BigIntegerField(primary_key=True)
+    id_tipo_empleo = models.BigAutoField(primary_key=True)
     nom_tipo_empleo = models.CharField(max_length=250, db_comment='Jornada completa\nJornada parcial\nAut¾nomo\nProfesional independiente\nContrato temporal\nContrato de prßcticas\nContrato de formaci¾n\nTemporal')
 
     class Meta:
@@ -219,7 +219,7 @@ class TipoEmpleo(models.Model):
 
 
 class TipoUsuario(models.Model):
-    id_tipo_usuario = models.BigIntegerField(primary_key=True)
+    id_tipo_usuario = models.BigAutoField(primary_key=True)
     nom_tipo_usuario = models.CharField(max_length=250, db_comment='USUARIO CLIENTE\nUSUARIO ADMINISTRADOR')
 
     class Meta:
@@ -228,9 +228,9 @@ class TipoUsuario(models.Model):
 
 
 class TituloProf(models.Model):
-    id_titulo = models.BigIntegerField(primary_key=True)
+    id_titulo = models.BigAutoField(primary_key=True)
     nombre_titulo = models.CharField(max_length=250)
-    descripcion = models.BinaryField(blank=True, null=True)
+    descripcion = models.TextField(blank=True, null=True)
     pdf = models.BinaryField(blank=True, null=True)
     fk_id_educacion = models.ForeignKey(Educacion, models.DO_NOTHING, db_column='fk_id_educacion')
 
@@ -240,21 +240,21 @@ class TituloProf(models.Model):
 
 
 class Usuario(models.Model):
-    id_usuario = models.BigIntegerField(primary_key=True)
+    id_usuario = models.BigAutoField(primary_key=True)
     rut_usuario = models.IntegerField(blank=True, null=True)
     dv_usuario = models.CharField(max_length=1, blank=True, null=True)
     nombre = models.CharField(max_length=250)
     segundo_nombre = models.CharField(max_length=250, blank=True, null=True)
     primer_apellido = models.CharField(max_length=250)
     segundo_apellido = models.CharField(max_length=250, blank=True, null=True)
-    fecha_nacimiento = models.DateField()
-    nacionalidad = models.CharField(max_length=250)
+    fecha_nacimiento = models.DateField(blank=True, null=True)
+    nacionalidad = models.CharField(max_length=250, blank=True, null=True)
     telefono = models.IntegerField()
     foto = models.BinaryField(blank=True, null=True)
     correo = models.CharField(max_length=200)
     contrasenha = models.CharField(max_length=250)
-    fk_id_direccion = models.ForeignKey(Direccion, models.DO_NOTHING, db_column='fk_id_direccion')
-    fk_id_tipo_usuario = models.ForeignKey(TipoUsuario, models.DO_NOTHING, db_column='fk_id_tipo_usuario')
+    fk_id_direccion = models.ForeignKey(Direccion, models.DO_NOTHING, db_column='fk_id_direccion', blank=True, null=True)
+    fk_id_tipo_usuario = models.ForeignKey(TipoUsuario, models.DO_NOTHING, db_column='fk_id_tipo_usuario', blank=True, null=True)
 
     class Meta:
         managed = False
