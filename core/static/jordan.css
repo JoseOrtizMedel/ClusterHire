@@ -54,6 +54,9 @@
   #boton_nueva {
     margin-bottom: 10px;
   }
-  
+  #enviar {
+    color: #ffffff;
+    background-color: #0076bc;
+  }
   
   
