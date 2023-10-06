@@ -29,11 +29,11 @@
                 </tr>
             </thead>
             <tbody>    
-                {% for p in programas%}
+                {% for ofe in programas%}
                 <tr>
-                    <td>{{ p.nom_oferta}}</td>
-                    <td>{{ p.fecha_oferta}}</td>
-                    <td>{{ p.descripcion_oferta }}</td>
+                    <td>{{ ofe.nom_oferta}}</td>
+                    <td>{{ ofe.fecha_oferta}}</td>
+                    <td>{{ ofe.descripcion_oferta }}</td>
                     <td>                        
                         <a href="{% url 'modificar_programa' p.idPrograma %}">
                             <button type="button" class="btn btn-primary">Postular</button>

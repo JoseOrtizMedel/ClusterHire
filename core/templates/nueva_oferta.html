@@ -1,0 +1,63 @@
+{% extends 'layout2.html' %}
+<!-- Como se muestra arriba es como se carga parte del codigo, en esta hoja solo se trabajaria el body -->
+
+{% load static %}
+
+{% block content %}
+<br>
+
+<div id= "titulo">
+    <h1>Nueva oferta</h1>
+</div>
+
+<br>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <a href="{% url 'ofertas_admin' %}"  class="btn btn-danger" id="boton_volver">Volver</a> <!-- Botón de retroceso -->
+
+            <form method="POST" action="" id="formulario"> 
+                {% csrf_token %}
+
+               
+                <div class="form-group"> <!-- Agregar la clase text-center para centrar el contenido -->
+                    <label for="nom_oferta">Nombre de la oferta</label>
+                    <input type="text" class="form-control" name="nom_oferta" id="nom_oferta" required  placeholder="Ing. Informatico">
+                </div>
+
+                <div class="form-group"> <!-- Centrar el contenido -->
+                    <label for="descripcion_oferta">Descripción</label>
+                    <textarea class="form-control" name="descripcion_oferta" id="descripcion_oferta" required placeholder="Ingrese una descripción"></textarea>
+                </div>
+
+                <div class="form-group"> <!-- Centrar el contenido -->                    
+                    <label for="fecha_oferta">Fecha</label>
+                    <input type="text" class="form-control" name="fecha_oferta" id="fecha_oferta" required pattern="\d{4}-\d{2}-\d{2}" placeholder="Ejemplo: 2023-12-30">                
+                </div>
+ 
+                <div class="form-group"> <!-- Agregar la clase text-center para centrar el contenido -->
+                    <label for="fk_id_tipo_cargo">Cargo</label>
+                    <input type="text" class="form-control" name="fk_id_tipo_cargo" id="fk_id_tipo_cargo" required  placeholder="91">
+                </div>
+            
+                <!-- Botón a la derecha con margen -->
+                <div class="row">
+                    <div class="col">
+                        <!-- Columna vacía para empujar el botón hacia la derecha -->
+                    </div>
+                    <div class="col-auto">
+                        <input type="submit" class="btn btn-success" id="enviar" value="Agregar">
+                    </div>
+                </div> 
+            </form>
+              
+              
+        </div>
+    </div>
+</div>
+
+
+
+  
+{% endblock %}
