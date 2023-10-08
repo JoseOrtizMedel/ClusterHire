@@ -1,12 +1,25 @@
-from django.shortcuts import render
-from django.http import request
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Usuario
+from .forms import RegistroUsuarioForm
 
 # Create your views here.
 def home(request):
     return render(request,'home.html')
 
+
 def registro(request):
-    return render(request,'registro.html')
+    if request.method == 'POST':
+        form = RegistroUsuarioForm(request.POST)
+        if form.is_valid():
+            # Procesa el formulario y guarda al usuario en la base de datos
+            usuario = form.save(commit=False)            
+            usuario.save()
+            return redirect('home')
+    else:
+        form = RegistroUsuarioForm()
+    return render(request, 'registro.html', {'form': form})
+
 
 def nueva_oferta(request):
     return render(request,'nueva_oferta.html')
