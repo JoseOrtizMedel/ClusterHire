@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import request
-
+from .models import Oferta
 from .forms import OfertaForm
+from django import forms
 
 # Create your views here.
 def home(request):
@@ -42,5 +43,14 @@ def nueva_oferta(request):
             datos['mensaje'] = "Guardado Correctamente"
             
     return render(request, 'nueva_oferta.html', datos)
+
+
+def ofertas_user(request):
+    ofertas = Oferta.objects.all().select_related('fk_id_tipo_cargo')
+    print(ofertas)  # Imprime las ofertas en la consola para depuración
+    return render(request, 'ofertas_user.html', {'ofertas': ofertas})
+
+
+
 
 # JORDAAAAAAAN--------------------------------------------------------------
