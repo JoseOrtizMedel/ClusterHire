@@ -31,6 +31,8 @@ def login(request):
 
 #base de datos
 
+# JORDAAAAAAAN--------------------------------------------------------------
+
 def nueva_oferta(request):
     datos = {'form': OfertaForm()}
     if request.method == 'POST':
@@ -41,13 +43,4 @@ def nueva_oferta(request):
             
     return render(request, 'nueva_oferta.html', datos)
 
-""" def nueva_oferta(request):
-    if request.method == 'POST':
-        form = OfertaForm(request.POST)
-        if form.is_valid():
-            form.save()  # Guarda la oferta en la base de datos
-            return redirect('página_de_confirmación')  # Redirecciona a una página de confirmación
-    else:
-        form = OfertaForm()
-
-    return render(request, 'nueva_oferta.html', {'form': form}) """
+# JORDAAAAAAAN--------------------------------------------------------------

@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from .models import Oferta, TipoCargo
 
+# JORDAAAAAAAN--------------------------------------------------------------
 
 class OfertaForm(forms.ModelForm):
     class Meta:
@@ -21,3 +22,5 @@ class OfertaForm(forms.ModelForm):
 
     def label_from_tipo_cargo_instance(self, obj):
         return obj.nom_cargo
+    
+# JORDAAAAAAAN--------------------------------------------------------------
