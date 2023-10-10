@@ -3,8 +3,9 @@ $(document).ready(function () {
     if (!$.fn.dataTable.isDataTable('#datatable')) {
         // Si no es una DataTable, inicialízala
         $('#datatable').DataTable({
-            paging: false,
+            paging: false, // Deshabilita la paginación
             searching: true,
+            info: false, // Deshabilita la información de registros mostrados
             language: {
                 search: "Buscar: " // Cambia el texto de búsqueda aquí
             }
