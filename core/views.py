@@ -3,6 +3,7 @@ from django.http import request
 from .models import Oferta
 from .forms import OfertaForm
 from django import forms
+import time
 
 # Create your views here.
 def home(request):
@@ -37,11 +38,11 @@ def login(request):
 def nueva_oferta(request):
     datos = {'form': OfertaForm()}
     if request.method == 'POST':
-        formulario = OfertaForm(request.POST)
-        if formulario.is_valid:
+        formulario = OfertaForm(request.POST)        
+        if formulario.is_valid:            
             formulario.save()
-            datos['mensaje'] = "Guardado Correctamente"
-            
+            datos['mensaje'] = "Guardado Correctamente"  
+            time.sleep(2.5)                      
     return render(request, 'nueva_oferta.html', datos)
 
 
