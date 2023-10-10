@@ -51,6 +51,28 @@ def ofertas_user(request):
     print(ofertas)  # Imprime las ofertas en la consola para depuración
     return render(request, 'ofertas_user.html', {'ofertas': ofertas})
 
+def ofertas_admin(request):
+    ofertas = Oferta.objects.all().select_related('fk_id_tipo_cargo')
+    print(ofertas)  # Imprime las ofertas en la consola para depuración
+    return render(request, 'ofertas_admin.html', {'ofertas': ofertas})
+
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def eliminar_oferta(request, id_oferta):
+    # Verifica si el ID de la oferta existe en la base de datos
+    oferta = get_object_or_404(Oferta, id_oferta=id_oferta)
+    
+    if request.method == 'POST':
+        # Realiza la lógica para eliminar la oferta
+        oferta.delete()
+        return JsonResponse({'success': True})
+    
+    return JsonResponse({'success': False})
+
+
 
 
 

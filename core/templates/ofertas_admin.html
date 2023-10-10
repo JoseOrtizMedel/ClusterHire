@@ -4,48 +4,61 @@
 {% load static %}
 
 {% block content %}
+
+
+
 <br> 
 
 
 
 <div id= "titulo">
     <h1>
-    Ofertas
+    Ofertas disponibles
     </h1>
 </div>
 
 
 <br>
 
-<div class="container-fluid">
-    <a href="{% url 'nueva_oferta' %}" class="btn btn-primary" id="boton_nueva">Nueva oferta</a> <!-- agregar nueva oferta -->
-
+<div class="container-fluid">    
+    <a href="{% url 'nueva_oferta' %}" id= "boton_nueva" class="btn btn-custom">Nueva oferta</a></a> <!-- Botón de retroceso -->
     <div class="card">
         <div class="container-md">
-            <table id="datatable" class="table table-striped ">
-            <thead>
+            <table id="datatable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th data-sortable="true">
+                            Nombre de la oferta
+                            <i class="fas fa-sort"></i> <!-- Ícono de orden ascendente por defecto -->            
+                        </th> 
+                                           
+                        <th data-sortable="true">
+                            Cargo
+                            <i class="fas fa-sort"></i> <!-- Ícono de orden ascendente por defecto --> 
+                        </th> <!-- Habilita ordenamiento -->
+                        
+                        <th data-searchable="true">
+                            Fecha
+                            <i class="fas fa-sort"></i> <!-- Ícono de orden ascendente por defecto --> 
+                        </th> <!-- Habilita búsqueda -->
+
+                        <th data-searchable="true">
+                            Descripción
+                            <i class="fas fa-sort"></i> <!-- Ícono de orden ascendente por defecto --> 
+                        </th> <!-- Habilita búsqueda -->
+
+                        <th></th> <!-- Agregamos una columna para las acciones -->
+                    </tr>
+                </thead>
+                <tbody>   
+                {% for ofe in ofertas%}
                 <tr>
-                    <th>Nombre de la oferta</th>
-                    <th>Descripción</th>
-                    <th>Fecha</th>
-                    <th>Postulantes</th>
-                </tr>
-            </thead>
-            <tbody>    
-                {% for p in programas%}
-                <tr>
-                    <td>{{ p.nom_oferta}}</td>
-                    <td>{{ p.descripcion_oferta }}</td>
-                    <td>{{ p.fecha_oferta}}</td>
-                    <td>{{ p.conteo}}</td>
-                    <td>                        
-                        <a href="{% url 'modificar_programa' p.idPrograma %}">
-                            <button type="button" class="btn btn-primary">Ver</button>
-                        </a>
-                    
-                        <a href="#" onclick="confirmarEliminacion({{p.idPrograma}})">
-                            <button type="button" class="btn btn-danger">Eliminar  </button>
-                        </a>
+                    <td class="nombre-oferta">{{ ofe.nom_oferta }}</td>
+                    <td>{{ ofe.fk_id_tipo_cargo.nom_cargo }}</td>
+                    <td class="fecha-oferta">{{ ofe.fecha_oferta }}</td>
+                    <td>{{ ofe.descripcion_oferta }}</td>
+                    <td>
+                        <a href="{% url 'eliminar_oferta' ofe.id_oferta %}" class="btn btn-danger eliminar-btn" data-oferta-id="{{ ofe.id_oferta }}">Eliminar</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -55,7 +68,11 @@
     </div>
 </div>
 
+<!-- Coloca el código JavaScript al final de tu contenido -->
+
+<script src="{% static 'js/filtro_ofertas.js' %}"></script>
+<script src="{% static 'js/eliminar_oferta.js' %}"></script>
 
 
-  
+
 {% endblock %}

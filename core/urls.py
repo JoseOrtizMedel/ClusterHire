@@ -1,6 +1,7 @@
 from django.urls import path
 
-from .views import home, nueva_oferta, ofertas_admin, ofertas_user, registro, recuperar_contrasenia, registrar_ncontrasenia, login
+
+from .views import home, nueva_oferta, ofertas_admin, ofertas_user, registro, recuperar_contrasenia, registrar_ncontrasenia, login, eliminar_oferta
 
 urlpatterns = [
     path('', home, name="home"),
@@ -10,6 +11,9 @@ urlpatterns = [
     path('', registro, name="registro"),
     path('', recuperar_contrasenia, name="recuperar_contrasenia"),
     path('', registrar_ncontrasenia, name="registrar_ncontrasenia"),
-    path('login', login, name="login")
+    path('login', login, name="login"),
+    path('eliminar_oferta/<id_oferta>/', eliminar_oferta, name='eliminar_oferta'),
+    
+
 ]
 

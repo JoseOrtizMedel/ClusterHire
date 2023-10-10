@@ -7,7 +7,7 @@ from .models import Oferta, TipoCargo
 class OfertaForm(forms.ModelForm):
     class Meta:
         model = Oferta
-        fields = ['nom_oferta', 'descripcion_oferta', 'fecha_oferta', 'fk_id_tipo_cargo']
+        fields = ['id_oferta','nom_oferta', 'descripcion_oferta', 'fecha_oferta', 'fk_id_tipo_cargo']
 
     fk_id_tipo_cargo = forms.ModelChoiceField(
         queryset=TipoCargo.objects.all(),
