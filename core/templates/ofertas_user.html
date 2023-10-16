@@ -58,8 +58,8 @@
                     <td class="fecha-oferta">{{ ofe.fecha_oferta }}</td>
                     <td>{{ ofe.descripcion_oferta }}</td>
                     <td>
-                        <a href="" id= "postular" class="btn btn-custom">Postular</a>
-                    </td>
+                        <a href="{% url 'formulario' ofe.nom_oferta %}" id="postular" class="btn btn-custom">Postular</a>
+                    </td>                    
                 </tr>
                 {% endfor %}
             </tbody>

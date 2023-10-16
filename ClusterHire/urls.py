@@ -31,7 +31,9 @@ urlpatterns = [
     path('recuperar_contrasenia/', views.recuperar_contrasenia, name='recuperar_contrasenia'),
     path('registrar_ncontrasenia/', views.registrar_ncontrasenia, name='registrar_ncontrasenia'),
     path('login/', views.login, name='login'),
-    path('eliminar_oferta/<id_oferta>/', views.eliminar_oferta, name='eliminar_oferta'),
+    path('eliminar_oferta/<id_oferta>/', views.eliminar_oferta, name='eliminar_oferta'),    
+    path('formulario/<str:nombre_oferta>/', views.formulario, name='formulario'),
+
     
 
 

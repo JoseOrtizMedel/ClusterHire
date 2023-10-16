@@ -12,14 +12,6 @@ def home(request):
 def registro(request):
     return render(request,'registro.html')
 
-def nueva_oferta(request):
-    return render(request,'nueva_oferta.html')
-
-def ofertas_admin(request):
-    return render(request,'ofertas_admin.html')
-
-def ofertas_user(request):
-    return render(request,'ofertas_user.html')
   
 def recuperar_contrasenia(request):
     return render(request,'recuperar_contrasenia.html')
@@ -29,6 +21,9 @@ def registrar_ncontrasenia(request):
 
 def login(request):
     return render(request,'login.html')
+
+def formulario(request):
+    return render(request,'formulario.html')
 
 
 #base de datos
@@ -72,6 +67,17 @@ def eliminar_oferta(request, id_oferta):
     
     return JsonResponse({'success': False})
 
+from django.shortcuts import render
+from django.http import request
+from .models import Oferta
+from .forms import OfertaForm
+from django import forms
+
+# Otras importaciones...
+
+def formulario(request, nombre_oferta):  # Agregar 'nombre_oferta' como parámetro
+    # Otras operaciones si es necesario...
+    return render(request, 'formulario.html', {'nombre_oferta': nombre_oferta})
 
 
 
