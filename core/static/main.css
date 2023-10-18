@@ -28,6 +28,7 @@ body{
   -webkit-border-radius: 4px;
   border-radius: 4px;
   height: auto;
+  width: 100%;
 }
 
 .back-button {
@@ -78,19 +79,26 @@ body{
     opacity: 1;
   }
 
-h1 {
+/* h1 {
   margin-top: 70px;
   margin-left: 150px;
-}
+} */
 
-#email {
+#tituloForm {
+  margin-top: 70px;
+  margin-left: 150px;
+} 
+
+#username {
+  width: 85%;
   margin-top: 60px;
-  margin-left: 60px;
+  margin-left: 35px;
 }
 
 #password {
+  width: 85%;
   margin-top: 15px;
-  margin-left: 60px;
+  margin-left: 35px;
 }
 
 #a {
@@ -98,7 +106,7 @@ h1 {
 }
 
 #recuperarPw {
-  margin-left: 62px;
+  margin-left: 37px;
 }
 
 #btnEntrar {
@@ -107,7 +115,7 @@ h1 {
 }
 
 #btnRegistrar {
-  margin-left: 130px;
+  margin-left: 140px;
   margin-top: 60px;
 }
 
@@ -185,35 +193,35 @@ h1 {
 
 } */
 
-@media (max-width: 1620px) {
+@media (max-width: 1460px) {
 
   #row {
     margin-top: 10px;
   }
 
-  #email {
+/*   #email {
     margin-left: 80px;
-  }
+  } */
 
-  #password {
+/*   #password {
     margin-left: 80px;
-  }
+  } */
 
   #recuperarPw {
-    margin-left: 80px;
+    margin-left: 35px;
   }
 
   .form-control {
     width: 85%;
   }
 
-  #tituloForm {
-    margin-left: 32%;
-  }
+/*   #tituloForm {
+    margin-left: 150px
+  } */
 
-  #btnRegistrar {
+/*   #btnRegistrar {
     margin-left: 110px;
-  }
+  } */
 
 }
 
