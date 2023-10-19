@@ -35,7 +35,7 @@
                     <input type="text" class="form-control" name="username" id="username" placeholder="Correo electrónico" required>
                     <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required>
                     <div id="a">
-                        <a href="#" id="recuperarPw"><u>Recuperar contraseña</u></a>
+                        <a href="{% url 'password-reset' %}" id="recuperarPw"><u>Recuperar contraseña</u></a>
                     </div>
                     <button class="btn btn-primary registrar-button" type="submit" id="btnRegistrar">REGISTRARSE</button>
                     <button class="btn btn-primary registrar-button" type="submit" id="btnEntrar">INICIAR SESIÓN</button>
