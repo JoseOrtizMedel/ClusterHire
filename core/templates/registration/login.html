@@ -21,17 +21,18 @@
 <br>
 
 <div class="container-fluid">
-    <form name="registration" id="formulario"> 
+    <div name="registration" id="formulario"> 
         <div class="row" id="row">
             <div class="col-md-6" id="izq">
                 <h1 id="tituloLogin">¡Bienvenid@!</h1>
                     <img src="{% static 'imagenes/ClusterHire5.png' %}" alt="" id="logoLogin">
             </div>
-            <form name="registration" id="formulario"> 
+            <form action="" method="post" name="registration" id="formulario"> 
+                {% csrf_token %}
                     <img src="{% static 'imagenes/ClusterHire.png' %}" alt="" id="logoLogin2">
-                <div class="form-group" id="login"> <!-- Agregar la clase text-center para centrar el contenido -->
+                <div class="form-group" id="login"> 
                     <h1 id="tituloForm"><b>¡Bienvenid@!</b></h1>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Correo electrónico" required>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Correo electrónico" required>
                     <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required>
                     <div id="a">
                         <a href="#" id="recuperarPw"><u>Recuperar contraseña</u></a>
@@ -41,26 +42,36 @@
                 </div>
             </form>
         </div>
-        <div class="row">
-            <div class="col">
-                <!-- Columna vacía para empujar el botón hacia la derecha -->
-            </div>
-
-        </div>       
-
-    <p></p>
-
-        <!-- Botón a la derecha con margen -->
-        <div class="row">
-            <div class="col">
-                <!-- Columna vacía para empujar el botón hacia la derecha -->
-            </div>
-            <div class="col-auto">
-<!--                 <button class="btn btn-primary registrar-button" type="submit">Registrar oferta</button> -->
-            </div>
-        </div> 
-    </form>  
+    </div>  
 </div>
+
+<!-- <div class="row">
+    <div class="col-12 col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h1><b>¡Bienvenid@!</b></h1>
+                <form action="" class="login-form" method="POST">
+
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+
+                    <div class="form-group">
+                        <label for="{{ form.email.id_for_label }}">Email</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.password.id_for_label }}">Contraseña</label>
+                        {{ form.password }}
+                    </div>
+            
+                    <br>
+                    <button class="btn btn-primary registrar-button" type="submit">REGISTRARSE</button>
+                    <button class="btn btn-primary registrar-button" type="submit">INICIAR SESIÓN</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> -->
 
 
 
