@@ -4,7 +4,7 @@
 {% load static %}
 
 {% block content %}
-<br> 
+
 
 
 
@@ -18,33 +18,100 @@
     <a href="#" class="btn btn-danger">Volver</a>
 </div> -->
 
-<br>
+<style>
+    .form-control {
+        width: 70%;
+        margin-left: 10%;
+    }
+
+    #label_registro {
+        margin-left: 5%;
+    }
+
+    #tituloRegistro {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
 
 <div class="container-fluid">
-    <div name="registration" id="formulario"> 
+    <div name="registration" id="formulario">
         <div class="row" id="row">
             <div class="col-md-6" id="izq">
                 <h1 id="tituloLogin">Registro</h1>
-                    <img src="{% static 'imagenes/ClusterHire5.png' %}" alt="" id="logoLogin">
+                <img src="{% static 'imagenes/ClusterHire5.png' %}" alt="" id="logoLogin">
             </div>
-            <form action="" method="post" id="register-form"> 
+            <form action="" method="post" id="register-form">
                 {% csrf_token %}
-                    <img src="{% static 'imagenes/ClusterHire.png' %}" alt="" id="logoLogin2">
-                <div class="form-group" id="login"> 
-                    <h1 id="tituloForm"><b>Registro</b></h1>
-                    <!-- <input type="text" class="form-control" name="username" id="username" placeholder="Correo electrónico" required>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required> -->
+                <img src="{% static 'imagenes/ClusterHire.png' %}" alt="" id="logoLogin2">
+                <div class="form-group" id="login">
+                    <h1 id="tituloRegistro"><b>Registro</b></h1>
+                    <!-- {{ form }} -->
 
-                    {{ form }}
-                    
-                    <button class="btn btn-primary registrar-button" type="submit" id="btnRegistrar">REGISTRARSE</button>
+                    <div class="form-group">
+                        <label for="id_username" id="label_registro">Nombre de Usuario:</label>
+                        <input type="text" class="form-control" name="username" maxlength="150" autofocus required
+                            id="id_username">
+                        <span class="helptext" id="label_registro">Requerido. 150 caracteres o menos. Solo letras,
+                            dígitos y
+                            @/./+/-/_.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_first_name" id="label_registro">Primer Nombre:</label>
+                        <input type="text" class="form-control" name="first_name" maxlength="150" id="id_first_name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_last_name" id="label_registro">Apellido:</label>
+                        <input type="text" class="form-control" name="last_name" maxlength="150" id="id_last_name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_email" id="label_registro">Correo Electronico:</label>
+                        <input type="email" class="form-control" name="email" maxlength="254" id="id_email">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="id_password1" id="label_registro">Contraseña:</label>
+                        <input type="password" class="form-control" name="password1" autocomplete="new-password"
+                            required id="id_password1">
+                        <br>
+                        <span class="helptext">
+                            <ul>
+                                <li>Tu contraseña no puede ser demasiado similar a otra información personal tuya.</li>
+                                <li>Tu contraseña debe contener al menos 8 caracteres.</li>
+                                <li>Tu contraseña no puede ser una contraseña comúnmente utilizada.</li>
+                                <li>Tu contraseña no puede ser completamente numérica.</li>
+                            </ul>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_password2" id="label_registro">Confirmación de Contraseña:</label>
+                        <input type="password" class="form-control" name="password2" autocomplete="new-password"
+                            required id="id_password2">
+                        <br>
+                        <span class="helptext" id="label_registro">Ingresa la misma contraseña que anteriormente para
+                            verificar.</span>
+                    </div>
+
+                    <button class="btn btn-primary registrar-button" type="submit"
+                        id="btnRegistrar">REGISTRARSE</button>
                     <!-- <button class="btn btn-primary registrar-button" type="submit" id="btnEntrar">INICIAR SESIÓN</button> -->
                 </div>
             </form>
         </div>
-    </div>  
+    </div>
 </div>
 
+<br>
+<br>
+<br>
+<br>
 <!-- <div class="row">
     <div class="col-12 col-md-6 offset-md-3">
         <div class="card">
@@ -75,5 +142,5 @@
 
 
 
-  
+
 {% endblock %}
