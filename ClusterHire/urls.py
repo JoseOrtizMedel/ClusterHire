@@ -32,7 +32,8 @@ urlpatterns = [
     path('registrar_ncontrasenia/', views.registrar_ncontrasenia, name='registrar_ncontrasenia'),
     path('login/', views.login, name='login'),
     path('eliminar_oferta/<id_oferta>/', views.eliminar_oferta, name='eliminar_oferta'),    
-    path('formulario/<str:nombre_oferta>/', views.formulario, name='formulario'),
+    path('formulario/<int:id_oferta>/<str:nom_oferta>/', views.formulario, name='formulario'),
+
 
     
 

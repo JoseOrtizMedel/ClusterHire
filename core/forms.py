@@ -25,19 +25,37 @@ class OfertaForm(forms.ModelForm):
         return obj.nom_cargo
     
 
+class DireccionForm(forms.ModelForm):
+    class Meta:
+        model = Direccion
+        fields = ['numeracion', 'nombre_calle', 'fk_d_comuna']
+        
 class UsuarioForm(forms.ModelForm):
     class Meta:
         model = Usuario
         fields = [
             'id_usuario', 'rut_usuario', 'dv_usuario', 'nombre', 'segundo_nombre',
             'primer_apellido', 'segundo_apellido', 'fecha_nacimiento', 'nacionalidad',
-            'telefono', 'correo', 'fk_id_direccion', 'fk_id_tipo_usuario',
+            'telefono', 'correo', 'fk_id_tipo_usuario',
         ]
+    direccion = DireccionForm()  # Agrega el formulario de dirección como subformulario
 
-class DireccionForm(forms.ModelForm):
+
+
+class FormularioForm(forms.ModelForm):
     class Meta:
-        model = Direccion
-        fields = ['numeracion', 'nombre_calle', 'fk_d_comuna']
+        model = Formulario
+        fields = [
+            'id_formulario', 'fecha_formulario', 'pretencion_renta',
+            'info_adicional', 'fk_id_usuario', 'fk_id_oferta',
+        ]
+    usuario = UsuarioForm()  # Agrega el formulario de usuario como subformulario
+
+
+
+
+
+
 
 class ComunaForm(forms.ModelForm):
     class Meta:
@@ -49,13 +67,7 @@ class CiudadForm(forms.ModelForm):
         model = Ciudad
         fields = ['nom_ciudad']
 
-class FormularioForm(forms.ModelForm):
-    class Meta:
-        model = Formulario
-        fields = [
-            'id_formulario', 'fecha_formulario', 'pretencion_renta',
-            'info_adicional', 'fk_id_usuario', 'fk_id_oferta',
-        ]
+
 
 class EducacionForm(forms.ModelForm):
     class Meta:

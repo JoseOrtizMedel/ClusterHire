@@ -16,8 +16,7 @@ $(document).ready(function() {
       button.value = "Ingresar"; // Restablece el texto del botón
     }
   }
-
-  // Esta función se llama cuando se hace clic en el botón de enviar
+    // Esta función se llama cuando se hace clic en el botón de enviar
   function disableSubmitButton(button) {
     // Deshabilita el botón
     button.disabled = true;
@@ -69,6 +68,7 @@ $(document).ready(function() {
         title: '¡Formulario enviado correctamente!',
         text: 'Tu formulario se ha enviado con éxito.',
         showCloseButton: true // Mostrar el botón de cierre manual
+        
       });
 
       // Envía el formulario

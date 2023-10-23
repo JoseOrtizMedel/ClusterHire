@@ -161,3 +161,33 @@
   color: #ffffff;
   background-color: #0076bc;
 }
+
+
+
+.form-group-inline {
+  display: flex;
+  align-items: center; /* Alinea verticalmente los elementos */
+  padding-bottom: 13px;
+}
+
+.form-group-inline label {
+  margin-right: 5px; /* Ajusta el margen entre los elementos según tus preferencias */
+}
+
+#dv_usuario{
+  max-width: 35px;
+}
+#rut_usuario{
+  max-width: 100px;
+  margin-left: 10px;
+}
+#fecha_formulario{
+  max-width: 110px;
+}
+
+#guion{
+  margin: 10px;
+}
+#nombre, #segundo_nombre, #primer_apellido, #segundo_apellido, #fecha_formulario{
+  margin-left: 10px;
+}
