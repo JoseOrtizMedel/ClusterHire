@@ -26,17 +26,10 @@ urlpatterns = [
     path('', include('core.urls')), 
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    # path('registro/', views.registro, name='registro'),
     path('nueva_oferta/', views.nueva_oferta, name='nueva_oferta'),
     path('ofertas_admin/', views.ofertas_admin, name='ofertas_admin'),
     path('ofertas_user/', views.ofertas_user, name='ofertas_user'),
- 
-    # path('recuperar_contrasenia/', views.recuperar_contrasenia, name='recuperar_contrasenia'),
-    # path('registrar_ncontrasenia/', views.registrar_ncontrasenia, name='registrar_ncontrasenia'),
-    # path('login/', views.login, name='login'),
-
     path('accounts/', include('django.contrib.auth.urls')),
-
     path('password-reset/',
          PasswordResetView.as_view(
              template_name='users/password_reset.html',
@@ -46,10 +39,10 @@ urlpatterns = [
          ),
     path('password_reset_done/', PasswordResetDoneView.as_view(
         template_name='users/password_reset_done.html'), name='password_reset_done'),
-
     path('password-reset-confirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'),name='password_reset_confirm'),
-    
     path('password-reset-complete/',PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'),name='password_reset_complete'),
+    path('eliminar_oferta/<id_oferta>/', views.eliminar_oferta, name='eliminar_oferta'),    
+    path('formulario/<int:id_oferta>/<str:nom_oferta>/', views.formulario, name='formulario'),
 
 
 

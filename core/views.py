@@ -1,14 +1,17 @@
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
-from django.contrib import messages
-from .models import Usuario
-from .forms import InicioForm
-from django.contrib.auth import authenticate, login, logout
-from django.http import request
-from .forms import CustomUserCreationForm
+from .models import Oferta, Formulario
+from django.contrib.auth import authenticate, login
+from .forms import CustomUserCreationForm, OfertaForm, FormularioForm
+import time
 
 # Create your views here.
+
+
 def home(request):
-    return render(request,'home.html')
+    return render(request, 'home.html')
 
 
 # def registro(request):
@@ -16,7 +19,7 @@ def home(request):
 #         form = RegistroUsuarioForm(request.POST)
 #         if form.is_valid():
 #             # Procesa el formulario y guarda al usuario en la base de datos
-#             usuario = form.save(commit=False)            
+#             usuario = form.save(commit=False)
 #             usuario.save()
 #             return redirect('home')
 #     else:
@@ -25,40 +28,21 @@ def home(request):
 
 
 def nueva_oferta(request):
-    return render(request,'nueva_oferta.html')
+    return render(request, 'nueva_oferta.html')
+
 
 def ofertas_admin(request):
-    return render(request,'ofertas_admin.html')
+    return render(request, 'ofertas_admin.html')
+
 
 def ofertas_user(request):
-    return render(request,'ofertas_user.html')
-  
-# def recuperar_contrasenia(request):
-#     return render(request,'recuperar_contrasenia.html')
-
-# def registrar_ncontrasenia(request):
-#     return render(request, 'registrar_ncontrasenia.html')
-
-# def login(request):
-#     return render(request,'login.html')
-
-# def login(request):
-#     if request.method == 'POST':
-#         form = InicioForm(request.POST)
-#         if form.is_valid():
-#             return render (request, "home.html")
-#     else:
-#             form = InicioForm()
-#             messages.error(request, "Algo está mal, revise su correo y/o contraseña")
-#             return redirect("home.html")
-    
-#     return render(request, 'login.html', {'form' : form})
+    return render(request, 'ofertas_user.html')
 
 
 def register(request):
-     
-    data= {
-        'form':CustomUserCreationForm()
+
+    data = {
+        'form': CustomUserCreationForm()
     }
 
     if request.method == 'POST':
@@ -67,7 +51,63 @@ def register(request):
         if user_creation_form.is_valid():
             user_creation_form.save()
 
-            user = authenticate(username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
+            user = authenticate(
+                username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
             login(request, user)
             return redirect('home')
-    return render(request,'registration/register.html', data)
+    return render(request, 'registration/register.html', data)
+
+# JORDAAAAAAAN--------------------------------------------------------------
+
+
+def nueva_oferta(request):
+    datos = {'form': OfertaForm()}
+    if request.method == 'POST':
+        formulario = OfertaForm(request.POST)
+        if formulario.is_valid:
+            formulario.save()
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('ofertas_admin')
+    return render(request, 'nueva_oferta.html', datos)
+
+
+def ofertas_user(request):
+    ofertas = Oferta.objects.all().select_related('fk_id_tipo_cargo')
+    print(ofertas)  # Imprime las ofertas en la consola para depuración
+    return render(request, 'ofertas_user.html', {'ofertas': ofertas})
+
+
+def formulario(request, id_oferta, nom_oferta):
+    datos = {'form': FormularioForm()}
+    if request.method == 'POST':
+        formulario = FormularioForm(request.POST)
+        if formulario.is_valid():
+            # Aquí debes guardar la información del formulario y redirigir a otra página, o realizar las acciones necesarias.
+            formulario.save()
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+
+    return render(request, 'formulario.html', {'id_oferta': id_oferta, 'nom_oferta': nom_oferta})
+
+
+def ofertas_admin(request):
+    ofertas = Oferta.objects.all().select_related('fk_id_tipo_cargo')
+    print(ofertas)  # Imprime las ofertas en la consola para depuración
+    return render(request, 'ofertas_admin.html', {'ofertas': ofertas})
+
+
+@csrf_exempt
+def eliminar_oferta(request, id_oferta):
+    # Verifica si el ID de la oferta existe en la base de datos
+    oferta = get_object_or_404(Oferta, id_oferta=id_oferta)
+
+    if request.method == 'POST':
+        # Realiza la lógica para eliminar la oferta
+        oferta.delete()
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False})
+
+
+# JORDAAAAAAAN--------------------------------------------------------------
