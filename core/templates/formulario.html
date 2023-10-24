@@ -24,59 +24,22 @@
                     <input type="text" class="form-control" name="fecha_formulario" id="fecha_formulario" readonly />
                 </div> 
 
-                <div class="form-group-inline" id="run">
-                    <label for="rut_usuario">RUN</label>
-                    <input type="text" class="form-control" name="rut_usuario" id="rut_usuario" placeholder="20111333" />
-                    <label for="dv_usuario" id="guion">-</label>
-                    <input type="text" class="form-control" name="dv_usuario" id="dv_usuario" placeholder="0" />
-                </div>
-
-                <div class="form-group-inline"> <!-- Agregar la clase text-center para centrar el contenido -->
-                    <label for="nombre">Nombres</label>
-                    <input type="text" class="form-control" name="nombre" id="nombre"  placeholder="Jordan">                
-                    <input type="text" class="form-control" name="segundo_nombre" id="segundo_nombre"  placeholder="Antonio">
-                </div>
-                
-                <div class="form-group-inline"> <!-- Agregar la clase text-center para centrar el contenido -->
-                    <label for="primer_apellido">Apellidos</label>
-                    <input type="text" class="form-control" name="primer_apellido" id="primer_apellido"  placeholder="Poblete">
-                    <input type="text" class="form-control" name="segundo_apellido" id="segundo_apellido"  placeholder="Martinez">
-                </div> 
-
-                <div class="form-group"> <!-- Centrar el contenido -->                    
-                    <label for="fecha_nacimiento">Fecha nacimiento</label>
-                    <input type="text" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" required pattern="\d{4}-\d{2}-\d{2}" placeholder="2001-02-25">                
-                </div> 
-
-                <div class="form-group"> <!-- Agregar la clase text-center para centrar el contenido -->
-                    <label for="nacionalidad">Nacionalidad</label>
-                    <input type="text" class="form-control" name="nacionalidad" id="nacionalidad" required  placeholder="Chilena">
-                </div>       
 
                 <div class="form-group"> <!-- Agregar la clase text-center para centrar el contenido -->
                     <label for="pretencion_renta">Pretención de renta</label>
                     <input type="number" class="form-control" name="pretencion_renta" id="pretencion_renta" required  placeholder="450000">
                 </div>       
 
-                <div class="form-group"> <!-- Agregar la clase text-center para centrar el contenido -->
-                    <label for="numero">Número telefónico</label>
-                    <input type="number" class="form-control" name="numero" id="numero" required  placeholder="911122233">
-                </div>      
-
-                <div class="form-group"> <!-- Agregar la clase text-center para centrar el contenido -->
-                    <label for="correo">Correo electronico</label>
-                    <input type="email" class="form-control" name="correo" id="correo" required  placeholder="example@gmail.com">
-                </div>  
+ 
                 <div class="form-group"> <!-- Centrar el contenido -->
                     <label for="info_adicional">Información adicional</label>
                     <textarea class="form-control" name="info_adicional" id="info_adicional" required placeholder="¿Algo más que quieras agregar?"></textarea>
                 </div>
 
-
                 <div class="form-group">
-                    <label for="{{ form.id_oferta }}">id_usuario</label>
-                    {{ id_oferta }}
-                </div> 
+                    <label for="user_id">ID de Usuario</label>
+                    {{ request.user.id }}
+                </div>
 
                 <div class="form-group">
                     <label for="{{ form.id_oferta }}">id_Oferta</label>
@@ -91,7 +54,6 @@
                     </div>
                     <div class="col-auto">
                         <input type="submit" class="btn btn-custom" id="enviar" value="Ingresar" onclick="disableSubmitButton(this)">
-
                     </div>
                 </div>
                                         

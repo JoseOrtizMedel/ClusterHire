@@ -6,8 +6,13 @@ from .models import Oferta, Formulario
 from django.contrib.auth import authenticate, login
 from .forms import CustomUserCreationForm, OfertaForm, FormularioForm
 import time
-
+from django import forms
 # Create your views here.
+
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+
+
 
 
 def home(request):
@@ -52,17 +57,28 @@ def ofertas_user(request):
     return render(request, 'ofertas_user.html', {'ofertas': ofertas})
 
 
-def formulario(request, id_oferta, nom_oferta):
+def formulario(request, id_oferta, nom_oferta, ):
     datos = {'form': FormularioForm()}
     if request.method == 'POST':
+        user_id = request.user.id
+
+        request.POST = request.POST.copy()
+        request.POST['fk_id_usuario'] = user_id
+
         formulario = FormularioForm(request.POST)
         if formulario.is_valid():
             # Aquí debes guardar la información del formulario y redirigir a otra página, o realizar las acciones necesarias.
             formulario.save()
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
+            print("El formulario se ha guardado correctamente")
 
     return render(request, 'formulario.html', {'id_oferta': id_oferta, 'nom_oferta': nom_oferta})
+
+@login_required
+def obtener_id_usuario(request):
+    user_id = request.user.id
+    return HttpResponse(f'ID del usuario autenticado: {user_id}')
 
 
 def ofertas_admin(request):

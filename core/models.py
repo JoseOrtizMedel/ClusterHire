@@ -243,7 +243,6 @@ class Usuario(models.Model):
     telefono = models.IntegerField()
     correo = models.CharField(max_length=200)
     fk_id_direccion = models.ForeignKey(Direccion, models.DO_NOTHING, db_column='fk_id_direccion')
-    fk_id_tipo_usuario = models.FloatField()
 
     class Meta:
         managed = False

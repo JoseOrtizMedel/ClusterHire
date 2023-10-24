@@ -5,12 +5,13 @@ from django.contrib.auth.models import User
 from .models import Oferta, ModalidadTrabajo, TipoCargo, Usuario, Direccion, Comuna, Ciudad, Formulario, Educacion, TituloProf, FormacionAcademica, Experiencia, TipoEmpleo, Competencia, Habilidad, LogroAcademico, Idioma
 
 
-
+from django.shortcuts import render, redirect
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model=User
         fields=['username','first_name','last_name','email','password1','password2']
+
 
 
 # JORDAAAAAAAN--------------------------------------------------------------
@@ -59,25 +60,6 @@ class OfertaForm(forms.ModelForm):
     def label_from_comuna_instance(self, obj):
         return obj.nom_comuna
     
-    
-
-class DireccionForm(forms.ModelForm):
-    class Meta:
-        model = Direccion
-        fields = ['numeracion', 'nombre_calle', 'fk_d_comuna']
-        
-class UsuarioForm(forms.ModelForm):
-    class Meta:
-        model = Usuario
-        fields = [
-            'id_usuario', 'rut_usuario', 'dv_usuario', 'nombre', 'segundo_nombre',
-            'primer_apellido', 'segundo_apellido', 'fecha_nacimiento', 'nacionalidad',
-            'telefono', 'correo', 'fk_id_tipo_usuario',
-        ]
-    direccion = DireccionForm()  # Agrega el formulario de dirección como subformulario
-
-
-
 class FormularioForm(forms.ModelForm):
     class Meta:
         model = Formulario
@@ -85,7 +67,25 @@ class FormularioForm(forms.ModelForm):
             'id_formulario', 'fecha_formulario', 'pretencion_renta',
             'info_adicional', 'fk_id_usuario', 'fk_id_oferta',
         ]
-    usuario = UsuarioForm()  # Agrega el formulario de usuario como subformulario
+
+
+class DireccionForm(forms.ModelForm):
+    class Meta:
+        model = Direccion
+        fields = ['numeracion', 'nombre_calle', 'fk_d_comuna']
+
+        
+class UsuarioForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = [
+            'id_usuario', 'rut_usuario', 'dv_usuario', 'nombre', 'segundo_nombre',
+            'primer_apellido', 'segundo_apellido', 'fecha_nacimiento', 'nacionalidad',
+            'telefono', 'correo', 'fk_id_direccion',
+        ]
+    direccion = DireccionForm()  # Agrega el formulario de dirección como subformulario
+
+
 
 
 
