@@ -2,13 +2,7 @@ from django import forms
 from .models import Usuario
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Oferta, TipoCargo, Usuario, Direccion, Comuna, Ciudad, Formulario, Educacion, TituloProf, FormacionAcademica, Experiencia, TipoEmpleo, Competencia, Debilidad, Habilidad, LogroAcademico, Idioma
-
-
-class InicioForm(forms.ModelForm):
-    class Meta:
-        model = Usuario
-        fields = ["correo", "contrasenha"]
+from .models import Oferta, TipoCargo, Usuario, Direccion, Comuna, Ciudad, Formulario, Educacion, TituloProf, FormacionAcademica, Experiencia, TipoEmpleo, Competencia, Habilidad, LogroAcademico, Idioma
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -22,7 +16,7 @@ class CustomUserCreationForm(UserCreationForm):
 class OfertaForm(forms.ModelForm):
     class Meta:
         model = Oferta
-        fields = ['id_oferta','nom_oferta', 'descripcion_oferta', 'fecha_oferta', 'fk_id_tipo_cargo']
+        fields = ['id_oferta','nom_oferta', 'fecha_oferta', 'fk_id_tipo_cargo']
 
     fk_id_tipo_cargo = forms.ModelChoiceField(
         queryset=TipoCargo.objects.all(),
@@ -105,7 +99,7 @@ class ExperienciaForm(forms.ModelForm):
     class Meta:
         model = Experiencia
         fields = [
-            'cargo_empleo', 'nombre_empleo', 'modo_trabajo', 'fecha_inicio_exp',
+            'cargo_empleo', 'nombre_empleo', 'fecha_inicio_exp',
             'fecha_termino_exp', 'descripcion', 'fk_id_comuna', 'fk_id_tipo_empleo',
             'fk_id_usuario',
         ]
@@ -119,11 +113,6 @@ class CompetenciaForm(forms.ModelForm):
     class Meta:
         model = Competencia
         fields = ['nombre_competencia']
-
-class DebilidadForm(forms.ModelForm):
-    class Meta:
-        model = Debilidad
-        fields = ['nom_debilidad']
 
 class HabilidadForm(forms.ModelForm):
     class Meta:
