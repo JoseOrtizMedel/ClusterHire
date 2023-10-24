@@ -56,7 +56,11 @@
                     <td class="nombre-oferta">{{ ofe.nom_oferta }}</td>
                     <td>{{ ofe.fk_id_tipo_cargo.nom_cargo }}</td>
                     <td class="fecha-oferta">{{ ofe.fecha_oferta }}</td>
-                    <td>{{ ofe.descripcion_oferta }}</td>
+                    <td>
+                        <p><span class="destacado">Años de experiencia:</span> {{ ofe.anhos_experiencia }} <span> años</span> </p>
+                        <p><span class="destacado">Modalidad:</span> {{ ofe.fk_id_modalidad.nom_modalidad }}</p>
+                        <p><span class="destacado">Comuna:</span> {{ ofe.fk_id_comuna.nom_comuna }}</p>
+                    </td>
                     <td>
                         <a href="{% url 'formulario' ofe.id_oferta ofe.nom_oferta|slugify %}" id="postular" class="btn btn-custom">Postular</a>
                     </td> 

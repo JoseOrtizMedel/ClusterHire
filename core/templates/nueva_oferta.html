@@ -24,21 +24,31 @@
                     <label for="nom_oferta">Nombre de la oferta</label>
                     <input type="text" class="form-control" name="nom_oferta" id="nom_oferta" required  placeholder="Ing. Informatico">
                 </div>
-
-                <div class="form-group"> <!-- Centrar el contenido -->
-                    <label for="descripcion_oferta">Descripción</label>
-                    <textarea class="form-control" name="descripcion_oferta" id="descripcion_oferta" required placeholder="Ingrese una descripción"></textarea>
-                </div>
-
+         
                 <div class="form-group"> <!-- Centrar el contenido -->                    
                     <label for="fecha_oferta">Fecha</label>
                     <input type="text" class="form-control" name="fecha_oferta" id="fecha_oferta" required pattern="\d{4}-\d{2}-\d{2}" placeholder="Ejemplo: 2023-12-30">                
                 </div> 
 
+                <div class="form-group"> <!-- Agregar la clase text-center para centrar el contenido -->
+                    <label for="anhos_experiencia">Años de experiencia</label>
+                    <input type="number" class="form-control" name="anhos_experiencia" id="anhos_experiencia" required  placeholder="2">
+                </div>    
+
                 <div class="form-group">
                     <label for="{{ form.fk_id_tipo_cargo.id_for_label }}">Cargo</label>
-                    {{ form.fk_id_tipo_cargo }}
-                </div>                
+                    {{ form.fk_id_tipo_cargo}}
+                </div>  
+
+                <div class="form-group">
+                    <label for="{{ form.fk_id_modalidad.id_for_label }}">Modalidad</label>
+                    {{ form.fk_id_modalidad }}
+                </div>     
+
+                <div class="form-group">
+                    <label for="{{ form.fk_id_comuna.id_for_label }}">Comuna</label>
+                    {{ form.fk_id_comuna }}
+                </div>           
 
                 <!-- Botón a la derecha con margen -->
                 <div class="row">

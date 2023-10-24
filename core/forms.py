@@ -2,13 +2,9 @@ from django import forms
 from .models import Usuario
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Oferta, TipoCargo, Usuario, Direccion, Comuna, Ciudad, Formulario, Educacion, TituloProf, FormacionAcademica, Experiencia, TipoEmpleo, Competencia, Debilidad, Habilidad, LogroAcademico, Idioma
+from .models import Oferta, ModalidadTrabajo, TipoCargo, Usuario, Direccion, Comuna, Ciudad, Formulario, Educacion, TituloProf, FormacionAcademica, Experiencia, TipoEmpleo, Competencia, Habilidad, LogroAcademico, Idioma
 
 
-class InicioForm(forms.ModelForm):
-    class Meta:
-        model = Usuario
-        fields = ["correo", "contrasenha"]
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -22,7 +18,7 @@ class CustomUserCreationForm(UserCreationForm):
 class OfertaForm(forms.ModelForm):
     class Meta:
         model = Oferta
-        fields = ['id_oferta','nom_oferta', 'descripcion_oferta', 'fecha_oferta', 'fk_id_tipo_cargo']
+        fields = ['id_oferta', 'nom_oferta', 'fecha_oferta', 'anhos_experiencia', 'fk_id_tipo_cargo', 'fk_id_modalidad', 'fk_id_comuna']
 
     fk_id_tipo_cargo = forms.ModelChoiceField(
         queryset=TipoCargo.objects.all(),
@@ -30,13 +26,39 @@ class OfertaForm(forms.ModelForm):
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
+    fk_id_modalidad = forms.ModelChoiceField(
+        queryset=ModalidadTrabajo.objects.all(),
+        empty_label=None,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    fk_id_comuna = forms.ModelChoiceField(
+        queryset=Comuna.objects.all(),
+        empty_label=None,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
         # Personaliza las etiquetas del campo fk_id_tipo_cargo
         self.fields['fk_id_tipo_cargo'].label_from_instance = self.label_from_tipo_cargo_instance
 
+        # Personaliza las etiquetas del campo fk_id_modalidad
+        self.fields['fk_id_modalidad'].label_from_instance = self.label_from_modalidad_instance
+
+         # Personaliza las etiquetas del campo fk_id_comuna
+        self.fields['fk_id_comuna'].label_from_instance = self.label_from_comuna_instance
+
     def label_from_tipo_cargo_instance(self, obj):
         return obj.nom_cargo
+
+    def label_from_modalidad_instance(self, obj):
+        return obj.nom_modalidad
+
+    def label_from_comuna_instance(self, obj):
+        return obj.nom_comuna
+    
     
 
 class DireccionForm(forms.ModelForm):
@@ -105,7 +127,7 @@ class ExperienciaForm(forms.ModelForm):
     class Meta:
         model = Experiencia
         fields = [
-            'cargo_empleo', 'nombre_empleo', 'modo_trabajo', 'fecha_inicio_exp',
+            'cargo_empleo', 'nombre_empleo', 'fecha_inicio_exp',
             'fecha_termino_exp', 'descripcion', 'fk_id_comuna', 'fk_id_tipo_empleo',
             'fk_id_usuario',
         ]
@@ -120,10 +142,6 @@ class CompetenciaForm(forms.ModelForm):
         model = Competencia
         fields = ['nombre_competencia']
 
-class DebilidadForm(forms.ModelForm):
-    class Meta:
-        model = Debilidad
-        fields = ['nom_debilidad']
 
 class HabilidadForm(forms.ModelForm):
     class Meta:

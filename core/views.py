@@ -38,7 +38,7 @@ def nueva_oferta(request):
     datos = {'form': OfertaForm()}
     if request.method == 'POST':
         formulario = OfertaForm(request.POST)
-        if formulario.is_valid:
+        if formulario.is_valid():
             formulario.save()
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)

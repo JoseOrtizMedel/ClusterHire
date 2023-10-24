@@ -191,3 +191,7 @@
 #nombre, #segundo_nombre, #primer_apellido, #segundo_apellido, #fecha_formulario{
   margin-left: 10px;
 }
+
+.destacado {
+  font-weight: bold; /* Hace que el texto sea negrita */
+}
