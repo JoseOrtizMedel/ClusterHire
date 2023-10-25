@@ -56,6 +56,10 @@ def ofertas_user(request):
     print(ofertas)  # Imprime las ofertas en la consola para depuración
     return render(request, 'ofertas_user.html', {'ofertas': ofertas})
 
+@login_required
+def obtener_id_usuario(request):
+    user_id = request.user.id
+    return HttpResponse(f'ID del usuario autenticado: {user_id}')
 
 def formulario(request, id_oferta, nom_oferta, ):
     datos = {'form': FormularioForm()}
@@ -68,6 +72,9 @@ def formulario(request, id_oferta, nom_oferta, ):
         formulario = FormularioForm(request.POST)
         if formulario.is_valid():
             # Aquí debes guardar la información del formulario y redirigir a otra página, o realizar las acciones necesarias.
+            formulario.fk_id_usuario = request.user.id
+            formulario.fk_id_oferta = id_oferta  # O cualquier otro valor que desees
+
             formulario.save()
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
@@ -75,10 +82,6 @@ def formulario(request, id_oferta, nom_oferta, ):
 
     return render(request, 'formulario.html', {'id_oferta': id_oferta, 'nom_oferta': nom_oferta})
 
-@login_required
-def obtener_id_usuario(request):
-    user_id = request.user.id
-    return HttpResponse(f'ID del usuario autenticado: {user_id}')
 
 
 def ofertas_admin(request):

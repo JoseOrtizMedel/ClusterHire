@@ -25,11 +25,11 @@
                     <input type="text" class="form-control" name="nom_oferta" id="nom_oferta" required  placeholder="Ing. Informatico">
                 </div>
          
-                <div class="form-group"> <!-- Centrar el contenido -->                    
+                <div class="form-group">
                     <label for="fecha_oferta">Fecha</label>
-                    <input type="text" class="form-control" name="fecha_oferta" id="fecha_oferta" required pattern="\d{4}-\d{2}-\d{2}" placeholder="Ejemplo: 2023-12-30">                
+                    <input type="text" class="form-control" name="fecha_oferta" id="fecha_oferta" readonly />
                 </div> 
-
+                
                 <div class="form-group"> <!-- Agregar la clase text-center para centrar el contenido -->
                     <label for="anhos_experiencia">Años de experiencia</label>
                     <input type="number" class="form-control" name="anhos_experiencia" id="anhos_experiencia" required  placeholder="2">
@@ -75,4 +75,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{% static 'js/validacionFormulario.js' %}"></script>
+<script src="{% static 'js/fecha_actual2.js' %}"></script>
 {% endblock %}

@@ -65,7 +65,7 @@ class FormularioForm(forms.ModelForm):
         model = Formulario
         fields = [
             'id_formulario', 'fecha_formulario', 'pretencion_renta',
-            'info_adicional', 'fk_id_usuario', 'fk_id_oferta',
+            'info_adicional', 'fk_id_usuario', 'fk_id_oferta'
         ]
 
 
@@ -81,7 +81,7 @@ class UsuarioForm(forms.ModelForm):
         fields = [
             'id_usuario', 'rut_usuario', 'dv_usuario', 'nombre', 'segundo_nombre',
             'primer_apellido', 'segundo_apellido', 'fecha_nacimiento', 'nacionalidad',
-            'telefono', 'correo', 'fk_id_direccion',
+            'telefono', 'correo', 'fk_id_direccion'
         ]
     direccion = DireccionForm()  # Agrega el formulario de dirección como subformulario
 
