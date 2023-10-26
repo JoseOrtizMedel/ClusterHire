@@ -7,10 +7,12 @@ from django.contrib.auth import authenticate, login
 from .forms import CustomUserCreationForm, OfertaForm, FormularioForm
 import time
 from django import forms
-# Create your views here.
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+
+from django.db.models import Count
+from django.db import connection
 
 
 
@@ -51,6 +53,8 @@ def nueva_oferta(request):
     return render(request, 'nueva_oferta.html', datos)
 
 
+
+
 def ofertas_user(request):
     ofertas = Oferta.objects.all().select_related('fk_id_tipo_cargo')
     print(ofertas)  # Imprime las ofertas en la consola para depuración
@@ -82,13 +86,17 @@ def formulario(request, id_oferta, nom_oferta, ):
 
     return render(request, 'formulario.html', {'id_oferta': id_oferta, 'nom_oferta': nom_oferta})
 
-
+def obtener_conteo_formularios():
+    conteo_formularios = Oferta.objects.annotate(num_postulantes=Count('formulario'))
+    return conteo_formularios
 
 def ofertas_admin(request):
     ofertas = Oferta.objects.all().select_related('fk_id_tipo_cargo')
+    ofertas = Oferta.objects.annotate(num_formularios=Count('formulario'))
     print(ofertas)  # Imprime las ofertas en la consola para depuración
-    return render(request, 'ofertas_admin.html', {'ofertas': ofertas})
 
+    return render(request, 'ofertas_admin.html', {'ofertas': ofertas})
+ 
 
 @csrf_exempt
 def eliminar_oferta(request, id_oferta):
@@ -101,6 +109,9 @@ def eliminar_oferta(request, id_oferta):
         return JsonResponse({'success': True})
 
     return JsonResponse({'success': False})
+
+
+
 
 
 # JORDAAAAAAAN--------------------------------------------------------------
