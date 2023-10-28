@@ -1,10 +1,11 @@
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
-from .models import Oferta, Formulario
+from .models import Oferta, Formulario, Usuario
 from django.contrib.auth import authenticate, login
-from .forms import CustomUserCreationForm, OfertaForm, FormularioForm
+from django.contrib.auth.decorators import login_required
+from .forms import CompetenciaForm, CustomUserCreationForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm, OfertaForm, FormularioForm, Usuario_logroForm, UsuarioForm
 import time
 
 # Create your views here.
@@ -86,5 +87,71 @@ def eliminar_oferta(request, id_oferta):
 
 # JORDAAAAAAAN--------------------------------------------------------------
 
+def nueva_oferta(request):
+    datos = {'form': OfertaForm()}
+    if request.method == 'POST':
+        formulario = OfertaForm(request.POST)
+        if formulario.is_valid:
+            formulario.save()
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('ofertas_admin')
+    return render(request, 'nueva_oferta.html', datos)
+
 def perfil(request):
-    return render(request, 'perfil.html')
+    datos = {
+        'form': ExperienciaForm(),
+        'formCompetencia': CompetenciaForm(),
+        'formUsuarioLogro': Usuario_logroForm(),
+        'formIdioma': IdiomaForm(),
+        'formHabilidad': HabilidadForm(),
+        'formEducacion': EducacionForm(),
+        'formUsuario': UsuarioForm(),
+
+        }
+    if request.method == 'POST':
+        form_experiencia = ExperienciaForm(request.POST)
+
+        if form_experiencia.is_valid():
+            form_experiencia.save()
+
+    if request.method == 'POST':
+        form_competencia = CompetenciaForm(request.POST)
+
+        if form_competencia.is_valid():
+            form_competencia.save()
+
+    if request.method == 'POST':
+        form_usuarioLogro = Usuario_logroForm(request.POST)
+
+        if form_usuarioLogro.is_valid():
+            form_usuarioLogro.save()
+
+    if request.method == 'POST':
+        form_idioma = IdiomaForm(request.POST)
+
+        if form_idioma.is_valid():
+            form_idioma.save()
+
+    if request.method == 'POST':
+        form_habilidad = HabilidadForm(request.POST)
+
+        if form_habilidad.is_valid():
+            form_habilidad.save()
+
+    if request.method == 'POST':
+        form_educacion = EducacionForm(request.POST)
+
+        if form_educacion.is_valid():
+            form_educacion.save()
+
+    if request.method == 'POST':
+        form_usuario = UsuarioForm(request.POST)
+
+        if form_usuario.is_valid():
+            form_usuario.save()
+
+        datos['mensaje'] = "Guardado Correctamente"
+        time.sleep(2.5)
+        return redirect('home')
+    return render(request, 'perfil.html', datos)

@@ -45,6 +45,5 @@ urlpatterns = [
     path('formulario/<int:id_oferta>/<str:nom_oferta>/', views.formulario, name='formulario'),
     path('perfil/', views.perfil, name='perfil'),
 
-
     
 ]

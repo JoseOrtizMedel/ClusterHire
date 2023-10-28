@@ -26,14 +26,24 @@ class Competencia(models.Model):
         db_table = 'competencia'
 
 
+class CompetenciaOferta(models.Model):
+    id_comp_oferta = models.BigAutoField(primary_key=True)
+    fk_id_oferta = models.ForeignKey('Oferta', models.DO_NOTHING, db_column='fk_id_oferta')
+    competencia_id_competencia = models.ForeignKey(Competencia, models.DO_NOTHING, db_column='competencia_id_competencia')
+
+    class Meta:
+        managed = False
+        db_table = 'competencia_oferta'
+
+
 class CompetenciaUsuario(models.Model):
-    pf_id_competencia = models.OneToOneField(Competencia, models.DO_NOTHING, db_column='pf_id_competencia', primary_key=True)  # The composite primary key (pf_id_competencia, pf_id_usuario) found, that is not supported. The first column is selected.
+    id_compe_usuario = models.BigAutoField(primary_key=True)
+    pf_id_competencia = models.ForeignKey(Competencia, models.DO_NOTHING, db_column='pf_id_competencia')
     pf_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='pf_id_usuario')
 
     class Meta:
         managed = False
         db_table = 'competencia_usuario'
-        unique_together = (('pf_id_competencia', 'pf_id_usuario'),)
 
 
 class Comuna(models.Model):
@@ -44,25 +54,6 @@ class Comuna(models.Model):
     class Meta:
         managed = False
         db_table = 'comuna'
-
-
-class Debilidad(models.Model):
-    id_debilidad = models.BigAutoField(primary_key=True)
-    nom_debilidad = models.CharField(max_length=250)
-
-    class Meta:
-        managed = False
-        db_table = 'debilidad'
-
-
-class DebilidadUsuario(models.Model):
-    pf_id_debilidad = models.OneToOneField(Debilidad, models.DO_NOTHING, db_column='pf_id_debilidad', primary_key=True)  # The composite primary key (pf_id_debilidad, pf_id_usuario) found, that is not supported. The first column is selected.
-    pf_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='pf_id_usuario')
-
-    class Meta:
-        managed = False
-        db_table = 'debilidad_usuario'
-        unique_together = (('pf_id_debilidad', 'pf_id_usuario'),)
 
 
 class Direccion(models.Model):
@@ -94,13 +85,13 @@ class Experiencia(models.Model):
     id_experiencia = models.BigAutoField(primary_key=True)
     cargo_empleo = models.CharField(max_length=250, db_comment='ejemplo: responsable de ventas')
     nombre_empleo = models.CharField(max_length=250)
-    modo_trabajo = models.CharField(max_length=100, db_comment='Hibrido\nPresencial\nOnline')
     fecha_inicio_exp = models.DateField()
     fecha_termino_exp = models.DateField()
-    descripcion = models.BinaryField()
+    descripcion = models.TextField()
     fk_id_comuna = models.ForeignKey(Comuna, models.DO_NOTHING, db_column='fk_id_comuna')
     fk_id_tipo_empleo = models.ForeignKey('TipoEmpleo', models.DO_NOTHING, db_column='fk_id_tipo_empleo')
     fk_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='fk_id_usuario')
+    fk_id_modalidad = models.ForeignKey('ModalidadTrabajo', models.DO_NOTHING, db_column='fk_id_modalidad')
 
     class Meta:
         managed = False
@@ -108,7 +99,7 @@ class Experiencia(models.Model):
 
 
 class FormacionAcademica(models.Model):
-    id_formacion = models.BigIntegerField(primary_key=True)
+    id_formacion = models.BigAutoField(primary_key=True)
     tipo_formacion = models.CharField(max_length=250, db_comment='Basica completa\nMedia completa\nSuperior completa\n')
 
     class Meta:
@@ -120,8 +111,7 @@ class Formulario(models.Model):
     id_formulario = models.BigAutoField(primary_key=True)
     fecha_formulario = models.DateField()
     pretencion_renta = models.IntegerField()
-    carta_recomendacion = models.BinaryField(blank=True, null=True)
-    info_adicional = models.BinaryField(blank=True, null=True)
+    info_adicional = models.TextField(blank=True, null=True)
     fk_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='fk_id_usuario')
     fk_id_oferta = models.ForeignKey('Oferta', models.DO_NOTHING, db_column='fk_id_oferta')
 
@@ -140,13 +130,13 @@ class Habilidad(models.Model):
 
 
 class HabilidadUsuario(models.Model):
-    pf_id_habilidad = models.OneToOneField(Habilidad, models.DO_NOTHING, db_column='pf_id_habilidad', primary_key=True)  # The composite primary key (pf_id_habilidad, pf_id_usuario) found, that is not supported. The first column is selected.
+    id_habilidad_usuario = models.BigAutoField(primary_key=True)
+    pf_id_habilidad = models.ForeignKey(Habilidad, models.DO_NOTHING, db_column='pf_id_habilidad')
     pf_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='pf_id_usuario')
 
     class Meta:
         managed = False
         db_table = 'habilidad_usuario'
-        unique_together = (('pf_id_habilidad', 'pf_id_usuario'),)
 
 
 class Idioma(models.Model):
@@ -159,13 +149,13 @@ class Idioma(models.Model):
 
 
 class IdiomaUsuario(models.Model):
-    pf_id_idioma = models.OneToOneField(Idioma, models.DO_NOTHING, db_column='pf_id_idioma', primary_key=True)  # The composite primary key (pf_id_idioma, pf_id_usuario) found, that is not supported. The first column is selected.
+    id_idioma_usuario = models.BigAutoField(primary_key=True)
+    pf_id_idioma = models.ForeignKey(Idioma, models.DO_NOTHING, db_column='pf_id_idioma')
     pf_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='pf_id_usuario')
 
     class Meta:
         managed = False
         db_table = 'idioma_usuario'
-        unique_together = (('pf_id_idioma', 'pf_id_usuario'),)
 
 
 class Institucion(models.Model):
@@ -181,19 +171,30 @@ class Institucion(models.Model):
 class LogroAcademico(models.Model):
     id_logro_academico = models.BigAutoField(primary_key=True)
     nom_logro = models.CharField(max_length=250)
-    descripcion_logro = models.BinaryField()
+    descripcion_logro = models.TextField()
 
     class Meta:
         managed = False
         db_table = 'logro_academico'
 
 
+class ModalidadTrabajo(models.Model):
+    id_modalidad = models.BigAutoField(primary_key=True)
+    nom_modalidad = models.CharField(max_length=255, db_comment='Hibrido\nPresencial\nOnline')
+
+    class Meta:
+        managed = False
+        db_table = 'modalidad_trabajo'
+
+
 class Oferta(models.Model):
     id_oferta = models.BigAutoField(primary_key=True)
     nom_oferta = models.CharField(max_length=250)
-    descripcion_oferta = models.BinaryField()
     fecha_oferta = models.DateField()
+    anhos_experiencia = models.IntegerField()
     fk_id_tipo_cargo = models.ForeignKey('TipoCargo', models.DO_NOTHING, db_column='fk_id_tipo_cargo')
+    fk_id_modalidad = models.ForeignKey(ModalidadTrabajo, models.DO_NOTHING, db_column='fk_id_modalidad')
+    fk_id_comuna = models.ForeignKey(Comuna, models.DO_NOTHING, db_column='fk_id_comuna')
 
     class Meta:
         managed = False
@@ -201,7 +202,7 @@ class Oferta(models.Model):
 
 
 class TipoCargo(models.Model):
-    id_tipo_cargo = models.BigIntegerField(primary_key=True)
+    id_tipo_cargo = models.BigAutoField(primary_key=True)
     nom_cargo = models.CharField(max_length=250)
 
     class Meta:
@@ -218,20 +219,10 @@ class TipoEmpleo(models.Model):
         db_table = 'tipo_empleo'
 
 
-class TipoUsuario(models.Model):
-    id_tipo_usuario = models.BigAutoField(primary_key=True)
-    nom_tipo_usuario = models.CharField(max_length=250, db_comment='USUARIO CLIENTE\nUSUARIO ADMINISTRADOR')
-
-    class Meta:
-        managed = False
-        db_table = 'tipo_usuario'
-
-
 class TituloProf(models.Model):
     id_titulo = models.BigAutoField(primary_key=True)
     nombre_titulo = models.CharField(max_length=250)
-    descripcion = models.BinaryField(blank=True, null=True)
-    pdf = models.BinaryField(blank=True, null=True)
+    descripcion = models.TextField(blank=True, null=True)
     fk_id_educacion = models.ForeignKey(Educacion, models.DO_NOTHING, db_column='fk_id_educacion')
 
     class Meta:
@@ -250,11 +241,8 @@ class Usuario(models.Model):
     fecha_nacimiento = models.DateField(blank=True, null=True)
     nacionalidad = models.CharField(max_length=250, blank=True, null=True)
     telefono = models.IntegerField()
-    foto = models.BinaryField(blank=True, null=True)
     correo = models.CharField(max_length=200)
-    contrasenha = models.CharField(max_length=250)
-    fk_id_direccion = models.ForeignKey(Direccion, models.DO_NOTHING, db_column='fk_id_direccion', blank=True, null=True)
-    fk_id_tipo_usuario = models.ForeignKey(TipoUsuario, models.DO_NOTHING, db_column='fk_id_tipo_usuario', blank=True, null=True)
+    fk_id_direccion = models.ForeignKey(Direccion, models.DO_NOTHING, db_column='fk_id_direccion')
 
     class Meta:
         managed = False
@@ -262,10 +250,10 @@ class Usuario(models.Model):
 
 
 class UsuarioLogro(models.Model):
-    pf_id_usuario = models.OneToOneField(Usuario, models.DO_NOTHING, db_column='pf_id_usuario', primary_key=True)  # The composite primary key (pf_id_usuario, pf_id_logro_academico) found, that is not supported. The first column is selected.
+    id_usuario_logro = models.BigAutoField(primary_key=True)
+    pf_id_usuario = models.ForeignKey(Usuario, models.DO_NOTHING, db_column='pf_id_usuario')
     pf_id_logro_academico = models.ForeignKey(LogroAcademico, models.DO_NOTHING, db_column='pf_id_logro_academico')
 
     class Meta:
         managed = False
         db_table = 'usuario_logro'
-        unique_together = (('pf_id_usuario', 'pf_id_logro_academico'),)

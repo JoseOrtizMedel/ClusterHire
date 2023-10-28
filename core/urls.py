@@ -11,5 +11,5 @@ urlpatterns = [
     path('register', register, name="register"),
     path('eliminar_oferta/<id_oferta>/', eliminar_oferta, name='eliminar_oferta'),
     path('formulario/<int:id_oferta>/<str:nom_oferta>/', formulario, name='formulario'),
-    path('perfil', perfil, name="perfil"),
+    path('perfil/', perfil, name='perfil'),
 ]

@@ -1,0 +1,116 @@
+{% extends 'layout2.html' %}
+<!-- Como se muestra arriba es como se carga parte del codigo, en esta hoja solo se trabajaria el body -->
+
+{% load static %}
+
+{% block content %}
+<br>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+<!--             <a href="{% url 'ofertas_admin' %}"  class="btn btn-danger" id="boton_volver">Volver</a> --> <!-- Botón de retroceso -->
+
+<form method="POST" action="" id="formulario">
+
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="{{ form.fk_id_usuario.id_for_label }}">Nombre:</label>
+        {{ request.user.first_name }} {{ request.user.last_name }}
+    </div>             
+    <div class="form-group" id="id_experiencia">
+        <label for="id_experiencia">Experiencia</label>
+        <input type="text" class="form-control" name="id_experiencia" id="id_experiencia" placeholder="20111333" />
+    </div>
+    <div class="form-group"> <!-- Agregar la clase text-center para centrar el contenido -->
+        <label for="cargo_empleo">Cargo empleo</label>
+        <input type="text" class="form-control" name="cargo_empleo" id="cargo_empleo"  placeholder="cargo_empleo">                
+    </div>
+    <div class="form-group"> <!-- Agregar la clase text-center para centrar el contenido -->
+        <label for="nombre_empleo">Nombre empleo</label>
+        <input type="text" class="form-control" name="nombre_empleo" id="nombre_empleo"  placeholder="nombre_empleo">
+    </div>
+    <div class="form-group">
+        <label for="{{ form.fk_id_modalidad.id_for_label }}">Modalidad</label>
+        {{ form.fk_id_modalidad }}
+    </div>  
+    <div class="form-group"> <!-- Centrar el contenido -->                    
+        <label for="fecha_inicio_exp">Fecha inicio exp</label>
+        <input type="text" class="form-control" name="fecha_inicio_exp" id="fecha_inicio_exp" required pattern="\d{4}-\d{2}-\d{2}" placeholder="2001-02-25">                
+    </div> 
+    <div class="form-group"> <!-- Agregar la clase text-center para centrar el contenido -->
+        <label for="fecha_termino_exp">Fecha término exp</label>
+        <input type="text" class="form-control" name="fecha_termino_exp" id="fecha_termino_exp" required pattern="\d{4}-\d{2}-\d{2}" placeholder="2001-02-25">
+    </div>       
+        <div class="form-group"> <!-- Agregar la clase text-center para centrar el contenido -->
+            <label for="descripcion">Descripción</label>
+            <input type="text" class="form-control" name="descripcion" id="descripcion" required  placeholder="asdadadasdasdasdasd">
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.fk_id_comuna.id_for_label }}">Comuna</label>
+            {{ form.fk_id_comuna }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.fk_id_tipo_empleo.id_for_label }}">Tipo empleo</label>
+            {{ form.fk_id_tipo_empleo }}
+        </div>
+        <div class="form-group"> <!-- Agregar la clase text-center para centrar el contenido -->
+            <label for="nom_logro">Logro académico</label>
+            <input type="text" class="form-control" name="nom_logro" id="nom_logro" required  placeholder="asdadadasdasdasdasd">
+        </div>
+        <div class="form-group">
+            <label for="{{ formCompetencia.pf_id_competencia.id_for_label }}">Competencia</label>
+            {{ formCompetencia.pf_id_competencia }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ formIdioma.pf_id_idioma.id_for_label }}">Idioma</label>
+            {{ formIdioma.pf_id_idioma }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ formHabilidad.pf_id_habilidad.id_for_label }}">Habilidad</label>
+            {{ formHabilidad.pf_id_habilidad }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ formEducacion.fk_id_institucion.id_for_label }}">Institución</label>
+            {{ formEducacion.fk_id_institucion }}
+        </div>
+        <div class="form-group">
+            <label for="{{ formEducacion.fk_id_formacion.id_for_label }}">Tipo formación</label>
+            {{ formEducacion.fk_id_formacion }}
+        </div>
+        <div class="form-group"> <!-- Agregar la clase text-center para centrar el contenido -->
+            <label for="annio_inicio_educ">Fecha inicio educación</label>
+            <input type="text" class="form-control" name="annio_inicio_educ" id="annio_inicio_educ" required pattern="\d{4}-\d{2}-\d{2}" placeholder="2023-02-25">
+        </div> 
+        <div class="form-group"> <!-- Agregar la clase text-center para centrar el contenido -->
+            <label for="annio_fin_educ">Fecha término educación</label>
+            <input type="text" class="form-control" name="annio_fin_educ" id="annio_fin_educ" required pattern="\d{4}-\d{2}-\d{2}" placeholder="2023-02-25">
+        </div> 
+
+    <!-- Botón a la derecha con margen -->
+    <div class="row">
+        <div class="col">
+            <!-- Columna vacía para empujar el botón hacia la derecha -->
+        </div>
+        <div class="col-auto">
+            <input type="submit" class="btn btn-custom" id="enviar" value="Ingresar" onclick="disableSubmitButton(this)">
+
+        </div>
+    </div>
+                            
+</form>                        
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static 'js/validacionFormulario.js' %}"></script>
+{% endblock %}
