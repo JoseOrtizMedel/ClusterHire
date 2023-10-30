@@ -83,7 +83,7 @@ def formulario(request, id_oferta, nom_oferta, ):
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
             print("El formulario se ha guardado correctamente")
-
+            return redirect('ofertas_user')
     return render(request, 'formulario.html', {'id_oferta': id_oferta, 'nom_oferta': nom_oferta})
 
 def obtener_conteo_formularios():

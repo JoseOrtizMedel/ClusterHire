@@ -1,0 +1,31 @@
+{% extends 'layout2.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>Ciudades de Usuarios</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Ciudad</th>
+            <th>Usuario</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ciudad_usuario in ciudades_usuarios %}
+            <tr>
+                <td>{{ ciudad_usuario.ciudad}}</td>
+                <td>{{ ciudad_usuario.usuario}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<h1>Exportar Datos a CSV</h1>
+<a href="{% url 'exportar_csv' %}" class="btn btn-primary">Exportar a CSV</a>
+
+
+
+
+{% endblock %}

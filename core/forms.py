@@ -60,6 +60,8 @@ class OfertaForm(forms.ModelForm):
     def label_from_comuna_instance(self, obj):
         return obj.nom_comuna
     
+
+    
 class FormularioForm(forms.ModelForm):
     class Meta:
         model = Formulario
