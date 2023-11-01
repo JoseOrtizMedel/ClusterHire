@@ -29,7 +29,7 @@ class Competencia(models.Model):
 class CompetenciaOferta(models.Model):
     id_comp_oferta = models.BigAutoField(primary_key=True)
     fk_id_oferta = models.ForeignKey('Oferta', models.DO_NOTHING, db_column='fk_id_oferta')
-    competencia_id_competencia = models.ForeignKey(Competencia, models.DO_NOTHING, db_column='competencia_id_competencia')
+    fk_id_competencia = models.ForeignKey(Competencia, models.DO_NOTHING, db_column='fk_id_competencia')
 
     class Meta:
         managed = False
@@ -38,8 +38,8 @@ class CompetenciaOferta(models.Model):
 
 class CompetenciaUsuario(models.Model):
     id_compe_usuario = models.BigAutoField(primary_key=True)
-    pf_id_competencia = models.ForeignKey(Competencia, models.DO_NOTHING, db_column='pf_id_competencia')
-    pf_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='pf_id_usuario')
+    fk_id_competencia = models.ForeignKey(Competencia, models.DO_NOTHING, db_column='fk_id_competencia')
+    fk_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='fk_id_usuario')
 
     class Meta:
         managed = False
@@ -61,7 +61,6 @@ class Direccion(models.Model):
     numeracion = models.IntegerField()
     nombre_calle = models.CharField(max_length=200)
     fk_d_comuna = models.ForeignKey(Comuna, models.DO_NOTHING, db_column='fk_d_comuna')
-    fk_id_institucion = models.ForeignKey('Institucion', models.DO_NOTHING, db_column='fk_id_institucion', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -75,6 +74,7 @@ class Educacion(models.Model):
     fk_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='fk_id_usuario')
     fk_id_institucion = models.ForeignKey('Institucion', models.DO_NOTHING, db_column='fk_id_institucion')
     fk_id_formacion = models.ForeignKey('FormacionAcademica', models.DO_NOTHING, db_column='fk_id_formacion')
+    fk_id_titulo = models.ForeignKey('TituloProf', models.DO_NOTHING, db_column='fk_id_titulo', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -83,7 +83,6 @@ class Educacion(models.Model):
 
 class Experiencia(models.Model):
     id_experiencia = models.BigAutoField(primary_key=True)
-    cargo_empleo = models.CharField(max_length=250, db_comment='ejemplo: responsable de ventas')
     nombre_empleo = models.CharField(max_length=250)
     fecha_inicio_exp = models.DateField()
     fecha_termino_exp = models.DateField()
@@ -92,6 +91,7 @@ class Experiencia(models.Model):
     fk_id_tipo_empleo = models.ForeignKey('TipoEmpleo', models.DO_NOTHING, db_column='fk_id_tipo_empleo')
     fk_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='fk_id_usuario')
     fk_id_modalidad = models.ForeignKey('ModalidadTrabajo', models.DO_NOTHING, db_column='fk_id_modalidad')
+    fk_id_tipo_cargo = models.ForeignKey('TipoCargo', models.DO_NOTHING, db_column='fk_id_tipo_cargo')
 
     class Meta:
         managed = False
@@ -131,8 +131,8 @@ class Habilidad(models.Model):
 
 class HabilidadUsuario(models.Model):
     id_habilidad_usuario = models.BigAutoField(primary_key=True)
-    pf_id_habilidad = models.ForeignKey(Habilidad, models.DO_NOTHING, db_column='pf_id_habilidad')
-    pf_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='pf_id_usuario')
+    fk_id_habilidad = models.ForeignKey(Habilidad, models.DO_NOTHING, db_column='fk_id_habilidad')
+    fk_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='fk_id_usuario')
 
     class Meta:
         managed = False
@@ -150,8 +150,8 @@ class Idioma(models.Model):
 
 class IdiomaUsuario(models.Model):
     id_idioma_usuario = models.BigAutoField(primary_key=True)
-    pf_id_idioma = models.ForeignKey(Idioma, models.DO_NOTHING, db_column='pf_id_idioma')
-    pf_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='pf_id_usuario')
+    fk_id_idioma = models.ForeignKey(Idioma, models.DO_NOTHING, db_column='fk_id_idioma')
+    fk_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='fk_id_usuario')
 
     class Meta:
         managed = False
@@ -162,6 +162,7 @@ class Institucion(models.Model):
     id_institucion = models.BigAutoField(primary_key=True)
     nombre_institucion = models.CharField(max_length=250)
     tipo_institucion = models.CharField(max_length=250, db_comment='Instituto\nUniversidad\nColegio\nLiceo\netc')
+    fk_id_direccion = models.ForeignKey(Direccion, models.DO_NOTHING, db_column='fk_id_direccion', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -223,7 +224,6 @@ class TituloProf(models.Model):
     id_titulo = models.BigAutoField(primary_key=True)
     nombre_titulo = models.CharField(max_length=250)
     descripcion = models.TextField(blank=True, null=True)
-    fk_id_educacion = models.ForeignKey(Educacion, models.DO_NOTHING, db_column='fk_id_educacion')
 
     class Meta:
         managed = False
@@ -251,8 +251,8 @@ class Usuario(models.Model):
 
 class UsuarioLogro(models.Model):
     id_usuario_logro = models.BigAutoField(primary_key=True)
-    pf_id_usuario = models.ForeignKey(Usuario, models.DO_NOTHING, db_column='pf_id_usuario')
-    pf_id_logro_academico = models.ForeignKey(LogroAcademico, models.DO_NOTHING, db_column='pf_id_logro_academico')
+    fk_id_usuario = models.ForeignKey(Usuario, models.DO_NOTHING, db_column='fk_id_usuario')
+    fk_id_logro_academico = models.ForeignKey(LogroAcademico, models.DO_NOTHING, db_column='fk_id_logro_academico')
 
     class Meta:
         managed = False

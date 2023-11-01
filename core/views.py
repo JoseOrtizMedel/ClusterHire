@@ -1,10 +1,11 @@
 from django.http import JsonResponse
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
-from .models import Oferta, Formulario
+from .models import Oferta, Formulario, CompetenciaOferta
 from django.contrib.auth import authenticate, login
-from .forms import CustomUserCreationForm, OfertaForm, FormularioForm
+from .forms import CustomUserCreationForm, OfertaForm, FormularioForm, CompeOfeForm
 import time
 from django import forms
 
@@ -40,17 +41,42 @@ def register(request):
 
 # JORDAAAAAAAN--------------------------------------------------------------
 
+@login_required
+def obtener_id_usuario(request):
+    user_id = request.user.id
+    return HttpResponse(f'ID del usuario autenticado: {user_id}')
+
 
 def nueva_oferta(request):
-    datos = {'form': OfertaForm()}
+    datos = {
+        'oferta_form': OfertaForm(),
+        'compeofe_form': CompeOfeForm()
+    }
+
     if request.method == 'POST':
-        formulario = OfertaForm(request.POST)
-        if formulario.is_valid():
-            formulario.save()
+        oferta_formulario = OfertaForm(request.POST)
+        compeofe_formulario = CompeOfeForm(request.POST)
+
+        if oferta_formulario.is_valid()  and compeofe_formulario.is_valid(): 
+
+            # Guarda la oferta
+            oferta = oferta_formulario.save()
+
+            # Obtén la instancia de CompetenciaOferta sin guardarla todavía
+            compeofe_instance = compeofe_formulario.save(commit=False)
+
+            # Establece el campo fk_id_oferta como la instancia de la oferta
+            compeofe_instance.fk_id_oferta = oferta
+
+            # Ahora guarda la instancia de CompetenciaOferta
+            compeofe_instance.save()
+
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
             return redirect('ofertas_admin')
+
     return render(request, 'nueva_oferta.html', datos)
+
 
 
 
@@ -60,10 +86,7 @@ def ofertas_user(request):
     print(ofertas)  # Imprime las ofertas en la consola para depuración
     return render(request, 'ofertas_user.html', {'ofertas': ofertas})
 
-@login_required
-def obtener_id_usuario(request):
-    user_id = request.user.id
-    return HttpResponse(f'ID del usuario autenticado: {user_id}')
+
 
 def formulario(request, id_oferta, nom_oferta, ):
     datos = {'form': FormularioForm()}
@@ -97,6 +120,7 @@ def ofertas_admin(request):
 
     return render(request, 'ofertas_admin.html', {'ofertas': ofertas})
  
+ 
 
 @csrf_exempt
 def eliminar_oferta(request, id_oferta):
@@ -110,6 +134,18 @@ def eliminar_oferta(request, id_oferta):
 
     return JsonResponse({'success': False})
 
+@csrf_exempt
+def eliminar_oferta(request, id_oferta):
+    if request.method == 'POST':
+        try:
+            oferta = Oferta.objects.get(id_oferta=id_oferta)
+            # Eliminar las relaciones CompetenciaOferta relacionadas
+            CompetenciaOferta.objects.filter(fk_id_oferta=oferta).delete()
+            oferta.delete()
+            return JsonResponse({'success': True})
+        except Oferta.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Oferta no encontrada'})
+    return JsonResponse({'success': False})
 
 
 
