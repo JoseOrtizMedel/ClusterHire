@@ -80,14 +80,6 @@ def nueva_oferta(request):
 
 
 
-
-def ofertas_user(request):
-    ofertas = Oferta.objects.all().select_related('fk_id_tipo_cargo')
-    print(ofertas)  # Imprime las ofertas en la consola para depuración
-    return render(request, 'ofertas_user.html', {'ofertas': ofertas})
-
-
-
 def formulario(request, id_oferta, nom_oferta, ):
     datos = {'form': FormularioForm()}
     if request.method == 'POST':
@@ -114,12 +106,15 @@ def obtener_conteo_formularios():
     return conteo_formularios
 
 def ofertas_admin(request):
-    ofertas = Oferta.objects.all().select_related('fk_id_tipo_cargo')
+    ofertas = Oferta.objects.all().select_related('fk_id_tipo_cargo').prefetch_related('competenciaoferta_set__fk_id_competencia')
     ofertas = Oferta.objects.annotate(num_formularios=Count('formulario'))
     print(ofertas)  # Imprime las ofertas en la consola para depuración
-
     return render(request, 'ofertas_admin.html', {'ofertas': ofertas})
- 
+
+def ofertas_user(request):
+    ofertas = Oferta.objects.all().select_related('fk_id_tipo_cargo').prefetch_related('competenciaoferta_set__fk_id_competencia')
+    print(ofertas)  # Imprime las ofertas en la consola para depuración
+    return render(request, 'ofertas_user.html', {'ofertas': ofertas}) 
  
 
 @csrf_exempt

@@ -88,6 +88,7 @@ class CompeOfeForm (forms.ModelForm):
 
     def label_from_competencia_instance(self, obj):
         return obj.nombre_competencia
+
     
 
 
