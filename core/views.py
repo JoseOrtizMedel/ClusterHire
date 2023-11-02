@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from .models import Oferta, Formulario, Usuario
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import CompetenciaForm, CustomUserCreationForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm, OfertaForm, FormularioForm, Usuario_logroForm, UsuarioForm
+from .forms import CiudadForm, CompetenciaForm, ComunaForm, CustomUserCreationForm, DireccionForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm, OfertaForm, FormularioForm, TituloProfForm, Usuario_logroForm, UsuarioForm
 import time
 
 # Create your views here.
@@ -87,71 +87,50 @@ def eliminar_oferta(request, id_oferta):
 
 # JORDAAAAAAAN--------------------------------------------------------------
 
-def nueva_oferta(request):
-    datos = {'form': OfertaForm()}
-    if request.method == 'POST':
-        formulario = OfertaForm(request.POST)
-        if formulario.is_valid:
-            formulario.save()
-            datos['mensaje'] = "Guardado Correctamente"
-            time.sleep(2.5)
-            return redirect('ofertas_admin')
-    return render(request, 'nueva_oferta.html', datos)
+# ALVARO--------------------------------------------------------------
 
 def perfil(request):
     datos = {
-        'form': ExperienciaForm(),
-        'formCompetencia': CompetenciaForm(),
-        'formUsuarioLogro': Usuario_logroForm(),
-        'formIdioma': IdiomaForm(),
-        'formHabilidad': HabilidadForm(),
-        'formEducacion': EducacionForm(),
-        'formUsuario': UsuarioForm(),
-
+        'usuario_form': UsuarioForm(),
+        'direccion_form': DireccionForm(),
+        'experiencia_form': ExperienciaForm(),
+        
         }
+
     if request.method == 'POST':
+        form_direccion = DireccionForm(request.POST)
+        form_usuario = UsuarioForm(request.POST)
         form_experiencia = ExperienciaForm(request.POST)
 
-        if form_experiencia.is_valid():
-            form_experiencia.save()
+        if form_direccion.is_valid()  and form_usuario.is_valid() and form_experiencia.is_valid(): 
 
-    if request.method == 'POST':
-        form_competencia = CompetenciaForm(request.POST)
+        #----------FormUsuario y FormDireccion (fk)-------------------------#
 
-        if form_competencia.is_valid():
-            form_competencia.save()
+            # Guarda la dirección
+            direccion = form_direccion.save()
 
-    if request.method == 'POST':
-        form_usuarioLogro = Usuario_logroForm(request.POST)
+            # Obtén la instancia de Usuario sin guardarla todavía
+            form_usuario_instance = form_usuario.save(commit=False)
 
-        if form_usuarioLogro.is_valid():
-            form_usuarioLogro.save()
+            # Establece el campo fk_id_direccion como la instancia de la direccion
+            form_usuario_instance.fk_id_direccion = direccion
 
-    if request.method == 'POST':
-        form_idioma = IdiomaForm(request.POST)
+            # Ahora guarda la instancia de Usuario
+            form_usuario_instance.save()
 
-        if form_idioma.is_valid():
-            form_idioma.save()
+            #----------FormExperiencia y FormUsuario (fk)-------------------------#
 
-    if request.method == 'POST':
-        form_habilidad = HabilidadForm(request.POST)
+            usuario = form_usuario.save()
 
-        if form_habilidad.is_valid():
-            form_habilidad.save()
+            form_experiencia_instance = form_experiencia.save(commit=False)
 
-    if request.method == 'POST':
-        form_educacion = EducacionForm(request.POST)
+            form_experiencia_instance.fk_id_usuario = usuario
 
-        if form_educacion.is_valid():
-            form_educacion.save()
+            form_experiencia_instance.save()
 
-    if request.method == 'POST':
-        form_usuario = UsuarioForm(request.POST)
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('home')
 
-        if form_usuario.is_valid():
-            form_usuario.save()
-
-        datos['mensaje'] = "Guardado Correctamente"
-        time.sleep(2.5)
-        return redirect('home')
     return render(request, 'perfil.html', datos)
+
