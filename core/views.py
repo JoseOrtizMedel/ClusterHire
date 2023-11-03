@@ -89,7 +89,7 @@ def eliminar_oferta(request, id_oferta):
 
 # ALVARO--------------------------------------------------------------
 
-def perfil(request):
+def perfilPers(request):
     datos = {
         'usuario_form': UsuarioForm(),
         'direccion_form': DireccionForm(),
@@ -134,3 +134,28 @@ def perfil(request):
 
     return render(request, 'perfil.html', datos)
 
+#def perfilExp(request):
+#    datos = {
+#        'experiencia_form': ExperienciaForm(),
+
+#        }
+
+#    if request.method == 'POST':
+#        form_usuario = UsuarioForm(request.POST)
+#        form_experiencia = ExperienciaForm(request.POST)
+
+#        if form_experiencia.is_valid(): 
+
+#            usuario = form_usuario.save()
+
+#            form_experiencia_instance = form_experiencia.save(commit=False)
+
+#            form_experiencia_instance.fk_id_usuario = usuario
+
+#            form_experiencia_instance.save()
+
+#            datos['mensaje'] = "Guardado Correctamente"
+#            time.sleep(2.5)
+#            return redirect('home')
+
+#    return render(request, 'perfil.html', datos)

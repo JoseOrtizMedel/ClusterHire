@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, nueva_oferta, ofertas_admin, ofertas_user, register, login, eliminar_oferta, formulario, perfil
+from .views import home, nueva_oferta, ofertas_admin, ofertas_user, register, login, eliminar_oferta, formulario, perfilPers
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
@@ -11,5 +11,6 @@ urlpatterns = [
     path('register', register, name="register"),
     path('eliminar_oferta/<id_oferta>/', eliminar_oferta, name='eliminar_oferta'),
     path('formulario/<int:id_oferta>/<str:nom_oferta>/', formulario, name='formulario'),
-    path('perfil/', perfil, name='perfil'),
+    path('perfil/', perfilPers, name='perfil'),
+
 ]

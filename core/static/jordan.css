@@ -7,6 +7,10 @@
   body{
     background-color: #e5e5e5;
   }
+
+  #tituloCard1 {
+    color: #000000;
+  }
   
   #titulo{
     font-size: 60px;
@@ -16,7 +20,36 @@
     }  
     
   
+  #formularioPerfilPers {
+    padding: 20px;
+    background: rgb(255, 255, 255);
+    color: rgb(223, 1, 12) !important;
+    box-shadow:
+    0 0 10px rgba(0, 0, 0, 0.0), /* Sombra interna */
+    0 0 20px rgba(0, 0, 0, 0.0), /* Sombra intermedia */
+    0 0 40px rgb(173, 173, 173, 1); /* Sombra exterior */;
   
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    height: auto;
+  }
+
+  #formularioPerfilExp {
+    padding: 20px;
+    background: rgb(255, 255, 255);
+    color: rgb(223, 1, 12) !important;
+    box-shadow:
+    0 0 10px rgba(0, 0, 0, 0.0), /* Sombra interna */
+    0 0 20px rgba(0, 0, 0, 0.0), /* Sombra intermedia */
+    0 0 40px rgb(173, 173, 173, 1); /* Sombra exterior */;
+  
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    height: auto;
+  }
+
   #formulario {
     padding: 20px;
     background: rgb(255, 255, 255);
@@ -55,6 +88,17 @@
     color: #ffffff;
     background-color: #0076bc;
   }
+
+  #enviarPerfilPers {
+    color: #ffffff;
+    background-color: #0076bc;
+  }
+
+  #enviarPerfilExp {
+    color: #ffffff;
+    background-color: #0076bc;
+  }
+
   #postular {
     color: #ffffff;
     background-color: #0076bc;
@@ -174,20 +218,29 @@
   margin-right: 5px; /* Ajusta el margen entre los elementos según tus preferencias */
 }
 
-#dv_usuario{
+/* #dv_usuario{
   max-width: 35px;
-}
-#rut_usuario{
-  max-width: 100px;
-  margin-left: 10px;
-}
+} */
+
+/* #rut_usuario{
+   max-width: 100px;
+   margin-left: 10px;
+   margin-bottom: 10px;
+} */
+
 #fecha_formulario{
   max-width: 110px;
 }
 
-#guion{
+label {
+  display: flex;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* #guion{
   margin: 10px;
-}
-#nombre, #segundo_nombre, #primer_apellido, #segundo_apellido, #fecha_formulario{
+} */
+/* #nombre, #segundo_nombre, #primer_apellido, #segundo_apellido, #fecha_formulario{
   margin-left: 10px;
-}
+} */
