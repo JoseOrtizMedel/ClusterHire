@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-""" from .models import Ciudad, Competencia, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, FormacionAcademica, Formulario, Habilidad, HabilidadUsuario, Idioma, IdiomaUsuario, Institucion, LogroAcademico, Oferta, TipoCargo, TipoEmpleo, TituloProf, Usuario, UsuarioLogro
+from .models import Ciudad, Competencia, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, FormacionAcademica, Formulario, Habilidad, HabilidadUsuario, Idioma, IdiomaUsuario, Institucion, LogroAcademico, Oferta, TipoCargo, TipoEmpleo, TituloProf, Usuario, UsuarioLogro
 
 from .models import Ciudad, Competencia, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, ModalidadTrabajo, FormacionAcademica, Formulario, Habilidad, HabilidadUsuario, Idioma, IdiomaUsuario, Institucion, LogroAcademico, Oferta, TipoCargo, TipoEmpleo, TituloProf, Usuario, UsuarioLogro
 
@@ -28,8 +28,7 @@ admin.site.register(TipoEmpleo)
 admin.site.register(TituloProf)
 admin.site.register(Usuario)
 
-admin.site.register(UsuarioLogro) """
 
-"""admin.site.register(UsuarioLogro)
-admin.site.register(ModalidadTrabajo)"""
+admin.site.register(UsuarioLogro)
+admin.site.register(ModalidadTrabajo)
 

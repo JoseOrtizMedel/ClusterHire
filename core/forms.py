@@ -1,6 +1,7 @@
+import time
 from django import forms
-from django.http import HttpResponse
-from .models import CompetenciaUsuario, HabilidadUsuario, IdiomaUsuario, Institucion, ModalidadTrabajo, Usuario, UsuarioLogro
+from django.http import HttpResponse, JsonResponse
+from .models import CompetenciaOferta, CompetenciaUsuario, HabilidadUsuario, IdiomaUsuario, Institucion, ModalidadTrabajo, Usuario, UsuarioLogro
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -18,27 +19,6 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 
-@login_required
-def obtener_id_usuario(request):
-    user_id = request.user.id
-    return HttpResponse(f'ID del usuario autenticado: {user_id}')
-
-@login_required
-def obtener_first_name_usuario(request):
-    first_name = request.user.first_name
-    return HttpResponse(f'Primer nombre del usuario autenticado: {first_name}')
-
-@login_required
-def obtener_last_name_usuario(request):
-    last_name = request.user.last_name
-    return HttpResponse(f'Primer apellido del usuario autenticado: {last_name}')
-
-@login_required
-def obtener_email_usuario(request):
-    email = request.user.email
-    return HttpResponse(f'Email del usuario autenticado: {email}')
-
-
 # JORDAAAAAAAN--------------------------------------------------------------
 
 
@@ -47,9 +27,7 @@ def obtener_email_usuario(request):
 class OfertaForm(forms.ModelForm):
     class Meta:
         model = Oferta
-
-        fields = ['id_oferta','nom_oferta', 'fecha_oferta', 'fk_id_tipo_cargo']
-
+        fields = ['nom_oferta', 'fecha_oferta', 'anhos_experiencia', 'fk_id_tipo_cargo', 'fk_id_modalidad', 'fk_id_comuna']
 
     fk_id_tipo_cargo = forms.ModelChoiceField(
         queryset=TipoCargo.objects.all(),
@@ -74,61 +52,60 @@ class OfertaForm(forms.ModelForm):
 
         # Personaliza las etiquetas del campo fk_id_tipo_cargo
         self.fields['fk_id_tipo_cargo'].label_from_instance = self.label_from_tipo_cargo_instance
-        
+
+        # Personaliza las etiquetas del campo fk_id_modalidad
+        self.fields['fk_id_modalidad'].label_from_instance = self.label_from_modalidad_instance
+
+         # Personaliza las etiquetas del campo fk_id_comuna
+        self.fields['fk_id_comuna'].label_from_instance = self.label_from_comuna_instance
 
     def label_from_tipo_cargo_instance(self, obj):
         return obj.nom_cargo
 
-class TituloProfForm(forms.ModelForm):
-    class Meta:
-        model = TituloProf
-        fields = ['nombre_titulo', 'descripcion']
+    def label_from_modalidad_instance(self, obj):
+        return obj.nom_modalidad
 
-class FormacionAcademicaForm(forms.ModelForm):
+    def label_from_comuna_instance(self, obj):
+        return obj.nom_comuna
+    
+class CompeOfeForm (forms.ModelForm):
     class Meta:
-        model = FormacionAcademica
-        fields = ['tipo_formacion']
+        model = CompetenciaOferta
+        fields = ['id_comp_oferta','fk_id_oferta','fk_id_competencia']
 
-class TipoEmpleoForm(forms.ModelForm):
-    class Meta:
-        model = TipoEmpleo
-        fields = ['nom_tipo_empleo']
+    fk_id_competencia = forms.ModelChoiceField(
+        queryset=Competencia.objects.all(),
+        empty_label=None,
+        widget=forms.Select(attrs={'class':'form-control'})
+    )
 
-class TipoCargoForm(forms.ModelForm):
-    class Meta:
-        model = TipoCargo
-        fields = ['id_tipo_cargo', 'nom_cargo']
+    fk_id_oferta = forms.ModelChoiceField(
+        queryset=Oferta.objects.all(),  # Asegúrate de que esto sea el modelo correcto
+        empty_label=None,
+        widget=forms.Select(attrs={'class':'form-control'})
+    )
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-class CompetenciaUsuarioForm(forms.ModelForm):
-    class Meta:
-        model = CompetenciaUsuario
-        fields = ['id_compe_usuario', 'fk_id_competencia', 'fk_id_usuario']
+        # Personaliza las etiquetas del campo fk_id_competencia
+        self.fields['fk_id_competencia'].label_from_instance = self.label_from_competencia_instance
 
-class HabilidadUsuarioForm(forms.ModelForm):
-    class Meta:
-        model = HabilidadUsuario
-        fields = ['id_habilidad_usuario', 'fk_id_habilidad', 'fk_id_usuario']
+    def label_from_competencia_instance(self, obj):
+        return obj.nombre_competencia
 
-class LogroAcademicoForm(forms.ModelForm):
-    class Meta:
-        model = LogroAcademico
-        fields = ['nom_logro', 'descripcion_logro']
-
-class IdiomaUsuarioForm(forms.ModelForm):
-    class Meta:
-        model = IdiomaUsuario
-        fields = ['id_idioma_usuario', 'fk_id_idioma', 'fk_id_usuario']
+    
 
 
-class ModalidadForm(forms.ModelForm):
+class FormularioForm(forms.ModelForm):
     class Meta:
-        model = ModalidadTrabajo
-        fields = ['id_modalidad', 'nom_modalidad']
+        model = Formulario
+        fields = [
+            'id_formulario', 'fecha_formulario', 'pretencion_renta',
+            'info_adicional', 'fk_id_usuario', 'fk_id_oferta'
+        ]
 
-class CompetenciaForm(forms.ModelForm):
-    class Meta:
-        model = Competencia
-        fields = ['id_competencia', 'nombre_competencia']
+
 
 # JORDAAAAAAAN--------------------------------------------------------------
 
@@ -342,7 +319,12 @@ class IdiomaForm(forms.ModelForm):
 
     def label_from_idioma_instance(self, obj):
         return obj.nombre_idioma
-    
+
+class TituloProfForm(forms.ModelForm):
+    class Meta:
+        model = TituloProf
+        fields = ['nombre_titulo', 'descripcion']
+            
 class HabilidadForm(forms.ModelForm):
     class Meta:
         model = HabilidadUsuario
@@ -444,58 +426,7 @@ class CiudadForm(forms.ModelForm):
     class Meta:
         model = Ciudad
         fields = ['nom_ciudad']
-=======
-        # Personaliza las etiquetas del campo fk_id_modalidad
-        self.fields['fk_id_modalidad'].label_from_instance = self.label_from_modalidad_instance
+        
 
-         # Personaliza las etiquetas del campo fk_id_comuna
-        self.fields['fk_id_comuna'].label_from_instance = self.label_from_comuna_instance
-
-    def label_from_tipo_cargo_instance(self, obj):
-        return obj.nom_cargo
-
-    def label_from_modalidad_instance(self, obj):
-        return obj.nom_modalidad
-
-    def label_from_comuna_instance(self, obj):
-        return obj.nom_comuna
-    
-class CompeOfeForm (forms.ModelForm):
-    class Meta:
-        model = CompetenciaOferta
-        fields = ['id_comp_oferta','fk_id_oferta','fk_id_competencia']
-
-    fk_id_competencia = forms.ModelChoiceField(
-        queryset=Competencia.objects.all(),
-        empty_label=None,
-        widget=forms.Select(attrs={'class':'form-control'})
-    )
-
-    fk_id_oferta = forms.ModelChoiceField(
-        queryset=Oferta.objects.all(),  # Asegúrate de que esto sea el modelo correcto
-        empty_label=None,
-        widget=forms.Select(attrs={'class':'form-control'})
-    )
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        # Personaliza las etiquetas del campo fk_id_competencia
-        self.fields['fk_id_competencia'].label_from_instance = self.label_from_competencia_instance
-
-    def label_from_competencia_instance(self, obj):
-        return obj.nombre_competencia
-
-    
-
-
-class FormularioForm(forms.ModelForm):
-    class Meta:
-        model = Formulario
-        fields = [
-            'id_formulario', 'fecha_formulario', 'pretencion_renta',
-            'info_adicional', 'fk_id_usuario', 'fk_id_oferta'
-        ]
 
   
-# JORDAAAAAAAN--------------------------------------------------------------

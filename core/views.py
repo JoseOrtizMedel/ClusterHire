@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from .models import Oferta, Formulario, Usuario
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import CiudadForm, CompetenciaForm, ComunaForm, CustomUserCreationForm, DireccionForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm, OfertaForm, FormularioForm, TituloProfForm, Usuario_logroForm, UsuarioForm
+from .forms import CiudadForm, ComunaForm, CustomUserCreationForm, DireccionForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm,  TituloProfForm, Usuario_logroForm, UsuarioForm, OfertaForm, FormularioForm, CompeOfeForm
 
 from django.http import JsonResponse
 from django.urls import reverse
@@ -15,7 +15,6 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from .models import Oferta, Formulario, CompetenciaOferta
 from django.contrib.auth import authenticate, login
-from .forms import CustomUserCreationForm, OfertaForm, FormularioForm, CompeOfeForm
 
 import time
 from django import forms
@@ -140,18 +139,6 @@ def eliminar_oferta(request, id_oferta):
 
     return JsonResponse({'success': False})
 
-@csrf_exempt
-def eliminar_oferta(request, id_oferta):
-    if request.method == 'POST':
-        try:
-            oferta = Oferta.objects.get(id_oferta=id_oferta)
-            # Eliminar las relaciones CompetenciaOferta relacionadas
-            CompetenciaOferta.objects.filter(fk_id_oferta=oferta).delete()
-            oferta.delete()
-            return JsonResponse({'success': True})
-        except Oferta.DoesNotExist:
-            return JsonResponse({'success': False, 'error': 'Oferta no encontrada'})
-    return JsonResponse({'success': False})
 
 
 
