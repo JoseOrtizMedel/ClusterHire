@@ -64,6 +64,34 @@
     border-radius: 4px;
     height: auto;
   }
+  #formulario-compe {
+    padding: 20px;
+    background: rgb(255, 255, 255);
+    color: #000000;
+    box-shadow:
+    0 0 10px rgba(0, 0, 0, 0.0), /* Sombra interna */
+    0 0 20px rgba(0, 0, 0, 0.0), /* Sombra intermedia */
+    0 0 40px rgb(173, 173, 173, 1); /* Sombra exterior */;
+  
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    height: auto;
+  }
+  #formulario-ofe {
+    padding: 20px;
+    background: rgb(255, 255, 255);
+    color: #000000;
+    box-shadow:
+    0 0 10px rgba(0, 0, 0, 0.0), /* Sombra interna */
+    0 0 20px rgba(0, 0, 0, 0.0), /* Sombra intermedia */
+    0 0 40px rgb(173, 173, 173, 1); /* Sombra exterior */;
+  
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    height: auto;
+  }
   
   .back-button {
     margin-left: 10px; /* Espacio a la izquierda del botón */
@@ -243,4 +271,15 @@ label {
 } */
 /* #nombre, #segundo_nombre, #primer_apellido, #segundo_apellido, #fecha_formulario{
   margin-left: 10px;
+
 } */
+
+}
+
+.destacado {
+  font-weight: bold; /* Hace que el texto sea negrita */
+}
+
+
+
+

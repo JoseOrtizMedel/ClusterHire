@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django .conf import settings
-from core import views
+from core import views, ciencia
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
@@ -43,6 +43,13 @@ urlpatterns = [
     path('password-reset-complete/',PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'),name='password_reset_complete'),
     path('eliminar_oferta/<id_oferta>/', views.eliminar_oferta, name='eliminar_oferta'),    
     path('formulario/<int:id_oferta>/<str:nom_oferta>/', views.formulario, name='formulario'),
+
+    path('perfil/', views.perfil, name='perfil'),
+    path('ciencia/', ciencia.ciencia_datos, name='ciencia_datos'),
+    path('exportar-csv/', ciencia.exportar_datos_a_csv, name='exportar_csv'),
+
+  
+  
     path('perfil/', views.perfilPers, name='perfil'),
     
 ]
