@@ -154,9 +154,6 @@ def perfilPers(request):
         }
 
     if request.method == 'POST':
-        user_id = request.user.id
-        request.POST = request.POST.copy()
-        request.POST['id_usuario'] = user_id
 
         form_direccion = DireccionForm(request.POST)
         form_usuario = UsuarioForm(request.POST)
@@ -166,7 +163,6 @@ def perfilPers(request):
         #----------FormUsuario y FormDireccion (fk)-------------------------#
 
             # Guarda la dirección
-
             direccion = form_direccion.save()
 
             # Obtén la instancia de Usuario sin guardarla todavía
@@ -174,7 +170,7 @@ def perfilPers(request):
 
             # Establece el campo fk_id_direccion como la instancia de la direccion
             form_usuario_instance.fk_id_direccion = direccion
-            form_usuario_instance.id_usuario = user_id
+            form_usuario_instance.id_usuario = request.user.id
 
             # Ahora guarda la instancia de Usuario
             form_usuario_instance.save()
