@@ -28,7 +28,7 @@
                         <h3 id="tituloCard1">Datos Personales</h3>
 <!-- INICIO FORMULARIO USUARIO -->
                     <div class="row">
-                        <div class="col-lg-6" style="display: none;">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="id_usuario" style="color: #003e77;">ID Usuario</label>
                                 <input type="text" class="form-control" name="id_usuario" id="id_usuario" readonly value="{{ request.user.id }}">
@@ -127,7 +127,7 @@
 <!-- FIN FORMULARIO DIRECCION -->
 
 <!-- INICIO FORMULARIO EXPERIENCIA -->
-                <br>
+ <!--                <br>
                     <h3 id="tituloCard1">Experiencia laboral</h3>
                         <div class="row">
                         <div class="col-lg-4">
@@ -160,12 +160,14 @@
                                 {{ experiencia_form.fk_id_tipo_empleo }}
                             </div>
                         </div>
+
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label for="{{ experiencia_form.fk_id_usuario.id_for_label }}" style="color: #003e77;">ID Usuario:</label>
-                                {{ experiencia_form.fk_id_usuario }}
+                                <label for="{{ experiencia_form.fk_id_usuario.id_for_label }}" style="color: #003e77;">ID Usuario</label>
+                                <input type="text" class="form-control" name="fk_id_usuario" id="fk_id_usuario" readonly value="{{ request.user.id }}">
                             </div>
                         </div>
+
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="{{ experiencia_form.fk_id_modalidad.id_for_label }}" style="color: #003e77;">Modalidad:</label>
@@ -185,7 +187,7 @@
                             </div>
                         </div>
                         </div>
-                    </div>
+                    </div> -->
 <!-- FIN FORMULARIO EXPERIENCIA -->
 
                             <div class="col-auto">

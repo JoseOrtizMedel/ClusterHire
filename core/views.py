@@ -129,16 +129,16 @@ def ofertas_user(request):
 
 @csrf_exempt
 def eliminar_oferta(request, id_oferta):
-    # Verifica si el ID de la oferta existe en la base de datos
-    oferta = get_object_or_404(Oferta, id_oferta=id_oferta)
-
     if request.method == 'POST':
-        # Realiza la lógica para eliminar la oferta
-        oferta.delete()
-        return JsonResponse({'success': True})
-
+        try:
+            oferta = Oferta.objects.get(id_oferta=id_oferta)
+            # Eliminar las relaciones CompetenciaOferta relacionadas
+            CompetenciaOferta.objects.filter(fk_id_oferta=oferta).delete()
+            oferta.delete()
+            return JsonResponse({'success': True})
+        except Oferta.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Oferta no encontrada'})
     return JsonResponse({'success': False})
-
 
 
 
@@ -150,21 +150,23 @@ def eliminar_oferta(request, id_oferta):
 def perfilPers(request):
     datos = {
         'usuario_form': UsuarioForm(),
-        'direccion_form': DireccionForm(),
-        'experiencia_form': ExperienciaForm(),
-        
+        'direccion_form': DireccionForm()
         }
 
     if request.method == 'POST':
+        user_id = request.user.id
+        request.POST = request.POST.copy()
+        request.POST['id_usuario'] = user_id
+
         form_direccion = DireccionForm(request.POST)
         form_usuario = UsuarioForm(request.POST)
-        form_experiencia = ExperienciaForm(request.POST)
 
-        if form_direccion.is_valid()  and form_usuario.is_valid() and form_experiencia.is_valid(): 
+        if form_direccion.is_valid()  and form_usuario.is_valid(): 
 
         #----------FormUsuario y FormDireccion (fk)-------------------------#
 
             # Guarda la dirección
+
             direccion = form_direccion.save()
 
             # Obtén la instancia de Usuario sin guardarla todavía
@@ -172,19 +174,10 @@ def perfilPers(request):
 
             # Establece el campo fk_id_direccion como la instancia de la direccion
             form_usuario_instance.fk_id_direccion = direccion
+            form_usuario_instance.id_usuario = user_id
 
             # Ahora guarda la instancia de Usuario
             form_usuario_instance.save()
-
-            #----------FormExperiencia y FormUsuario (fk)-------------------------#
-
-            usuario = form_usuario.save()
-
-            form_experiencia_instance = form_experiencia.save(commit=False)
-
-            form_experiencia_instance.fk_id_usuario = usuario
-
-            form_experiencia_instance.save()
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
