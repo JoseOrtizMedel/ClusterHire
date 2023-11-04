@@ -4,8 +4,8 @@
 
 <!-- Image and text -->
 <nav class="navbar" style="background-color: #003e77;">
-  <a class="navbar-brand" href="#">
-    <img src="{% static 'imagenes/logo.png' %}" height="50" class="d-inline-block align-top" alt="">
+  <a class="navbar-brand" href="{% url 'home' %}">
+    <img src="{% static 'imagenes/logo.png' %}" href="{% url 'home' %}" height="50" class="d-inline-block align-top" alt="">
   </a>
   <div class="ml-auto"> <!-- Agregamos la clase ml-auto para alinear a la derecha -->
     <a class="btn btn-danger mr-2" type="button">Cerrar sesión</a>

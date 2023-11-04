@@ -39,7 +39,7 @@
             <a href="{% url 'logout' %}">Salir</a>
         </li>
         <li>
-            <a href="#">{{ user.username }}</a>
+            <a href="{% url 'perfil' %}">{{ user.username }}</a>
         </li>
         {% else %}
         <li>

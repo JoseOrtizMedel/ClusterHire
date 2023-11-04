@@ -26,12 +26,12 @@
                 <h1 id="tituloLogin">¡Bienvenid@!</h1>
                     <img src="{% static 'imagenes/ClusterHire5.png' %}" alt="" id="logoLogin">
             </div>
-            <form action="" method="post" name="registration" id="formulario"> 
+            <form action="" method="POST" name="registration" id="formulario"> 
                 {% csrf_token %}
                     <img src="{% static 'imagenes/ClusterHire.png' %}" alt="" id="logoLogin2">
                 <div class="form-group" id="login"> 
                     <h1 id="tituloForm"><b>¡Bienvenid@!</b></h1>
-                    <input type="text" class="form-control" name="username" id="username" placeholder="Correo electrónico" required>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Usuario" required>
                     <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required>
                     <div id="a">
                         <a href="{% url 'password-reset' %}" id="recuperarPw"><u>Recuperar contraseña</u></a>
