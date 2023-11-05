@@ -114,7 +114,7 @@ class FormularioForm(forms.ModelForm):
 class DireccionForm(forms.ModelForm):
     class Meta:
         model = Direccion
-        fields = ['numeracion', 'nombre_calle', 'fk_d_comuna']
+        fields = ['id_direccion','numeracion', 'nombre_calle', 'fk_d_comuna']
 
     fk_d_comuna = forms.ModelChoiceField(
         queryset=Comuna.objects.all(),

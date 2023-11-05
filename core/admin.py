@@ -31,4 +31,3 @@ admin.site.register(Usuario)
 
 admin.site.register(UsuarioLogro)
 admin.site.register(ModalidadTrabajo)
-

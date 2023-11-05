@@ -1,9 +1,10 @@
 
+from random import randint
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
-from .models import Oferta, Formulario, Usuario
+from .models import Comuna, Direccion, Oferta, Formulario, Usuario
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import CiudadForm, ComunaForm, CustomUserCreationForm, DireccionForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm,  TituloProfForm, Usuario_logroForm, UsuarioForm, OfertaForm, FormularioForm, CompeOfeForm
@@ -147,39 +148,51 @@ def eliminar_oferta(request, id_oferta):
 
 # ALVARO--------------------------------------------------------------
 
-def perfilPers(request):
+def perfilDire(request):
     datos = {
-        'usuario_form': UsuarioForm(),
         'direccion_form': DireccionForm()
-        }
+    }
 
     if request.method == 'POST':
 
         form_direccion = DireccionForm(request.POST)
-        form_usuario = UsuarioForm(request.POST)
 
-        if form_direccion.is_valid()  and form_usuario.is_valid(): 
+        if form_direccion.is_valid():
 
-        #----------FormUsuario y FormDireccion (fk)-------------------------#
-
-            # Guarda la dirección
-            direccion = form_direccion.save()
-
-            # Obtén la instancia de Usuario sin guardarla todavía
-            form_usuario_instance = form_usuario.save(commit=False)
-
-            # Establece el campo fk_id_direccion como la instancia de la direccion
-            form_usuario_instance.fk_id_direccion = direccion
-            form_usuario_instance.id_usuario = request.user.id
-
-            # Ahora guarda la instancia de Usuario
-            form_usuario_instance.save()
+            form_direccion.save()
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
-            return redirect('home')
+            return redirect('perfil_personal')
 
-    return render(request, 'perfil.html', datos)
+    datos['mensaje'] = "Guardado Correctamente"
+    time.sleep(2.5)
+    return render(request, 'perfil_direccion.html', datos)
+
+
+def perfilPers(request):
+    datos = {
+        'usuario_form': UsuarioForm(),
+    }
+
+    if request.method == 'POST':
+
+        form_usuario = UsuarioForm(request.POST)
+
+        if form_usuario.is_valid():
+
+            # Asigna el valor request.user.id a la propiedad id_usuario
+            form_usuario.id_usuario = request.user.id
+
+            # Ahora guarda la instancia de Usuario
+            form_usuario.save()
+            
+    datos['mensaje'] = "Guardado Correctamente"
+    time.sleep(2.5)
+    return render(request, 'perfil_personal.html', datos)
+
+
+
 
 #def perfilExp(request):
 #    datos = {

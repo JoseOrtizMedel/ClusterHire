@@ -62,6 +62,7 @@ $(document).ready(function() {
 
       },
       messages: {
+        //PersonalForm
         rut_usuario: "Este campo es obligatorio",
         dv_usuario: "Este campo es obligatorio",
         segundo_nombre: "Este campo es obligatorio",
@@ -69,6 +70,7 @@ $(document).ready(function() {
         nacionalidad: "Este campo es obligatorio",
         telefono: "Este campo es obligatorio",
         correo: "Este campo es obligatorio",
+        //DirecionForm
         numeracion: "Este campo es obligatorio",
         nombre_calle: "Este campo es obligatorio",
         fecha_nacimiento: {

@@ -47,6 +47,7 @@ urlpatterns = [
     path('ciencia/', ciencia.ciencia_datos, name='ciencia_datos'),
     path('exportar-csv/', ciencia.exportar_datos_a_csv, name='exportar_csv'),
     
-    path('perfil/', views.perfilPers, name='perfil'),
+    path('perfil_direccion/', views.perfilDire, name='perfil_direccion'),
+    path('perfil_personal/', views.perfilPers, name='perfil_personal'),
     
 ]
