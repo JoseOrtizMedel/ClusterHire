@@ -261,7 +261,7 @@ class CompetenciaForm(forms.ModelForm):
         return obj.nombre_competencia
 
     def label_from_usuario_instance(self, obj):
-        return obj.nombre
+        return obj.id_usuario
 
     
 class Usuario_logroForm(forms.ModelForm):

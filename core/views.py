@@ -218,16 +218,41 @@ def perfilExp(request):
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
-            return redirect('perfil_competencia')
+            return redirect('perfil_competencias')
 
     return render(request, 'perfil_experiencia.html', datos)
 
-#Vista GET para CompetenciaForm
+#Vista POST para CompetenciaForm
+# Vista combinada para CompetenciaForm
 @login_required
-def perfilCompeGet(request):
+def perfilCompe(request):
+
+    # Obtiene las competencias del usuario
     competencias = CompetenciaUsuario.objects.filter(fk_id_usuario=request.user.id)
-    print(competencias)  # Imprime las ofertas en la consola para depuración
-    return render(request, 'competencias.html', {'competencias': competencias}) 
+
+    datos = {
+        'competencia_form': CompetenciaForm(),
+    }
+
+    # Agrega las competencias a los datos
+    datos['competencias'] = competencias
+
+    if request.method == 'POST':
+        form_competencia = CompetenciaForm(request.POST)
+
+        if form_competencia.is_valid():
+
+            form_competencia.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil_competencias')
+
+        # Redirige a la misma vista para mostrar el mensaje
+        return redirect('perfil_competencias')
+
+    return render(request, 'competencias.html', datos)
+
 
 #Vista POST para CompetenciaForm
 #@login_required

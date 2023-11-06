@@ -5,27 +5,42 @@
 {% block content %}
 
 <!-- INICIO FORMULARIO EXPERIENCIA -->
+
 <section>
     <br>
         <div class="row">
-            <h3 id="tituloCard1">Competencias</h3>
             <div class="col-md-12">
-                {% if competencias %}
-                    {% for competencia in competencias %}
-                    <ul></ul>
-                        <p style="color: #000;">{{ competencia.fk_id_competencia.nombre_competencia }}</p>
-                    {% endfor %}
-                {% else %}
-                    <p>No tienes ninguna competencia registrada</p>
-                {% endif %}
-
-            <div class="col-auto">
-                    <input type="submit" class="btn btn-custom" id="enviarPerfilExp" value="Ingresar" >
-                </div>
+                <form method="POST" action="" id="formularioPerfilCompe">
+                    {% csrf_token %}
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                    <h3 id="tituloCard1">Competencias</h3>
+                        <div class="row">
+                            <div class="col-md-2">
+                                {% if competencias %}
+                                    {% for competencia in competencias %}
+                                        <ul><li>
+                                            {{ competencia.fk_id_competencia.nombre_competencia }}
+                                        </ul></li>
+                                    {% endfor %}
+                                {% else %}
+                                    <p>No tienes ninguna competencia registrada</p>
+                                {% endif %}
+                                <div class="col-auto">
+                                    <input class="btn btn-custom" id="enviarPerfilExp" data-bs-toggle="modal" data-bs-target="#compeModal" value="Ingresar">
+                                </div>
+                            </div>
+                            {% include 'popup_competencias.html' %}
+                        </div>
+<!-- BOTON ENVIAR FORMULARIO -->
+                </form>
+<!-- FIN FORMULARIO GENERAL -->
             </div>
         </div>
     <br>
+<!-- FIN ESTRUCTURA FORMULARIO GENERAL -->
 </section>
+<!-- FIN FORMULARIO EXPERIENCIA -->
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
