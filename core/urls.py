@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import home, nueva_oferta, ofertas_admin, ofertas_user, perfilDire, register, login, eliminar_oferta, formulario, perfilPers
+from .views import home, nueva_oferta, ofertas_admin, ofertas_user, perfilCompeGet, perfilDire, perfilExp, register, login, eliminar_oferta, formulario, perfilPers
 
 
 from .ciencia import ciencia_datos, exportar_datos_a_csv
@@ -19,6 +19,9 @@ urlpatterns = [
 
     path('perfil_direccion/', perfilDire, name='perfil_direccion'),
     path('perfil_personal/', perfilPers, name='perfil_personal'),
+    path('perfil_experiencia/', perfilExp, name='perfil_experiencia'),
+    path('perfil_competencias/', perfilCompeGet, name='perfil_competencias'),
+
     path('ciencia', ciencia_datos, name="ciencia"),
     path('exportar-csv/', exportar_datos_a_csv, name='exportar_csv'),
 

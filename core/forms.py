@@ -240,13 +240,13 @@ class CompetenciaForm(forms.ModelForm):
         model = CompetenciaUsuario
         fields = ['id_compe_usuario', 'fk_id_competencia', 'fk_id_usuario']
 
-    pf_id_competencia = forms.ModelChoiceField(
+    fk_id_competencia = forms.ModelChoiceField(
         queryset=Competencia.objects.all(),
         empty_label=None,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
-    pf_id_usuario = forms.ModelChoiceField(
+    fk_id_usuario = forms.ModelChoiceField(
         queryset=Usuario.objects.all(),
         empty_label=None,
         widget=forms.Select(attrs={'class': 'form-control'})

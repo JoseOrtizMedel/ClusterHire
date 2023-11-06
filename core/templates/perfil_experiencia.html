@@ -1,0 +1,96 @@
+{% extends 'layout2.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- INICIO FORMULARIO EXPERIENCIA -->
+<section>
+    <br>
+        <div class="row">
+            <div class="col-md-12">
+                <form method="POST" action="" id="formularioPerfilExp">
+                    {% csrf_token %}
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                    <h3 id="tituloCard1">Experiencia laboral</h3>
+                        <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="nombre_empleo" style="color: #003e77;">Empleo:</label>
+                                <input type="text" class="form-control" name="nombre_empleo" id="nombre_empleo" required/>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="fecha_inicio_exp" style="color: #003e77;">Inicio exp:</label>
+                                <input type="text" class="form-control" name="fecha_inicio_exp" id="fecha_inicio_exp" required/>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="fecha_termino_exp" style="color: #003e77;">Término exp:</label>
+                                <input type="text" class="form-control" name="fecha_termino_exp" id="fecha_termino_exp" required/>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="descripcion" style="color: #003e77;">Descripción:</label>
+                                <textarea class="form-control" name="descripcion" id="descripcion" required placeholder="Ingrese una descripción"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="{{ experiencia_form.fk_id_tipo_empleo.id_for_label }}" style="color: #003e77;">Tipo empleo:</label>
+                                {{ experiencia_form.fk_id_tipo_empleo }}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4" style="display: none;">
+                            <div class="form-group">
+                                <label for="{{ experiencia_form.fk_id_usuario.id_for_label }}" style="color: #003e77;">ID Usuario:</label>
+                                {{ experiencia_form.fk_id_usuario }}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="{{ experiencia_form.fk_id_modalidad.id_for_label }}" style="color: #003e77;">Modalidad:</label>
+                                {{ experiencia_form.fk_id_modalidad }}
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="{{ experiencia_form.fk_id_comuna.id_for_label }}" style="color: #003e77;">Comuna:</label>
+                                {{ experiencia_form.fk_id_comuna }}
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="{{ experiencia_form.fk_id_tipo_cargo.id_for_label }}" style="color: #003e77;">Tipo cargo:</label>
+                                {{ experiencia_form.fk_id_tipo_cargo }}
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <input type="submit" class="btn btn-custom" id="enviarPerfilExp" value="Ingresar" >
+                    </div>
+<!-- BOTON ENVIAR FORMULARIO -->
+
+                </form>
+<!-- FIN FORMULARIO GENERAL -->
+            </div>
+        </div>
+    <br>
+<!-- FIN ESTRUCTURA FORMULARIO GENERAL -->
+</section>
+<!-- FIN FORMULARIO EXPERIENCIA -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static 'js/validacionPerfilExp.js' %}"></script>
+{% endblock %}

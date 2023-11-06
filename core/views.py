@@ -4,10 +4,10 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
-from .models import Comuna, Direccion, Oferta, Formulario, Usuario
+from .models import CompetenciaUsuario, Comuna, Direccion, Oferta, Formulario, Usuario
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import CiudadForm, ComunaForm, CustomUserCreationForm, DireccionForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm,  TituloProfForm, Usuario_logroForm, UsuarioForm, OfertaForm, FormularioForm, CompeOfeForm
+from .forms import CiudadForm, CompetenciaForm, ComunaForm, CustomUserCreationForm, DireccionForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm,  TituloProfForm, Usuario_logroForm, UsuarioForm, OfertaForm, FormularioForm, CompeOfeForm
 
 from django.http import JsonResponse
 from django.urls import reverse
@@ -25,7 +25,6 @@ from django.http import HttpResponse
 
 from django.db.models import Count
 from django.db import connection
-
 
 
 
@@ -57,7 +56,7 @@ def obtener_id_usuario(request):
     user_id = request.user.id
     return HttpResponse(f'ID del usuario autenticado: {user_id}')
 
-
+@login_required
 def nueva_oferta(request):
     datos = {
         'oferta_form': OfertaForm(),
@@ -88,9 +87,7 @@ def nueva_oferta(request):
 
     return render(request, 'nueva_oferta.html', datos)
 
-
-
-
+@login_required
 def formulario(request, id_oferta, nom_oferta, ):
     datos = {'form': FormularioForm()}
     if request.method == 'POST':
@@ -112,16 +109,19 @@ def formulario(request, id_oferta, nom_oferta, ):
             return redirect('ofertas_user')
     return render(request, 'formulario.html', {'id_oferta': id_oferta, 'nom_oferta': nom_oferta})
 
+@login_required
 def obtener_conteo_formularios():
     conteo_formularios = Oferta.objects.annotate(num_postulantes=Count('formulario'))
     return conteo_formularios
 
+@login_required
 def ofertas_admin(request):
     ofertas = Oferta.objects.all().select_related('fk_id_tipo_cargo').prefetch_related('competenciaoferta_set__fk_id_competencia')
     ofertas = Oferta.objects.annotate(num_formularios=Count('formulario'))
     print(ofertas)  # Imprime las ofertas en la consola para depuración
     return render(request, 'ofertas_admin.html', {'ofertas': ofertas})
 
+@login_required
 def ofertas_user(request):
     ofertas = Oferta.objects.all().select_related('fk_id_tipo_cargo').prefetch_related('competenciaoferta_set__fk_id_competencia')
     print(ofertas)  # Imprime las ofertas en la consola para depuración
@@ -148,6 +148,8 @@ def eliminar_oferta(request, id_oferta):
 
 # ALVARO--------------------------------------------------------------
 
+#Vista para DireccionForm
+@login_required
 def perfilDire(request):
     datos = {
         'direccion_form': DireccionForm()
@@ -169,7 +171,8 @@ def perfilDire(request):
     time.sleep(2.5)
     return render(request, 'perfil_direccion.html', datos)
 
-
+#Vista para UsuarioForm
+@login_required
 def perfilPers(request):
     datos = {
         'usuario_form': UsuarioForm(),
@@ -181,41 +184,68 @@ def perfilPers(request):
 
         if form_usuario.is_valid():
 
+            # Asigna la instancia de Usuario
+            form_usuario_instance = form_usuario.save(commit=False)
+
             # Asigna el valor request.user.id a la propiedad id_usuario
-            form_usuario.id_usuario = request.user.id
+            form_usuario_instance.id_usuario = request.user.id
 
             # Ahora guarda la instancia de Usuario
-            form_usuario.save()
+            form_usuario_instance.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil_experiencia')
             
     datos['mensaje'] = "Guardado Correctamente"
     time.sleep(2.5)
     return render(request, 'perfil_personal.html', datos)
 
+#Vista para ExperienciaForm
+@login_required
+def perfilExp(request):
+    datos = {
+        'experiencia_form': ExperienciaForm(),
 
+        }
 
+    if request.method == 'POST':
+        form_experiencia = ExperienciaForm(request.POST)
 
+        if form_experiencia.is_valid(): 
+
+            form_experiencia.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil_competencia')
+
+    return render(request, 'perfil_experiencia.html', datos)
+
+#Vista GET para CompetenciaForm
+@login_required
+def perfilCompeGet(request):
+    competencias = CompetenciaUsuario.objects.filter(fk_id_usuario=request.user.id)
+    print(competencias)  # Imprime las ofertas en la consola para depuración
+    return render(request, 'competencias.html', {'competencias': competencias}) 
+
+#Vista POST para CompetenciaForm
+#@login_required
 #def perfilExp(request):
 #    datos = {
-#        'experiencia_form': ExperienciaForm(),
+#        'competencia_form': CompetenciaForm(),
 
 #        }
 
 #    if request.method == 'POST':
-#        form_usuario = UsuarioForm(request.POST)
-#        form_experiencia = ExperienciaForm(request.POST)
+#        competencia_form = CompetenciaForm(request.POST)
 
-#        if form_experiencia.is_valid(): 
+#        if competencia_form.is_valid(): 
 
-#            usuario = form_usuario.save()
-
-#            form_experiencia_instance = form_experiencia.save(commit=False)
-
-#            form_experiencia_instance.fk_id_usuario = usuario
-
-#            form_experiencia_instance.save()
+#            competencia_form.save()
 
 #            datos['mensaje'] = "Guardado Correctamente"
 #            time.sleep(2.5)
-#            return redirect('home')
+#            return redirect('perfil_competencia')
 
-#    return render(request, 'perfil.html', datos)
+#    return render(request, 'perfil_competencia.html', datos)

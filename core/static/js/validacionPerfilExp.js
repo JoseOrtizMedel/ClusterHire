@@ -10,7 +10,7 @@ $(document).ready(function() {
   
     // Esta función se ejecutará después de que se haya recargado la página
     function resetSubmitButton() {
-      var button = document.getElementById("enviarPerfilPers");
+      var button = document.getElementById("enviarPerfilExp");
       if (button) {
         button.disabled = false;
         button.value = "Ingresar"; // Restablece el texto del botón
@@ -30,24 +30,10 @@ $(document).ready(function() {
       setTimeout(resetSubmitButton, 5000); // 5000 milisegundos (5 segundos) como ejemplo
     }
   
-    var formulario = $("#formularioPerfilPers");
+    var formulario = $("#formularioPerfilExp");
   
     formulario.validate({
       rules: {
-        rut_usuario: "required",
-        dv_usuario: "required",
-        segundo_nombre: "required",
-        segundo_apellido: "required",
-        nacionalidad: "required",
-        telefono: "required",
-        correo: "required",
-        numeracion: "required",
-        nombre_calle: "required",
-        fecha_nacimiento: {
-          required: true,
-          customDateValidation: true // Utilizamos una regla personalizada para la validación
-        },
-
         //ExperienciaForm
         nombre_empleo: "required",
         descripcion: "required",
@@ -58,24 +44,29 @@ $(document).ready(function() {
         fecha_termino_exp: {
           required: true,
           customDateValidation: true // Utilizamos una regla personalizada para la validación
-        }
-
+        },
+        descripcion: "required",
       },
       messages: {
-        //PersonalForm
-        rut_usuario: "Este campo es obligatorio",
-        dv_usuario: "Este campo es obligatorio",
-        segundo_nombre: "Este campo es obligatorio",
-        segundo_apellido: "Este campo es obligatorio",
-        nacionalidad: "Este campo es obligatorio",
-        telefono: "Este campo es obligatorio",
-        correo: "Este campo es obligatorio",
+        //ExperienciaForm
+        nombre_empleo: "Este campo es obligatorio",
+        descripcion: "Este campo es obligatorio",
+        fecha_inicio_exp: {
+          required: "Este campo es obligatorio",
+          customDateValidation: "Ingresa una fecha válida en el formato YYYY-MM-DD"
+        },
+        fecha_termino_exp: {
+          required: "Este campo es obligatorio",
+          customDateValidation: "Ingresa una fecha válida en el formato YYYY-MM-DD"
+        },
+        descripcion: "Este campo es obligatorio",
       },
 
       submitHandler: function(form) {
         // Validamos la fecha antes de enviarla
-        var fecha = $("#fecha_nacimiento").val();
-        if (!isValidDate(fecha)) {
+        var fechaInicio = $("#fecha_inicio_exp").val();
+        var fechaTermino = $("#fecha_termino_exp").val();
+        if (!isValidDate(fechaInicio && fechaTermino)) {
           // La fecha no es válida, muestra un mensaje de error
           Swal.fire({
             icon: 'error',
@@ -99,7 +90,7 @@ $(document).ready(function() {
         form.submit();
   
         // Deshabilita el botón y muestra "Enviando..."
-        disableSubmitButton($("#enviarPerfilPers")[0]);
+        disableSubmitButton($("#enviarPerfilExp")[0]);
       }
     });
   

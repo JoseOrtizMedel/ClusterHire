@@ -49,5 +49,6 @@ urlpatterns = [
     
     path('perfil_direccion/', views.perfilDire, name='perfil_direccion'),
     path('perfil_personal/', views.perfilPers, name='perfil_personal'),
-    
+    path('perfil_experiencia/', views.perfilExp, name='perfil_experiencia'),
+    path('perfil_competencias/', views.perfilCompeGet, name='perfil_competencias'),
 ]
