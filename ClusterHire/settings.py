@@ -13,8 +13,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 
-""" import cx_Oracle
-cx_Oracle.init_oracle_client(lib_dir="C:\oracle\instantclient_21_11") """
+import cx_Oracle
+cx_Oracle.init_oracle_client(lib_dir="C:\oracle\instantclient_21_11")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

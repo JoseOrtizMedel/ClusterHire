@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
-from .models import CompetenciaUsuario, Comuna, Direccion, HabilidadUsuario, IdiomaUsuario, Oferta, Formulario, Usuario
+from .models import CompetenciaUsuario, Comuna, Direccion, HabilidadUsuario, IdiomaUsuario, Oferta, Formulario, Usuario, Competencia
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import CiudadForm, CompetenciaForm, ComunaForm, CustomUserCreationForm, DireccionForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm,  TituloProfForm, Usuario_logroForm, UsuarioForm, OfertaForm, FormularioForm, CompeOfeForm
@@ -58,6 +58,7 @@ def obtener_id_usuario(request):
 
 @login_required
 def nueva_oferta(request):
+
     datos = {
         'oferta_form': OfertaForm(),
         'compeofe_form': CompeOfeForm()
@@ -87,6 +88,27 @@ def nueva_oferta(request):
 
     return render(request, 'nueva_oferta.html', datos)
 
+
+@login_required
+def compe_oferta(request, id_oferta):
+    compeofe_form = CompeOfeForm()
+
+    if request.method == 'POST':
+        compeofe_formulario = CompeOfeForm(request.POST)
+
+        if compeofe_formulario.is_valid():
+            # Ahora guarda la instancia de CompetenciaOferta
+            compeofe_formulario.save()
+
+            return redirect('ofertas_admin')
+
+    # Obtén las competencias disponibles
+    competencias_disponibles = Competencia.objects.all()
+
+    return render(request, 'compe_oferta.html', {'id_oferta': id_oferta, 'compeofe_form': compeofe_form, 'competencias': competencias_disponibles})
+
+
+
 @login_required
 def formulario(request, id_oferta, nom_oferta, ):
     datos = {'form': FormularioForm()}
@@ -114,12 +136,19 @@ def obtener_conteo_formularios():
     conteo_formularios = Oferta.objects.annotate(num_postulantes=Count('formulario'))
     return conteo_formularios
 
+
+
+
 @login_required
-def ofertas_admin(request):
+def ofertas_admin(request):    
+
     ofertas = Oferta.objects.all().select_related('fk_id_tipo_cargo').prefetch_related('competenciaoferta_set__fk_id_competencia')
     ofertas = Oferta.objects.annotate(num_formularios=Count('formulario'))
-    print(ofertas)  # Imprime las ofertas en la consola para depuración
+
     return render(request, 'ofertas_admin.html', {'ofertas': ofertas})
+
+
+
 
 @login_required
 def ofertas_user(request):

@@ -43,6 +43,7 @@ urlpatterns = [
     path('password-reset-complete/',PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'),name='password_reset_complete'),
     path('eliminar_oferta/<id_oferta>/', views.eliminar_oferta, name='eliminar_oferta'),    
     path('formulario/<int:id_oferta>/<str:nom_oferta>/', views.formulario, name='formulario'),
+    path('compe_oferta/<int:id_oferta>', views.compe_oferta, name='compe_oferta'),
 
     path('ciencia/', ciencia.ciencia_datos, name='ciencia_datos'),
     path('exportar-csv/', ciencia.exportar_datos_a_csv, name='exportar_csv'),

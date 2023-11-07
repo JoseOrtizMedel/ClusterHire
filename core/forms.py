@@ -27,7 +27,7 @@ class CustomUserCreationForm(UserCreationForm):
 class OfertaForm(forms.ModelForm):
     class Meta:
         model = Oferta
-        fields = ['nom_oferta', 'fecha_oferta', 'anhos_experiencia', 'fk_id_tipo_cargo', 'fk_id_modalidad', 'fk_id_comuna']
+        fields = ['id_oferta','nom_oferta', 'fecha_oferta', 'anhos_experiencia', 'fk_id_tipo_cargo', 'fk_id_modalidad', 'fk_id_comuna']
 
     fk_id_tipo_cargo = forms.ModelChoiceField(
         queryset=TipoCargo.objects.all(),
@@ -68,6 +68,8 @@ class OfertaForm(forms.ModelForm):
     def label_from_comuna_instance(self, obj):
         return obj.nom_comuna
     
+
+    
 class CompeOfeForm (forms.ModelForm):
     class Meta:
         model = CompetenciaOferta
@@ -87,13 +89,10 @@ class CompeOfeForm (forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        # Personaliza las etiquetas del campo fk_id_competencia
         self.fields['fk_id_competencia'].label_from_instance = self.label_from_competencia_instance
 
     def label_from_competencia_instance(self, obj):
         return obj.nombre_competencia
-
     
 
 

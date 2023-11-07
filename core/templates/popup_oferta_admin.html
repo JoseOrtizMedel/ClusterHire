@@ -4,23 +4,25 @@
 <!-- Modal -->
 <div class="modal fade" id="ofertaModal" tabindex="-1" aria-labelledby="ofertaModal" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-<!--         <div class="modal-header">
-          <h5 class="modal-title" id="compeModal">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div> -->
-            <form action="" method="POST" id="formularioPerfilCompe">
+      <div class="modal-content" id="formularioOfert">
+            <form action="" method="POST" id="formularioOfert">
                 <div class="modal-body">
                     {% csrf_token %}
                     <div class="card mb-4">
                         <div class="card-body text-center">
-                            <h4 id="tituloCard1">Competencia</h4>
+                            <h4 id="tituloCard1">Idioma</h4>
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="{{ compeofe_form.fk_id_competencia.id_for_label}}" style="color: #003e77;">Seleccione:</label>
+                                        <label for="{{ compeofe_form.fk_id_oferta.id_for_label }}">Id oferta</label>
+                                        {{ compeofe_form.fk_id_oferta }}
+                                    </div>      
+                                </div>
+                                <div class="col-lg-4">                                  
+                                    <div class="form-group">
+                                        <label for="{{ compeofe_form.fk_id_competencia.id_for_label }}">Competencia</label>
                                         {{ compeofe_form.fk_id_competencia }}
-                                    </div>
+                                    </div>    
                                 </div>
                             </div>
                         </div>
@@ -30,11 +32,7 @@
                     </div>
                 </div>
             </form>
-<!--         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <input type="submit" class="btn btn-custom" id="enviarPerfilCompe" value="Agregar" >
-        </div> -->
-      </div>
+        </div>
     </div>
   </div>
 
