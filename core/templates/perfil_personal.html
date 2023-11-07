@@ -28,7 +28,7 @@
                         <h3 id="tituloCard1">Datos Personales</h3>
 <!-- INICIO FORMULARIO USUARIO -->
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" style="display: none;">
                             <div class="form-group">
                                 <label for="id_usuario" style="color: #003e77;">ID Usuario</label>
                                 <input type="text" class="form-control" name="id_usuario" id="id_usuario" readonly value="{{ request.user.id }}">
@@ -94,102 +94,19 @@
                                 <input type="text" class="form-control" name="correo" id="correo" readonly value="{{ request.user.email }}">
                             </div>
                         </div>
+<<<<<<< HEAD:core/templates/perfil.html
                         <div class="col-lg-4">
                             <div class="form-group" >
+=======
+                        <div class="col-lg-4" style="display: none;">
+                            <div class="form-group">
+>>>>>>> 48e8fced96f6a3b295f52a4a1f17edec32c2e741:core/templates/perfil_personal.html
                                 <label for="{{ usuario_form.fk_id_direccion.id_for_label }}" style="color: #003e77;">Dirección:</label>
                                 {{ usuario_form.fk_id_direccion }}
                             </div>
                         </div>
                         </div>
 <!-- FIN FORMULARIO USUARIO -->
-
-<!-- INICIO FORMULARIO DIRECCION -->
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="numeracion" style="color: #003e77;">Numeración:</label>
-                                <input type="text" class="form-control" name="numeracion" id="numeracion" required/>
-                            </div> 
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="nombre_calle" style="color: #003e77;">Calle:</label>
-                                <input type="text" class="form-control" name="nombre_calle" id="nombre_calle" required/>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="{{ direccion_form.fk_d_comuna.id_for_label }}" style="color: #003e77;">Comuna:</label>
-                                {{ direccion_form.fk_d_comuna }}
-                            </div>
-                        </div>
-                    </div>
-<!-- FIN FORMULARIO DIRECCION -->
-
-<!-- INICIO FORMULARIO EXPERIENCIA -->
- <!--                <br>
-                    <h3 id="tituloCard1">Experiencia laboral</h3>
-                        <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="nombre_empleo" style="color: #003e77;">Empleo:</label>
-                                <input type="text" class="form-control" name="nombre_empleo" id="nombre_empleo" required/>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="fecha_inicio_exp" style="color: #003e77;">Inicio exp:</label>
-                                <input type="text" class="form-control" name="fecha_inicio_exp" id="fecha_inicio_exp" required/>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="fecha_termino_exp" style="color: #003e77;">Término exp:</label>
-                                <input type="text" class="form-control" name="fecha_termino_exp" id="fecha_termino_exp" required/>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="descripcion" style="color: #003e77;">Descripción:</label>
-                                <textarea class="form-control" name="descripcion" id="descripcion" required placeholder="Ingrese una descripción"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="{{ experiencia_form.fk_id_tipo_empleo.id_for_label }}" style="color: #003e77;">Tipo empleo:</label>
-                                {{ experiencia_form.fk_id_tipo_empleo }}
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="{{ experiencia_form.fk_id_usuario.id_for_label }}" style="color: #003e77;">ID Usuario</label>
-                                <input type="text" class="form-control" name="fk_id_usuario" id="fk_id_usuario" readonly value="{{ request.user.id }}">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="{{ experiencia_form.fk_id_modalidad.id_for_label }}" style="color: #003e77;">Modalidad:</label>
-                                {{ experiencia_form.fk_id_modalidad }}
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="{{ experiencia_form.fk_id_comuna.id_for_label }}" style="color: #003e77;">Comuna:</label>
-                                {{ experiencia_form.fk_id_comuna }}
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="{{ experiencia_form.fk_id_tipo_cargo.id_for_label }}" style="color: #003e77;">Tipo cargo:</label>
-                                {{ experiencia_form.fk_id_tipo_cargo }}
-                            </div>
-                        </div>
-                        </div>
-                    </div> -->
-<!-- FIN FORMULARIO EXPERIENCIA -->
-
                             <div class="col-auto">
                                 <input type="submit" class="btn btn-custom" id="enviarPerfilPers" value="Ingresar" >
                             </div>
@@ -316,5 +233,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{% static 'js/validacionPerfil1.js' %}"></script>
+<script src="{% static 'js/validacionPerfilPers.js' %}"></script>
 {% endblock %}

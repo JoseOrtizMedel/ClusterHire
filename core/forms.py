@@ -114,7 +114,7 @@ class FormularioForm(forms.ModelForm):
 class DireccionForm(forms.ModelForm):
     class Meta:
         model = Direccion
-        fields = ['numeracion', 'nombre_calle', 'fk_d_comuna']
+        fields = ['id_direccion','numeracion', 'nombre_calle', 'fk_d_comuna']
 
     fk_d_comuna = forms.ModelChoiceField(
         queryset=Comuna.objects.all(),
@@ -240,13 +240,13 @@ class CompetenciaForm(forms.ModelForm):
         model = CompetenciaUsuario
         fields = ['id_compe_usuario', 'fk_id_competencia', 'fk_id_usuario']
 
-    pf_id_competencia = forms.ModelChoiceField(
+    fk_id_competencia = forms.ModelChoiceField(
         queryset=Competencia.objects.all(),
         empty_label=None,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
-    pf_id_usuario = forms.ModelChoiceField(
+    fk_id_usuario = forms.ModelChoiceField(
         queryset=Usuario.objects.all(),
         empty_label=None,
         widget=forms.Select(attrs={'class': 'form-control'})
@@ -261,7 +261,7 @@ class CompetenciaForm(forms.ModelForm):
         return obj.nombre_competencia
 
     def label_from_usuario_instance(self, obj):
-        return obj.nombre
+        return obj.id_usuario
 
     
 class Usuario_logroForm(forms.ModelForm):
