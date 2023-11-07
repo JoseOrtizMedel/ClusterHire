@@ -90,7 +90,7 @@ def nueva_oferta(request):
 
 
 @login_required
-def compe_oferta(request, id_oferta):
+def compe_oferta(request, id_oferta, nom_oferta):
     compeofe_form = CompeOfeForm()
 
     if request.method == 'POST':
@@ -105,7 +105,7 @@ def compe_oferta(request, id_oferta):
     # Obtén las competencias disponibles
     competencias_disponibles = Competencia.objects.all()
 
-    return render(request, 'compe_oferta.html', {'id_oferta': id_oferta, 'compeofe_form': compeofe_form, 'competencias': competencias_disponibles})
+    return render(request, 'compe_oferta.html', {'id_oferta': id_oferta, 'nom_oferta': nom_oferta, 'compeofe_form': compeofe_form, 'competencias': competencias_disponibles})
 
 
 
