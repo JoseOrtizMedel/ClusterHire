@@ -21,7 +21,6 @@ urlpatterns = [
     path('perfil_personal/', perfilPers, name='perfil_personal'),
     path('perfil_experiencia/', perfilExp, name='perfil_experiencia'),
     path('perfil_competencias/', perfilCompe, name='perfil_competencias'),
-    #path('perfil_competencias/', perfilCompePost, name='perfil_competencias'),
 
     path('ciencia', ciencia_datos, name="ciencia"),
     path('exportar-csv/', exportar_datos_a_csv, name='exportar_csv'),

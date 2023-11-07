@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
-from .models import CompetenciaUsuario, Comuna, Direccion, Oferta, Formulario, Usuario
+from .models import CompetenciaUsuario, Comuna, Direccion, HabilidadUsuario, IdiomaUsuario, Oferta, Formulario, Usuario
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import CiudadForm, CompetenciaForm, ComunaForm, CustomUserCreationForm, DireccionForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm,  TituloProfForm, Usuario_logroForm, UsuarioForm, OfertaForm, FormularioForm, CompeOfeForm
@@ -223,7 +223,6 @@ def perfilExp(request):
 
     return render(request, 'perfil_experiencia.html', datos)
 
-#Vista POST para CompetenciaForm
 # Vista combinada para CompetenciaForm
 @login_required
 def perfilCompe(request):
@@ -231,15 +230,28 @@ def perfilCompe(request):
     # Obtiene las competencias del usuario
     competencias = CompetenciaUsuario.objects.filter(fk_id_usuario=request.user.id)
 
+    # Obtiene las habilidades del usuario
+    habilidades = HabilidadUsuario.objects.filter(fk_id_usuario=request.user.id)
+
+    # Obtiene los idiomas del usuario
+    idiomas = IdiomaUsuario.objects.filter(fk_id_usuario=request.user.id)
+
     datos = {
         'competencia_form': CompetenciaForm(),
+        'habilidad_form': HabilidadForm(),
+        'idioma_form': IdiomaForm(),
+
     }
 
     # Agrega las competencias a los datos
     datos['competencias'] = competencias
+    datos['habilidades'] = habilidades
+    datos['idiomas'] = idiomas
 
     if request.method == 'POST':
         form_competencia = CompetenciaForm(request.POST)
+        form_habilidad = HabilidadForm(request.POST)
+        form_idioma = IdiomaForm(request.POST)
 
         if form_competencia.is_valid():
 
@@ -249,10 +261,23 @@ def perfilCompe(request):
             time.sleep(2.5)
             return redirect('perfil_competencias')
 
-        # Redirige a la misma vista para mostrar el mensaje
-        return redirect('perfil_competencias')
+        if form_habilidad.is_valid():
 
-    return render(request, 'competencias.html', datos)
+            form_habilidad.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil_competencias')
+        
+        if form_idioma.is_valid():
+
+            form_idioma.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil_competencias')
+        
+    return render(request, 'compe_habi_idio.html', datos)
 
 
 #Vista POST para CompetenciaForm
