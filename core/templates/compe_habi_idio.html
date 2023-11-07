@@ -19,9 +19,7 @@
                             <div class="col-md-12">
                                 {% if competencias %}
                                     {% for competencia in competencias %}
-                                        <ul><li>
-                                            {{ competencia.fk_id_competencia.nombre_competencia }}
-                                        </ul></li>
+                                        {{ competencia.fk_id_competencia.nombre_competencia }}
                                     {% endfor %}
                                 {% else %}
                                     <p>No tienes ninguna competencia registrada</p>
@@ -53,9 +51,7 @@
                         <div class="col-md-12">
                             {% if habilidades %}
                                 {% for habilidad in habilidades %}
-                                    <ul><li>
-                                        {{ habilidad.fk_id_habilidad.nombre_habilidad }}
-                                    </ul></li>
+                                    {{ habilidad.fk_id_habilidad.nombre_habilidad }}
                                 {% endfor %}
                             {% else %}
                                 <p>No tienes ninguna habilidad registrada</p>
@@ -88,9 +84,7 @@
                         <div class="col-md-12">
                             {% if idiomas %}
                                 {% for idioma in idiomas %}
-                                    <ul><li>
-                                        {{ habilidad.fk_id_idioma.nombre_idioma }}
-                                    </ul></li>
+                                    {{ idioma.fk_id_idioma.nombre_idioma }}
                                 {% endfor %}
                             {% else %}
                                 <p>No tienes ningun idioma registrado</p>

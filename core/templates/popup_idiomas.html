@@ -12,22 +12,22 @@
                         <div class="card-body text-center">
                             <h4 id="tituloCard1">Idioma</h4>
                             <div class="row">
-                                <div class="col-lg-4" style="display: none;">
+                                <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="{{ habilidad_form.fk_id_usuario.id_for_label }}" style="color: #003e77;">ID Usuario:</label>
+                                        <label for="{{ idioma_form.fk_id_usuario.id_for_label }}" style="color: #003e77;">ID Usuario:</label>
                                         {{ idioma_form.fk_id_usuario }}
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="{{ habilidad_form.fk_id_habilidad.id_for_label}}" style="color: #003e77;">Seleccione:</label>
+                                        <label for="{{ idioma_form.fk_id_idioma.id_for_label}}" style="color: #003e77;">Seleccione:</label>
                                         {{ idioma_form.fk_id_idioma }}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-auto">
-                            <input type="submit" class="btn btn-custom" id="enviarPerfilExp" value="Guardar" >
+                            <input type="submit" class="btn btn-custom" id="enviarPerfilExp" value="Guardar">
                         </div>
                     </div>
                 </div>

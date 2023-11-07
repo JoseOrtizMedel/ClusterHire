@@ -297,13 +297,13 @@ class IdiomaForm(forms.ModelForm):
         model = IdiomaUsuario
         fields = ['id_idioma_usuario', 'fk_id_idioma', 'fk_id_usuario']
 
-    pf_id_idioma = forms.ModelChoiceField(
+    fk_id_idioma = forms.ModelChoiceField(
         queryset=Idioma.objects.all(),
         empty_label=None,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
-    pf_id_usuario = forms.ModelChoiceField(
+    fk_id_usuario = forms.ModelChoiceField(
         queryset=Usuario.objects.all(),
         empty_label=None,
         widget=forms.Select(attrs={'class': 'form-control'})
@@ -311,11 +311,11 @@ class IdiomaForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-#        self.fields['pf_id_usuario'].label_from_instance = self.label_from_usuario_instance
+        self.fields['fk_id_usuario'].label_from_instance = self.label_from_usuario_instance
         self.fields['fk_id_idioma'].label_from_instance = self.label_from_idioma_instance
 
-#    def label_from_usuario_instance(self, obj):
-#        return obj.nombre
+    def label_from_usuario_instance(self, obj):
+        return obj.id_usuario
 
     def label_from_idioma_instance(self, obj):
         return obj.nombre_idioma
