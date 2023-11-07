@@ -173,6 +173,7 @@ def perfilPers(request):
             form_usuario_instance.id_usuario = request.user.id
 
             # Ahora guarda la instancia de Usuario
+            print(form_usuario_instance.fk_id_direccion)
             form_usuario_instance.save()
 
             datos['mensaje'] = "Guardado Correctamente"
