@@ -127,7 +127,7 @@ def ofertas_user(request):
     print(ofertas)  # Imprime las ofertas en la consola para depuración
     return render(request, 'ofertas_user.html', {'ofertas': ofertas}) 
  
-
+@login_required
 @csrf_exempt
 def eliminar_oferta(request, id_oferta):
     if request.method == 'POST':
