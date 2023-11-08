@@ -140,6 +140,116 @@
     </div>
 <!-- FIN ESTRUCTURA FORMULARIO GENERAL -->
 </section>
+<br>
+<!-- FIN FORMULARIO EXPERIENCIA -->
+
+</section>
+<br>
+<section>
+    <div class="row">
+        <div class="col-md-12">
+            <form method="POST" action="" id="formularioPerfilCompe">
+                {% csrf_token %}
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                <h3 id="tituloCard1">Logros académicos</h3>
+                    <div class="row">
+                        <div class="col-md-12">
+                            Logro:
+                            {% if logros %}
+                                {% for logro in logros %}
+                                    - {{ logro.fk_id_logro_academico.nom_logro }}
+                                {% endfor %}
+                            {% else %}
+                                <p>No tienes ningun logro registrada</p>
+                            {% endif %}
+                            <div class="col-auto">
+                                <input class="btn btn-custom" id="enviarPerfilExp" data-bs-toggle="modal" data-bs-target="#logroModal" value="Agregar">
+                            </div>
+                        </div>
+                        {% include 'popup_logros.html' %}
+                    </div>
+                </div>
+            </div>
+<!-- BOTON ENVIAR FORMULARIO -->
+            </form>
+<!-- FIN FORMULARIO GENERAL -->
+        </div>
+    </div>
+<!-- FIN ESTRUCTURA FORMULARIO GENERAL -->
+</section>
+
+<br>
+<section>
+    <div class="row">
+        <div class="col-md-12">
+            <form method="POST" action="" id="formularioPerfilCompe">
+                {% csrf_token %}
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                <h3 id="tituloCard1">Experiencias laborales</h3>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% if experiencias %}
+                                {% for experiencia in experiencias %}
+                                    Cargo: {{ experiencia.fk_id_tipo_cargo.nom_cargo }} |
+                                    Tipo empleo: {{ experiencia.fk_id_tipo_empleo.nom_tipo_empleo }} |
+                                    Modalidad: {{ experiencia.fk_id_modalidad.nom_modalidad }}
+                                {% endfor %}
+                            {% else %}
+                                <p>No tienes ninguna experiencia laboral registrada</p>
+                            {% endif %}
+                            <div class="col-auto">
+                                <input class="btn btn-custom" id="enviarPerfilExp" data-bs-toggle="modal" data-bs-target="#expModal" value="Agregar">
+                            </div>
+                        </div>
+                        {% include 'popup_experiencias.html' %}
+                    </div>
+                </div>
+            </div>
+<!-- BOTON ENVIAR FORMULARIO -->
+            </form>
+<!-- FIN FORMULARIO GENERAL -->
+        </div>
+    </div>
+<!-- FIN ESTRUCTURA FORMULARIO GENERAL -->
+</section>
+<!-- FIN FORMULARIO EXPERIENCIA -->
+
+<br>
+<section>
+    <div class="row">
+        <div class="col-md-12">
+            <form method="POST" action="" id="formularioPerfilCompe">
+                {% csrf_token %}
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                <h3 id="tituloCard1">Dirección</h3>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% if usuarios %}
+                                {% for usuario in usuarios %}
+                                    {{ usuario.fk_id_direccion.nombre_calle }}
+                                    #{{ usuario.fk_id_direccion.numeracion }},
+                                    {{ usuario.fk_id_direccion.fk_d_comuna.nom_comuna }}
+                                {% endfor %}
+                            {% else %}
+                                <p>No tienes ninguna dirección registrada</p>
+                            {% endif %}
+                            <div class="col-auto">
+                                <a class="btn btn-primary mr-2" type="button" href="{% url 'register' %}"></i>Editar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!-- BOTON ENVIAR FORMULARIO -->
+            </form>
+<!-- FIN FORMULARIO GENERAL -->
+        </div>
+    </div>
+<!-- FIN ESTRUCTURA FORMULARIO GENERAL -->
+</section>
 
 <div class="col-auto">
     <a class="btn btn-primary mr-2" type="button" href="{% url 'perfil_educacion' %}"></i>Continuar</a>
