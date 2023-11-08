@@ -8,6 +8,7 @@
 
 <section>
     <br>
+    <h2 style="color: #000;">Mi Perfil</h2>
         <div class="row">
             <div class="col-md-12">
                 <form method="POST" action="" id="formularioPerfilCompe">
@@ -19,7 +20,7 @@
                             <div class="col-md-12">
                                 {% if competencias %}
                                     {% for competencia in competencias %}
-                                        {{ competencia.fk_id_competencia.nombre_competencia }}
+                                    - {{ competencia.fk_id_competencia.nombre_competencia }}
                                     {% endfor %}
                                 {% else %}
                                     <p>No tienes ninguna competencia registrada</p>
@@ -51,7 +52,7 @@
                         <div class="col-md-12">
                             {% if habilidades %}
                                 {% for habilidad in habilidades %}
-                                    {{ habilidad.fk_id_habilidad.nombre_habilidad }}
+                                - {{ habilidad.fk_id_habilidad.nombre_habilidad }}
                                 {% endfor %}
                             {% else %}
                                 <p>No tienes ninguna habilidad registrada</p>
@@ -84,7 +85,7 @@
                         <div class="col-md-12">
                             {% if idiomas %}
                                 {% for idioma in idiomas %}
-                                    {{ idioma.fk_id_idioma.nombre_idioma }}
+                                    - {{ idioma.fk_id_idioma.nombre_idioma }}
                                 {% endfor %}
                             {% else %}
                                 <p>No tienes ningun idioma registrado</p>
@@ -98,15 +99,52 @@
                 </div>
             </div>
 <!-- BOTON ENVIAR FORMULARIO -->
-                <div class="col-auto">
-                    <a class="btn btn-primary mr-2" type="button" href="{% url 'perfil_educacion' %}"></i>Continuar</a>
-                </div>
             </form>
 <!-- FIN FORMULARIO GENERAL -->
         </div>
     </div>
 <!-- FIN ESTRUCTURA FORMULARIO GENERAL -->
 </section>
+<br>
+<section>
+    <div class="row">
+        <div class="col-md-12">
+            <form method="POST" action="" id="formularioPerfilCompe">
+                {% csrf_token %}
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                <h3 id="tituloCard1">Educación</h3>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% if educaciones %}
+                                {% for educacion in educaciones %}
+                                    Institución: - {{ educacion.fk_id_institucion.nombre_institucion }}
+                                    Título: - {{ educacion.fk_id_titulo.nombre_titulo }}
+                                    Formación: - {{ educacion.fk_id_formacion.tipo_formacion }}
+                                {% endfor %}
+                            {% else %}
+                                <p>No tienes datos registrados acerca de tu educación</p>
+                            {% endif %}
+                            <div class="col-auto">
+                                <input class="btn btn-custom" id="enviarPerfilExp" data-bs-toggle="modal" data-bs-target="#educModal" value="Agregar">
+                            </div>
+                        </div>
+                        {% include 'popup_educacion.html' %}
+                    </div>
+                </div>
+            </div>
+<!-- BOTON ENVIAR FORMULARIO -->
+            </form>
+<!-- FIN FORMULARIO GENERAL -->
+        </div>
+    </div>
+<!-- FIN ESTRUCTURA FORMULARIO GENERAL -->
+</section>
+
+<div class="col-auto">
+    <a class="btn btn-primary mr-2" type="button" href="{% url 'perfil_educacion' %}"></i>Continuar</a>
+</div>
+<br>
 <!-- FIN FORMULARIO EXPERIENCIA -->
 
 

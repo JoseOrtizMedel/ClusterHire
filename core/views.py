@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
-from .models import CompetenciaUsuario, Comuna, Direccion, HabilidadUsuario, IdiomaUsuario, Oferta, Formulario, Usuario
+from .models import CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, HabilidadUsuario, IdiomaUsuario, Oferta, Formulario, Usuario, UsuarioLogro
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import CiudadForm, CompetenciaForm, ComunaForm, CustomUserCreationForm, DireccionForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm,  TituloProfForm, Usuario_logroForm, UsuarioForm, OfertaForm, FormularioForm, CompeOfeForm
@@ -280,23 +280,148 @@ def perfilCompe(request):
     return render(request, 'compe_habi_idio.html', datos)
 
 
-#Vista POST para CompetenciaForm
-#@login_required
-#def perfilExp(request):
-#    datos = {
-#        'competencia_form': CompetenciaForm(),
+# Vista combinada para CompetenciaForm
+@login_required
+def perfilEduc(request):
 
-#        }
+    datos = {
+        'educacion_form': EducacionForm(),
+        'usuario_logro_form': Usuario_logroForm(),
+    }
 
-#    if request.method == 'POST':
-#        competencia_form = CompetenciaForm(request.POST)
+    if request.method == 'POST':
+        form_educacion = EducacionForm(request.POST)
 
-#        if competencia_form.is_valid(): 
+        if form_educacion.is_valid():
 
-#            competencia_form.save()
+            form_educacion.save()
 
-#            datos['mensaje'] = "Guardado Correctamente"
-#            time.sleep(2.5)
-#            return redirect('perfil_competencia')
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('home')
+        
+        if request.method == 'POST':
+            form_logro = Usuario_logroForm(request.POST)
 
-#    return render(request, 'perfil_competencia.html', datos)
+            if form_logro.is_valid():
+
+                form_logro.save()
+
+                datos['mensaje'] = "Guardado Correctamente"
+                time.sleep(2.5)
+                return redirect('home')
+        
+    return render(request, 'perfil_educacion.html', datos)
+
+
+# Vista GET para Usuario en Perfil.html
+@login_required
+def perfil(request):
+
+    # Obtiene las competencias del usuario
+    competencias = CompetenciaUsuario.objects.filter(fk_id_usuario=request.user.id)
+
+    # Obtiene las habilidades del usuario
+    habilidades = HabilidadUsuario.objects.filter(fk_id_usuario=request.user.id)
+
+    # Obtiene los idiomas del usuario
+    idiomas = IdiomaUsuario.objects.filter(fk_id_usuario=request.user.id)
+
+    # Obtiene la educación del usuario
+    educaciones = Educacion.objects.filter(fk_id_usuario=request.user.id)
+
+    # Obtiene la educación del usuario
+    logros = UsuarioLogro.objects.filter(fk_id_usuario=request.user.id)
+
+    # Obtiene la experiencia laboral del usuario
+    experiencias = Experiencia.objects.filter(fk_id_usuario=request.user.id)
+
+    # Obtiene al usuario (columna dirección)
+    u_direcciones = Usuario.objects.filter(id_usuario=request.user.id)
+
+    datos = {
+        'competencia_form': CompetenciaForm(),
+        'habilidad_form': HabilidadForm(),
+        'idioma_form': IdiomaForm(),
+        'educacion_form': EducacionForm(),
+        'logros_form': Usuario_logroForm(),
+        'exps_form': ExperienciaForm(),
+        'u_dires_form': UsuarioForm(),
+
+    }
+
+    # Agrega las competencias a los datos
+    datos['competencias'] = competencias
+    datos['habilidades'] = habilidades
+    datos['idiomas'] = idiomas
+    datos['educaciones'] = educaciones
+    datos['logros'] = logros
+    datos['experiencias'] = experiencias
+    datos['usuarios'] = u_direcciones
+
+    if request.method == 'POST':
+        form_competencia = CompetenciaForm(request.POST)
+        form_habilidad = HabilidadForm(request.POST)
+        form_idioma = IdiomaForm(request.POST)
+        form_educacion = EducacionForm(request.POST)
+        form_logro = Usuario_logroForm(request.POST)
+        form_experiencia = ExperienciaForm(request.POST)
+        form_u_direccion = UsuarioForm(request.POST)
+
+        if form_competencia.is_valid():
+
+            form_competencia.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil')
+
+        if form_habilidad.is_valid():
+
+            form_habilidad.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil')
+        
+        if form_idioma.is_valid():
+
+            form_idioma.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil')
+    
+        if form_educacion.is_valid():
+
+            form_educacion.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil')
+
+        if form_logro.is_valid():
+
+            form_logro.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil')
+        
+        if form_experiencia.is_valid():
+
+            form_experiencia.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil')
+        
+        if form_u_direccion.is_valid():
+
+            form_u_direccion.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil')
+        
+    return render(request, 'perfil.html', datos)
