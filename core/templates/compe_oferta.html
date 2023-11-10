@@ -6,10 +6,22 @@
 {% block content %}
 <br>
 
-<div id="titulo">
+<div id="titulo">    
     <h2>Nueva competencia para:</h2>
-    <h1><strong>{{ nom_oferta|upper }}</strong></h1>
+    <h1><strong>{{ nom_oferta|upper }}</strong></h1>    
 </div>
+<script>
+    // Obtén el elemento h1 dentro del div con id "titulo"
+    var h1Element = document.querySelector('#titulo h1');
+    // Obtiene el contenido de {{ nom_oferta }}
+    var nomOferta = h1Element.textContent;
+    // Convierte el texto a mayúsculas
+    nomOferta = nomOferta.toUpperCase();
+    // Reemplaza los guiones "-" por espacios
+    nomOferta = nomOferta.replace(/-/g, ' ');
+    // Asigna el texto modificado de vuelta al elemento h1
+    h1Element.textContent = nomOferta;
+</script>
 
 <br>
 
