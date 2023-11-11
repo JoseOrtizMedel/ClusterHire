@@ -65,21 +65,21 @@ def nueva_oferta(request):
 
     if request.method == 'POST':
         oferta_formulario = OfertaForm(request.POST)
-        compeofe_formulario = CompeOfeForm(request.POST)
+        #compeofe_formulario = CompeOfeForm(request.POST)
 
-        if oferta_formulario.is_valid()  and compeofe_formulario.is_valid(): 
+        if oferta_formulario.is_valid():  #and compeofe_formulario.is_valid(): 
 
             # Guarda la oferta
-            oferta = oferta_formulario.save()
+            oferta_formulario.save()
 
             # Obtén la instancia de CompetenciaOferta sin guardarla todavía
-            compeofe_instance = compeofe_formulario.save(commit=False)
+            #compeofe_instance = compeofe_formulario.save(commit=False)
 
             # Establece el campo fk_id_oferta como la instancia de la oferta
-            compeofe_instance.fk_id_oferta = oferta
+            #compeofe_instance.fk_id_oferta = oferta
 
             # Ahora guarda la instancia de CompetenciaOferta
-            compeofe_instance.save()
+            #compeofe_instance.save()
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
@@ -190,13 +190,15 @@ def perfilPers(request):
             # Asigna el valor request.user.id a la propiedad id_usuario
             form_usuario_instance.id_usuario = request.user.id
 
+            form_usuario_instance.fk_id_direccion = Direccion.objects.last()
+
             # Ahora guarda la instancia de Usuario
             print(form_usuario_instance.fk_id_direccion)
             form_usuario_instance.save()
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
-            return redirect('perfil_experiencia')
+            return redirect('perfil')
             
     datos['mensaje'] = "Guardado Correctamente"
     time.sleep(2.5)
@@ -219,66 +221,9 @@ def perfilExp(request):
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
-            return redirect('perfil_competencias')
+            return redirect('perfil')
 
     return render(request, 'perfil_experiencia.html', datos)
-
-# Vista combinada para CompetenciaForm
-@login_required
-def perfilCompe(request):
-
-    # Obtiene las competencias del usuario
-    competencias = CompetenciaUsuario.objects.filter(fk_id_usuario=request.user.id)
-
-    # Obtiene las habilidades del usuario
-    habilidades = HabilidadUsuario.objects.filter(fk_id_usuario=request.user.id)
-
-    # Obtiene los idiomas del usuario
-    idiomas = IdiomaUsuario.objects.filter(fk_id_usuario=request.user.id)
-
-    datos = {
-        'competencia_form': CompetenciaForm(),
-        'habilidad_form': HabilidadForm(),
-        'idioma_form': IdiomaForm(),
-
-    }
-
-    # Agrega las competencias a los datos
-    datos['competencias'] = competencias
-    datos['habilidades'] = habilidades
-    datos['idiomas'] = idiomas
-
-    if request.method == 'POST':
-        form_competencia = CompetenciaForm(request.POST)
-        form_habilidad = HabilidadForm(request.POST)
-        form_idioma = IdiomaForm(request.POST)
-
-        if form_competencia.is_valid():
-
-            form_competencia.save()
-
-            datos['mensaje'] = "Guardado Correctamente"
-            time.sleep(2.5)
-            return redirect('perfil_competencias')
-
-        if form_habilidad.is_valid():
-
-            form_habilidad.save()
-
-            datos['mensaje'] = "Guardado Correctamente"
-            time.sleep(2.5)
-            return redirect('perfil_competencias')
-        
-        if form_idioma.is_valid():
-
-            form_idioma.save()
-
-            datos['mensaje'] = "Guardado Correctamente"
-            time.sleep(2.5)
-            return redirect('perfil_competencias')
-        
-    return render(request, 'compe_habi_idio.html', datos)
-
 
 # Vista combinada para CompetenciaForm
 @login_required
@@ -425,3 +370,133 @@ def perfil(request):
             return redirect('perfil')
         
     return render(request, 'perfil.html', datos)
+
+
+#Vista para eliminar Competencias
+@login_required
+def eliminar_compes(request, pk):
+
+    var = CompetenciaUsuario.objects.get(id_compe_usuario=pk)
+
+    var.delete()
+
+    return redirect(to="perfil")
+
+#Vista para eliminar Habilidades
+@login_required
+def eliminar_habis(request, pk):
+
+    var = HabilidadUsuario.objects.get(id_habilidad_usuario=pk)
+
+    var.delete()
+
+    return redirect(to="perfil")
+
+#Vista para eliminar Idiomas
+@login_required
+def eliminar_idiomas(request, pk):
+
+    var = IdiomaUsuario.objects.get(id_idioma_usuario=pk)
+
+    var.delete()
+
+    return redirect(to="perfil")
+
+#Vista para eliminar Educación
+@login_required
+def eliminar_educacion(request, pk):
+
+    var = Educacion.objects.get(id_educacion=pk)
+
+    var.delete()
+
+    return redirect(to="perfil")
+
+#Vista para eliminar Logros Académicos
+@login_required
+def eliminar_logros(request, pk):
+
+    var = UsuarioLogro.objects.get(id_usuario_logro=pk)
+
+    var.delete()
+
+    return redirect(to="perfil")
+
+#Vista para eliminar Experiencia Laboral
+@login_required
+def eliminar_exps(request, pk):
+
+    var = Experiencia.objects.get(id_experiencia=pk)
+
+    var.delete()
+
+    return redirect(to="perfil")
+
+
+#---- Editar Educación:
+
+def edit_educacion(request, pk):
+    educacion = Educacion.objects.get(id_educacion=pk)
+
+    if request.method == 'POST':
+        formulario_edit = EducacionForm(request.POST, request.FILES, instance=educacion)
+        if formulario_edit.is_valid:
+            formulario_edit.save()
+            return redirect(to="perfil")
+
+    else:
+        datos = {
+            'form': EducacionForm(instance=educacion) 
+        }
+        return render(request, 'perfil_educacion_edit.html', datos)
+    
+#---- Editar Experiencia Laboral:
+
+def edit_experiencia(request, pk):
+    experiencia = Experiencia.objects.get(id_experiencia=pk)
+
+    if request.method == 'POST':
+        formulario_edit = ExperienciaForm(request.POST, request.FILES, instance=experiencia)
+        if formulario_edit.is_valid:
+            formulario_edit.save()
+            return redirect(to="perfil")
+
+    else:
+        datos = {
+            'form': ExperienciaForm(instance=experiencia) 
+        }
+        return render(request, 'perfil_experiencia_edit.html', datos)
+    
+#---- Editar Dirección:
+
+def edit_direccion(request, pk):
+    direccion = Direccion.objects.get(id_direccion=pk)
+
+    if request.method == 'POST':
+        formulario_edit = DireccionForm(request.POST, request.FILES, instance=direccion)
+        if formulario_edit.is_valid:
+            formulario_edit.save()
+            return redirect(to="perfil")
+
+    else:
+        datos = {
+            'form': DireccionForm(instance=direccion) 
+        }
+        return render(request, 'perfil_direccion_edit.html', datos)
+    
+#---- Editar Datos personales:
+
+def edit_personal(request, pk):
+    personal = Usuario.objects.get(id_usuario=pk)
+
+    if request.method == 'POST':
+        formulario_edit = UsuarioForm(request.POST, request.FILES, instance=personal)
+        if formulario_edit.is_valid:
+            formulario_edit.save()
+            return redirect(to="perfil")
+
+    else:
+        datos = {
+            'form': UsuarioForm(instance=personal) 
+        }
+        return render(request, 'perfil_personal_edit.html', datos)

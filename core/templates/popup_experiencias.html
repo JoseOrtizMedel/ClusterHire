@@ -42,10 +42,10 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6" style="display: none;">
+                    <div class="col-lg-4" style="display: none;">
                         <div class="form-group">
-                            <label for="{{ exps_form.fk_id_usuario.id_for_label }}" style="color: #003e77;">ID Usuario:</label>
-                            {{ exps_form.fk_id_usuario }}
+                            <label for="{{ exps_form.fk_id_usuario.id_for_label }}" style="color: #003e77;">ID Usuario</label>
+                            <input type="text" class="form-control" name="fk_id_usuario" id="fk_id_usuario" readonly value="{{ request.user.id }}">
                         </div>
                     </div>
 
