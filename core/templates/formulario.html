@@ -1,13 +1,23 @@
-{% extends 'layout2.html' %}
+{% extends 'layout3.html' %}
 
 {% load static %}
 
 {% block content %}
 <br>
 
-<div id="titulo">
-    <h1>{{ nom_oferta }}</h1>
-</div>
+<div id="titulo">    <h1>{{ nom_oferta }}</h1>      </div>
+<script>
+    // Obtén el elemento h1 dentro del div con id "titulo"
+    var h1Element = document.querySelector('#titulo h1');
+    // Obtiene el contenido de {{ nom_oferta }}
+    var nomOferta = h1Element.textContent;
+    // Convierte el texto a mayúsculas
+    nomOferta = nomOferta.toUpperCase();
+    // Reemplaza los guiones "-" por espacios
+    nomOferta = nomOferta.replace(/-/g, ' ');
+    // Asigna el texto modificado de vuelta al elemento h1
+    h1Element.textContent = nomOferta;
+</script>
 
 <br>
 

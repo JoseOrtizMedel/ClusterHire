@@ -1,4 +1,4 @@
-{% extends 'layout2.html' %}
+{% extends 'layout3.html' %}
 <!-- Como se muestra arriba es como se carga parte del codigo, en esta hoja solo se trabajaria el body -->
 
 {% load static %}
@@ -74,6 +74,11 @@
                                     {% for competenciaoferta in ofe.competenciaoferta_set.all %}
                                     <li>{{ competenciaoferta.fk_id_competencia.nombre_competencia }}</li>
                                     {% endfor %}
+                                    <li>
+                                        <a href="{% url 'compe_oferta' ofe.id_oferta ofe.nom_oferta|slugify %}" class="btn btn-custom" id="enviar2" data-bs-toggle="modal" data-bs-target="#ofertaModal">
+                                          <span class="plus-icon">Agregar competencia</span>
+                                        </a>
+                                    </li>                                                                          
                                 </ul>
                             </p>                                                       
                         </td>
@@ -84,12 +89,13 @@
                     </tr>
                 {% endfor %}
 
-
             </tbody>
             </table>
+            
         </div>
     </div>
 </div>
+
 
 <!-- Coloca el código JavaScript al final de tu contenido -->
 

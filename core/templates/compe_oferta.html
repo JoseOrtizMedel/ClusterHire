@@ -6,9 +6,22 @@
 {% block content %}
 <br>
 
-<div id= "titulo">
-    <h1>Nueva oferta</h1>
+<div id="titulo">    
+    <h2>Nueva competencia para:</h2>
+    <h1><strong>{{ nom_oferta|upper }}</strong></h1>    
 </div>
+<script>
+    // Obtén el elemento h1 dentro del div con id "titulo"
+    var h1Element = document.querySelector('#titulo h1');
+    // Obtiene el contenido de {{ nom_oferta }}
+    var nomOferta = h1Element.textContent;
+    // Convierte el texto a mayúsculas
+    nomOferta = nomOferta.toUpperCase();
+    // Reemplaza los guiones "-" por espacios
+    nomOferta = nomOferta.replace(/-/g, ' ');
+    // Asigna el texto modificado de vuelta al elemento h1
+    h1Element.textContent = nomOferta;
+</script>
 
 <br>
 
@@ -22,40 +35,18 @@
             <form method="POST" action="" id="formulario">
                 {% csrf_token %}
 
+                <div class="form-group" style="display: none;">
+                    <label for="{{ fk_id_oferta }}" >Id_oferta</label>
+                    <input type="text" class="form-control" name="fk_id_oferta" id="fk_id_oferta" readonly value="{{ id_oferta }}">
+                </div>           
+                
                 <div class="form-group">
-                    <label for="nom_oferta">Nombre de la oferta</label>
-                    <input type="text" class="form-control" name="nom_oferta" id="nom_oferta" required placeholder="Ing. Informatico">
-                </div>
-
-                <div class="form-group">
-                    <label for="fecha_oferta">Fecha</label>
-                    <input type="text" class="form-control" name="fecha_oferta" id="fecha_oferta" readonly />
-                </div> 
-
-                <div class="form-group">
-                    <label for="anhos_experiencia">Años de experiencia</label>
-                    <input type="number" class="form-control" name="anhos_experiencia" id="anhos_experiencia" required placeholder="2">
-                </div>
-
-                <div class="form-group">
-                    <label for="{{ oferta_form.fk_id_tipo_cargo.id_for_label }}">Cargo</label>
-                    {{ oferta_form.fk_id_tipo_cargo }}
-                </div>
-
-                <div class="form-group">
-                    <label for="{{ oferta_form.fk_id_modalidad.id_for_label }}">Modalidad</label>
-                    {{ oferta_form.fk_id_modalidad }}
-                </div>
-
-                <div class="form-group">
-                    <label for="{{ oferta_form.fk_id_comuna.id_for_label }}">Comuna</label>
-                    {{ oferta_form.fk_id_comuna }}
-                </div>
-                                   
+                    <label for="{{ compeofe_form.fk_id_competencia.id_for_label }}">Seleccione la nueva competencia</label>
+                    {{ compeofe_form.fk_id_competencia }}
+                </div>                                  
                 
                 <!-- Botón a la derecha con margen -->
-                <div class="row">
-                    
+                <div class="row">                    
                     <div class="col">
                         <!-- Columna vacía para empujar el botón hacia la derecha -->
                     </div>
