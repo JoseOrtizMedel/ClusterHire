@@ -268,13 +268,13 @@ class Usuario_logroForm(forms.ModelForm):
         model = UsuarioLogro
         fields = ['id_usuario_logro', 'fk_id_usuario', 'fk_id_logro_academico']
 
-    pf_id_usuario = forms.ModelChoiceField(
+    fk_id_usuario = forms.ModelChoiceField(
         queryset=Usuario.objects.all(),
         empty_label=None,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
-    pf_id_logro_academico = forms.ModelChoiceField(
+    fk_id_logro_academico = forms.ModelChoiceField(
         queryset=LogroAcademico.objects.all(),
         empty_label=None,
         widget=forms.Select(attrs={'class': 'form-control'})
@@ -286,7 +286,7 @@ class Usuario_logroForm(forms.ModelForm):
         self.fields['fk_id_logro_academico'].label_from_instance = self.label_from_logro_academico_instance
 
     def label_from_usuario_instance(self, obj):
-        return obj.nombre
+        return obj.id_usuario
 
     def label_from_logro_academico_instance(self, obj):
         return obj.nom_logro
@@ -296,13 +296,13 @@ class IdiomaForm(forms.ModelForm):
         model = IdiomaUsuario
         fields = ['id_idioma_usuario', 'fk_id_idioma', 'fk_id_usuario']
 
-    pf_id_idioma = forms.ModelChoiceField(
+    fk_id_idioma = forms.ModelChoiceField(
         queryset=Idioma.objects.all(),
         empty_label=None,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
-    pf_id_usuario = forms.ModelChoiceField(
+    fk_id_usuario = forms.ModelChoiceField(
         queryset=Usuario.objects.all(),
         empty_label=None,
         widget=forms.Select(attrs={'class': 'form-control'})
@@ -310,11 +310,11 @@ class IdiomaForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-#        self.fields['pf_id_usuario'].label_from_instance = self.label_from_usuario_instance
+        self.fields['fk_id_usuario'].label_from_instance = self.label_from_usuario_instance
         self.fields['fk_id_idioma'].label_from_instance = self.label_from_idioma_instance
 
-#    def label_from_usuario_instance(self, obj):
-#        return obj.nombre
+    def label_from_usuario_instance(self, obj):
+        return obj.id_usuario
 
     def label_from_idioma_instance(self, obj):
         return obj.nombre_idioma
@@ -384,13 +384,13 @@ class EducacionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-#        self.fields['fk_id_usuario'].label_from_instance = self.label_from_usuario_instance
+        self.fields['fk_id_usuario'].label_from_instance = self.label_from_usuario_instance
         self.fields['fk_id_institucion'].label_from_instance = self.label_from_institucion_instance
         self.fields['fk_id_formacion'].label_from_instance = self.label_from_formacion_instance
         self.fields['fk_id_titulo'].label_from_instance = self.label_from_titulo_instance
 
-#    def label_from_usuario_instance(self, obj):
-#        return obj.nombre_habilidad
+    def label_from_usuario_instance(self, obj):
+        return obj.id_usuario
 
     def label_from_institucion_instance(self, obj):
         return obj.nombre_institucion

@@ -98,6 +98,8 @@ def compe_oferta(request, id_oferta, nom_oferta):
 
 
 
+
+
 @login_required
 def formulario(request, id_oferta, nom_oferta, ):
     datos = {'form': FormularioForm()}
@@ -208,13 +210,15 @@ def perfilPers(request):
             # Asigna el valor request.user.id a la propiedad id_usuario
             form_usuario_instance.id_usuario = request.user.id
 
+            form_usuario_instance.fk_id_direccion = Direccion.objects.last()
+
             # Ahora guarda la instancia de Usuario
             print(form_usuario_instance.fk_id_direccion)
             form_usuario_instance.save()
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
-            return redirect('perfil_experiencia')
+            return redirect('perfil')
             
     datos['mensaje'] = "Guardado Correctamente"
     time.sleep(2.5)
@@ -237,13 +241,47 @@ def perfilExp(request):
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
-            return redirect('perfil_competencias')
+            return redirect('perfil')
 
     return render(request, 'perfil_experiencia.html', datos)
 
 # Vista combinada para CompetenciaForm
 @login_required
-def perfilCompe(request):
+def perfilEduc(request):
+
+    datos = {
+        'educacion_form': EducacionForm(),
+        'usuario_logro_form': Usuario_logroForm(),
+    }
+
+    if request.method == 'POST':
+        form_educacion = EducacionForm(request.POST)
+
+        if form_educacion.is_valid():
+
+            form_educacion.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('home')
+        
+        if request.method == 'POST':
+            form_logro = Usuario_logroForm(request.POST)
+
+            if form_logro.is_valid():
+
+                form_logro.save()
+
+                datos['mensaje'] = "Guardado Correctamente"
+                time.sleep(2.5)
+                return redirect('home')
+        
+    return render(request, 'perfil_educacion.html', datos)
+
+
+# Vista GET para Usuario en Perfil.html
+@login_required
+def perfil(request):
 
     # Obtiene las competencias del usuario
     competencias = CompetenciaUsuario.objects.filter(fk_id_usuario=request.user.id)
@@ -254,10 +292,26 @@ def perfilCompe(request):
     # Obtiene los idiomas del usuario
     idiomas = IdiomaUsuario.objects.filter(fk_id_usuario=request.user.id)
 
+    # Obtiene la educación del usuario
+    educaciones = Educacion.objects.filter(fk_id_usuario=request.user.id)
+
+    # Obtiene la educación del usuario
+    logros = UsuarioLogro.objects.filter(fk_id_usuario=request.user.id)
+
+    # Obtiene la experiencia laboral del usuario
+    experiencias = Experiencia.objects.filter(fk_id_usuario=request.user.id)
+
+    # Obtiene al usuario (columna dirección)
+    u_direcciones = Usuario.objects.filter(id_usuario=request.user.id)
+
     datos = {
         'competencia_form': CompetenciaForm(),
         'habilidad_form': HabilidadForm(),
         'idioma_form': IdiomaForm(),
+        'educacion_form': EducacionForm(),
+        'logros_form': Usuario_logroForm(),
+        'exps_form': ExperienciaForm(),
+        'u_dires_form': UsuarioForm(),
 
     }
 
@@ -265,11 +319,19 @@ def perfilCompe(request):
     datos['competencias'] = competencias
     datos['habilidades'] = habilidades
     datos['idiomas'] = idiomas
+    datos['educaciones'] = educaciones
+    datos['logros'] = logros
+    datos['experiencias'] = experiencias
+    datos['usuarios'] = u_direcciones
 
     if request.method == 'POST':
         form_competencia = CompetenciaForm(request.POST)
         form_habilidad = HabilidadForm(request.POST)
         form_idioma = IdiomaForm(request.POST)
+        form_educacion = EducacionForm(request.POST)
+        form_logro = Usuario_logroForm(request.POST)
+        form_experiencia = ExperienciaForm(request.POST)
+        form_u_direccion = UsuarioForm(request.POST)
 
         if form_competencia.is_valid():
 
@@ -277,7 +339,7 @@ def perfilCompe(request):
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
-            return redirect('perfil_competencias')
+            return redirect('perfil')
 
         if form_habilidad.is_valid():
 
@@ -285,7 +347,7 @@ def perfilCompe(request):
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
-            return redirect('perfil_competencias')
+            return redirect('perfil')
         
         if form_idioma.is_valid():
 
@@ -293,28 +355,168 @@ def perfilCompe(request):
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
-            return redirect('perfil_competencias')
+            return redirect('perfil')
+    
+        if form_educacion.is_valid():
+
+            form_educacion.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil')
+
+        if form_logro.is_valid():
+
+            form_logro.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil')
         
-    return render(request, 'compe_habi_idio.html', datos)
+        if form_experiencia.is_valid():
+
+            form_experiencia.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil')
+        
+        if form_u_direccion.is_valid():
+
+            form_u_direccion.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil')
+        
+    return render(request, 'perfil.html', datos)
 
 
-#Vista POST para CompetenciaForm
-#@login_required
-#def perfilExp(request):
-#    datos = {
-#        'competencia_form': CompetenciaForm(),
+#Vista para eliminar Competencias
+@login_required
+def eliminar_compes(request, pk):
 
-#        }
+    var = CompetenciaUsuario.objects.get(id_compe_usuario=pk)
 
-#    if request.method == 'POST':
-#        competencia_form = CompetenciaForm(request.POST)
+    var.delete()
 
-#        if competencia_form.is_valid(): 
+    return redirect(to="perfil")
 
-#            competencia_form.save()
+#Vista para eliminar Habilidades
+@login_required
+def eliminar_habis(request, pk):
 
-#            datos['mensaje'] = "Guardado Correctamente"
-#            time.sleep(2.5)
-#            return redirect('perfil_competencia')
+    var = HabilidadUsuario.objects.get(id_habilidad_usuario=pk)
 
-#    return render(request, 'perfil_competencia.html', datos)
+    var.delete()
+
+    return redirect(to="perfil")
+
+#Vista para eliminar Idiomas
+@login_required
+def eliminar_idiomas(request, pk):
+
+    var = IdiomaUsuario.objects.get(id_idioma_usuario=pk)
+
+    var.delete()
+
+    return redirect(to="perfil")
+
+#Vista para eliminar Educación
+@login_required
+def eliminar_educacion(request, pk):
+
+    var = Educacion.objects.get(id_educacion=pk)
+
+    var.delete()
+
+    return redirect(to="perfil")
+
+#Vista para eliminar Logros Académicos
+@login_required
+def eliminar_logros(request, pk):
+
+    var = UsuarioLogro.objects.get(id_usuario_logro=pk)
+
+    var.delete()
+
+    return redirect(to="perfil")
+
+#Vista para eliminar Experiencia Laboral
+@login_required
+def eliminar_exps(request, pk):
+
+    var = Experiencia.objects.get(id_experiencia=pk)
+
+    var.delete()
+
+    return redirect(to="perfil")
+
+
+#---- Editar Educación:
+
+def edit_educacion(request, pk):
+    educacion = Educacion.objects.get(id_educacion=pk)
+
+    if request.method == 'POST':
+        formulario_edit = EducacionForm(request.POST, request.FILES, instance=educacion)
+        if formulario_edit.is_valid:
+            formulario_edit.save()
+            return redirect(to="perfil")
+
+    else:
+        datos = {
+            'form': EducacionForm(instance=educacion) 
+        }
+        return render(request, 'perfil_educacion_edit.html', datos)
+    
+#---- Editar Experiencia Laboral:
+
+def edit_experiencia(request, pk):
+    experiencia = Experiencia.objects.get(id_experiencia=pk)
+
+    if request.method == 'POST':
+        formulario_edit = ExperienciaForm(request.POST, request.FILES, instance=experiencia)
+        if formulario_edit.is_valid:
+            formulario_edit.save()
+            return redirect(to="perfil")
+
+    else:
+        datos = {
+            'form': ExperienciaForm(instance=experiencia) 
+        }
+        return render(request, 'perfil_experiencia_edit.html', datos)
+    
+#---- Editar Dirección:
+
+def edit_direccion(request, pk):
+    direccion = Direccion.objects.get(id_direccion=pk)
+
+    if request.method == 'POST':
+        formulario_edit = DireccionForm(request.POST, request.FILES, instance=direccion)
+        if formulario_edit.is_valid:
+            formulario_edit.save()
+            return redirect(to="perfil")
+
+    else:
+        datos = {
+            'form': DireccionForm(instance=direccion) 
+        }
+        return render(request, 'perfil_direccion_edit.html', datos)
+    
+#---- Editar Datos personales:
+
+def edit_personal(request, pk):
+    personal = Usuario.objects.get(id_usuario=pk)
+
+    if request.method == 'POST':
+        formulario_edit = UsuarioForm(request.POST, request.FILES, instance=personal)
+        if formulario_edit.is_valid:
+            formulario_edit.save()
+            return redirect(to="perfil")
+
+    else:
+        datos = {
+            'form': UsuarioForm(instance=personal) 
+        }
+        return render(request, 'perfil_personal_edit.html', datos)

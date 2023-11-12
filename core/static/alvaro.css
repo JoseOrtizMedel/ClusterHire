@@ -6,6 +6,7 @@
   
   body{
     background-color: #e5e5e5;
+    max-width: 100%;
   }
 
   #tituloCard1 {
@@ -25,9 +26,9 @@
       background: rgb(255, 255, 255);
       color: rgb(223, 1, 12) !important;
       box-shadow:
-      0 0 10px rgba(0, 0, 0, 0.0), /* Sombra interna */
-      0 0 20px rgba(0, 0, 0, 0.0), /* Sombra intermedia */
-      0 0 40px rgb(173, 173, 173, 1); /* Sombra exterior */;
+      0 0 10px rgba(0, 0, 0, 0.0),
+      0 0 20px rgba(0, 0, 0, 0.0),
+      0 0 40px rgb(173, 173, 173, 1);
     
       -moz-border-radius: 4px;
       -webkit-border-radius: 4px;
@@ -40,9 +41,9 @@
     background: rgb(255, 255, 255);
     color: rgb(223, 1, 12) !important;
     box-shadow:
-    0 0 10px rgba(0, 0, 0, 0.0), /* Sombra interna */
-    0 0 20px rgba(0, 0, 0, 0.0), /* Sombra intermedia */
-    0 0 40px rgb(173, 173, 173, 1); /* Sombra exterior */;
+    0 0 10px rgba(0, 0, 0, 0.0),
+    0 0 20px rgba(0, 0, 0, 0.0),
+    0 0 40px rgb(173, 173, 173, 1);
   
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -55,9 +56,9 @@
     background: rgb(255, 255, 255);
     color: rgb(223, 1, 12) !important;
     box-shadow:
-    0 0 10px rgba(0, 0, 0, 0.0), /* Sombra interna */
-    0 0 20px rgba(0, 0, 0, 0.0), /* Sombra intermedia */
-    0 0 40px rgb(173, 173, 173, 1); /* Sombra exterior */;
+    0 0 10px rgba(0, 0, 0, 0.0),
+    0 0 20px rgba(0, 0, 0, 0.0),
+    0 0 40px rgb(173, 173, 173, 1);
   
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -69,10 +70,10 @@
     padding: 20px;
     background: rgb(255, 255, 255);
     color: rgb(0, 0, 0) !important;
-    box-shadow:
-    0 0 10px rgba(0, 0, 0, 0.0), /* Sombra interna */
-    0 0 20px rgba(0, 0, 0, 0.0), /* Sombra intermedia */
-    0 0 40px rgb(173, 173, 173, 1); /* Sombra exterior */;
+/*     box-shadow:
+    0 0 10px rgba(0, 0, 0, 0.0),
+    0 0 20px rgba(0, 0, 0, 0.0),
+    0 0 40px rgb(173, 173, 173, 1); */
   
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
