@@ -60,27 +60,16 @@ def obtener_id_usuario(request):
 def nueva_oferta(request):
 
     datos = {
-        'oferta_form': OfertaForm(),
-        'compeofe_form': CompeOfeForm()
+        'oferta_form': OfertaForm()
     }
 
     if request.method == 'POST':
         oferta_formulario = OfertaForm(request.POST)
-        compeofe_formulario = CompeOfeForm(request.POST)
 
-        if oferta_formulario.is_valid()  and compeofe_formulario.is_valid(): 
+        if oferta_formulario.is_valid(): 
 
             # Guarda la oferta
             oferta = oferta_formulario.save()
-
-            # Obtén la instancia de CompetenciaOferta sin guardarla todavía
-            compeofe_instance = compeofe_formulario.save(commit=False)
-
-            # Establece el campo fk_id_oferta como la instancia de la oferta
-            compeofe_instance.fk_id_oferta = oferta
-
-            # Ahora guarda la instancia de CompetenciaOferta
-            compeofe_instance.save()
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
