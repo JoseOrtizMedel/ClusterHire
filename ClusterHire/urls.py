@@ -45,8 +45,10 @@ urlpatterns = [
     path('formulario/<int:id_oferta>/<str:nom_oferta>/', views.formulario, name='formulario'),
     path('compe_oferta/<int:id_oferta>/<str:nom_oferta>/', views.compe_oferta, name='compe_oferta'),
 
-    path('ciencia/', ciencia.ciencia_datos, name='ciencia_datos'),
-    path('exportar-csv/', ciencia.exportar_datos_a_csv, name='exportar_csv'),
+    path('exportar_csv/<int:id_oferta>/<str:nom_oferta>/', ciencia.exportar_csv, name='exportar_csv'),
+    path('ciencia/<int:id_oferta>/<str:nom_oferta>/', views.ciencia, name='ciencia'),
+    path('read_csv/<int:id_oferta>/', ciencia.read_csv, name='read_csv'),
+    
     
     path('perfil_direccion/', views.perfilDire, name='perfil_direccion'),
     path('perfil_personal/', views.perfilPers, name='perfil_personal'),
