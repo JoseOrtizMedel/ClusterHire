@@ -11,7 +11,8 @@ def exportar_datos_a_csv(request):
     # Reemplaza estos valores con tu información de conexión
     username = 'usuario'
     password = 'usuario'
-    database = 'localhost:1521/xe'
+    #database = 'localhost:1521/xe'
+    database = 'localhost:1521/orcl' #alvi
 
     try:
         # Crea una conexión a la base de datos

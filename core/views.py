@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
-from .models import CompetenciaUsuario, Comuna, Direccion, HabilidadUsuario, IdiomaUsuario, Oferta, Formulario, Usuario, Competencia
+from .models import CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, HabilidadUsuario, IdiomaUsuario, Oferta, Formulario, Usuario, Competencia, UsuarioLogro
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import CiudadForm, CompetenciaForm, ComunaForm, CustomUserCreationForm, DireccionForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm,  TituloProfForm, Usuario_logroForm, UsuarioForm, OfertaForm, FormularioForm, CompeOfeForm
@@ -190,6 +190,7 @@ def perfilDire(request):
     datos['mensaje'] = "Guardado Correctamente"
     time.sleep(2.5)
     return render(request, 'perfil_direccion.html', datos)
+
 
 #Vista para UsuarioForm
 @login_required
