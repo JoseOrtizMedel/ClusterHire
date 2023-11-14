@@ -19,17 +19,19 @@ from django.conf.urls.static import static
 from django .conf import settings
 from core import views, ciencia
 from django.contrib.auth import views as auth_views
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView, LoginView, LogoutView
 
 
 urlpatterns = [
     path('', include('core.urls')), 
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
+    path('', LoginView.as_view(template_name='registration/login.html'), name='home'),
     path('nueva_oferta/', views.nueva_oferta, name='nueva_oferta'),
     path('ofertas_admin/', views.ofertas_admin, name='ofertas_admin'),
     path('ofertas_user/', views.ofertas_user, name='ofertas_user'),
     path('accounts/', include('django.contrib.auth.urls')),
+    #path('login/', LoginView.as_view(template_name='registration/login.html'), name='login'),
+    #path('logout/', LogoutView.as_view(template_name='registration/logout.html'), name='logout'),
     path('password-reset/',
          PasswordResetView.as_view(
              template_name='users/password_reset.html',

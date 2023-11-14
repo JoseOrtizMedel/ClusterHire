@@ -1,15 +1,15 @@
 from django.urls import path
 
-from .views import edit_direccion, edit_educacion, edit_experiencia, edit_personal, eliminar_compes, eliminar_educacion, eliminar_exps, eliminar_habis, eliminar_idiomas, eliminar_logros, home, nueva_oferta, ofertas_admin, ofertas_user, perfil, perfilDire, perfilEduc, perfilExp, register, login, eliminar_oferta, formulario, perfilPers, compe_oferta
+from .views import edit_direccion, edit_educacion, edit_experiencia, edit_personal, eliminar_compes, eliminar_educacion, eliminar_exps, eliminar_habis, eliminar_idiomas, eliminar_logros, nueva_oferta, ofertas_admin, ofertas_user, perfil, perfilDire, perfilEduc, perfilExp, register, eliminar_oferta, formulario, perfilPers, compe_oferta
 
 
 from .ciencia import ciencia_datos, exportar_datos_a_csv
 
 from django.contrib.auth import views as auth_views
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView, LoginView, LogoutView
 
 urlpatterns = [
-    path('', home, name="home"),
+    path('', LoginView.as_view(template_name='registration/login.html'), name="home"),
     path('nueva_oferta', nueva_oferta, name="nueva_oferta"),
     path('ofertas_admin', ofertas_admin, name="ofertas_admin"),
     path('ofertas_user', ofertas_user, name="ofertas_user"),

@@ -4,32 +4,33 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
-from .models import CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, HabilidadUsuario, IdiomaUsuario, Oferta, Formulario, Usuario, Competencia, UsuarioLogro
+from .models import CompetenciaOferta, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, HabilidadUsuario, IdiomaUsuario, Oferta, Formulario, Usuario, Competencia, UsuarioLogro
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import CiudadForm, CompetenciaForm, ComunaForm, CustomUserCreationForm, DireccionForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm,  TituloProfForm, Usuario_logroForm, UsuarioForm, OfertaForm, FormularioForm, CompeOfeForm
-
-from django.http import JsonResponse
-from django.urls import reverse
-from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import get_object_or_404
-from django.shortcuts import render, redirect
-from .models import Oferta, Formulario, CompetenciaOferta
-from django.contrib.auth import authenticate, login
 
 import time
 from django import forms
 
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-
 from django.db.models import Count
 from django.db import connection
 
+def is_superadmin(user):
+    return user.is_superuser
 
 
-def home(request):
-    return render(request, 'home.html')
+def validar_usuario(request):
+    username = request.POST["username"]
+
+    # Validar si el usuario existe
+    user = Usuario.objects.filter(username=username).first()
+
+    if user is not None:
+        return True
+    else:
+        return False
+
 
 def register(request):
 
@@ -56,7 +57,7 @@ def obtener_id_usuario(request):
     user_id = request.user.id
     return HttpResponse(f'ID del usuario autenticado: {user_id}')
 
-@login_required
+@user_passes_test(is_superadmin)
 def nueva_oferta(request):
 
     datos = {
@@ -97,9 +98,6 @@ def compe_oferta(request, id_oferta, nom_oferta):
     return render(request, 'compe_oferta.html', {'id_oferta': id_oferta, 'nom_oferta': nom_oferta, 'compeofe_form': compeofe_form, 'competencias': competencias_disponibles})
 
 
-
-
-
 @login_required
 def formulario(request, id_oferta, nom_oferta, ):
     datos = {'form': FormularioForm()}
@@ -128,18 +126,13 @@ def obtener_conteo_formularios():
     return conteo_formularios
 
 
-
-
-@login_required
+@user_passes_test(is_superadmin)
 def ofertas_admin(request):    
 
     ofertas = Oferta.objects.all().select_related('fk_id_tipo_cargo').prefetch_related('competenciaoferta_set__fk_id_competencia')
     ofertas = Oferta.objects.annotate(num_formularios=Count('formulario'))
 
     return render(request, 'ofertas_admin.html', {'ofertas': ofertas})
-
-
-
 
 @login_required
 def ofertas_user(request):
@@ -305,6 +298,12 @@ def perfil(request):
     # Obtiene al usuario (columna dirección)
     u_direcciones = Usuario.objects.filter(id_usuario=request.user.id)
 
+    # Obtiene la direccion
+    direcciones = Direccion.objects.filter()
+
+    # Obtiene la direccion
+    #usuarios = Usuario.objects.filter(fk_id_direccion = Direccion.objects.last())
+
     datos = {
         'competencia_form': CompetenciaForm(),
         'habilidad_form': HabilidadForm(),
@@ -313,6 +312,8 @@ def perfil(request):
         'logros_form': Usuario_logroForm(),
         'exps_form': ExperienciaForm(),
         'u_dires_form': UsuarioForm(),
+        'dires_form': DireccionForm(),
+        #'users_form': UsuarioForm(),
 
     }
 
@@ -324,6 +325,8 @@ def perfil(request):
     datos['logros'] = logros
     datos['experiencias'] = experiencias
     datos['usuarios'] = u_direcciones
+    datos['direcciones'] = direcciones
+    #datos['users'] = usuarios
 
     if request.method == 'POST':
         form_competencia = CompetenciaForm(request.POST)
@@ -333,6 +336,8 @@ def perfil(request):
         form_logro = Usuario_logroForm(request.POST)
         form_experiencia = ExperienciaForm(request.POST)
         form_u_direccion = UsuarioForm(request.POST)
+        form_direccion = DireccionForm(request.POST)
+        #form_usuario = UsuarioForm(request.POST)
 
         if form_competencia.is_valid():
 
@@ -384,7 +389,25 @@ def perfil(request):
         
         if form_u_direccion.is_valid():
 
-            form_u_direccion.save()
+            # Asigna la instancia de Usuario
+            form_usuario_instance = form_u_direccion.save(commit=False)
+
+            # Asigna el valor request.user.id a la propiedad id_usuario
+            form_usuario_instance.id_usuario = request.user.id
+
+            form_usuario_instance.fk_id_direccion = Direccion.objects.last()
+
+            # Ahora guarda la instancia de Usuario
+            print(form_usuario_instance.fk_id_direccion)
+            form_usuario_instance.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil')
+        
+        if form_direccion.is_valid():
+
+            form_direccion.save()
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
