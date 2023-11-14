@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import  ciencia, edit_direccion, edit_educacion, edit_experiencia, edit_personal, eliminar_compes, eliminar_educacion, eliminar_exps, eliminar_habis, eliminar_idiomas, eliminar_logros, home, nueva_oferta, ofertas_admin, ofertas_user, perfil, perfilDire, perfilEduc, perfilExp, register, login, eliminar_oferta, formulario, perfilPers, compe_oferta
+from .views import  ciencia, edit_direccion, edit_educacion, edit_experiencia, edit_personal, eliminar_compes, eliminar_educacion, eliminar_exps, eliminar_habis, eliminar_idiomas, eliminar_logros, nueva_oferta, ofertas_admin, ofertas_user, perfil, perfilDire, perfilEduc, perfilExp, register, login, eliminar_oferta, formulario, perfilPers, compe_oferta
 
 
 
