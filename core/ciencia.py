@@ -41,7 +41,8 @@ def exportar_csv(request, id_oferta, nom_oferta ):
     # Reemplaza estos valores con tu información de conexión
     username = 'usuario'
     password = 'usuario'
-    database = 'localhost:1521/xe'
+    #database = 'localhost:1521/xe'
+    database = 'localhost:1521/orcl' #alvi
 
 
     # Crea una conexión a la base de datos
