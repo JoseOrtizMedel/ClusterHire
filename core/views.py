@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from .models import CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, HabilidadUsuario, IdiomaUsuario, Oferta, Formulario, Usuario, UsuarioLogro
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import CiudadForm, CompetenciaForm, ComunaForm, CustomUserCreationForm, DireccionForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm,  TituloProfForm, Usuario_logroForm, UsuarioForm, OfertaForm, FormularioForm, CompeOfeForm
 
 from django.http import JsonResponse
@@ -26,6 +26,9 @@ from django.http import HttpResponse
 from django.db.models import Count
 from django.db import connection
 
+
+def is_superadmin(user):
+    return user.is_superuser
 
 
 def home(request):
@@ -56,7 +59,7 @@ def obtener_id_usuario(request):
     user_id = request.user.id
     return HttpResponse(f'ID del usuario autenticado: {user_id}')
 
-@login_required
+@user_passes_test(is_superadmin)
 def nueva_oferta(request):
     datos = {
         'oferta_form': OfertaForm(),
@@ -114,7 +117,7 @@ def obtener_conteo_formularios():
     conteo_formularios = Oferta.objects.annotate(num_postulantes=Count('formulario'))
     return conteo_formularios
 
-@login_required
+@user_passes_test(is_superadmin)
 def ofertas_admin(request):
     ofertas = Oferta.objects.all().select_related('fk_id_tipo_cargo').prefetch_related('competenciaoferta_set__fk_id_competencia')
     ofertas = Oferta.objects.annotate(num_formularios=Count('formulario'))
@@ -500,3 +503,6 @@ def edit_personal(request, pk):
             'form': UsuarioForm(instance=personal) 
         }
         return render(request, 'perfil_personal_edit.html', datos)
+
+
+
