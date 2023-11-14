@@ -1,9 +1,10 @@
 from django.urls import path
 
-from .views import edit_direccion, edit_educacion, edit_experiencia, edit_personal, eliminar_compes, eliminar_educacion, eliminar_exps, eliminar_habis, eliminar_idiomas, eliminar_logros, nueva_oferta, ofertas_admin, ofertas_user, perfil, perfilDire, perfilEduc, perfilExp, register, eliminar_oferta, formulario, perfilPers, compe_oferta
+from .views import  ciencia, edit_direccion, edit_educacion, edit_experiencia, edit_personal, eliminar_compes, eliminar_educacion, eliminar_exps, eliminar_habis, eliminar_idiomas, eliminar_logros, home, nueva_oferta, ofertas_admin, ofertas_user, perfil, perfilDire, perfilEduc, perfilExp, register, login, eliminar_oferta, formulario, perfilPers, compe_oferta
 
 
-from .ciencia import ciencia_datos, exportar_datos_a_csv
+
+from .ciencia import  read_csv, exportar_csv
 
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView, LoginView, LogoutView
@@ -35,7 +36,8 @@ urlpatterns = [
     path('edit_direccion/<pk>/', edit_direccion, name="edit_direccion"),
     path('edit_personal/<pk>/', edit_personal, name="edit_personal"),
 
-    path('ciencia', ciencia_datos, name="ciencia"),
-    path('exportar-csv/', exportar_datos_a_csv, name='exportar_csv'),
+    path('exportar_csv/<int:id_oferta>/<str:nom_oferta>/', exportar_csv, name='exportar_csv'),
+    path('ciencia/<int:id_oferta>/<str:nom_oferta>/', ciencia, name='ciencia'),
+    path('read_csv/<int:id_oferta>/', read_csv, name='read_csv'),
 
 ]

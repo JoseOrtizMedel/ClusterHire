@@ -83,8 +83,8 @@ WSGI_APPLICATION = 'ClusterHire.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        #'NAME': 'localhost:1521/xe',
-        'NAME': 'localhost:1521/orcl', #alvi
+        'NAME': 'localhost:1521/xe',
+        #'NAME': 'localhost:1521/orcl', #alvi
         'USER': 'usuario',
         'PASSWORD': 'usuario',
         'TEST': {

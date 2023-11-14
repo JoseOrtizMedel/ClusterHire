@@ -4,8 +4,12 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
+
+from .models import CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, HabilidadUsuario, IdiomaUsuario, Oferta, Formulario, Usuario, Competencia, UsuarioLogro
+
 from .models import CompetenciaOferta, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, HabilidadUsuario, IdiomaUsuario, Oferta, Formulario, Usuario, Competencia, UsuarioLogro
 from django.contrib import messages
+
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import CiudadForm, CompetenciaForm, ComunaForm, CustomUserCreationForm, DireccionForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm,  TituloProfForm, Usuario_logroForm, UsuarioForm, OfertaForm, FormularioForm, CompeOfeForm
@@ -119,6 +123,16 @@ def formulario(request, id_oferta, nom_oferta, ):
             print("El formulario se ha guardado correctamente")
             return redirect('ofertas_user')
     return render(request, 'formulario.html', {'id_oferta': id_oferta, 'nom_oferta': nom_oferta})
+    
+
+@login_required
+def ciencia(request, id_oferta, nom_oferta, ):
+    context = {
+        'id_oferta': id_oferta,
+        'nom_oferta': nom_oferta,
+        # Otros datos que quieras pasar al contexto
+    }
+    return render(request, 'ciencia.html', context)
 
 @login_required
 def obtener_conteo_formularios():
