@@ -24,7 +24,7 @@
   #formularioPerfilDire {
       padding: 20px;
       background: rgb(255, 255, 255);
-      color: rgb(223, 1, 12) !important;
+      color: rgb(0, 0, 0) !important;
       box-shadow:
       0 0 10px rgba(0, 0, 0, 0.0),
       0 0 20px rgba(0, 0, 0, 0.0),
@@ -39,7 +39,7 @@
   #formularioPerfilPers {
     padding: 20px;
     background: rgb(255, 255, 255);
-    color: rgb(223, 1, 12) !important;
+    color: rgb(0, 0, 0) !important;
     box-shadow:
     0 0 10px rgba(0, 0, 0, 0.0),
     0 0 20px rgba(0, 0, 0, 0.0),
@@ -144,6 +144,12 @@
   
  
   #enviar {
+    color: #ffffff;
+    background-color: #0076bc;
+  }
+
+
+  #btnEnviarModalDire {
     color: #ffffff;
     background-color: #0076bc;
   }

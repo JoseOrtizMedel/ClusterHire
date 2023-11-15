@@ -25,7 +25,8 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, 
 urlpatterns = [
     path('', include('core.urls')), 
     path('admin/', admin.site.urls),
-    path('', LoginView.as_view(template_name='registration/login.html'), name='home'),
+    path('', views.user_login, name="login"),
+    #path('', LoginView.as_view(template_name='registration/login.html'), name='home'),
     path('nueva_oferta/', views.nueva_oferta, name='nueva_oferta'),
     path('ofertas_admin/', views.ofertas_admin, name='ofertas_admin'),
     path('ofertas_user/', views.ofertas_user, name='ofertas_user'),
@@ -58,4 +59,7 @@ urlpatterns = [
     #path('perfil_competencias/', views.perfilCompe, name='perfil_competencias'),
     path('perfil_educacion/', views.perfilEduc, name='perfil_educacion'),
     path('perfil/', views.perfil, name='perfil'),
+    path('perfil2/', views.perfil2, name='perfil2'),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

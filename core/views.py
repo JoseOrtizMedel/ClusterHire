@@ -1,4 +1,5 @@
 
+from django import forms
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
@@ -9,7 +10,7 @@ from .models import CompetenciaOferta, CompetenciaUsuario, Direccion, Educacion,
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .forms import CompetenciaForm, CustomUserCreationForm, DireccionForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm,  Usuario_logroForm, UsuarioForm, OfertaForm, FormularioForm, CompeOfeForm
+from .forms import CompetenciaForm, CustomUserCreationForm, DireccionForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm, LoginForm,  Usuario_logroForm, UsuarioForm, OfertaForm, FormularioForm, CompeOfeForm
 
 import time
 
@@ -18,17 +19,31 @@ from django.db.models import Count
 def is_superadmin(user):
     return user.is_superuser
 
+#---- Error 404:
+def error_404(request):
+    context = {}
+    response = render(request, '404.html', context=context)
+    response.status_code = 404
+    return response
 
-def validar_usuario(request):
-    username = request.POST["username"]
-
-    # Validar si el usuario existe
-    user = Usuario.objects.filter(username=username).first()
-
-    if user is not None:
-        return True
+def user_login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            usuario = form.cleaned_data['usuario']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=usuario, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return redirect('perfil2')
+                else:
+                    return HttpResponse("Cuenta deshabilitada")
+            else:
+                return redirect('404')
     else:
-        return False
+        form = LoginForm()
+    return render(request, 'registration/login.html', {'form': form})
 
 
 def register(request):
@@ -281,7 +296,6 @@ def perfilEduc(request):
         
     return render(request, 'perfil_educacion.html', datos)
 
-
 # Vista GET para Usuario en Perfil.html
 @login_required
 def perfil(request):
@@ -347,30 +361,95 @@ def perfil(request):
         form_u_direccion = UsuarioForm(request.POST)
         form_direccion = DireccionForm(request.POST)
         #form_usuario = UsuarioForm(request.POST)
+        
+        if form_u_direccion.is_valid():
 
-        if form_competencia.is_valid():
+            # Asigna la instancia de Usuario
+            form_usuario_instance = form_u_direccion.save(commit=False)
 
-            form_competencia.save()
+            # Asigna el valor request.user.id a la propiedad id_usuario
+            form_usuario_instance.id_usuario = request.user.id
+
+            form_usuario_instance.fk_id_direccion = Direccion.objects.last()
+
+            # Ahora guarda la instancia de Usuario
+            print(form_usuario_instance.fk_id_direccion)
+            form_usuario_instance.save()
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
-            return redirect('perfil')
+            return redirect('perfil2')
+        
+        if form_direccion.is_valid():
+
+            form_direccion.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil2')
+        
+        if form_competencia.is_valid():
+
+            # Obtiene la competencia del formulario
+            competencia = form_competencia.cleaned_data['fk_id_competencia']
+
+            # Verifica si la competencia ya existe
+            competencia_existente = CompetenciaUsuario.objects.filter(fk_id_usuario=request.user.id, fk_id_competencia=competencia).first()
+
+            # Verifica si la competencia es nueva
+            if not competencia_existente:
+                # La competencia es nueva
+                form_competencia.save()
+
+                datos['mensaje'] = "Guardado Correctamente"
+                time.sleep(2.5)
+                return redirect('perfil2')
+            else:
+                # La competencia ya existe
+                # Muestra un mensaje de validación
+                datos['mensaje'] = "La competencia ya existe"
 
         if form_habilidad.is_valid():
 
-            form_habilidad.save()
+            # Obtiene la competencia del formulario
+            habilidad = form_habilidad.cleaned_data['fk_id_habilidad']
 
-            datos['mensaje'] = "Guardado Correctamente"
-            time.sleep(2.5)
-            return redirect('perfil')
-        
+            # Verifica si la competencia ya existe
+            habilidad_existente = HabilidadUsuario.objects.filter(fk_id_usuario=request.user.id, fk_id_habilidad=habilidad).first()
+
+            # Verifica si la competencia es nueva
+            if not habilidad_existente:
+                # La competencia es nueva
+                form_habilidad.save()
+
+                datos['mensaje'] = "Guardado Correctamente"
+                time.sleep(2.5)
+                return redirect('perfil2')
+            else:
+                # La competencia ya existe
+                # Muestra un mensaje de validación
+                datos['mensaje'] = "La habilidad ya existe"
+
         if form_idioma.is_valid():
 
-            form_idioma.save()
+            # Obtiene la competencia del formulario
+            idioma = form_idioma.cleaned_data['fk_id_idioma']
 
-            datos['mensaje'] = "Guardado Correctamente"
-            time.sleep(2.5)
-            return redirect('perfil')
+            # Verifica si la competencia ya existe
+            idioma_existente = IdiomaUsuario.objects.filter(fk_id_usuario=request.user.id, fk_id_idioma=idioma).first()
+
+            # Verifica si la competencia es nueva
+            if not idioma_existente:
+                # La competencia es nueva
+                form_idioma.save()
+
+                datos['mensaje'] = "Guardado Correctamente"
+                time.sleep(2.5)
+                return redirect('perfil2')
+            else:
+                # La competencia ya existe
+                # Muestra un mensaje de validación
+                datos['mensaje'] = "El idioma ya existe"
     
         if form_educacion.is_valid():
 
@@ -396,6 +475,74 @@ def perfil(request):
             time.sleep(2.5)
             return redirect('perfil')
         
+    return render(request, 'perfil2.html', datos)
+
+# Vista GET para Usuario en Perfil.html
+@login_required
+def perfil2(request):
+
+    # Obtiene las competencias del usuario
+    competencias = CompetenciaUsuario.objects.filter(fk_id_usuario=request.user.id)
+
+    # Obtiene las habilidades del usuario
+    habilidades = HabilidadUsuario.objects.filter(fk_id_usuario=request.user.id)
+
+    # Obtiene los idiomas del usuario
+    idiomas = IdiomaUsuario.objects.filter(fk_id_usuario=request.user.id)
+
+    # Obtiene la educación del usuario
+    educaciones = Educacion.objects.filter(fk_id_usuario=request.user.id)
+
+    # Obtiene la educación del usuario
+    logros = UsuarioLogro.objects.filter(fk_id_usuario=request.user.id)
+
+    # Obtiene la experiencia laboral del usuario
+    experiencias = Experiencia.objects.filter(fk_id_usuario=request.user.id)
+
+    # Obtiene al usuario (columna dirección)
+    u_direcciones = Usuario.objects.filter(id_usuario=request.user.id)
+
+    # Obtiene la direccion
+    direcciones = Direccion.objects.filter()
+
+    # Obtiene la direccion
+    #usuarios = Usuario.objects.filter(fk_id_direccion = Direccion.objects.last())
+
+    datos = {
+        'competencia_form': CompetenciaForm(),
+        'habilidad_form': HabilidadForm(),
+        'idioma_form': IdiomaForm(),
+        'educacion_form': EducacionForm(),
+        'logros_form': Usuario_logroForm(),
+        'exps_form': ExperienciaForm(),
+        'u_dires_form': UsuarioForm(),
+        'dires_form': DireccionForm(),
+        #'users_form': UsuarioForm(),
+
+    }
+
+    # Agrega las competencias a los datos
+    datos['competencias'] = competencias
+    datos['habilidades'] = habilidades
+    datos['idiomas'] = idiomas
+    datos['educaciones'] = educaciones
+    datos['logros'] = logros
+    datos['experiencias'] = experiencias
+    datos['usuarios'] = u_direcciones
+    datos['direcciones'] = direcciones
+    #datos['users'] = usuarios
+
+    if request.method == 'POST':
+        form_competencia = CompetenciaForm(request.POST)
+        form_habilidad = HabilidadForm(request.POST)
+        form_idioma = IdiomaForm(request.POST)
+        form_educacion = EducacionForm(request.POST)
+        form_logro = Usuario_logroForm(request.POST)
+        form_experiencia = ExperienciaForm(request.POST)
+        form_u_direccion = UsuarioForm(request.POST)
+        #form_direccion = DireccionForm(request.POST)
+        #form_usuario = UsuarioForm(request.POST)
+        
         if form_u_direccion.is_valid():
 
             # Asigna la instancia de Usuario
@@ -414,15 +561,71 @@ def perfil(request):
             time.sleep(2.5)
             return redirect('perfil')
         
-        if form_direccion.is_valid():
+        #if form_direccion.is_valid():
 
-            form_direccion.save()
+            #form_direccion.save()
+
+            #datos['mensaje'] = "Guardado Correctamente"
+            #time.sleep(2.5)
+#            return redirect('perfil')
+        
+        if form_competencia.is_valid():
+
+            form_competencia.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil')
+
+        if form_habilidad.is_valid():
+
+            form_habilidad.save()
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
             return redirect('perfil')
         
-    return render(request, 'perfil.html', datos)
+        if form_idioma.is_valid():
+
+            # Obtiene el número de idiomas del usuario
+            num_idiomas = len(idiomas)
+
+            if num_idiomas >= 3:
+                # El usuario ya tiene 3 idiomas
+                # Muestra un mensaje de validación
+                datos['mensaje'] = "Solo se pueden ingresar como máximo 3 idiomas"
+
+            else:
+                form_idioma.save()
+                datos['mensaje'] = "Guardado Correctamente"
+                time.sleep(2.5)
+                return redirect('perfil')
+    
+        if form_educacion.is_valid():
+
+            form_educacion.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil')
+
+        if form_logro.is_valid():
+
+            form_logro.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil')
+        
+        if form_experiencia.is_valid():
+
+            form_experiencia.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil')
+        
+    return render(request, 'perfil2.html', datos)
 
 
 #Vista para eliminar Competencias

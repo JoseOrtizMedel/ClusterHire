@@ -110,6 +110,15 @@ class FormularioForm(forms.ModelForm):
 
 # ALVARO--------------------------------------------------------------
 
+class LoginForm(forms.Form):
+    usuario = forms.CharField(max_length=50, required=True,
+        label="Nombre de usuario",
+        error_messages={'required': 'El usuario es obligatorio'})
+    password = forms.CharField(widget=forms.PasswordInput, max_length=20,
+        label="Contraseña", required=True, 
+        error_messages={'required': 'La contraseña es obligatoria'})
+        
+
 class DireccionForm(forms.ModelForm):
     class Meta:
         model = Direccion
@@ -234,34 +243,6 @@ class InstitucionForm(forms.ModelForm):
     def label_from_direccion_instance(self, obj):
         return obj.id_direccion
 
-class CompetenciaForm(forms.ModelForm):
-    class Meta:
-        model = CompetenciaUsuario
-        fields = ['id_compe_usuario', 'fk_id_competencia', 'fk_id_usuario']
-
-    fk_id_competencia = forms.ModelChoiceField(
-        queryset=Competencia.objects.all(),
-        empty_label=None,
-        widget=forms.Select(attrs={'class': 'form-control'})
-    )
-
-    fk_id_usuario = forms.ModelChoiceField(
-        queryset=Usuario.objects.all(),
-        empty_label=None,
-        widget=forms.Select(attrs={'class': 'form-control'})
-    )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['fk_id_competencia'].label_from_instance = self.label_from_competencia_instance
-        self.fields['fk_id_usuario'].label_from_instance = self.label_from_usuario_instance
-
-    def label_from_competencia_instance(self, obj):
-        return obj.nombre_competencia
-
-    def label_from_usuario_instance(self, obj):
-        return obj.id_usuario
-
     
 class Usuario_logroForm(forms.ModelForm):
     class Meta:
@@ -290,68 +271,11 @@ class Usuario_logroForm(forms.ModelForm):
 
     def label_from_logro_academico_instance(self, obj):
         return obj.nom_logro
-    
-class IdiomaForm(forms.ModelForm):
-    class Meta:
-        model = IdiomaUsuario
-        fields = ['id_idioma_usuario', 'fk_id_idioma', 'fk_id_usuario']
-
-    fk_id_idioma = forms.ModelChoiceField(
-        queryset=Idioma.objects.all(),
-        empty_label=None,
-        widget=forms.Select(attrs={'class': 'form-control'})
-    )
-
-    fk_id_usuario = forms.ModelChoiceField(
-        queryset=Usuario.objects.all(),
-        empty_label=None,
-        widget=forms.Select(attrs={'class': 'form-control'})
-    )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['fk_id_usuario'].label_from_instance = self.label_from_usuario_instance
-        self.fields['fk_id_idioma'].label_from_instance = self.label_from_idioma_instance
-
-    def label_from_usuario_instance(self, obj):
-        return obj.id_usuario
-
-    def label_from_idioma_instance(self, obj):
-        return obj.nombre_idioma
 
 class TituloProfForm(forms.ModelForm):
     class Meta:
         model = TituloProf
         fields = ['nombre_titulo', 'descripcion']
-            
-class HabilidadForm(forms.ModelForm):
-    class Meta:
-        model = HabilidadUsuario
-        fields = ['id_habilidad_usuario', 'fk_id_habilidad', 'fk_id_usuario']
-
-    fk_id_habilidad = forms.ModelChoiceField(
-        queryset=Habilidad.objects.all(),
-        empty_label=None,
-        widget=forms.Select(attrs={'class': 'form-control'})
-    )
-
-    fk_id_usuario = forms.ModelChoiceField(
-        queryset=Usuario.objects.all(),
-        empty_label=None,
-        widget=forms.Select(attrs={'class': 'form-control'})
-    )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['fk_id_habilidad'].label_from_instance = self.label_from_habilidad_instance
-        self.fields['fk_id_usuario'].label_from_instance = self.label_from_usuario_instance
-
-    def label_from_habilidad_instance(self, obj):
-        return obj.nombre_habilidad
-
-    def label_from_usuario_instance(self, obj):
-        return obj.nombre
-    
 
 class EducacionForm(forms.ModelForm):
     class Meta:
@@ -426,6 +350,111 @@ class CiudadForm(forms.ModelForm):
         model = Ciudad
         fields = ['nom_ciudad']
         
+
+class CompetenciaForm(forms.ModelForm):
+    class Meta:
+        model = CompetenciaUsuario
+        fields = ['id_compe_usuario', 'fk_id_competencia', 'fk_id_usuario']
+
+    fk_id_competencia = forms.ModelChoiceField(
+        queryset=Competencia.objects.all(),
+        empty_label=None,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    fk_id_usuario = forms.ModelChoiceField(
+        queryset=Usuario.objects.all(),
+        empty_label=None,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['fk_id_competencia'].label_from_instance = self.label_from_competencia_instance
+        self.fields['fk_id_usuario'].label_from_instance = self.label_from_usuario_instance
+
+    def label_from_competencia_instance(self, obj):
+        return obj.nombre_competencia
+
+    def label_from_usuario_instance(self, obj):
+        return obj.id_usuario
+    
+    def clean(self):
+        # Valida que solo se puedan ingresar como máximo 3 competencias
+        competencias = CompetenciaUsuario.objects.filter(fk_id_usuario=self.cleaned_data['fk_id_usuario'])
+        if len(competencias) >= 3:
+            raise forms.ValidationError("Solo se pueden ingresar como máximo 3 competencias")
+        return super().clean()
+
+class IdiomaForm(forms.ModelForm):
+    class Meta:
+        model = IdiomaUsuario
+        fields = ['id_idioma_usuario', 'fk_id_idioma', 'fk_id_usuario']
+
+    fk_id_idioma = forms.ModelChoiceField(
+        queryset=Idioma.objects.all(),
+        empty_label=None,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    fk_id_usuario = forms.ModelChoiceField(
+        queryset=Usuario.objects.all(),
+        empty_label=None,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['fk_id_usuario'].label_from_instance = self.label_from_usuario_instance
+        self.fields['fk_id_idioma'].label_from_instance = self.label_from_idioma_instance
+
+    def label_from_usuario_instance(self, obj):
+        return obj.id_usuario
+
+    def label_from_idioma_instance(self, obj):
+        return obj.nombre_idioma
+    
+    def clean(self):
+        # Valida que solo se puedan ingresar como máximo 3 idiomas
+        idiomas = IdiomaUsuario.objects.filter(fk_id_usuario=self.cleaned_data['fk_id_usuario'])
+        if len(idiomas) >= 3:
+            raise forms.ValidationError("Solo se pueden ingresar como máximo 3 idiomas")
+        return super().clean()
+
+class HabilidadForm(forms.ModelForm):
+    class Meta:
+        model = HabilidadUsuario
+        fields = ['id_habilidad_usuario', 'fk_id_habilidad', 'fk_id_usuario']
+
+    fk_id_habilidad = forms.ModelChoiceField(
+        queryset=Habilidad.objects.all(),
+        empty_label=None,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    fk_id_usuario = forms.ModelChoiceField(
+        queryset=Usuario.objects.all(),
+        empty_label=None,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['fk_id_habilidad'].label_from_instance = self.label_from_habilidad_instance
+        self.fields['fk_id_usuario'].label_from_instance = self.label_from_usuario_instance
+
+    def label_from_habilidad_instance(self, obj):
+        return obj.nombre_habilidad
+
+    def label_from_usuario_instance(self, obj):
+        return obj.nombre
+    
+    def clean(self):
+        # Valida que solo se puedan ingresar como máximo 3 habilidades
+        habilidades = HabilidadUsuario.objects.filter(fk_id_usuario=self.cleaned_data['fk_id_usuario'])
+        if len(habilidades) >= 3:
+            raise forms.ValidationError("Solo se pueden ingresar como máximo 3 habilidades")
+        return super().clean()
 
 
   
