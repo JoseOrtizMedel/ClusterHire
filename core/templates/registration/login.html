@@ -21,11 +21,13 @@
                                 <br> 
  <!--                                <input type="text" class="form-control" name="username" id="username" placeholder="Usuario" required>
                                 <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required>         -->
-            
+
+                                {{ form.usuario.label }}
                                 {{ form.usuario }}
 
 
                                 <br> <br>
+                                {{ form.password.label }}
                                 {{ form.password }}
                                 <div id="a">
                                     <a href="{% url 'password-reset' %}" id="recuperarPw"><u>Recuperar contraseña</u></a>

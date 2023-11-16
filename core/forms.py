@@ -112,7 +112,7 @@ class FormularioForm(forms.ModelForm):
 
 class LoginForm(forms.Form):
     usuario = forms.CharField(max_length=50, required=True,
-        label="Nombre de usuario",
+        label="Usuario",
         error_messages={'required': 'El usuario es obligatorio'})
     password = forms.CharField(widget=forms.PasswordInput, max_length=20,
         label="Contraseña", required=True, 
