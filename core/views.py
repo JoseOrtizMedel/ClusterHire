@@ -540,7 +540,7 @@ def perfil2(request):
         form_logro = Usuario_logroForm(request.POST)
         form_experiencia = ExperienciaForm(request.POST)
         form_u_direccion = UsuarioForm(request.POST)
-        #form_direccion = DireccionForm(request.POST)
+        form_direccion = DireccionForm(request.POST)
         #form_usuario = UsuarioForm(request.POST)
         
         if form_u_direccion.is_valid():
@@ -561,13 +561,13 @@ def perfil2(request):
             time.sleep(2.5)
             return redirect('perfil')
         
-        #if form_direccion.is_valid():
+        if form_direccion.is_valid():
 
-            #form_direccion.save()
+            form_direccion.save()
 
-            #datos['mensaje'] = "Guardado Correctamente"
-            #time.sleep(2.5)
-#            return redirect('perfil')
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil')
         
         if form_competencia.is_valid():
 
