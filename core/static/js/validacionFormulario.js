@@ -35,7 +35,7 @@ $(document).ready(function() {
   formulario.validate({
     rules: {
       nom_oferta: "required",
-      descripcion_oferta: "required",
+      anhos_experiencia:"required",
       fecha_oferta: {
         required: true,
         customDateValidation: true // Utilizamos una regla personalizada para la validación
@@ -43,7 +43,7 @@ $(document).ready(function() {
     },
     messages: {
       nom_oferta: "Este campo es obligatorio",
-      descripcion_oferta: "Este campo es obligatorio",
+      anhos_experiencia: "Este campo es obligatorio",
       fecha_oferta: {
         required: "Este campo es obligatorio",
         customDateValidation: "Ingresa una fecha válida en el formato YYYY-MM-DD"

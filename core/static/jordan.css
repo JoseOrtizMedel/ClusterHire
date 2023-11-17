@@ -3,7 +3,6 @@
   src: url('fellows.ttf' ) format('truetype')
   /* Puedes agregar más formatos si tienes disponibles (TTF, OTF, EOT, etc.) */
 }
-
 body{
   background-color: #e5e5e5;
 }
@@ -14,6 +13,12 @@ body{
   color: #003e77;
   font-family: 'fellows';
   }  
+
+ #titulo2{
+    text-align: center;
+    color: #003e77;
+    font-family: 'fellows';
+    }  
   
 #df-container {
     margin: 0 auto; /* Centra el contenedor horizontalmente */
@@ -154,6 +159,17 @@ body{
   outline: 0;
   color: black;
 }
+#ver {
+  width: auto !important;
+  height: 20px !important; /* Ajusta la altura según tus preferencias */
+  font-size: 13px !important; /* Ajusta el tamaño del icono "+" */
+  text-align: center !important; /* Centra el contenido del botón */
+  line-height: 5px !important; /* Centra verticalmente el contenido */
+  background-color: #0076bc !important; /* Cambia el color de fondo según tus preferencias */
+  color: white !important; /* Cambia el color del texto según tus preferencias */
+  border: none !important; /* Elimina el borde del botón */
+  cursor: pointer !important; /* Cambia el cursor al pasar sobre el botón */
+}
 
 #enviar2 {
   width: auto;
@@ -166,7 +182,7 @@ body{
   border: none; /* Elimina el borde del botón */
   cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
 }
-#ver-perfi {
+#ver-t {
   width: auto;
   height: 20px; /* Ajusta la altura según tus preferencias */
   font-size: 13px; /* Ajusta el tamaño del icono "+" */
