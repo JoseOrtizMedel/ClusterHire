@@ -19,16 +19,37 @@
     color: #003e77;
     font-family: 'fellows';
     }  
+
+  #imgPerfil {
+    display: grid; 
+    margin: auto; 
+    width: 499.9px;
+  }
+
+  @media (max-width: 1280px) {
+
+    #imgPerfil {
+      width: 350px
+    }
+
+  }
     
-  
+  @media (max-width: 460px) {
+
+    #imgPerfil {
+      width: 250px
+    }
+
+  }
+
   #formularioPerfilDire {
       padding: 20px;
       background: rgb(255, 255, 255);
       color: rgb(0, 0, 0) !important;
-      box-shadow:
+/*       box-shadow:
       0 0 10px rgba(0, 0, 0, 0.0),
       0 0 20px rgba(0, 0, 0, 0.0),
-      0 0 40px rgb(173, 173, 173, 1);
+      0 0 40px rgb(173, 173, 173, 1); */
     
       -moz-border-radius: 4px;
       -webkit-border-radius: 4px;
@@ -40,10 +61,10 @@
     padding: 20px;
     background: rgb(255, 255, 255);
     color: rgb(0, 0, 0) !important;
-    box-shadow:
+/*     box-shadow:
     0 0 10px rgba(0, 0, 0, 0.0),
     0 0 20px rgba(0, 0, 0, 0.0),
-    0 0 40px rgb(173, 173, 173, 1);
+    0 0 40px rgb(173, 173, 173, 1); */
   
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -55,10 +76,10 @@
     padding: 20px;
     background: rgb(255, 255, 255);
     color: rgb(223, 1, 12) !important;
-    box-shadow:
+/*     box-shadow:
     0 0 10px rgba(0, 0, 0, 0.0),
     0 0 20px rgba(0, 0, 0, 0.0),
-    0 0 40px rgb(173, 173, 173, 1);
+    0 0 40px rgb(173, 173, 173, 1); */
   
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -137,11 +158,6 @@
   .registrar-button {
     margin-right: 0.1cm; /* Margen a la derecha de 1 cm */
   }
-  
-  #boton_volver {
-    margin-bottom: 10px;
-  }
-  
  
   #enviar {
     color: #ffffff;

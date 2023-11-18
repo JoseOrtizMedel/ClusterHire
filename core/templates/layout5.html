@@ -18,7 +18,7 @@
 
 
 
-    <link rel="stylesheet" href="{% static 'alvaro.css' %}">
+    <link rel="stylesheet" href="{% static 'jordan.css' %}">
     <link rel="stylesheet" href="{% static 'css_fontawesome/all.css' %}">    
 
     <!-- Agrega esto en la sección <head> de tu plantilla es pal filtro de ofertas-->
@@ -37,11 +37,11 @@
 
 </head>
 
-<body class="text-light" style="max-width: 100%;">
+<body class="text-light">
 
-    {% include 'partials/navbar.html' %}
+    {% include 'partials/navbar-nueva-oferta.html' %}
 
-    <div class="container-fluid">
+    <div class="container">
         {% block content %}
         {% endblock %}
     </div>

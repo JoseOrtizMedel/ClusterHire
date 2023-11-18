@@ -1,4 +1,4 @@
-{% extends 'layout3.html' %}
+{% extends 'layout4.html' %}
 <!-- Como se muestra arriba es como se carga parte del codigo, en esta hoja solo se trabajaria el body -->
 
 {% load static %}
@@ -23,8 +23,8 @@
 <div class="container-fluid">    
     <a href="{% url 'nueva_oferta' %}" id= "boton_nueva" class="btn btn-custom">Nueva oferta</a></a> <!-- Botón de retroceso -->
     <div class="card">
-        <div class="container-md">
-            <table id="datatable" class="table table-striped">
+        <div class="container-lg">
+            <table id="datatable" class="table table-responsive-lg">
                 <thead>
                     <tr>
                         <th data-sortable="true">
@@ -75,19 +75,20 @@
                                     <li>{{ competenciaoferta.fk_id_competencia.nombre_competencia }}</li>
                                     {% endfor %}
                                     <li>
-                                        <a href="{% url 'compe_oferta' ofe.id_oferta ofe.nom_oferta|slugify %}" class="btn btn-custom" id="enviar2" data-bs-toggle="modal" data-bs-target="#ofertaModal">
-                                          <span class="plus-icon">Agregar competencia</span>
-                                        </a>
+<!--                                         <a href="{% url 'compe_oferta' ofe.id_oferta ofe.nom_oferta|slugify %}" class="btn btn-custom" id="enviar2" data-bs-toggle="modal" data-bs-target="#ofertaModal">
+                                          <span class="plus-icon" type="button">Agregar competencia</span> -->
+                                          <a href="{% url 'compe_oferta' ofe.id_oferta ofe.nom_oferta|slugify %}" id="enviar2"><i class="fa-solid fa-circle-plus"></i></a>
+<!--                                         </a> -->
                                     </li>                                                                          
                                 </ul>
                             </p>                                                       
                         </td>
 
                         <td>
-                            <a href="{% url 'eliminar_oferta' ofe.id_oferta %}" class="btn btn-danger eliminar-btn" data-oferta-id="{{ ofe.id_oferta }}">Eliminar</a>
+                            <a href="{% url 'exportar_csv' ofe.id_oferta ofe.nom_oferta|slugify %}" id="Analizar" class="btn btn-success"><i class="fa-solid fa-chart-line"></i></a>
                             <br>
                             <br>
-                            <a href="{% url 'exportar_csv' ofe.id_oferta ofe.nom_oferta|slugify %}" id="Analizar" class="btn btn-success">Analizar</a>
+                            <a href="{% url 'eliminar_oferta' ofe.id_oferta %}" class="btn btn-danger eliminar-btn" data-oferta-id="{{ ofe.id_oferta }}"><i class="fa-solid fa-trash"></i></a>
                         </td>
                     </tr>
                 {% endfor %}

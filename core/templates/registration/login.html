@@ -5,28 +5,23 @@
 
 {% block content %}
 
-<div class="container-fluid">
+<div class="container-fluid" id="fluid-login">
     <div name="registration" id="formulario"> 
         <div class="row" id="row">
             <div class="col-md-6" id="izq">
                 <img src="{% static 'imagenes/ClusterHire5.png' %}" alt="" id="logoLogin">
             </div>
-                <form action="." method="POST" id="formulario">
+                <form action="." method="POST" class="form-login" id="formulario">
                     {% csrf_token %}
                     <img src="{% static 'imagenes/ClusterHire.png' %}" alt="" id="logoLogin2">
                     <div class="form-group" id="login">
                         <h1 id="tituloForm"><b>¡Bienvenid@!</b></h1>
                         <div class="form-group" id="login">
-                            <div class="col-md-12 text-center">  
+                            <div class="col-md-12 text-center formLogin d-flex justify-content-between flex-wrap">  
                                 <br> 
- <!--                                <input type="text" class="form-control" name="username" id="username" placeholder="Usuario" required>
-                                <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required>         -->
-
                                 {{ form.usuario.label }}
                                 {{ form.usuario }}
-
-
-                                <br> <br>
+                                <br>
                                 {{ form.password.label }}
                                 {{ form.password }}
                                 <div id="a">
@@ -35,8 +30,7 @@
                             </div>
                         </div>
                     <div class="row">
-                        <div class="col-md-12 text-left" style="margin-top: 1rem;">
-<!--                             <p><input type="submit" value="Ingresar"></p> -->
+                        <div class="col-md-12 text-left">
                             <a class="btn btn-primary registrar-button" href="{% url 'register' %}" type="button" id="btnRegistrar">REGISTRARSE</a>
                             <button class="btn btn-primary registrar-button" type="submit" id="btnEntrar">INICIAR SESIÓN</button>
                         </div>

@@ -34,6 +34,9 @@ def user_login(request):
             password = form.cleaned_data['password']
             user = authenticate(request, username=usuario, password=password)
             if user is not None:
+                if user.is_superuser:
+                    login(request, user)
+                    return redirect('ofertas_admin')
                 if user.is_active:
                     login(request, user)
                     return redirect('perfil2')
@@ -150,7 +153,7 @@ def obtener_conteo_formularios():
     return conteo_formularios
 
 
-@user_passes_test(is_superadmin)
+#@user_passes_test(is_superadmin)
 def ofertas_admin(request):    
 
     ofertas = Oferta.objects.all().select_related('fk_id_tipo_cargo').prefetch_related('competenciaoferta_set__fk_id_competencia')
@@ -373,12 +376,12 @@ def perfil(request):
             form_usuario_instance.fk_id_direccion = Direccion.objects.last()
 
             # Ahora guarda la instancia de Usuario
-            print(form_usuario_instance.fk_id_direccion)
+            #print(form_usuario_instance.fk_id_direccion)
             form_usuario_instance.save()
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
-            return redirect('perfil2')
+            return redirect('perfil')
         
         if form_direccion.is_valid():
 
@@ -403,7 +406,7 @@ def perfil(request):
 
                 datos['mensaje'] = "Guardado Correctamente"
                 time.sleep(2.5)
-                return redirect('perfil2')
+                return redirect('perfil')
             else:
                 # La competencia ya existe
                 # Muestra un mensaje de validación
@@ -424,7 +427,7 @@ def perfil(request):
 
                 datos['mensaje'] = "Guardado Correctamente"
                 time.sleep(2.5)
-                return redirect('perfil2')
+                return redirect('perfil')
             else:
                 # La competencia ya existe
                 # Muestra un mensaje de validación
@@ -445,7 +448,7 @@ def perfil(request):
 
                 datos['mensaje'] = "Guardado Correctamente"
                 time.sleep(2.5)
-                return redirect('perfil2')
+                return redirect('perfil')
             else:
                 # La competencia ya existe
                 # Muestra un mensaje de validación
@@ -540,7 +543,7 @@ def perfil2(request):
         form_logro = Usuario_logroForm(request.POST)
         form_experiencia = ExperienciaForm(request.POST)
         form_u_direccion = UsuarioForm(request.POST)
-        #form_direccion = DireccionForm(request.POST)
+        form_direccion = DireccionForm(request.POST)
         #form_usuario = UsuarioForm(request.POST)
         
         if form_u_direccion.is_valid():
@@ -554,20 +557,20 @@ def perfil2(request):
             form_usuario_instance.fk_id_direccion = Direccion.objects.last()
 
             # Ahora guarda la instancia de Usuario
-            print(form_usuario_instance.fk_id_direccion)
+            #print(form_usuario_instance.fk_id_direccion)
             form_usuario_instance.save()
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
             return redirect('perfil')
         
-        #if form_direccion.is_valid():
+        if form_direccion.is_valid():
 
-            #form_direccion.save()
+            form_direccion.save()
 
-            #datos['mensaje'] = "Guardado Correctamente"
-            #time.sleep(2.5)
-#            return redirect('perfil')
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil')
         
         if form_competencia.is_valid():
 
@@ -625,7 +628,7 @@ def perfil2(request):
             time.sleep(2.5)
             return redirect('perfil')
         
-    return render(request, 'perfil2.html', datos)
+    return render(request, 'perfil.html', datos)
 
 
 #Vista para eliminar Competencias

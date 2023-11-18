@@ -114,10 +114,15 @@ body{
   margin-right: 0.1cm; /* Margen a la derecha de 1 cm */
 }
 
-#boton_volver {
+/* #boton_volver {
   margin-bottom: 10px;
 }
+ */
 
+#encabezadoTablaCiencia {
+  background-color: #003e77;
+  color: #ffffff;
+}
 
 #enviar {
   color: #ffffff;
@@ -156,16 +161,9 @@ body{
 }
 
 #enviar2 {
-  width: auto;
-  height: 20px; /* Ajusta la altura según tus preferencias */
-  font-size: 13px; /* Ajusta el tamaño del icono "+" */
-  text-align: center; /* Centra el contenido del botón */
-  line-height: 5px; /* Centra verticalmente el contenido */
-  background-color: #0076bc; /* Cambia el color de fondo según tus preferencias */
-  color: white; /* Cambia el color del texto según tus preferencias */
-  border: none; /* Elimina el borde del botón */
-  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  font-size: 20px;
 }
+
 #ver-perfi {
   width: auto;
   height: 20px; /* Ajusta la altura según tus preferencias */
