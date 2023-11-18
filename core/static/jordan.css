@@ -3,7 +3,6 @@
   src: url('fellows.ttf' ) format('truetype')
   /* Puedes agregar más formatos si tienes disponibles (TTF, OTF, EOT, etc.) */
 }
-
 body{
   background-color: #e5e5e5;
 }
@@ -14,6 +13,12 @@ body{
   color: #003e77;
   font-family: 'fellows';
   }  
+
+ #titulo2{
+    text-align: center;
+    color: #003e77;
+    font-family: 'fellows';
+    }  
   
 #df-container {
     margin: 0 auto; /* Centra el contenedor horizontalmente */
@@ -114,15 +119,10 @@ body{
   margin-right: 0.1cm; /* Margen a la derecha de 1 cm */
 }
 
-/* #boton_volver {
+#boton_volver {
   margin-bottom: 10px;
 }
- */
 
-#encabezadoTablaCiencia {
-  background-color: #003e77;
-  color: #ffffff;
-}
 
 #enviar {
   color: #ffffff;
@@ -159,12 +159,28 @@ body{
   outline: 0;
   color: black;
 }
-
-#enviar2 {
-  font-size: 20px;
+#ver {
+  width: auto !important;
+  height: 20px !important; /* Ajusta la altura según tus preferencias */
+  font-size: 13px !important; /* Ajusta el tamaño del icono "+" */
+  text-align: center !important; /* Centra el contenido del botón */
+  line-height: 5px !important; /* Centra verticalmente el contenido */
+  background-color: #0076bc !important; /* Cambia el color de fondo según tus preferencias */
+  color: white !important; /* Cambia el color del texto según tus preferencias */
+  border: none !important; /* Elimina el borde del botón */
+  cursor: pointer !important; /* Cambia el cursor al pasar sobre el botón */
 }
 
-#ver-perfi {
+#enviar2 {
+  font-size: 20px; /* Ajusta el tamaño del icono "+" */
+  color: #003e77;
+}
+
+#enviar2:hover {
+  color: #0076bc;
+}
+
+#ver-t {
   width: auto;
   height: 20px; /* Ajusta la altura según tus preferencias */
   font-size: 13px; /* Ajusta el tamaño del icono "+" */

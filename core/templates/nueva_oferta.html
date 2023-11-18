@@ -1,4 +1,4 @@
-{% extends 'layout4.html' %}
+{% extends 'layout3.html' %}
 <!-- Como se muestra arriba es como se carga parte del codigo, en esta hoja solo se trabajaria el body -->
 
 {% load static %}
@@ -24,7 +24,7 @@
 
                 <div class="form-group">
                     <label for="nom_oferta">Nombre de la oferta</label>
-                    <input type="text" class="form-control" name="nom_oferta" id="nom_oferta" required placeholder="Ing. Informatico">
+                    <input type="text" class="form-control" name="nom_oferta" id="nom_oferta"  placeholder="Ing. Informatico">
                 </div>
 
                 <div class="form-group">
@@ -34,7 +34,7 @@
 
                 <div class="form-group">
                     <label for="anhos_experiencia">Años de experiencia</label>
-                    <input type="number" class="form-control" name="anhos_experiencia" id="anhos_experiencia" required placeholder="2">
+                    <input type="number" class="form-control" name="anhos_experiencia" id="anhos_experiencia"  placeholder="2">
                 </div>
 
                 <div class="form-group">
@@ -80,6 +80,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{% static 'js/validacionFormulario.js' %}"></script>
-<!-- <script src="{% static 'js/competencias.js' %}"></script> -->
+<script src="{% static 'js/competencias.js' %}"></script>
 <script src="{% static 'js/fecha_actual2.js' %}"></script>
 {% endblock %}

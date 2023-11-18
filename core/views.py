@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 
-from .models import CompetenciaUsuario, Direccion, Educacion, Experiencia, HabilidadUsuario, IdiomaUsuario, Oferta, Usuario, Competencia, UsuarioLogro
+from .models import Ciudad, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, HabilidadUsuario, IdiomaUsuario, Oferta, Usuario, Competencia, UsuarioLogro
 
 from .models import CompetenciaOferta, CompetenciaUsuario, Direccion, Educacion, Experiencia, HabilidadUsuario, IdiomaUsuario, Oferta, Usuario, Competencia, UsuarioLogro
 
@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import CompetenciaForm, CustomUserCreationForm, DireccionForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm, LoginForm,  Usuario_logroForm, UsuarioForm, OfertaForm, FormularioForm, CompeOfeForm
 
 import time
+import locale
 
 from django.db.models import Count
 
@@ -64,7 +65,7 @@ def register(request):
             user = authenticate(
                 username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
             login(request, user)
-            return redirect('home')
+            return redirect('perfil2')
     return render(request, 'registration/register.html', data)
 
 # JORDAAAAAAAN--------------------------------------------------------------
@@ -182,7 +183,45 @@ def eliminar_oferta(request, id_oferta):
     return JsonResponse({'success': False})
 
 
+@login_required
+def perfil_admin(request, id_usuario, id_oferta):
+    locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+    
+    try:
+        id_user = id_usuario
+        usuarios = Usuario.objects.get(id_usuario = id_user)
 
+        id_dire = usuarios.fk_id_direccion_id
+        direcciones =Direccion.objects.get(id_direccion = id_dire)
+
+        id_comu = direcciones.fk_d_comuna_id
+        comunas = Comuna.objects.get(id_comuna = id_comu)
+
+        id_ciu = comunas.fk_id_ciudad_id
+        ciudades = Ciudad.objects.get(id_ciudad = id_ciu)
+
+        compesuser = CompetenciaUsuario.objects.filter(fk_id_usuario=id_user)
+        competencias = Competencia.objects.filter(competenciausuario__in=compesuser)
+   
+
+    except Usuario.DoesNotExist:
+        # Manejar el caso en el que el usuario no se encuentre
+        print("No se encontró un usuario")
+
+    datos = {
+        'id_user' : id_user,
+        'id_oferta' : id_oferta,
+        'usuarios' : usuarios,
+        'direcciones' : direcciones,
+        'comunas' : comunas,
+        'ciudades' : ciudades,
+        'compesuser': compesuser,
+        'competencias': competencias
+    }
+
+    print()
+
+    return render(request, 'perfil_admin.html', datos)
 
 # JORDAAAAAAAN--------------------------------------------------------------
 

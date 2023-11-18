@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import  ciencia, edit_direccion, edit_educacion, edit_experiencia, edit_personal, eliminar_compes, eliminar_educacion, eliminar_exps, eliminar_habis, eliminar_idiomas, eliminar_logros, error_404, nueva_oferta, ofertas_admin, ofertas_user, perfil, perfil2, perfilDire, perfilEduc, perfilExp, register, login, eliminar_oferta, formulario, perfilPers, compe_oferta, user_login
+from .views import  ciencia, edit_direccion, edit_educacion, edit_experiencia, edit_personal, eliminar_compes, eliminar_educacion, eliminar_exps, eliminar_habis, eliminar_idiomas, eliminar_logros, error_404, nueva_oferta, ofertas_admin, ofertas_user, perfil, perfil2, perfil_admin, perfilDire, perfilEduc, perfilExp, register, login, eliminar_oferta, formulario, perfilPers, compe_oferta, user_login
 
 
 
@@ -42,5 +42,6 @@ urlpatterns = [
     path('exportar_csv/<int:id_oferta>/<str:nom_oferta>/', exportar_csv, name='exportar_csv'),
     path('ciencia/<int:id_oferta>/<str:nom_oferta>/', ciencia, name='ciencia'),
     path('read_csv/<int:id_oferta>/', read_csv, name='read_csv'),
+    path('perfil_admin/<int:id_usuario>/<int:id_oferta>/', perfil_admin, name='perfil_admin'),
 
 ]

@@ -1,4 +1,4 @@
-{% extends 'layout4.html' %}
+{% extends 'layout3.html' %}
 <!-- Como se muestra arriba es como se carga parte del codigo, en esta hoja solo se trabajaria el body -->
 
 {% load static %}
@@ -23,8 +23,8 @@
 <div class="container-fluid">    
     <a href="{% url 'nueva_oferta' %}" id= "boton_nueva" class="btn btn-custom">Nueva oferta</a></a> <!-- Botón de retroceso -->
     <div class="card">
-        <div class="container-lg">
-            <table id="datatable" class="table table-responsive-lg">
+        <div class="container-md">
+            <table id="datatable" class="table table-striped">
                 <thead>
                     <tr>
                         <th data-sortable="true">
@@ -60,7 +60,7 @@
                     <tr>
                         <td class="nombre-oferta">{{ ofe.nom_oferta }}</td>
                         <td>
-                            <p>Postulantes: <span class="destacado">{{ ofe.num_formularios }}</span></p>
+                            <p>Postulantes: <span id="num_postulantes_{{ ofe.id_oferta }}" class="destacado">{{ ofe.num_formularios }}</span></p>
                         </td>
                         <td>{{ ofe.fk_id_tipo_cargo.nom_cargo }}</td>
                         <td class="fecha-oferta">{{ ofe.fecha_oferta }}</td>
@@ -75,20 +75,22 @@
                                     <li>{{ competenciaoferta.fk_id_competencia.nombre_competencia }}</li>
                                     {% endfor %}
                                     <li>
-<!--                                         <a href="{% url 'compe_oferta' ofe.id_oferta ofe.nom_oferta|slugify %}" class="btn btn-custom" id="enviar2" data-bs-toggle="modal" data-bs-target="#ofertaModal">
-                                          <span class="plus-icon" type="button">Agregar competencia</span> -->
-                                          <a href="{% url 'compe_oferta' ofe.id_oferta ofe.nom_oferta|slugify %}" id="enviar2"><i class="fa-solid fa-circle-plus"></i></a>
-<!--                                         </a> -->
+                                        <a href="{% url 'compe_oferta' ofe.id_oferta ofe.nom_oferta|slugify %}" class="btn btn-custom" id="enviar2" data-bs-toggle="modal" data-bs-target="#ofertaModal">
+                                          <span class="plus-icon"><i class="fa-solid fa-circle-plus"></i></span>
+                                        </a>
                                     </li>                                                                          
                                 </ul>
                             </p>                                                       
                         </td>
 
                         <td>
-                            <a href="{% url 'exportar_csv' ofe.id_oferta ofe.nom_oferta|slugify %}" id="Analizar" class="btn btn-success"><i class="fa-solid fa-chart-line"></i></a>
-                            <br>
-                            <br>
                             <a href="{% url 'eliminar_oferta' ofe.id_oferta %}" class="btn btn-danger eliminar-btn" data-oferta-id="{{ ofe.id_oferta }}"><i class="fa-solid fa-trash"></i></a>
+                            <br>
+                            <br>
+                            <a href="{% url 'exportar_csv' ofe.id_oferta ofe.nom_oferta|slugify %}" 
+                            id="Analizar" 
+                            class="btn btn-success" 
+                            data-num-postulantes="{{ ofe.num_formularios }}"><i class="fa-solid fa-chart-line"></i></a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -103,8 +105,11 @@
 
 <!-- Coloca el código JavaScript al final de tu contenido -->
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script src="{% static 'js/filtro_ofertas.js' %}"></script>
 <script src="{% static 'js/eliminar_oferta.js' %}"></script>
+<script src="{% static 'js/validacionAnalisis.js' %}"></script>
 
 
 

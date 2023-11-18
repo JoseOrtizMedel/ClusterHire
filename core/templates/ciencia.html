@@ -25,7 +25,7 @@
     </script>
 
     <div class="d-flex justify-content-between align-items-center">
-        <a href="{% url 'ofertas_admin' %}" class="btn btn-danger" id="boton_volver"><i class="fa-solid fa-left-long"></i></a>
+        <a href="{% url 'ofertas_admin' %}" class="btn btn-danger" id="boton_volver">Volver</a>
 
         <form id="exportarForm" action="{% url 'read_csv' id_oferta=id_oferta %}" method="post">
             {% csrf_token %}
@@ -41,12 +41,12 @@
         <br>
         <div id="titulo">
             <h3>
-                Más recomendados
+                Mejor recomendados.
             </h3>
         </div>
-        <div class="container-lg">
-            <table class="dataframe table table-responsive-lg miTabla">      
-                <tr id="encabezadoTablaCiencia">
+        <div class="container-md">
+            <table class="dataframe table table-striped miTabla">      
+                <tr>
                     <th></th>
                     <th>ID Usuario</th>
                     <th>Nombre</th>
@@ -57,11 +57,11 @@
                 </tr>
                 {% for _, row in df_filtrado.iterrows %}
                     <tr>
-                        <td><a href="" id="ver-perfi" class="btn btn-custom">Ver perfil</a></td>
+                        <td><a href="{% url 'perfil_admin' id_usuario=row.ID_USUARIO|floatformat:0 id_oferta=id_oferta %}" id="ver" class="btn btn-custom">Ver perfil</a></td>
                         <td>{{ row.ID_USUARIO }}</td>
-                        <td>{{ row.NOMBRE }}</td>
-                        <td>{{ row.PRIMER_APELLIDO }}</td>
-                        <td>{{ row.NOM_OFERTA }}</td>
+                        <td>{{ row.NOMBRE|title }}</td>
+                        <td>{{ row.PRIMER_APELLIDO|title }}</td>
+                        <td>{{ row.NOM_OFERTA|title }}</td>
                         <td>{{ row.ID_OFERTA }}</td>
                         <td>{{ row.ANHOS_EXPERIENCIA_USER }}</td>
                     </tr>
@@ -75,12 +75,12 @@
         <br>
         <div id="titulo">
             <h3>
-                Menos recomendados
+                Menos recomendados.
             </h3>
         </div>
-        <div class="container-lg">
-            <table class="dataframe table table-responsive-lg miTabla">
-                <tr id="encabezadoTablaCiencia">
+        <div class="container-md">
+            <table class="dataframe table table-striped miTabla">
+                <tr>
                     <th></th>
                     <th>ID Usuario</th>
                     <th>Nombre</th>
@@ -91,11 +91,11 @@
                 </tr>
                 {% for _, row in df_filtrado2.iterrows %}
                     <tr>
-                        <td><a href="" id="ver-perfi" class="btn btn-custom">Ver perfil</a></td>
+                        <td><a href="{% url 'perfil_admin' id_usuario=row.ID_USUARIO|floatformat:0 id_oferta=id_oferta %}" id="ver" class="btn btn-custom">Ver perfil</a></td>
                         <td>{{ row.ID_USUARIO }}</td>
-                        <td>{{ row.NOMBRE }}</td>
-                        <td>{{ row.PRIMER_APELLIDO }}</td>
-                        <td>{{ row.NOM_OFERTA }}</td>
+                        <td>{{ row.NOMBRE|title }}</td>
+                        <td>{{ row.PRIMER_APELLIDO|title }}</td>
+                        <td>{{ row.NOM_OFERTA|title }}</td>
                         <td>{{ row.ID_OFERTA }}</td>
                         <td>{{ row.ANHOS_EXPERIENCIA_USER }}</td>
                     </tr>

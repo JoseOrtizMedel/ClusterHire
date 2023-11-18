@@ -60,6 +60,8 @@ urlpatterns = [
     path('perfil_educacion/', views.perfilEduc, name='perfil_educacion'),
     path('perfil/', views.perfil, name='perfil'),
     path('perfil2/', views.perfil2, name='perfil2'),
+    path('perfil_admin/<int:id_usuario>/<int:id_oferta>/', views.perfil_admin, name='perfil_admin'),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
