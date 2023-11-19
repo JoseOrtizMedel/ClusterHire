@@ -25,7 +25,7 @@
     </script>
 
     <div class="d-flex justify-content-between align-items-center">
-        <a href="{% url 'ofertas_admin' %}" class="btn btn-danger" id="boton_volver">Volver</a>
+        <a href="{% url 'ofertas_admin' %}" class="btn btn-danger" id="boton_volver"><i class="fa-solid fa-left-long"></i></a>
 
         <form id="exportarForm" action="{% url 'read_csv' id_oferta=id_oferta %}" method="post">
             {% csrf_token %}
@@ -41,11 +41,11 @@
         <br>
         <div id="titulo">
             <h3>
-                Mejor recomendados.
+                Postulantes más recomendados
             </h3>
         </div>
-        <div class="container-md">
-            <table class="dataframe table table-striped miTabla">      
+        <div class="table-responsive-lg">
+            <table class="dataframe table table-reponsive-md miTabla">      
                 <tr>
                     <th></th>
                     <th>ID Usuario</th>
@@ -57,7 +57,7 @@
                 </tr>
                 {% for _, row in df_filtrado.iterrows %}
                     <tr>
-                        <td><a href="{% url 'perfil_admin' id_usuario=row.ID_USUARIO|floatformat:0 id_oferta=id_oferta %}" id="ver" class="btn btn-custom">Ver perfil</a></td>
+                        <td><a href="{% url 'perfil_admin' id_usuario=row.ID_USUARIO|floatformat:0 id_oferta=id_oferta %}" id="ver" class="btn btn-custom"><i class="fa-solid fa-user"></i></a></td>
                         <td>{{ row.ID_USUARIO }}</td>
                         <td>{{ row.NOMBRE|title }}</td>
                         <td>{{ row.PRIMER_APELLIDO|title }}</td>
@@ -75,11 +75,11 @@
         <br>
         <div id="titulo">
             <h3>
-                Menos recomendados.
+                Postulantes menos recomendados
             </h3>
         </div>
-        <div class="container-md">
-            <table class="dataframe table table-striped miTabla">
+        <div class="table-responsive-lg">
+            <table class="dataframe table table-reponsive-md miTabla">
                 <tr>
                     <th></th>
                     <th>ID Usuario</th>
@@ -91,7 +91,7 @@
                 </tr>
                 {% for _, row in df_filtrado2.iterrows %}
                     <tr>
-                        <td><a href="{% url 'perfil_admin' id_usuario=row.ID_USUARIO|floatformat:0 id_oferta=id_oferta %}" id="ver" class="btn btn-custom">Ver perfil</a></td>
+                        <td><a href="{% url 'perfil_admin' id_usuario=row.ID_USUARIO|floatformat:0 id_oferta=id_oferta %}" id="ver" class="btn btn-custom"><i class="fa-solid fa-user"></i></a></td>
                         <td>{{ row.ID_USUARIO }}</td>
                         <td>{{ row.NOMBRE|title }}</td>
                         <td>{{ row.PRIMER_APELLIDO|title }}</td>
@@ -104,6 +104,7 @@
         </div>
     </div>
 </div>
+<br>
 
 {% endblock %}
 

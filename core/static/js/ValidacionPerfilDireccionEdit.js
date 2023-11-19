@@ -14,9 +14,9 @@ $(document).ready(function() {
         fk_d_comuna: {
           required: true
         },
-        comuna: {
+/*         comuna: {
           required: true
-        }
+        } */
       },
       messages: {
         numeracion: {
@@ -29,28 +29,28 @@ $(document).ready(function() {
           minlength: "Ingrese al menos 3 caracteres.",
           maxlength: "Ingrese máximo 50 caracteres."
         },
-        fk_d_comuna: {
+        fk_id_comuna: {
           required: "Seleccione una comuna."
         },
-        comuna: {
+/*         comuna: {
           required: "Seleccione una comuna."
-        }
-      }
-    });
-  
-    $("#formularioPerfilDire").submit(function() {
+        } */
+      },
+
+    submitHandler: function (form) {
       Swal.fire({
         title: "Datos Actualizados",
-        text: "Sus datos personales han sido actualizados exitosamente",
+        text: "Su dirección sido actualizada exitosamente",
         icon: "success",
-        confirmButtonText: "Aceptar",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Guardar",
         allowOutsideClick: false,
       }).then((result) => {
         if (result.isConfirmed) {
-          // Enviar formulario
-          this.submit();
+          form.submit();
         }
       });
-    });
+    },
   });
+});
   

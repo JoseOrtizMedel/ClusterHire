@@ -1,7 +1,27 @@
-// validacionPopupExperiencias.js
-
 $(document).ready(function () {
-  // Configuración de la validación del formulario
+
+    // Esta función se ejecutará después de que se haya recargado la página
+    function resetSubmitButton() {
+        var button = document.getElementById("enviarPerfilExp");
+        if (button) {
+        button.disabled = false;
+        button.value = "Guardar"; // Restablece el texto del botón
+        }
+    }
+        // Esta función se llama cuando se hace clic en el botón de enviar
+    function disableSubmitButton(button) {
+        // Deshabilita el botón
+        button.disabled = true;
+
+        // Cambia el texto del botón para indicar que se está procesando
+        button.value = "Enviando...";
+
+        // Puedes mostrar un mensaje de espera aquí si lo deseas
+
+        // Establece un temporizador para restablecer el botón después de un tiempo determinado
+        setTimeout(resetSubmitButton, 5000); // 5000 milisegundos (5 segundos) como ejemplo
+    }
+
   $("#formularioPerfilExp").validate({
       rules: {
           nombre_empleo: "required",
@@ -14,9 +34,9 @@ $(document).ready(function () {
               date: true
           },
           descripcion: "required",
+          fk_id_comuna: "required",
           fk_id_tipo_empleo: "required",
           fk_id_modalidad: "required",
-          fk_id_comuna: "required",
           fk_id_tipo_cargo: "required"
       },
       messages: {
@@ -38,34 +58,21 @@ $(document).ready(function () {
       submitHandler: function (form) {
         // Mostrar mensaje de éxito con SweetAlert2
         Swal.fire({
-            icon: 'success',
             title: 'Experiencia laboral guardada con éxito',
-            showConfirmButton: false,
-            timer: 1500
-        });
-    
-        // Obtener los datos del formulario
-        var formData = $(form).serialize();
-    
-        // Enviar la solicitud AJAX
-        $.ajax({
-            type: "POST", // Método HTTP (puede ser GET o POST según tus necesidades)
-            url: $(form).attr("action"), // URL a la que enviarás el formulario
-            data: formData,
-            success: function (response) {
-                // Manejar la respuesta del servidor si es necesario
-                console.log(response);
-            },
-            error: function (error) {
-                // Manejar errores si es necesario
-                console.error(error);
-            }
-        });
-    
-        return false; // Evita que el formulario se envíe de la manera estándar
-    }
-    
-  });
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Aquí puedes enviar el formulario si es necesario
+                form.submit();
 
-  // Puedes agregar otras configuraciones o acciones necesarias aquí
+                // Deshabilita el botón y muestra "Enviando..."
+                disableSubmitButton($("#enviarPerfilExp")[0]);
+
+                }
+            });
+        },
+    });
 });

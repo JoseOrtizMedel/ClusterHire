@@ -12,75 +12,86 @@
                     <div class="card-body text-center">
                         <h3 id="tituloCard1">Datos personales</h3>
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="" style="color: #003e77;">Rut:</label>
-                                {{ u_dires_form.rut_usuario}}
+                                <input type="text" class="form-control" name="rut_usuario" id="rut_usuario" required/>
+<!--                                 {{ u_dires_form.rut_usuario}} -->
                             </div>
                         </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="" style="color: #003e77;">DV:</label>
-                                {{ u_dires_form.dv_usuario}}
+                                <input type="text" class="form-control" name="dv_usuario" id="dv_usuario" required/>
+<!--                                 {{ u_dires_form.dv_usuario}} -->
                             </div>
                         </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="" style="color: #003e77;">Primer nombre:</label>
-                                {{ u_dires_form.nombre }}
+                                <input type="text" class="form-control" name="nombre" id="nombre" required/>
+<!--                                 {{ u_dires_form.nombre }} -->
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="" style="color: #003e77;">Segundo nombre:</label>
-                                {{ u_dires_form.segundo_nombre }}
+                                <input type="text" class="form-control" name="segundo_nombre" id="segundo_nombre" required/>
+<!--                                 {{ u_dires_form.segundo_nombre }} -->
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="" style="color: #003e77;">Primer apellido:</label>
-                                {{ u_dires_form.primer_apellido }}
+                                <input type="text" class="form-control" name="primer_apellido" id="primer_apellido" required/>
+<!--                                 {{ u_dires_form.primer_apellido }} -->
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="" style="color: #003e77;">Segundo apellido:</label>
-                                {{ u_dires_form.segundo_apellido }}
+                                <input type="text" class="form-control" name="segundo_apellido" id="segundo_apellido" required/>
+<!--                                 {{ u_dires_form.segundo_apellido }} -->
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="" style="color: #003e77;">Fecha nacimiento:</label>
-                                {{ u_dires_form.fecha_nacimiento }}
+                                <input type="text" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" required/>
+<!--                                 {{ u_dires_form.fecha_nacimiento }} -->
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="" style="color: #003e77;">Nacionalidad:</label>
-                                {{ u_dires_form.nacionalidad }}
+                                <input type="text" class="form-control" name="nacionalidad" id="nacionalidad" required/>
+<!--                                 {{ u_dires_form.nacionalidad }} -->
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="" style="color: #003e77;">Teléfono:</label>
-                                {{ u_dires_form.telefono }}
+                                <input type="text" class="form-control" name="telefono" id="telefono" required/>
+<!--                                 {{ u_dires_form.telefono }} -->
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="" style="color: #003e77;">Email:</label>
-                                {{ u_dires_form.correo }}
+                                <input type="text" class="form-control" name="correo" id="correo" required/>
+<!--                                 {{ u_dires_form.correo }} -->
                             </div>
                         </div>
-                        <div class="col-lg-4" style="display: none;">
+                        <div class="col-lg-6" style="display: none;">
                             <div class="form-group">
                                 <label for="" style="color: #003e77;">ID Direccion:</label>
+                               <!--  <input type="text" class="form-control" name="u_dires_form.fk_id_direccion" id="fk_id_direccion" required/> -->
                                 {{ u_dires_form.fk_id_direccion }}
                             </div>
                         </div>
                         </div>
                             <div class="col-4" style="display: grid; margin: auto;">
-                                <input type="submit" class="btn btn-primary" id="enviarPerfilExp" value="Guardar">
+                                <input type="submit" class="btn btn-primary" id="enviarPerfilPers" value="Guardar">
                             </div>
                         </div>
                     </div>

@@ -11,7 +11,7 @@ $(document).ready(function () {
     "El año de término debe ser mayor que el año de inicio."
   );
 
-  $("#formularioPerfilDire").validate({
+  $("#formularioPerfilEduc").validate({
     rules: {
       annio_inicio_educ: {
         required: true,
@@ -62,14 +62,20 @@ $(document).ready(function () {
     },
     submitHandler: function (form) {
       Swal.fire({
-        title: "¿Está seguro de que desea editar su perfil educativo?",
+/*         title: "¿Está seguro de que desea editar su perfil educativo?",
         text: "Una vez que se edite su perfil, los cambios no se podrán revertir.",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Sí, editar",
-        cancelButtonText: "Cancelar",
+        cancelButtonText: "Cancelar", */
+        title: "Datos Actualizados",
+        text: "Sus datos educativos han sido actualizados exitosamente",
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Guardar",
+        allowOutsideClick: false,
       }).then((result) => {
         if (result.isConfirmed) {
           form.submit();

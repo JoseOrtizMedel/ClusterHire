@@ -1,8 +1,7 @@
 $(document).ready(function () {
-
     // Esta función se ejecutará después de que se haya recargado la página
     function resetSubmitButton() {
-        var button = document.getElementById("enviarPerfilDire");
+        var button = document.getElementById("enviarPerfilHab");
         if (button) {
         button.disabled = false;
         button.value = "Guardar"; // Restablece el texto del botón
@@ -22,33 +21,19 @@ $(document).ready(function () {
         setTimeout(resetSubmitButton, 5000); // 5000 milisegundos (5 segundos) como ejemplo
     }
 
-    // Configuración de la validación del formulario con jQuery Validate
-    $("#formularioPerfilDire").validate({
+    $('#formularioPerfilHab').validate({
         rules: {
-            numeracion: "required",
-            nombre_calle: "required",
-            // Agrega reglas de validación para otros campos si es necesario
+            fk_id_habilidad: "required",
         },
         messages: {
-            numeracion: "Por favor, ingresa la numeración",
-            nombre_calle: "Por favor, ingresa el nombre de la calle",
-            // Agrega mensajes de validación para otros campos si es necesario
-        },
-        errorElement: "span",
-        errorPlacement: function (error, element) {
-            error.addClass("invalid-feedback");
-            element.closest(".form-group").append(error);
-        },
-        highlight: function (element, errorClass, validClass) {
-            $(element).addClass("is-invalid");
-        },
-        unhighlight: function (element, errorClass, validClass) {
-            $(element).removeClass("is-invalid");
+            fk_id_habilidad: {
+                required: 'Por favor ingresa una habilidad',
+            }
         },
         submitHandler: function (form) {
             // Aquí puedes mostrar la confirmación con SweetAlert2
             Swal.fire({
-                title: "¡Dirección agregada correctamente!",
+                title: "Habilidad agregada correctamente!",
                 icon: "success",
                 showCancelButton: false,
                 confirmButtonColor: "#3085d6",
@@ -59,7 +44,7 @@ $(document).ready(function () {
                     form.submit();
 
                     // Deshabilita el botón y muestra "Enviando..."
-                    disableSubmitButton($("#enviarPerfilDire")[0]);
+                    disableSubmitButton($("#enviarPerfilHab")[0]);
 
                 }
             });

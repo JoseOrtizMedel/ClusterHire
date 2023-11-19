@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $("#formularioPerfilDire").validate({
+  $("#formularioPerfilPers").validate({
     rules: {
       rut_usuario: {
         required: true,
@@ -97,7 +97,8 @@ $(document).ready(function () {
         title: "Datos Actualizados",
         text: "Sus datos personales han sido actualizados exitosamente",
         icon: "success",
-        confirmButtonText: "Aceptar",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Guardar",
         allowOutsideClick: false,
       }).then((result) => {
         if (result.isConfirmed) {

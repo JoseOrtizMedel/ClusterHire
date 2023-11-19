@@ -8,7 +8,7 @@
   <br>
   <div class="row">
     <div class="col-md-12">
-      <form method="POST" action="" id="formularioPerfilDire">
+      <form method="POST" action="" id="formularioPerfilEduc">
         {% csrf_token %}
         <div class="card mb-4">
           <div class="card-body text-center">
@@ -18,14 +18,15 @@
               <div class="col-lg-4">
                 <div class="form-group">
                   <label for="" style="color: #003e77;">Año inicio:</label>
-                  {{ form.annio_inicio_educ}}
+                  <input type="text"class="form-control" name="annio_inicio_educ" id="annio_inicio_educ" required>
+<!--                   {{ form.annio_inicio_educ}} -->
                 </div>
               </div>
 
               <div class="col-lg-4">
                 <div class="form-group">
                   <label for="" style="color: #003e77;">Año término:</label>
-                  <input type="text" name="annio_fin_educ" id="annio_fin_educ" required form="formularioPerfilDire">
+                  <input type="text" class="form-control" name="annio_fin_educ" id="annio_fin_educ" required>
                 </div>
               </div>
 
@@ -60,7 +61,6 @@
 
             <div class="col-auto">
               <input type="submit" class="btn btn-primary" id="enviarPerfilPers" value="Editar">
-              <input type="reset" class="btn btn-secondary" id="limpiar" value="Limpiar">
             </div>
       </form>
       <!-- FIN FORMULARIO GENERAL -->

@@ -8,7 +8,7 @@
     <br>
     <div class="row">
         <div class="col-md-12">
-            <form method="POST" action="" id="formularioPerfilDire">
+            <form method="POST" action="" id="formularioPerfilExp">
                 {% csrf_token %}
                 <div class="card mb-4">
                     <div class="card-body text-center">
@@ -18,28 +18,28 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="" style="color: #003e77;">Empleo:</label>
-                                    {{ form.nombre_empleo}}
+                                    <input type="text" class="form-control" name="nombre_empleo" id="nombre_empleo" required/>
                                 </div>
                             </div>
 
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="" style="color: #003e77;">Fecha inicio:</label>
-                                    {{ form.fecha_inicio_exp}}
+                                    <input type="text" class="form-control" name="fecha_inicio_exp" id="fecha_inicio_exp" required/>
                                 </div>
                             </div>
 
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="" style="color: #003e77;">Fecha término:</label>
-                                    {{ form.fecha_termino_exp }}
+                                    <input type="text" class="form-control" name="fecha_termino_exp" id="fecha_termino_exp" required/>
                                 </div>
                             </div>
 
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="" style="color: #003e77;">Descripción:</label>
-                                    {{ form.descripcion }}
+                                    <textarea class="form-control" name="descripcion" id="descripcion" required></textarea>
                                 </div>
                             </div>
 
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-4" style="display: none;">
                                 <div class="form-group">
                                     <label for="" style="color: #003e77;">ID Usuario:</label>
                                     {{ form.fk_id_usuario }}
@@ -80,8 +80,7 @@
                         </div>
 
                         <div class="col-auto">
-                            <input type="submit" class="btn btn-primary" id="enviarPerfilPers" value="Editar">
-                            <input type="reset" class="btn btn-secondary" id="limpiar" value="Limpiar">
+                            <input type="submit" class="btn btn-primary" id="enviarPerfilExp" value="Editar">
                         </div>
                         <!-- BOTON ENVIAR FORMULARIO -->
 
@@ -93,15 +92,9 @@
     <!-- FIN ESTRUCTURA FORMULARIO GENERAL -->
 </section>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-    integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-    crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{% static 'js/validacionExperienciaEdit.js' %}"></script>

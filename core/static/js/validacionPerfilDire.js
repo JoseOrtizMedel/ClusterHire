@@ -40,8 +40,8 @@ $(document).ready(function() {
 
       },
       messages: {
-        numeracion: "required",
-        nombre_calle: "required",
+        numeracion: "Este campo es obligatorio",
+        nombre_calle: "Este campo es obligatorio",
       },
 
       submitHandler: function(form) {
