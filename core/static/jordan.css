@@ -7,6 +7,10 @@ body{
   background-color: #e5e5e5;
 }
 
+#cards {
+  margin-bottom: 10px; /* Puedes ajustar este valor según tus necesidades */
+}
+
 #titulo{
   font-size: 60px;
   text-align: center;

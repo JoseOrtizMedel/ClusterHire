@@ -268,16 +268,23 @@ def read_csv(request, id_oferta):
 
     resultado['NOM_MODALIDAD'].fillna('N/A', inplace=True)
 
-    columnas_seleccionadas = ['ID_OFERTA','NOM_OFERTA'
-                          ,'ID_FORMULARIO','FECHA_FORMULARIO'
-                          ,'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO',
-                          'ANHOS_EXPERIENCIA_USER','TIPO_CARGO_EXP','ptj_formacion', 'ptj_titulo','ptj_habilidades', 'ptj_idiomas', 'ptj_cargo',
-                          'ptj_competencia', 'COMPETENCIA_USER','COMPETENCIA_OFERTA', 'NOM_MODALIDAD'
-                          ]
-    resultado.drop_duplicates()
+    columnas_seleccionadas = ['ID_OFERTA','NOM_OFERTA', 'ID_FORMULARIO','FECHA_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO',
+                            'ANHOS_EXPERIENCIA_USER','TIPO_CARGO_EXP','ptj_formacion', 'ptj_titulo','ptj_habilidades', 'ptj_idiomas', 'ptj_cargo',
+                            'ptj_competencia', 'COMPETENCIA_USER','COMPETENCIA_OFERTA', 'NOM_MODALIDAD']
+
+    # Seleccionar columnas
     df = resultado[columnas_seleccionadas]
-    df = df.groupby(['ID_OFERTA','NOM_OFERTA','ID_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO', 'NOM_MODALIDAD'
-                            , 'ANHOS_EXPERIENCIA_USER', 'ptj_formacion', 'ptj_titulo', 'ptj_habilidades', 'ptj_idiomas', 'ptj_cargo'])['ptj_competencia'].sum().reset_index()
+
+    # Ordenar por 'FECHA_FORMULARIO' en orden descendente
+    df = df.sort_values(by='FECHA_FORMULARIO', ascending=False)
+
+    # Eliminar duplicados, conservando la primera ocurrencia (la más reciente)
+    df = df.drop_duplicates(subset='ID_USUARIO', keep='first')
+
+    # Realizar el agrupamiento y suma
+    df = df.groupby(['ID_OFERTA','NOM_OFERTA','ID_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO', 'NOM_MODALIDAD',
+                    'ANHOS_EXPERIENCIA_USER', 'ptj_formacion', 'ptj_titulo', 'ptj_habilidades', 'ptj_idiomas', 'ptj_cargo'
+                 ])['ptj_competencia'].sum().reset_index()
 
 #----------------------------------------------------K-MEANS------------------------------------------------------
     conteo_formularios = df['ID_FORMULARIO'].count()
@@ -348,12 +355,12 @@ def read_csv(request, id_oferta):
     df['cluster']=labels
 
     # Primer grupo
-    grupo_menor_recomendado = df.sort_values(by=['cluster'])[0:(cantidadGrupo['cantidad'][0])]
-    grupo_menor_recomendado
+    grupo_mejor_recomendado = df.sort_values(by=['cluster'])[0:(cantidadGrupo['cantidad'][0])]
+    grupo_mejor_recomendado
 
     # Segundo grupo
-    grupo_mejor_recomendado = df.sort_values(by=['cluster'])[(cantidadGrupo['cantidad'][0]):(cantidadGrupo['cantidad'][0] + cantidadGrupo['cantidad'][1])]
-    grupo_mejor_recomendado
+    grupo_menor_recomendado = df.sort_values(by=['cluster'])[(cantidadGrupo['cantidad'][0]):(cantidadGrupo['cantidad'][0] + cantidadGrupo['cantidad'][1])]
+    grupo_menor_recomendado
     
 #-----------------------------------------------------------------------------------------------------------------
     

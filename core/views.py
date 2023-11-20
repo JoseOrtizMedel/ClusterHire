@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 
-from .models import Ciudad, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, HabilidadUsuario, IdiomaUsuario, Oferta, Formulario, Usuario, Competencia, UsuarioLogro
+from .models import Ciudad, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, Habilidad, HabilidadUsuario, Idioma, IdiomaUsuario, Oferta, Formulario, Usuario, Competencia, UsuarioLogro
 
 from .models import CompetenciaOferta, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, HabilidadUsuario, IdiomaUsuario, Oferta, Formulario, Usuario, Competencia, UsuarioLogro
 from django.contrib import messages
@@ -189,6 +189,12 @@ def perfil_admin(request, id_usuario, id_oferta):
 
         compesuser = CompetenciaUsuario.objects.filter(fk_id_usuario=id_user)
         competencias = Competencia.objects.filter(competenciausuario__in=compesuser)
+
+        habiuser = HabilidadUsuario.objects.filter(fk_id_usuario=id_user)
+        habilidades = Habilidad.objects.filter(habilidadusuario__in=habiuser)
+
+        idiouser = IdiomaUsuario.objects.filter(fk_id_usuario=id_user)
+        idiomas = Idioma.objects.filter(idiomausuario__in=idiouser)
    
 
     except Usuario.DoesNotExist:
@@ -203,10 +209,12 @@ def perfil_admin(request, id_usuario, id_oferta):
         'comunas' : comunas,
         'ciudades' : ciudades,
         'compesuser': compesuser,
-        'competencias': competencias
+        'competencias': competencias,
+        'habilidades': habilidades,
+        'idiomas': idiomas
     }
 
-    print()
+    print(habilidades)
 
     return render(request, 'perfil_admin.html', datos)
 
