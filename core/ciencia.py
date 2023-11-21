@@ -355,12 +355,12 @@ def read_csv(request, id_oferta):
     df['cluster']=labels
 
     # Primer grupo
-    grupo_mejor_recomendado = df.sort_values(by=['cluster'])[0:(cantidadGrupo['cantidad'][0])]
-    grupo_mejor_recomendado
+    grupo_menor_recomendado = df.sort_values(by=['cluster'])[0:(cantidadGrupo['cantidad'][0])]
+    grupo_menor_recomendado
 
     # Segundo grupo
-    grupo_menor_recomendado = df.sort_values(by=['cluster'])[(cantidadGrupo['cantidad'][0]):(cantidadGrupo['cantidad'][0] + cantidadGrupo['cantidad'][1])]
-    grupo_menor_recomendado
+    grupo_mejor_recomendado = df.sort_values(by=['cluster'])[(cantidadGrupo['cantidad'][0]):(cantidadGrupo['cantidad'][0] + cantidadGrupo['cantidad'][1])]
+    grupo_mejor_recomendado
     
 #-----------------------------------------------------------------------------------------------------------------
     
