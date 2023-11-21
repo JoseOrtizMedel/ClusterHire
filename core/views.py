@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 
-from .models import Ciudad, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, Habilidad, HabilidadUsuario, Idioma, IdiomaUsuario, Oferta, Formulario, Usuario, Competencia, UsuarioLogro
+from .models import Ciudad, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, Habilidad, HabilidadUsuario, Idioma, IdiomaUsuario, ModalidadTrabajo, Oferta, Formulario, TipoCargo, TipoEmpleo, Usuario, Competencia, UsuarioLogro
 
 from .models import CompetenciaOferta, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, HabilidadUsuario, IdiomaUsuario, Oferta, Formulario, Usuario, Competencia, UsuarioLogro
 from django.contrib import messages
@@ -196,6 +196,17 @@ def perfil_admin(request, id_usuario, id_oferta):
         idiouser = IdiomaUsuario.objects.filter(fk_id_usuario=id_user)
         idiomas = Idioma.objects.filter(idiomausuario__in=idiouser)
    
+        experiencias = Experiencia.objects.filter(fk_id_usuario=id_user)
+
+        fkempleos = experiencias.values_list('fk_id_tipo_empleo', flat=True)
+        empleos = TipoEmpleo.objects.filter(id_tipo_empleo__in=fkempleos)
+
+        fkcargos = experiencias.values_list('fk_id_tipo_cargo', flat=True)
+        cargos = TipoCargo.objects.filter(id_tipo_cargo__in=fkcargos)
+
+        fkmodalidad = experiencias.values_list('fk_id_modalidad', flat=True)
+        modalidades = ModalidadTrabajo.objects.filter(id_modalidad__in = fkmodalidad)
+
 
     except Usuario.DoesNotExist:
         # Manejar el caso en el que el usuario no se encuentre
@@ -208,13 +219,23 @@ def perfil_admin(request, id_usuario, id_oferta):
         'direcciones' : direcciones,
         'comunas' : comunas,
         'ciudades' : ciudades,
-        'compesuser': compesuser,
-        'competencias': competencias,
-        'habilidades': habilidades,
-        'idiomas': idiomas
+        'compesuser' : compesuser,
+        'competencias' : competencias,
+        'habilidades' : habilidades,
+        'idiomas' : idiomas,
+        'experiencias' : experiencias,
+        'empleos' : empleos,
+        'cargos' : cargos,
+        'modalidades' : modalidades
     }
 
-    print(habilidades)
+
+    if empleos.exists():
+        modalidades = modalidades.first()
+        print(modalidades.nom_modalidad)
+    else:        
+        print("No se encontró información sobre el tipo de empleo.")
+
 
     return render(request, 'perfil_admin.html', datos)
 

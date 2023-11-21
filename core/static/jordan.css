@@ -18,10 +18,22 @@ body{
   font-family: 'fellows';
   }  
 
+.titulo3{
+  background-color:#003e77;
+  text-align: center;
+  color: white !important;
+  font-family: 'fellows';
+  font-weight: bold;
+  
+}
+
+
+
  #titulo2{
     text-align: center;
     color: #003e77;
     font-family: 'fellows';
+    font-weight: bold;
     }  
   
 #df-container {

@@ -9,7 +9,7 @@
 
 <br>    
 <section >
-    <div class="d-flex justify-content-between align-items-center">
+    <div class=" mb-3 mt-0">
         <a href="{% url 'read_csv' id_oferta %}" class="btn btn-danger" id="boton_volver">Volver</a>
     </div>
 
@@ -28,10 +28,13 @@
         </div>
         
         <div class="col-lg-8">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 id="titulo2" class="mb-0">DATOS PERSONALES</h5>
-                    <hr>
+            <div class="card">
+                <div class="card"> 
+                    <div class = "titulo3">
+                        <h5  class="titulo3 mb-3 mt-3">Datos personales</h5>    
+                    </div> 
+                </div>
+                <div class="card-body mb-0 mt-0">
                     <div class="row">
                         <div class="col-sm-3">
                             <p id="titulo2" class="mb-0">Nombre completo</p>
@@ -85,85 +88,204 @@
             </div>
             
         </div>
+        <div class="col-lg-12">
+            {% if experiencias %}
+                <div class="card mb-2 mt-3"> 
+                    <div class = "titulo3">
+                        <h5  class="titulo3 mb-3 mt-3">Experiencia laboral</h5>    
+                    </div> 
+                </div>
+                {% for experiencia in experiencias %}
+                    <div class="card mb-2">
+                        <div class="card-body"> 
+                            <h5 id="titulo2" class="mb-0">{{ experiencia.nombre_empleo|title }}.</h5>
+                            <hr>
+                            <div class="row">   
+                                <div class="col-sm-2">
+                                    <p id="titulo2" class="mb-0">Cargo ejercido</p>
+                                </div>
+                                <div class="col-sm-10">
+                                    {% if experiencia.fk_id_tipo_cargo %}
+                                        <p class="text-muted mb-0">{{ experiencia.fk_id_tipo_cargo.nom_cargo }}.</p>
+                                    {% else %}
+                                        <p class="text-muted mb-0">No se encontró información sobre el tipo de cargo.</p>
+                                    {% endif %}                             
+                                </div>
+                            </div>                              
+                            <hr>
+                            <div class="row">   
+                                <div class="col-sm-2">
+                                    <p id="titulo2" class="mb-0">Descripcion</p>
+                                </div>
+                                <div class="col-sm-10">
+                                    <p class="text-muted mb-0">{{ experiencia.descripcion|title }}.</p>                                    
+                                </div>
+                            </div>  
+
+                            <hr>   
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <p id="titulo2" class="mb-0">Fecha de inicio</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    {% if experiencia.fecha_inicio_exp|time %}
+                                        <p class="text-muted mb-0">{{ experiencia.fecha_inicio_exp|date:"j \de F \de Y" }}.</p>
+                                    {% else %}
+                                        <p class="text-muted mb-0">{{  experiencia.fecha_inicio_exp|naturalday }}.</p>
+                                    {% endif %}
+                                </div>
+                                <div class="col-sm-2">
+                                    <p id="titulo2" class="mb-0">Fecha de termino</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    {% if experiencia.fecha_termino_exp|time %}
+                                        <p class="text-muted mb-0">{{ experiencia.fecha_termino_exp|date:"j \de F \de Y" }}.</p>
+                                    {% else %}
+                                        <p class="text-muted mb-0">{{  experiencia.fecha_termino_exp|naturalday }}.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">   
+                                <div class="col-sm-2">
+                                    <p id="titulo2" class="mb-0">Tipo de contrato</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    {% if experiencia.fk_id_tipo_empleo %}
+                                        <p class="text-muted mb-0">{{ experiencia.fk_id_tipo_empleo.nom_tipo_empleo }}.</p>
+                                    {% else %}
+                                        <p class="text-muted mb-0">No se encontró información sobre el tipo de empleo.</p>
+                                    {% endif %}                             
+                                </div>  
+                                <div class="col-sm-2">
+                                    <p id="titulo2" class="mb-0">Modalidad</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    {% if experiencia.fk_id_modalidad %}
+                                        <p class="text-muted mb-0">{{ experiencia.fk_id_modalidad.nom_modalidad }}.</p>
+                                    {% else %}
+                                        <p class="text-muted mb-0">No se encontró información sobre la modalidad.</p>
+                                    {% endif %}                             
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+
+            <div class="card mb-4">
+                
+                <div class = "titulo3">
+                    <h5  class="titulo3 mb-3 mt-3">Experiencia laboral</h5>    
+                </div> 
+                <div class="card-body">    
+                    <div class="row">   
+                        <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                            <p class="text-muted mb-0">No se encontró información sobre experiencia laboral para este usuario.</p>
+                        </div>                        
+                    </div>                         
+                </div>
+            </div>
+
+        {% endif %}
+            
+        </div>
+
+       
 
         <div class="col-lg-12">
             <div class="row">
-                <div id = "cards" class="col-lg-4 custom-card">
-                    <div class="card mb-4">
-                        <br>
-                        <h5 id="titulo2" class="mb-0">COMPETENCIAS</h5>  
-                        <br> 
+                <div id="cards" class="col-lg-4 custom-card">
+                    <div class="card mt-4 mb-4">
+                        <div class = "titulo3">
+                            <h5  class="mb-3 mt-3">Competencias</h5>    
+                        </div>
                         {% if competencias %}             
                             {% for compesuser in compesuser.all %}
+                                <ul class="list-group list-group-flush rounded-3">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                        <i class="fa-solid fa-award" style="color: rgb(201, 188, 18)"></i>
+                                        <div class="col-sm-12 d-flex align-items-center justify-content-start">
+                                            <h5 id="titulo2" class="align-self-center mb-0">{{ compesuser.fk_id_competencia.nombre_competencia|title }}</h5>
+                                        </div>                            
+                                    </li>         
+                                </ul>                                                            
+                            {% endfor %}
+                        {% else %}
                             <ul class="list-group list-group-flush rounded-3">
                                 <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                     <i class="fa-solid fa-award" style="color: rgb(201, 188, 18)"></i>
-                                    <h5 id="titulo2" class="mb-0">{{ compesuser.fk_id_competencia.nombre_competencia|title }}</h5>                            
+                                    <h5 id="titulo2" class="mb-0 align-self-center">No registra competencias</h5>                      
                                 </li>         
-                            </ul>                                       
-                            {% endfor %}
-                        {% else %}
-                        <ul class="list-group list-group-flush rounded-3">
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fa-solid fa-award" style="color: rgb(201, 188, 18)"></i>
-                                <h5 id="titulo2" class="mb-0">No registra competencias</h5>                      
-                            </li>         
-                        </ul>   
-                    {% endif %}  
+                            </ul>   
+                        {% endif %}  
                     </div>
                 </div>
-                <div id = "cards" class="col-lg-4 custom-card">
-                    <div class="card mb-4">
-                        <br>
-                        <h5 id="titulo2" class="mb-0">HABILIDADES</h5>   
-                        <br>           
+                
+
+                <div id="cards" class="col-lg-4 custom-card">
+                    <div class="card mt-4  mb-4">
+                        <div class = "titulo3">
+                            <h5  class="mb-3 mt-3">Habilidades</h5>    
+                        </div>      
                         {% if habilidades %}
                             {% for habilidad in habilidades %}
                                 <ul class="list-group list-group-flush rounded-3">
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                         <i class="fa-solid fa-star" style="color: rgb(201, 188, 18)"></i>
-                                        
-                                        <h5 id="titulo2" class="mb-0">{{ habilidad.nombre_habilidad|title }}</h5>                            
+                                        <div class="col-sm-12 d-flex align-items-center justify-content-start">
+                                            <h5 id="titulo2" class="align-self-center mb-0">{{ habilidad.nombre_habilidad|title }}</h5>
+                                        </div>                            
                                     </li>         
                                 </ul>                                       
                             {% endfor %}
                         {% else %}
-                        <ul class="list-group list-group-flush rounded-3">
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fa-solid fa-star" style="color: rgb(201, 188, 18)"></i>
-                                <h5 id="titulo2" class="mb-0">No registra habilidades</h5>                        
-                            </li>         
-                        </ul>                             
+                            <ul class="list-group list-group-flush rounded-3">
+                                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                    <i class="fa-solid fa-star" style="color: rgb(201, 188, 18)"></i>
+                                    <h5 id="titulo2" class="mb-0 align-self-center">No registra habilidades</h5>                        
+                                </li>         
+                            </ul>                             
                         {% endif %}
                     </div>
-                </div>  
-                <div id = "cards" class="col-lg-4 custom-card">
-                    <div class="card mb-4">
-                        <br>
-                        <h5 id="titulo2" class="mb-0">IDIOMAS</h5>
-                        <br>                  
+                </div>
+                
+                
+                
+                <div id="cards" class="col-lg-4 custom-card">
+                    <div class="card mt-4 mb-4">
+                        <div class = "titulo3">
+                            <h5  class="mb-3 mt-3">Idiomas</h5>    
+                        </div>         
                         {% if idiomas %}
                             {% for idioma in idiomas %}
                                 <ul class="list-group list-group-flush rounded-3">
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                         <i class="fa-solid fa-language" style="color: rgb(201, 188, 18)"></i>
-                                        <h5 id="titulo2" class="mb-0">{{ idioma.nombre_idioma|title }}</h5>                            
+                                        <div class="col-sm-12 d-flex align-items-center justify-content-start">
+                                            <h5 id="titulo2" class="align-self-center mb-0">{{ idioma.nombre_idioma|title }}</h5>
+                                        </div>                            
                                     </li>         
                                 </ul>                                       
                             {% endfor %}
                         {% else %}
-                        <ul class="list-group list-group-flush rounded-3">
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fa-solid fa-language" style="color: rgb(201, 188, 18)"></i>
-                                <h5 id="titulo2" class="mb-0">No registra idiomas</h5>                             
-                            </li>         
-                        </ul>
-
+                            <ul class="list-group list-group-flush rounded-3">
+                                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                    <i class="fa-solid fa-language" style="color: rgb(201, 188, 18)"></i>
+                                    <h5 id="titulo2" class="mb-0 align-self-center">No registra idiomas</h5>                             
+                                </li>         
+                            </ul>
                         {% endif %} 
                     </div>
-                </div>               
+                </div>
+                 
+
             </div>
         </div>
+
+
+
+
 
 
     </div>
