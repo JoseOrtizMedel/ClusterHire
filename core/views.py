@@ -155,19 +155,32 @@ def ofertas_user(request):
     print(ofertas)  # Imprime las ofertas en la consola para depuración
     return render(request, 'ofertas_user.html', {'ofertas': ofertas}) 
  
+
+import traceback
 @login_required
 @csrf_exempt
 def eliminar_oferta(request, id_oferta):
     if request.method == 'POST':
         try:
             oferta = Oferta.objects.get(id_oferta=id_oferta)
+
+            # Eliminar formularios asociados a la oferta
+            Formulario.objects.filter(fk_id_oferta=oferta).delete()
+
             # Eliminar las relaciones CompetenciaOferta relacionadas
             CompetenciaOferta.objects.filter(fk_id_oferta=oferta).delete()
+
+            # Finalmente, elimina la oferta
             oferta.delete()
+
             return JsonResponse({'success': True})
         except Oferta.DoesNotExist:
             return JsonResponse({'success': False, 'error': 'Oferta no encontrada'})
+        except Exception as e:
+            traceback.print_exc()
+            return JsonResponse({'success': False, 'error': str(e)})
     return JsonResponse({'success': False})
+
 
 
 @login_required
