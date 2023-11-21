@@ -1,5 +1,17 @@
 $(document).ready(function() {
-    $("#formularioPerfilDire").validate({
+    $.validator.addMethod(
+      "greaterThan",
+      function (value, element, param) {
+        var target = $(param).val();
+        if (value && target) {
+          return parseInt(value) > parseInt(target);
+        }
+        return true;
+      },
+      "El año de término debe ser mayor que el año de inicio."
+    );
+
+    $("#formularioPerfilExp").validate({
       rules: {
         nombre_empleo: {
           required: true,
@@ -19,6 +31,12 @@ $(document).ready(function() {
           required: true,
           minlength: 20,
           maxlength: 255
+        },
+        fk_id_comuna: {
+          required: true
+        },
+        fk_id_tipo_empleo: {
+          required: true
         }
       },
       messages: {
@@ -40,26 +58,28 @@ $(document).ready(function() {
           required: "La descripción de la experiencia laboral es obligatoria",
           minlength: "La descripción debe tener al menos 20 caracteres",
           maxlength: "La descripción no debe tener más de 255 caracteres"
+        },
+        fk_id_comuna: {
+          required: "Seleccione una comuna."
+        },
+        fk_id_tipo_empleo: {
+          required: "Seleccione un tipo de empleo."
         }
       },
       submitHandler: function(form) {
         Swal.fire({
-          title: "¿Está seguro de guardar la experiencia laboral?",
-          text: "No podrá revertir esta acción.",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Sí, guardar',
-          cancelButtonText: 'Cancelar',
-          timer: 0
-        }).then((result) => {
+          title: "Datos Actualizados",
+          text: "Sus datos laborales han sido actualizados exitosamente",
+          icon: "success",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Guardar",
+          allowOutsideClick: false,
+      }).then((result) => {
           if (result.isConfirmed) {
-            // Enviar formulario
-            form.submit();
+              form.submit();
           }
         });
-      }
+      },
     });
   });
   

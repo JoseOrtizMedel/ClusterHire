@@ -4,17 +4,17 @@
 
 <!-- Image and text -->
 <nav class="navbar" style="background-color: #003e77;">
-  <a class="navbar-brand" href="{% url 'perfil2' %}">
+  <a class="navbar-brand" href="{% url 'ofertas_admin' %}">
     <img src="{% static 'imagenes/logo.png' %}" height="50" class="d-inline-block align-top" alt="">
   </a>
   <div class="ml-auto"> <!-- Agregamos la clase ml-auto para alinear a la derecha -->
 
     <nav class="nav">
 
-      {% if request.user.is_authenticated %}
+      {% if request.user.is_superuser %}
 
-      <a class="btn btn-primary mr-2" type="button" href="{% url 'perfil2' %}"><b>@{{ request.user.username }}</b></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <a class="btn btn-primary mr-2" type="button" href="{% url 'ofertas_user' %}"></i>Ver Ofertas</a>
+      <a class="btn btn-primary mr-2" type="button" href="{% url 'ofertas_admin' %}"><b>@{{ request.user.username }}</b></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a class="btn btn-primary mr-2" type="button" href="{% url 'ofertas_admin' %}"></i>Ver Ofertas</a>
       <a class="btn btn-primary mr-2" type="button" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i></a>
 
       {% else %}

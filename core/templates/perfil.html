@@ -176,7 +176,7 @@
                                         <tr>
                                             <td>{{ idioma.fk_id_idioma.nombre_idioma }}</td>
                                             <td>
-                                                <a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_idiomas' idioma.id_idioma_usuario %}" style="float: right; margin-right: 10px;"><i class="fa-solid fa-trash"></i></a>
+                                                <a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_idiomas' idioma.id_idioma_usuario %}" style="float: right; margin-right: 10px;" id="btnEliminarIdioma" onclick="eliminarIdioma()"><i class="fa-solid fa-trash"></i></a>
                                             </td>
                                         {% endfor %}
                                     {% else %}
@@ -276,7 +276,7 @@
             <div class="col-lg-12">
                 <form method="POST" action="" id="formularioPerfilExp">
                     {% csrf_token %}
-                    <div class="table-responsive-lg">
+                    <div class="table-responsive-xl">
                         <table class="table table-border">
                             <tr>
                                 <th class="table-primary">Empleo</th>

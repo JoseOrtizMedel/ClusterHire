@@ -43,7 +43,15 @@
                 <div class="form-group">
                     <label for="{{ compeofe_form.fk_id_competencia.id_for_label }}">Seleccione la nueva competencia</label>
                     {{ compeofe_form.fk_id_competencia }}
-                </div>                                  
+                </div>      
+                
+<!--                 <div id="msj_compe" class="text-danger">Error, la competencia ya ha sido ingresada</div> -->
+
+                {% if message_error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message_error }}
+                    </div>
+                {% endif %}
                 
                 <!-- Botón a la derecha con margen -->
                 <div class="row">                    

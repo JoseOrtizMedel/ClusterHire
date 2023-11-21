@@ -13,7 +13,7 @@ $(document).ready(function() {
       var button = document.getElementById("enviarPerfilExp");
       if (button) {
         button.disabled = false;
-        button.value = "Ingresar"; // Restablece el texto del botón
+        button.value = "Guardar"; // Restablece el texto del botón
       }
     }
       // Esta función se llama cuando se hace clic en el botón de enviar

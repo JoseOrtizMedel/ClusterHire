@@ -42,6 +42,7 @@ $(document).ready(function () {
                 if (result.isConfirmed) {
                     // Aquí puedes enviar el formulario si es necesario
                     form.submit();
+
                     // Deshabilita el botón y muestra "Enviando..."
                     disableSubmitButton($("#enviarPerfilCompe")[0]);
 
@@ -49,5 +50,4 @@ $(document).ready(function () {
             });
         },
     });
-    console.log(contador)
 });

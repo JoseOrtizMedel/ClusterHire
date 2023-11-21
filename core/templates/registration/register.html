@@ -5,82 +5,17 @@
 
 {% block content %}
 
-
-
-
-<!-- <div id= "titulo">
-    <h1>
-    Nueva oferta
-    </h1>
-</div> -->
-
-<!-- <div class="container">
-    <a href="#" class="btn btn-danger">Volver</a>
-</div> -->
-
-<style>
-    #formulario1 {
-        /*   padding: 20px; */
-        background: rgb(255, 255, 255);
-        color: #000000;
-        box-shadow:
-            0 0 10px rgba(0, 0, 0, 0.0),
-            /* Sombra interna */
-            0 0 20px rgba(0, 0, 0, 0.0),
-            /* Sombra intermedia */
-            0 0 40px rgb(173, 173, 173, 1);
-        /* Sombra exterior */
-        ;
-
-        -moz-border-radius: 4px;
-        -webkit-border-radius: 4px;
-        border-radius: 4px;
-        height: auto;
-        width: 100%;
-    }
-
-    .form-control {
-        width: 70%;
-        margin-left: 10%;
-    }
-
-    #label_registro {
-        margin-left: 5%;
-    }
-
-    #tituloRegistro {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #btnRegistrarse {
-        margin-left: 200px;
-        margin-top: 25px;
-    }
-
-    #logoLogin4 {
-        padding: 30px;
-        width: 500px;
-        height: 500px;
-        margin-top: 30%;
-    }
-
-</style>
-
-
 <div class="container-fluid">
-    <div name="registration" id="formulario1">
+    <div name="registration" id="registro">
         <div class="row" id="row">
             <div class="col-md-6" id="izq">
-                <h1 id="tituloLogin">Registro</h1>
-                <img src="{% static 'imagenes/ClusterHire5.png' %}" alt="" id="logoLogin4">
+                <img src="{% static 'imagenes/ClusterHire5.png' %}" alt="" id="logoLoginReg">
             </div>
-            <form action="" method="post" id="register-form">
+            <form action="" method="post" class="form-login" id="formulario">
                 {% csrf_token %}
                 <img src="{% static 'imagenes/ClusterHire.png' %}" alt="" id="logoLogin2">
-                <div class="form-group" id="login">
-                    <h1 id="tituloRegistro"><b>Registro</b></h1>
+                <div class="form-group" id="registro">
+                    <h1 id="tituloLogin"><b>Registro</b></h1>
                     <!-- {{ form }} -->
 
                     <div class="form-group">
@@ -128,8 +63,7 @@
                         <input type="password" class="form-control" name="password2" autocomplete="new-password"
                              id="id_password2">
                         <br>
-                        <span class="helptext" id="label_registro">Ingresa la misma contraseña que anteriormente para
-                            verificar.</span>
+                        <span class="helptext" id="label_registro">Requerido. Ingresa la misma contraseña que digitaste anteriormente.</span>
                     </div>
 
                     <button class="btn btn-primary registrar-button" type="submit" id="btnRegistrarse">REGISTRARSE</button>

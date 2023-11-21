@@ -15,43 +15,44 @@
             <h3 id="tituloCard1">Educación</h3>
             <div class="row">
 
-              <div class="col-lg-4">
+              <div class="col-lg-4 formEducEdit">
                 <div class="form-group">
                   <label for="" style="color: #003e77;">Año inicio:</label>
-                  <input type="text"class="form-control" name="annio_inicio_educ" id="annio_inicio_educ" required>
-<!--                   {{ form.annio_inicio_educ}} -->
+<!--                   <input type="text"class="form-control" name="annio_inicio_educ" id="annio_inicio_educ" required> -->
+                  {{ form.annio_inicio_educ}}
                 </div>
               </div>
 
-              <div class="col-lg-4">
+              <div class="col-lg-4 formEducEdit">
                 <div class="form-group">
                   <label for="" style="color: #003e77;">Año término:</label>
-                  <input type="text" class="form-control" name="annio_fin_educ" id="annio_fin_educ" required>
+<!--                   <input type="text" class="form-control" name="annio_fin_educ" id="annio_fin_educ" required> -->
+                  {{ form.annio_fin_educ}}
                 </div>
               </div>
 
-              <div class="col-lg-4" style="display: none;">
+              <div class="col-lg-4 formEducEdit" style="display: none;">
                 <div class="form-group">
                   <label for="" style="color: #003e77;">ID Usuario:</label>
                   {{ form.fk_id_usuario }}
                 </div>
               </div>
 
-              <div class="col-lg-4">
+              <div class="col-lg-4 formEducEdit">
                 <div class="form-group">
                   <label for="" style="color: #003e77;">Casa de estudios:</label>
                   {{ form.fk_id_institucion }}
                 </div>
               </div>
 
-              <div class="col-lg-6">
+              <div class="col-lg-6 formEducEdit">
                 <div class="form-group">
                   <label for="" style="color: #003e77;">Formación:</label>
                   {{ form.fk_id_formacion }}
                 </div>
               </div>
 
-              <div class="col-lg-6">
+              <div class="col-lg-6 formEducEdit">
                 <div class="form-group">
                   <label for="" style="color: #003e77;">Título:</label>
                   {{ form.fk_id_titulo }}

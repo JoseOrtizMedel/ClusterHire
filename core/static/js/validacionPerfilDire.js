@@ -1,13 +1,4 @@
 $(document).ready(function() {
-
-      // Función para verificar si una fecha es válida
-      function isValidDate(dateString) {
-        var regEx = /^\d{4}-\d{2}-\d{2}$/;
-        if (!dateString.match(regEx)) return false;  // Formato incorrecto
-        var d = new Date(dateString);
-        if (!d.getTime() && d.getTime() !== 0) return false; // No es una fecha válida
-        return d.toISOString().slice(0, 10) === dateString;
-      }
     
       // Esta función se ejecutará después de que se haya recargado la página
       function resetSubmitButton() {

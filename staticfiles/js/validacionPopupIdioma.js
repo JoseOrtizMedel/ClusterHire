@@ -1,7 +1,7 @@
 $(document).ready(function () {
     // Esta función se ejecutará después de que se haya recargado la página
     function resetSubmitButton() {
-        var button = document.getElementById("enviarPerfilCompe");
+        var button = document.getElementById("enviarPerfilIdioma");
         if (button) {
         button.disabled = false;
         button.value = "Guardar"; // Restablece el texto del botón
@@ -21,19 +21,19 @@ $(document).ready(function () {
         setTimeout(resetSubmitButton, 5000); // 5000 milisegundos (5 segundos) como ejemplo
     }
 
-    $('#formularioPerfilCompe').validate({
+    $('#formularioPerfilIdi').validate({
         rules: {
-            fk_id_competencia: "required",
+            fk_id_idioma: "required",
         },
         messages: {
-            fk_id_competencia: {
-                required: 'Por favor ingresa una competencia',
+            fk_id_idioma: {
+                required: 'Por favor ingresa un idioma',
             }
         },
         submitHandler: function (form) {
             // Aquí puedes mostrar la confirmación con SweetAlert2
             Swal.fire({
-                title: "¡Competencia agregada correctamente!",
+                title: "Idioma agregado correctamente!",
                 icon: "success",
                 showCancelButton: false,
                 confirmButtonColor: "#3085d6",
@@ -42,12 +42,12 @@ $(document).ready(function () {
                 if (result.isConfirmed) {
                     // Aquí puedes enviar el formulario si es necesario
                     form.submit();
+
                     // Deshabilita el botón y muestra "Enviando..."
-                    disableSubmitButton($("#enviarPerfilCompe")[0]);
+                    disableSubmitButton($("#enviarPerfilIdioma")[0]);
 
                 }
             });
         },
     });
-    console.log(contador)
 });

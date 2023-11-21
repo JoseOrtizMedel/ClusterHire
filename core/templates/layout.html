@@ -29,23 +29,10 @@
 
 <body class="text-light">
 
-    {% include 'partials/navbar.html' %}
+    {% include 'partials/navbar2.html' %}
 
     <div class="container">
         {% block content %}
-
-        {% if user.is_authenticated %}
-        <li>
-            <a href="{% url 'logout' %}">Salir</a>
-        </li>
-        <li>
-            <a href="{% url 'perfil_direccion' %}">{{ user.username }}</a>
-        </li>
-        {% else %}
-        <li>
-            <a href="{% url 'login' %}">Ingresar</a>
-        </li>
-        {% endif %}
 
         {% endblock %}
     </div>

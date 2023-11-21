@@ -11,6 +11,25 @@ $(document).ready(function () {
     "El año de término debe ser mayor que el año de inicio."
   );
 
+function isValidDateInicio(annio_inicio_educ) {
+  // La regex solo coincide con los cuatro números asociados al año
+  var regex = /^[0-9]{4}$/;
+  // Si la cadena no coincide con la regex, el año es inválido
+  if (!regex.test(annio_inicio_educ)) return false;
+  // Si el año es válido, se devuelve true
+  return annio_inicio_educ.length === 4;
+}
+
+function isValidDateFin(annio_fin_educ) {
+    // La regex solo coincide con los cuatro números asociados al año
+    var regex = /^[0-9]{4}$/;
+    // Si la cadena no coincide con la regex, el año es inválido
+    if (!regex.test(annio_fin_educ)) return false;
+    // Si el año es válido, se devuelve true
+    return annio_fin_educ.length === 4;
+}
+
+  
   $("#formularioPerfilEduc").validate({
     rules: {
       annio_inicio_educ: {
@@ -61,6 +80,38 @@ $(document).ready(function () {
       },
     },
     submitHandler: function (form) {
+
+      // Validamos la fecha antes de enviarla
+      var fechaInicio = $("#annio_inicio_educ").val();
+      var fechaFin = $("#annio_fin_educ").val();
+      if (!isValidDateInicio(fechaInicio)) {
+        // La fecha no es válida, muestra un mensaje de error
+        Swal.fire({
+          icon: 'error',
+          title: 'Error en la fecha de inicio',
+          text: 'Ingresa una fecha válida en el formato YYYY-MM-DD.',
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Entendido",
+        });
+
+        return false; // Evita que se envíe el formulario
+
+      }
+
+      if (!isValidDateFin(fechaFin)) {
+        // La fecha no es válida, muestra un mensaje de error
+        Swal.fire({
+          icon: 'error',
+          title: 'Error en la fecha de término',
+          text: 'Ingresa una fecha válida en el formato YYYY-MM-DD.',
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Entendido",
+        });
+
+        return false; // Evita que se envíe el formulario
+
+      }
+
       Swal.fire({
 /*         title: "¿Está seguro de que desea editar su perfil educativo?",
         text: "Una vez que se edite su perfil, los cambios no se podrán revertir.",
@@ -71,7 +122,7 @@ $(document).ready(function () {
         confirmButtonText: "Sí, editar",
         cancelButtonText: "Cancelar", */
         title: "Datos Actualizados",
-        text: "Sus datos educativos han sido actualizados exitosamente",
+        text: "Sus datos académicos han sido actualizados exitosamente",
         icon: "success",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Guardar",

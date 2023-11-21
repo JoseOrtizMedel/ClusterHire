@@ -1,65 +1,86 @@
-$(document).ready(function() {
-    $("#formularioPerfilDire").validate({
-      rules: {
-        annio_inicio_educ: {
-          required: true,
-          min: 1900,
-          max: 2023
-        },
-        annio_fin_educ: {
-          required: true,
-          min: 1900,
-          max: 2023,
-          greaterThan: "#annio_inicio_educ"
-        },
-        fk_id_institucion: {
-          required: true
-        },
-        fk_id_formacion: {
-          required: true
-        },
-        fk_id_titulo: {
-          required: true
-        }
-      },
-      messages: {
-        annio_inicio_educ: {
-          required: "El año de inicio es obligatorio.",
-          min: "El año de inicio debe ser mayor o igual a 1900.",
-          max: "El año de inicio debe ser menor o igual a 2023."
-        },
-        annio_fin_educ: {
-          required: "El año de término es obligatorio.",
-          min: "El año de término debe ser mayor o igual a 1900.",
-          max: "El año de término debe ser menor o igual a 2023.",
-          greaterThan: "El año de término debe ser mayor o igual al año de inicio."
-        },
-        fk_id_institucion: {
-          required: "La casa de estudios es obligatoria."
-        },
-        fk_id_formacion: {
-          required: "La formación es obligatoria."
-        },
-        fk_id_titulo: {
-          required: "El título es obligatorio."
-        }
-      },
-      submitHandler: function(form) {
-        Swal.fire({
-          title: "¿Está seguro de guardar los cambios?",
-          text: "Una vez que guarde los cambios, no se podrán deshacer.",
-          icon: "question",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Sí, guardar",
-          cancelButtonText: "Cancelar"
-        }).then((result) => {
-          if (result.isConfirmed) {
-            form.submit();
-          }
-        });
+$(document).ready(function () {
+  $.validator.addMethod(
+    "greaterThan",
+    function (value, element, param) {
+      var target = $(param).val();
+      if (value && target) {
+        return parseInt(value) > parseInt(target);
       }
-    });
+      return true;
+    },
+    "El año de término debe ser mayor que el año de inicio."
+  );
+
+  $("#formularioPerfilEduc").validate({
+    rules: {
+      annio_inicio_educ: {
+        required: true,
+        minlength: 4,
+        maxlength: 4,
+        number: true,
+      },
+      annio_fin_educ: {
+        required: true,
+        minlength: 4,
+        maxlength: 4,
+        number: true,
+        greaterThan: "#annio_inicio_educ"
+      },
+      fk_id_institucion: {
+        required: true,
+      },
+      fk_id_formacion: {
+        required: true,
+      },
+      fk_id_titulo: {
+        required: true,
+      },
+    },
+    messages: {
+      annio_inicio_educ: {
+        required: "Ingrese el año de inicio de la formación.",
+        minlength: "El año de inicio debe tener 4 caracteres.",
+        maxlength: "El año de inicio debe tener 4 caracteres.",
+        number: "El año de inicio debe ser un número.",
+      },
+      annio_fin_educ: {
+        required: "Ingrese el año de término de la formación.",
+        minlength: "El año de término debe tener 4 caracteres.",
+        maxlength: "El año de término debe tener 4 caracteres.",
+        number: "El año de término debe ser un número.",
+        greaterThan: "El año de término debe ser mayor que el año de inicio.",
+      },
+      fk_id_institucion: {
+        required: "Seleccione una casa de estudios.",
+      },
+      fk_id_formacion: {
+        required: "Seleccione una formación.",
+      },
+      fk_id_titulo: {
+        required: "Seleccione un título.",
+      },
+    },
+    submitHandler: function (form) {
+      Swal.fire({
+/*         title: "¿Está seguro de que desea editar su perfil educativo?",
+        text: "Una vez que se edite su perfil, los cambios no se podrán revertir.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, editar",
+        cancelButtonText: "Cancelar", */
+        title: "Datos Actualizados",
+        text: "Sus datos académicos han sido actualizados exitosamente",
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Guardar",
+        allowOutsideClick: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          form.submit();
+        }
+      });
+    },
   });
-  
+});

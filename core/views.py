@@ -4,13 +4,13 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 
-from .models import Ciudad, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, HabilidadUsuario, IdiomaUsuario, Oferta, Usuario, Competencia, UsuarioLogro
+from .models import Ciudad, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, Formulario, HabilidadUsuario, IdiomaUsuario, Oferta, Usuario, Competencia, UsuarioLogro
 
 from .models import CompetenciaOferta, CompetenciaUsuario, Direccion, Educacion, Experiencia, HabilidadUsuario, IdiomaUsuario, Oferta, Usuario, Competencia, UsuarioLogro
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .forms import CompetenciaForm, CustomUserCreationForm, DireccionForm, EducacionForm, ExperienciaForm, HabilidadForm, IdiomaForm, LoginForm,  Usuario_logroForm, UsuarioForm, OfertaForm, FormularioForm, CompeOfeForm
+from .forms import CompetenciaForm, CustomUserCreationForm, DireccionEdit, DireccionForm, EducEdit, EducacionForm, ExpEdit, ExperienciaForm, HabilidadForm, IdiomaForm, LoginForm, PerfilEdit,  Usuario_logroForm, UsuarioForm, OfertaForm, FormularioForm, CompeOfeForm
 
 import time
 import locale
@@ -99,26 +99,49 @@ def nueva_oferta(request):
 
 @login_required
 def compe_oferta(request, id_oferta, nom_oferta):
-    compeofe_form = CompeOfeForm()
+    # Crea un formulario vacío
+    compeofe_formulario = CompeOfeForm()
+    message_error = ''
 
+    # Si la solicitud es POST, valida el formulario
     if request.method == 'POST':
+        # Crea un formulario con los datos del formulario enviado
         compeofe_formulario = CompeOfeForm(request.POST)
 
+        # Si el formulario es válido, guarda los datos
         if compeofe_formulario.is_valid():
-            # Ahora guarda la instancia de CompetenciaOferta
-            compeofe_formulario.save()
+            # Obtiene la competencia del formulario
+            competencia = compeofe_formulario.cleaned_data['fk_id_competencia']
 
-            return redirect('ofertas_admin')
+            # Verifica si la competencia ya existe
+            competencia_existente = CompetenciaOferta.objects.filter(fk_id_oferta=id_oferta, fk_id_competencia=competencia).first()
+
+            # Si la competencia no existe, la guarda
+            if not competencia_existente:
+                # Guarda el formulario
+                compeofe_formulario.save()
+
+                # Redirecciona al usuario a la página de administración de ofertas
+                return redirect('ofertas_admin')
+
+            # Si la competencia existe, muestra un mensaje de error
+            else:
+                # Muestra el mensaje de error
+                message_error = 'La competencia ya existe'
 
     # Obtén las competencias disponibles
     competencias_disponibles = Competencia.objects.all()
 
-    return render(request, 'compe_oferta.html', {'id_oferta': id_oferta, 'nom_oferta': nom_oferta, 'compeofe_form': compeofe_form, 'competencias': competencias_disponibles})
+    # Devuelve la plantilla de la página
+    return render(request, 'compe_oferta.html', {'id_oferta': id_oferta, 'nom_oferta': nom_oferta, 'compeofe_form': compeofe_formulario, 'competencias': competencias_disponibles, 'message_error': message_error})
+
 
 
 @login_required
 def formulario(request, id_oferta, nom_oferta, ):
-    datos = {'form': FormularioForm()}
+    datos = {'form': FormularioForm(request)}
+    message_error = ''   
+
     if request.method == 'POST':
         user_id = request.user.id
 
@@ -131,12 +154,17 @@ def formulario(request, id_oferta, nom_oferta, ):
             formulario.fk_id_usuario = request.user.id
             formulario.fk_id_oferta = id_oferta  # O cualquier otro valor que desees
 
-            formulario.save()
-            datos['mensaje'] = "Guardado Correctamente"
-            time.sleep(2.5)
-            print("El formulario se ha guardado correctamente")
-            return redirect('ofertas_user')
-    return render(request, 'formulario.html', {'id_oferta': id_oferta, 'nom_oferta': nom_oferta})
+            formulario_existente = Formulario.objects.filter(fk_id_oferta=id_oferta, fk_id_usuario=request.user.id).first()
+
+            if not formulario_existente:
+
+                formulario.save()
+                return redirect('ofertas_user')
+            
+            else:
+                message_error = 'Ya postulaste a esta oferta...'
+
+    return render(request, 'formulario.html', {'id_oferta': id_oferta, 'nom_oferta': nom_oferta, 'message_error': message_error})
     
 
 @login_required
@@ -550,6 +578,8 @@ def perfil2(request):
     # Obtiene la direccion
     #usuarios = Usuario.objects.filter(fk_id_direccion = Direccion.objects.last())
 
+    message_error = ''
+
     datos = {
         'competencia_form': CompetenciaForm(),
         'habilidad_form': HabilidadForm(),
@@ -613,11 +643,28 @@ def perfil2(request):
         
         if form_competencia.is_valid():
 
-            form_competencia.save()
+            # Obtiene la competencia del formulario
+            competencia = form_competencia.cleaned_data['fk_id_competencia']
+
+            # Verifica si la competencia ya existe
+            competencia_existente = CompetenciaOferta.objects.filter(fk_id_usuario=request.user.id, fk_id_competencia=competencia).first()
+
+            # Si la competencia no existe, la guarda
+            if not competencia_existente:
+                # Guarda el formulario
+                form_competencia.save()
+
+                # Redirecciona al usuario a la página de administración de ofertas
+                return redirect('perfil')
+
+            # Si la competencia existe, muestra un mensaje de error
+            else:
+                # Muestra el mensaje de error
+                message_error = 'La competencia ya existe'
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
-            return redirect('perfil')
+            return render(request, 'perfil', {'message_error': message_error})
 
         if form_habilidad.is_valid():
 
@@ -736,15 +783,19 @@ def eliminar_exps(request, pk):
 def edit_educacion(request, pk):
     educacion = Educacion.objects.get(id_educacion=pk)
 
+    datos = {
+        'form': EducEdit(instance=educacion) 
+    }
+
     if request.method == 'POST':
-        formulario_edit = EducacionForm(request.POST, request.FILES, instance=educacion)
+        formulario_edit = EducEdit(request.POST, request.FILES, instance=educacion)
         if formulario_edit.is_valid:
             formulario_edit.save()
             return redirect(to="perfil")
 
     else:
         datos = {
-            'form': EducacionForm(instance=educacion) 
+            'form': EducEdit(instance=educacion) 
         }
         return render(request, 'perfil_educacion_edit.html', datos)
     
@@ -753,15 +804,19 @@ def edit_educacion(request, pk):
 def edit_experiencia(request, pk):
     experiencia = Experiencia.objects.get(id_experiencia=pk)
 
+    datos = {
+        'form': ExpEdit(instance=experiencia) 
+    }
+
     if request.method == 'POST':
-        formulario_edit = ExperienciaForm(request.POST, request.FILES, instance=experiencia)
+        formulario_edit = ExpEdit(request.POST, request.FILES, instance=experiencia)
         if formulario_edit.is_valid:
             formulario_edit.save()
             return redirect(to="perfil")
 
     else:
         datos = {
-            'form': ExperienciaForm(instance=experiencia) 
+            'form': ExpEdit(instance=experiencia) 
         }
         return render(request, 'perfil_experiencia_edit.html', datos)
     
@@ -770,31 +825,41 @@ def edit_experiencia(request, pk):
 def edit_direccion(request, pk):
     direccion = Direccion.objects.get(id_direccion=pk)
 
+    datos = {
+            'form': DireccionEdit(instance=direccion) 
+    }
+
     if request.method == 'POST':
-        formulario_edit = DireccionForm(request.POST, request.FILES, instance=direccion)
+        formulario_edit = DireccionEdit(request.POST, request.FILES, instance=direccion)
         if formulario_edit.is_valid:
             formulario_edit.save()
             return redirect(to="perfil")
 
     else:
         datos = {
-            'form': DireccionForm(instance=direccion) 
+            'form': DireccionEdit(instance=direccion) 
         }
         return render(request, 'perfil_direccion_edit.html', datos)
     
 #---- Editar Datos personales:
-
+    
 def edit_personal(request, pk):
+    
     personal = Usuario.objects.get(id_usuario=pk)
 
-    if request.method == 'POST':
-        formulario_edit = UsuarioForm(request.POST, request.FILES, instance=personal)
-        if formulario_edit.is_valid:
-            formulario_edit.save()
-            return redirect(to="perfil")
+    datos = {
+        'form': PerfilEdit(instance=personal) 
+    }
 
-    else:
-        datos = {
-            'form': UsuarioForm(instance=personal) 
-        }
-        return render(request, 'perfil_personal_edit.html', datos)
+    if request.method == 'POST':
+        formulario = PerfilEdit(data=request.POST, files=request.FILES, instance=personal)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('perfil')
+            
+        else:
+            datos = {
+                'form': PerfilEdit(instance=personal) 
+            }
+
+    return render(request, 'perfil_personal_edit.html', datos)
