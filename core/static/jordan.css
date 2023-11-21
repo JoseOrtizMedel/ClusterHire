@@ -58,10 +58,6 @@ body{
   border: none;
 }
 
-
-
-
-
 #formulario {
   padding: 20px;
   background: rgb(255, 255, 255);
@@ -76,6 +72,22 @@ body{
   border-radius: 4px;
   height: auto;
 }
+
+#formularioPostulacion {
+  padding: 20px;
+  background: rgb(255, 255, 255);
+  color: #000000;
+  box-shadow:
+  0 0 10px rgba(0, 0, 0, 0.0), /* Sombra interna */
+  0 0 20px rgba(0, 0, 0, 0.0), /* Sombra intermedia */
+  0 0 40px rgb(173, 173, 173, 1); /* Sombra exterior */;
+
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  height: auto;
+}
+
 #formulario-compe {
   padding: 20px;
   background: rgb(255, 255, 255);
@@ -125,6 +137,11 @@ body{
 
 
 #enviar {
+  color: #ffffff;
+  background-color: #0076bc;
+}
+
+#enviarPostulacion {
   color: #ffffff;
   background-color: #0076bc;
 }

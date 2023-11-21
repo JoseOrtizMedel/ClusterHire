@@ -176,7 +176,7 @@
                                         <tr>
                                             <td>{{ idioma.fk_id_idioma.nombre_idioma }}</td>
                                             <td>
-                                                <a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_idiomas' idioma.id_idioma_usuario %}" style="float: right; margin-right: 10px;" id="btnEliminarIdioma" onclick="eliminarIdioma()"><i class="fa-solid fa-trash"></i></a>
+                                                <a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_idiomas' idioma.id_idioma_usuario %}" style="float: right; margin-right: 10px;" id="btnEliminarIdioma"><i class="fa-solid fa-trash"></i></a>
                                             </td>
                                         {% endfor %}
                                     {% else %}

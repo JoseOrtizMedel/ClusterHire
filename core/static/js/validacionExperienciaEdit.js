@@ -130,15 +130,20 @@ $(document).ready(function() {
       }
 
         Swal.fire({
-          title: "Datos Actualizados",
-          text: "Sus datos laborales han sido actualizados exitosamente",
-          icon: "success",
+          title: "¿Está seguro de que desea editar sus datos laborales?",
+          text: "Sus datos laborales están siendo modificados",
+          icon: "warning",
           confirmButtonColor: "#3085d6",
-          confirmButtonText: "Guardar",
+          confirmButtonText: "Sí, editar",
+          showCancelButton: true,
+          cancelButtonColor: "#d33",
+          cancelButtonText: "Cancelar",
           allowOutsideClick: false,
-      }).then((result) => {
+        }).then((result) => {
           if (result.isConfirmed) {
-              form.submit();
+            form.submit();
+          } else {
+            
           }
         });
       },

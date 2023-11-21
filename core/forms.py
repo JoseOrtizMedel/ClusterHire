@@ -163,7 +163,7 @@ class FormularioForm(forms.ModelForm):
         fields = [
             'id_formulario', 'fecha_formulario', 'pretencion_renta',
             'info_adicional', 'fk_id_usuario', 'fk_id_oferta',
-        ]    
+        ]
 
 class ExperienciaForm(forms.ModelForm):
     class Meta:

@@ -140,7 +140,7 @@ def compe_oferta(request, id_oferta, nom_oferta):
 @login_required
 def formulario(request, id_oferta, nom_oferta, ):
     datos = {'form': FormularioForm(request)}
-    message_error = ''   
+    message_error = ''
 
     if request.method == 'POST':
         user_id = request.user.id
@@ -159,10 +159,13 @@ def formulario(request, id_oferta, nom_oferta, ):
             if not formulario_existente:
 
                 formulario.save()
+                datos['mensaje'] = "Guardado Correctamente"
+                time.sleep(2.5)
+                print("El formulario se ha guardado correctamente")
                 return redirect('ofertas_user')
             
             else:
-                message_error = 'Ya postulaste a esta oferta...'
+                message_error = 'Ya postulaste a esta oferta'
 
     return render(request, 'formulario.html', {'id_oferta': id_oferta, 'nom_oferta': nom_oferta, 'message_error': message_error})
     

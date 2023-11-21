@@ -39,15 +39,20 @@ $(document).ready(function() {
 
     submitHandler: function (form) {
       Swal.fire({
-        title: "Datos Actualizados",
-        text: "Su dirección sido actualizada exitosamente",
-        icon: "success",
+        title: "¿Está seguro de que desea editar sus dirección?",
+        text: "Sus datos de dirección están siendo modificados",
+        icon: "warning",
         confirmButtonColor: "#3085d6",
-        confirmButtonText: "Guardar",
+        confirmButtonText: "Sí, editar",
+        showCancelButton: true,
+        cancelButtonColor: "#d33",
+        cancelButtonText: "Cancelar",
         allowOutsideClick: false,
       }).then((result) => {
         if (result.isConfirmed) {
           form.submit();
+        } else {
+          
         }
       });
     },

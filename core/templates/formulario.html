@@ -26,7 +26,7 @@
         <div class="col-md-6">
             <a href="{% url 'ofertas_user' %}"  class="btn btn-danger" id="boton_volver">Volver</a> <!-- Botón de retroceso -->
 
-            <form method="POST" action="{% url 'formulario' id_oferta nom_oferta %}" id="formulario">
+            <form method="POST" action="{% url 'formulario' id_oferta nom_oferta %}" id="formularioPostulacion">
 
                 {% csrf_token %}             
                 <div class="form-group-inline">
@@ -37,7 +37,7 @@
 
                 <div class="form-group"> <!-- Agregar la clase text-center para centrar el contenido -->
                     <label for="pretencion_renta">Pretención de renta</label>
-                    <input type="number" class="form-control" name="pretencion_renta" id="pretencion_renta" required  placeholder="450000">
+                    <input type="number" class="form-control" name="pretencion_renta" id="pretencion_renta" required  placeholder="460000">
                 </div>       
 
  
@@ -68,7 +68,7 @@
                         <!-- Columna vacía para empujar el botón hacia la derecha -->
                     </div>
                     <div class="col-auto">
-                        <input type="submit" class="btn btn-custom" id="enviar" value="Postular" >
+                        <input type="submit" class="btn btn-custom" id="enviarPostulacion" value="Postular" >
                     </div>
                     
                 </div>
@@ -86,6 +86,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- <script src="{% static 'js/validacionPostulacion.js' %}"></script> -->
+<script src="{% static 'js/validacionPostulacion.js' %}"></script>
 <script src="{% static 'js/fecha_actual.js' %}"></script>
 {% endblock %}

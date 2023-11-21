@@ -113,23 +113,20 @@ function isValidDateFin(annio_fin_educ) {
       }
 
       Swal.fire({
-/*         title: "¿Está seguro de que desea editar su perfil educativo?",
-        text: "Una vez que se edite su perfil, los cambios no se podrán revertir.",
+        title: "¿Está seguro de que desea editar sus datos académicos?",
+        text: "Sus datos académicos están siendo modificados",
         icon: "warning",
-        showCancelButton: true,
         confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
         confirmButtonText: "Sí, editar",
-        cancelButtonText: "Cancelar", */
-        title: "Datos Actualizados",
-        text: "Sus datos académicos han sido actualizados exitosamente",
-        icon: "success",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "Guardar",
+        showCancelButton: true,
+        cancelButtonColor: "#d33",
+        cancelButtonText: "Cancelar",
         allowOutsideClick: false,
       }).then((result) => {
         if (result.isConfirmed) {
           form.submit();
+        } else {
+          
         }
       });
     },
