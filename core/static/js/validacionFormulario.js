@@ -13,7 +13,7 @@ $(document).ready(function() {
     var button = document.getElementById("enviar");
     if (button) {
       button.disabled = false;
-      button.value = "Ingresar"; // Restablece el texto del botón
+      button.value = "Guardar"; // Restablece el texto del botón
     }
   }
     // Esta función se llama cuando se hace clic en el botón de enviar
@@ -65,9 +65,10 @@ $(document).ready(function() {
       // Si la validación es exitosa, muestra una notificación de éxito
       Swal.fire({
         icon: 'success',
-        title: '¡Formulario enviado correctamente!',
-        text: 'Tu formulario se ha enviado con éxito.',
-        showCloseButton: true // Mostrar el botón de cierre manual
+        title: 'Oferta ingresada correctamente!',
+        text: 'Tu oferta se ha guardado con éxito.',
+        showCloseButton: true, // Mostrar el botón de cierre manual
+        confirmButtonColor: "#3085d6",
         
       });
 

@@ -33,7 +33,9 @@ body{
     text-align: center;
     color: #003e77;
     font-family: 'fellows';
+
     font-weight: bold;
+
     }  
   
 #df-container {
@@ -74,10 +76,6 @@ body{
   border: none;
 }
 
-
-
-
-
 #formulario {
   padding: 20px;
   background: rgb(255, 255, 255);
@@ -92,6 +90,22 @@ body{
   border-radius: 4px;
   height: auto;
 }
+
+#formularioPostulacion {
+  padding: 20px;
+  background: rgb(255, 255, 255);
+  color: #000000;
+  box-shadow:
+  0 0 10px rgba(0, 0, 0, 0.0), /* Sombra interna */
+  0 0 20px rgba(0, 0, 0, 0.0), /* Sombra intermedia */
+  0 0 40px rgb(173, 173, 173, 1); /* Sombra exterior */;
+
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  height: auto;
+}
+
 #formulario-compe {
   padding: 20px;
   background: rgb(255, 255, 255);
@@ -145,6 +159,11 @@ body{
   background-color: #0076bc;
 }
 
+#enviarPostulacion {
+  color: #ffffff;
+  background-color: #0076bc;
+}
+
 #formularioOferta {
   padding: 20px;
   background: rgb(255, 255, 255);
@@ -181,6 +200,7 @@ body{
   font-size: 13px !important; /* Ajusta el tamaño del icono "+" */
   text-align: center !important; /* Centra el contenido del botón */
   line-height: 5px !important; /* Centra verticalmente el contenido */
+  text-align: center !important; /* Centra el contenido del botón */
   background-color: #0076bc !important; /* Cambia el color de fondo según tus preferencias */
   color: white !important; /* Cambia el color del texto según tus preferencias */
   border: none !important; /* Elimina el borde del botón */
@@ -188,16 +208,16 @@ body{
 }
 
 #enviar2 {
-  width: auto;
-  height: 20px; /* Ajusta la altura según tus preferencias */
-  font-size: 13px; /* Ajusta el tamaño del icono "+" */
-  text-align: center; /* Centra el contenido del botón */
-  line-height: 5px; /* Centra verticalmente el contenido */
-  background-color: #0076bc; /* Cambia el color de fondo según tus preferencias */
-  color: white; /* Cambia el color del texto según tus preferencias */
-  border: none; /* Elimina el borde del botón */
-  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  font-size: 20px; /* Ajusta el tamaño del icono "+" */
+  color: #003e77;
 }
+
+
+#enviar2:hover {
+  color: #0076bc;
+}
+
+
 #ver-t {
   width: auto;
   height: 20px; /* Ajusta la altura según tus preferencias */
@@ -240,7 +260,6 @@ color: white; /* Texto en color blanco */
 width: 130px;
 }
 
-
 /* Estilo para el cuadro de búsqueda */
 .dataTables_filter input[type="search"] {
 background-color: #f5f5f5; /* Cambia el fondo del cuadro de búsqueda */
@@ -248,6 +267,7 @@ border: 1px solid #ccc; /* Añade un borde al cuadro de búsqueda */
 border-radius: 5px; /* Redondea las esquinas */
 padding: 5px; /* Añade espacio interno */
 color: #333; /* Cambia el color del texto */
+width: 68%;
 }
 
 /* Estilo para el botón de búsqueda */
@@ -359,4 +379,9 @@ margin-left: 10px;
 
 .destacado {
 font-weight: bold; /* Hace que el texto sea negrita */
+}
+
+.miTabla th {
+  background-color: #003e77;
+  color: #fff;
 }

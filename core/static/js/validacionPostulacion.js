@@ -1,16 +1,16 @@
 $(document).ready(function() {
   // Función para verificar si una fecha es válida
-  function isValidDate(dateString) {
+  function isValidDate(fecha_formulario) {
     var regEx = /^\d{4}-\d{2}-\d{2}$/;
-    if (!dateString.match(regEx)) return false;  // Formato incorrecto
-    var d = new Date(dateString);
-    if (!d.getTime() && d.getTime() !== 0) return false; // No es una fecha válida
-    return d.toISOString().slice(0, 10) === dateString;
+    if (!fecha_formulario.match(regEx)) return false;  // Formato incorrecto
+    var fecha = new Date(fecha_formulario);
+    if (!fecha.getTime() && d.getTime() !== 0) return false; // No es una fecha válida
+    return fecha.toISOString().slice(0, 10) === fecha_formulario;
   }
 
   // Esta función se ejecutará después de que se haya recargado la página
   function resetSubmitButton() {
-    var button = document.getElementById("enviar");
+    var button = document.getElementById("enviarPostulacion");
     if (button) {
       button.disabled = false;
       button.value = "Postular"; // Restablece el texto del botón
@@ -30,18 +30,35 @@ $(document).ready(function() {
     setTimeout(resetSubmitButton, 5000); // 5000 milisegundos (5 segundos) como ejemplo
   }
 
-  var formulario = $("#formulario");
+  var formulario = $("#formularioPostulacion");
 
   formulario.validate({
     rules: {
-      pretencion_renta: "required"
+      fecha_nacimiento: {
+        required: true,
+        date: true,
+      },
+      pretencion_renta: {
+        required: true,
+        min: 460000,
+        max: 4000000
+      },
     },
     messages: {
-      pretencion_renta: "Este campo es obligatorio"
+      fecha_nacimiento: {
+        required: "Este campo es obligatorio",
+        date: "Ingrese un formato de fecha válido (YYYY-MM-DD)"
     },
+      pretencion_renta: {
+        required: "Este campo es obligatorio",
+        min: "La pretensión de renta debe ser mayor o igual a 460000",
+        max: "La pretensión de renta debe ser mayor o igual a 4000000"
+    },
+  },
 
     submitHandler: function(form) {
-      console.log("Formulario enviado"); // Agrega esta línea
+      console.log("Formulario enviado");
+    
       // Validamos la fecha antes de enviarla
       var fecha = $("#fecha_formulario").val();
       if (!isValidDate(fecha)) {
@@ -51,24 +68,27 @@ $(document).ready(function() {
           title: 'Error en la fecha',
           text: 'Ingresa una fecha válida en el formato YYYY-MM-DD.'
         });
-        return false; // Evita que se envíe el formulario
-      }
+        return false;
+      } 
 
-      // Si la validación es exitosa, muestra una notificación de éxito
-      Swal.fire({
-        icon: 'success',
-        title: '¡Formulario enviado correctamente!',
-        text: 'Tu formulario se ha enviado con éxito.',
-        showCloseButton: true // Mostrar el botón de cierre manual
+          // Si la validación es exitosa, muestra una notificación de éxito
+          Swal.fire({
+            icon: 'success',
+            title: '¡Formulario enviado correctamente!',
+            text: 'Tu formulario se ha enviado con éxito.',
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Hecho!",
+            allowOutsideClick: false,
+            showCloseButton: true // Mostrar el botón de cierre manual
+          });
         
-      });
-
-      // Envía el formulario
-      form.submit();
-
-      // Deshabilita el botón y muestra "Enviando..."
-      disableSubmitButton($("#enviar")[0]);
-    }
+          // Envía el formulario
+          form.submit();
+        
+          // Deshabilita el botón y muestra "Enviando..."
+          disableSubmitButton($("#enviarPostulacion")[0]);
+        
+      }
   });
 
   // Agregamos una regla personalizada para validar la fecha

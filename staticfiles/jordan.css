@@ -1,0 +1,347 @@
+@font-face {
+  font-family: 'fellows'; /* Nombre de la fuente que asignarás */
+  src: url('fellows.ttf' ) format('truetype')
+  /* Puedes agregar más formatos si tienes disponibles (TTF, OTF, EOT, etc.) */
+}
+body{
+  background-color: #e5e5e5;
+}
+
+#titulo{
+  font-size: 60px;
+  text-align: center;
+  color: #003e77;
+  font-family: 'fellows';
+  }  
+
+ #titulo2{
+    text-align: center;
+    color: #003e77;
+    font-family: 'fellows';
+    }  
+  
+#df-container {
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    max-width: 800px; /* Establece el ancho máximo del contenedor */
+    background-color: #fff; /* Fondo blanco */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    padding: 20px; /* Espaciado interno */
+    overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si es necesario */
+}
+
+/* Estilo específico para la tabla dentro del contenedor */
+#df-container table {
+  width: 100%; /* O cualquier otro valor que se adapte mejor al diseño */
+  margin: 0 auto;
+}
+
+#df-container table td {
+  max-width: 100px; /* O cualquier otro valor máximo que desees */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Añade puntos suspensivos (...) para indicar que hay más contenido */
+  white-space: nowrap; /* Evita que el texto se desborde a una nueva línea */
+}
+
+.table.dataframe.table.table-striped th{
+  background-color: #003e77;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.table.dataframe.table.table-striped{
+  color: #000000;
+  padding: 10px;
+  text-align: center;
+  border: none;
+}
+
+
+
+
+
+#formulario {
+  padding: 20px;
+  background: rgb(255, 255, 255);
+  color: #000000;
+  box-shadow:
+  0 0 10px rgba(0, 0, 0, 0.0), /* Sombra interna */
+  0 0 20px rgba(0, 0, 0, 0.0), /* Sombra intermedia */
+  0 0 40px rgb(173, 173, 173, 1); /* Sombra exterior */;
+
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  height: auto;
+}
+#formulario-compe {
+  padding: 20px;
+  background: rgb(255, 255, 255);
+  color: #000000;
+  box-shadow:
+  0 0 10px rgba(0, 0, 0, 0.0), /* Sombra interna */
+  0 0 20px rgba(0, 0, 0, 0.0), /* Sombra intermedia */
+  0 0 40px rgb(173, 173, 173, 1); /* Sombra exterior */;
+
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  height: auto;
+}
+#formulario-ofe {
+  padding: 20px;
+  background: rgb(255, 255, 255);
+  color: #000000;
+  box-shadow:
+  0 0 10px rgba(0, 0, 0, 0.0), /* Sombra interna */
+  0 0 20px rgba(0, 0, 0, 0.0), /* Sombra intermedia */
+  0 0 40px rgb(173, 173, 173, 1); /* Sombra exterior */;
+
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  height: auto;
+}
+
+.back-button {
+  margin-left: 10px; /* Espacio a la izquierda del botón */
+  background-color: #007bff; /* Color de fondo del botón */
+  color: #fff; /* Color del texto del botón */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Borde redondeado */
+  padding: 10px 20px; /* Espaciado interno del botón */
+  cursor: pointer; /* Cambia el cursor al pasar el ratón */
+}
+
+.registrar-button {
+  margin-right: 0.1cm; /* Margen a la derecha de 1 cm */
+}
+
+#boton_volver {
+  margin-bottom: 10px;
+}
+
+
+#enviar {
+  color: #ffffff;
+  background-color: #0076bc;
+}
+
+#formularioOferta {
+  padding: 20px;
+  background: rgb(255, 255, 255);
+  color: rgb(0, 0, 0) !important;
+  box-shadow:
+  0 0 10px rgba(0, 0, 0, 0.0), /* Sombra interna */
+  0 0 20px rgba(0, 0, 0, 0.0), /* Sombra intermedia */
+  0 0 40px rgb(173, 173, 173, 1); /* Sombra exterior */;
+
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  height: auto;
+}
+
+.modal-content {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: 0.3rem;
+  outline: 0;
+  color: black;
+}
+#ver {
+  width: auto !important;
+  font-size: 13px !important; /* Ajusta el tamaño del icono "+" */
+  text-align: center !important; /* Centra el contenido del botón */
+  background-color: #0076bc !important; /* Cambia el color de fondo según tus preferencias */
+  color: white !important; /* Cambia el color del texto según tus preferencias */
+  border: none !important; /* Elimina el borde del botón */
+  cursor: pointer !important; /* Cambia el cursor al pasar sobre el botón */
+}
+
+#enviar2 {
+  font-size: 20px; /* Ajusta el tamaño del icono "+" */
+  color: #003e77;
+}
+
+#enviar2:hover {
+  color: #0076bc;
+}
+
+#ver-t {
+  width: auto;
+  height: 20px; /* Ajusta la altura según tus preferencias */
+  font-size: 13px; /* Ajusta el tamaño del icono "+" */
+  text-align: center; /* Centra el contenido del botón */
+  line-height: 5px; /* Centra verticalmente el contenido */
+  background-color: #0076bc; /* Cambia el color de fondo según tus preferencias */
+  color: white; /* Cambia el color del texto según tus preferencias */
+  border: none; /* Elimina el borde del botón */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+.plus-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
+
+#postular {
+  color: #ffffff;
+  background-color: #0076bc;
+}
+
+/* Cambios de estilo para la columna nom_oferta */
+.nombre-oferta {
+background-color: #0076bc; /* Fondo de color rojo */
+color: white; /* Texto en color blanco */
+font-weight: bold; /* Texto en negrita */
+width: 200px;
+}
+
+
+.fecha-oferta {
+background-color: #0076bc; /* Fondo de color rojo */
+color: white; /* Texto en color blanco */
+width: 130px;
+}
+
+/* Estilo para el cuadro de búsqueda */
+.dataTables_filter input[type="search"] {
+background-color: #f5f5f5; /* Cambia el fondo del cuadro de búsqueda */
+border: 1px solid #ccc; /* Añade un borde al cuadro de búsqueda */
+border-radius: 5px; /* Redondea las esquinas */
+padding: 5px; /* Añade espacio interno */
+color: #333; /* Cambia el color del texto */
+width: 68%;
+}
+
+/* Estilo para el botón de búsqueda */
+.dataTables_filter label::after {
+content: "\f002"; /* Utiliza el icono de lupa FontAwesome (puedes cambiarlo) */
+font-family: FontAwesome;
+font-size: 12px;
+color: #333; /* Cambia el color del icono */
+padding-left: 5px; /* Añade espacio a la izquierda del icono */
+}
+
+/* Estilo para el botón "Limpiar" (si está habilitado) */
+.dataTables_filter label::before {
+content: "\f00d"; /* Utiliza el icono de cruz FontAwesome (puedes cambiarlo) */
+font-family: FontAwesome;
+font-size: 12px;
+color: #333; /* Cambia el color del icono */
+padding-right: 5px; /* Añade espacio a la derecha del icono */
+}
+
+
+/* Agrega un margen derecho al campo de búsqueda */
+.dataTables_filter label input[type="search"] {
+margin-top: 10px; /* Puedes ajustar la cantidad de margen según tus preferencias */
+}
+
+/* Cambia el fondo del recuadro de búsqueda */
+.dataTables_filter {
+margin-top: 10px;
+background-color: #003e77; /* Cambia #FFA500 al color que desees */
+padding: 10px; /* Ajusta el espaciado interior según tus preferencias */
+border-radius: 5px; /* Agrega bordes redondeados si lo deseas */
+}
+
+/* Cambia el color del texto del filtro */
+.dataTables_filter label {
+font-weight: bold;
+color: #ffffff; /* Cambia el color del texto según tus preferencias */
+text-align: right;
+}
+
+
+/* Cambia el color de los iconos "Limpiar" en los filtros de búsqueda a blanco */
+.dataTables_filter label::after {
+color: #fff; /* Cambia #fff al color blanco que desees */
+}
+
+/* Oculta el icono "X" en el campo de búsqueda del filtro */
+.dataTables_filter label::before {
+display: none;
+}
+
+/* Cambia el fondo de las cabeceras de las columnas */
+.dataTables thead th {
+background-color: #003e77; /* Reemplaza "your-color" con el color deseado */
+color: #fff; /* Cambia el color del texto de las cabeceras */
+padding: 10px; /* Añade relleno para que el color de fondo sea más visible */
+}
+
+.table thead th {
+background-color: #003e77; /* Reemplaza "your-color" con el color deseado */
+color: #fff; /* Cambia el color del texto de las cabeceras */
+padding: 10px; /* Añade relleno para que el color de fondo sea más visible */
+font-weight: normal;
+}
+.dataTables_filter {
+margin-top: 10px;
+background-color: #003e77;
+padding: 10px;
+border-radius: 5px;
+text-align: right;
+}
+
+#boton_nueva {
+margin-bottom: 10px;
+color: #ffffff;
+background-color: #0076bc;
+}
+
+
+
+.form-group-inline {
+display: flex;
+align-items: center; /* Alinea verticalmente los elementos */
+padding-bottom: 13px;
+}
+
+.form-group-inline label {
+margin-right: 5px; /* Ajusta el margen entre los elementos según tus preferencias */
+}
+
+#dv_usuario{
+max-width: 35px;
+}
+#rut_usuario{
+max-width: 100px;
+margin-left: 10px;
+}
+#fecha_formulario{
+max-width: 110px;
+}
+
+#guion{
+margin: 10px;
+}
+#nombre, #segundo_nombre, #primer_apellido, #segundo_apellido, #fecha_formulario{
+margin-left: 10px;
+}
+
+.destacado {
+font-weight: bold; /* Hace que el texto sea negrita */
+}
+
+.miTabla th {
+  background-color: #003e77;
+  color: #fff;
+}

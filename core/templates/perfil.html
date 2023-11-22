@@ -7,47 +7,54 @@
 <!-- INICIO FORMULARIO EXPERIENCIA -->
     <section>
 
-        <p class="text-center" style="color: #003e77; font-size: 100px;"><i class="fa-solid fa-id-card"></i></p>
+        <!-- <p class="text-center" style="color: #003e77; font-size: 100px;"><i class="fa-solid fa-id-card"></i></p> -->
+        <img src="{% static 'imagenes/perfil-blue.png' %}" alt="" id="imgPerfil" id="imgPerfil">
 
         <div class="row">
             <div class="col-lg-12">
-               <form method="POST" action="" id="formularioPerfilCompe">
-                   {% csrf_token %}
-                   <div class="table-responsive-md">
-                       <table class="table table-border">
-                           <tr>
-                               <th class="table-primary">Dirección</th>
-                           </tr>
-                           <div class="row">
-                               <div class="col-sm-6">
-                                <h4 class="text">Datos personales</h4>
-                                   {% if usuarios %}
-                                       {% for usuario in usuarios %}
-                                       <tr>
-                                           <td>{{ usuario.fk_id_direccion.nombre_calle }} #{{ usuario.fk_id_direccion.numeracion }}, {{ usuario.fk_id_direccion.fk_d_comuna.nom_comuna }}</td>
-                                           <td>
-                                               <a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_direccion' usuario.fk_id_direccion.id_direccion %}" style="float: right; margin-right: 10px;"><i class="fa-solid fa-pen-to-square"></i></a>
-                                           </td>
-                                       {% endfor %}
-                                   {% else %}
-                                   <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#direModal">Agregar dirección</a></th>
-                                       <p><i style="color: #003e77;">Indicanos tu dirección porfavor... ¡Este es el primer paso para encontrar el trabajo de tus sueños!</i></p>
-                                   {% endif %}
-                                       </tr>
-                               </div>
-                               {% include 'popup_direccion.html' %}
-                           </div>
-                       </table>
-                   </div>
-               </form>
+                <form method="POST" action="" id="formularioPerfilDire">
+                    {% csrf_token %}
+                    <div class="table-responsive-lg">
+                        <table class="table table-border">
+                            <tr>
+                                <th class="table-primary">Dirección</th>
+                            </tr>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                 <h4 class="text">Datos personales</h4>
+                                    {% if usuarios %}
+                                        {% for usuario in usuarios %}
+                                        <tr>
+                                            <td>{{ usuario.fk_id_direccion.nombre_calle }} #{{ usuario.fk_id_direccion.numeracion }}, {{ usuario.fk_id_direccion.fk_d_comuna.nom_comuna }}</td>
+                                            <td>
+                                                <a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_direccion' usuario.fk_id_direccion.id_direccion %}" style="float: right; margin-right: 10px;"><i class="fa-solid fa-pen-to-square"></i></a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                    <style>
+                                        #btnModal{
+                                            display: none;
+                                        }
+                                    </style>
+                                    <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#direModal" id="btnDireModal">Agregar dirección</a></th>
+                                        <p><i style="color: #003e77;">Indicanos tu dirección porfavor... ¡Este es el primer paso para encontrar el trabajo de tus sueños!</i></p>
+                                    {% endif %}
+                                </div>
+                                {% include 'popup_direccion.html' %}
+                            </div>
+                        </table>
+                    </div>
+                 </form>
+                 
            </div>
        </div>
 
         <div class="row">
             <div class="col-lg-12">
-               <form method="POST" action="" id="formularioPerfilCompe">
+               <form method="POST" action="" id="formularioPerfilPers">
                    {% csrf_token %}
-                   <div class="table-responsive-md">
+                   <div class="table-responsive-lg">
                        <table class="table table-border">
                            <tr>
                                <th class="table-primary">Rut</th>
@@ -68,19 +75,16 @@
                                            <td>{{ usuario.primer_apellido }} {{ usuario.segundo_apellido}}</td>
                                            <td>{{ usuario.fecha_nacimiento }}</td>
                                            <td>{{ usuario.nacionalidad }}</td>
-                                           <td>+56 9 {{ usuario.telefono }}</td>
+                                           <td>+56 {{ usuario.telefono }}</td>
                                            <td>{{ usuario.correo }}</td>
                                            <td>
                                                <a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_personal' usuario.id_usuario %}" style="float: right; margin-right: 10px;"><i class="fa-solid fa-pen-to-square"></i></a>
                                            </td>
+                                        </tr>
                                        {% endfor %}
                                    {% else %}
-                                   <tr>
-                                   <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#persModal">Agregar mis datos</a></th>
-                                    </tr>
-                                        <p><i style="color: #003e77;">Luego de agregar tu dirección, indicanos tus datos personales para iniciar tu experiencia en ClusterHire</i></p>
+                                   <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#persModal" id="btnPersModal" style="display: none;">Agregar datos</a></th>
                                    {% endif %}
-                                       </tr>
                                </div>
                                {% include 'popup_personal.html' %}
                            </div>
@@ -94,11 +98,11 @@
             <div class="col-lg-12">
                 <form method="POST" action="" id="formularioPerfilCompe">
                     {% csrf_token %}
-                    <div class="table-responsive-md">
+                    <div class="table-responsive-lg">
                         <table class="table table-border">
                             <tr>
                                 <th class="table-primary">Competencia</th>
-                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#compeModal" style="float: right; margin-right: 10px;"><i class="fa-solid fa-plus"></i></a></th>
+                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#compeModal" style="float: right; margin-right: 10px;" id="btnModal"><i class="fa-solid fa-plus"></i></a></th>
                             </tr>
                             <div class="row">
                                 <div class="col-sm-6"> 
@@ -126,13 +130,13 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <form method="POST" action="" id="formularioPerfilCompe">
+                <form method="POST" action="" id="formularioPerfilHab">
                     {% csrf_token %}
-                    <div class="table-responsive-md">
+                    <div class="table-responsive-lg">
                         <table class="table table-border">
                             <tr>
                                 <th class="table-primary">Habilidad</th>
-                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#habiModal" style="float: right; margin-right: 10px;"><i class="fa-solid fa-plus"></i></a></th>
+                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#habiModal" style="float: right; margin-right: 10px;" id="btnModal"><i class="fa-solid fa-plus"></i></a></th>
                             </tr>
                             <div class="row">
                                 <div class="col-sm-6">
@@ -160,13 +164,13 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <form method="POST" action="" id="formularioPerfilCompe">
+                <form method="POST" action="" id="formularioPerfilIdi">
                     {% csrf_token %}
-                    <div class="table-responsive-md">
+                    <div class="table-responsive-lg">
                         <table class="table table-border">
                             <tr>
                                 <th class="table-primary">Idioma</th>
-                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#idiModal" style="float: right; margin-right: 10px;"><i class="fa-solid fa-plus"></i></a></th>
+                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#idiModal" style="float: right; margin-right: 10px;" id="btnModal"><i class="fa-solid fa-plus"></i></a></th>
                             </tr>
                             <div class="row">
                                 <div class="col-sm-6"> 
@@ -176,12 +180,13 @@
                                         <tr>
                                             <td>{{ idioma.fk_id_idioma.nombre_idioma }}</td>
                                             <td>
-                                                <a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_idiomas' idioma.id_idioma_usuario %}" style="float: right; margin-right: 10px;"><i class="fa-solid fa-trash"></i></a>
+                                                <a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_idiomas' idioma.id_idioma_usuario %}" style="float: right; margin-right: 10px;" id="btnEliminarIdioma"><i class="fa-solid fa-trash"></i></a>
                                             </td>
                                         {% endfor %}
                                     {% else %}
                                         <p><i style="color: #003e77;">¡Agrega los idiomas que manejas para destacar entre los postulantes!</i></p>
                                     {% endif %}
+
                                         </tr>
                                     </div>
                                 {% include 'popup_idiomas.html' %}
@@ -194,9 +199,9 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <form method="POST" action="" id="formularioPerfilCompe">
+                <form method="POST" action="" id="formularioPerfilEduc">
                     {% csrf_token %}
-                    <div class="table-responsive-md">
+                    <div class="table-responsive-lg">
                         <table class="table table-border">
                             <tr>
                                 <th class="table-primary">Casa de Estudios</th>
@@ -205,7 +210,7 @@
                                 <th class="table-primary">Año inicio</th>
                                 <th class="table-primary">Año término</th>
                                 <th></th>
-                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#educModal" style="float: right; margin-right: 10px;"><i class="fa-solid fa-plus"></i></a></th>
+                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#educModal" style="float: right; margin-right: 10px;" id="btnModal"><i class="fa-solid fa-plus"></i></a></th>
                             </tr>
                             <div class="row">
                                 <div class="col-md-12">
@@ -238,13 +243,13 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <form method="POST" action="" id="formularioPerfilCompe">
+                <form method="POST" action="" id="formularioPerfilLogro">
                     {% csrf_token %}
-                    <div class="table-responsive-md">
+                    <div class="table-responsive-lg">
                         <table class="table table-border">
                             <tr>
                                 <th class="table-primary">Logro</th>
-                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#logroModal" style="float: right; margin-right: 10px;"><i class="fa-solid fa-plus"></i></a></th>
+                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#logroModal" style="float: right; margin-right: 10px;" id="btnModal"><i class="fa-solid fa-plus"></i></a></th>
                             </tr>
                             <div class="row">
                                 <div class="col-md-12">
@@ -273,11 +278,12 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <form method="POST" action="" id="formularioPerfilCompe">
+                <form method="POST" action="" id="formularioPerfilExp">
                     {% csrf_token %}
-                    <div class="table-responsive-md">
+                    <div class="table-responsive-xl">
                         <table class="table table-border">
                             <tr>
+                                <th class="table-primary">Empleo</th>
                                 <th class="table-primary">Cargo</th>
                                 <th class="table-primary">Jornada</th>
                                 <th class="table-primary">Modalidad</th>
@@ -286,7 +292,7 @@
                                 <th class="table-primary">Fecha término</th>
                                 <th></th>
                                 <th>
-                                    <a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#expModal" style="float: right; margin-right: 10px;"style="float: right; margin-right: 10px;"><i class="fa-solid fa-plus"></i></a>
+                                    <a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#expModal" style="float: right; margin-right: 10px;"style="float: right; margin-right: 10px;" id="btnModal"><i class="fa-solid fa-plus"></i></a>
                                 </th>
                             </tr>
                             <div class="row">
@@ -295,6 +301,7 @@
                                     {% if experiencias %}
                                         {% for experiencia in experiencias %}
                                         <tr>
+                                            <td>{{ experiencia.nombre_empleo }}</td>
                                             <td>{{ experiencia.fk_id_tipo_cargo.nom_cargo }}</td>
                                             <td>{{ experiencia.fk_id_tipo_empleo.nom_tipo_empleo }}</td>
                                             <td>{{ experiencia.fk_id_modalidad.nom_modalidad }}</td>
@@ -328,5 +335,4 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{% static 'js/validacionPerfilPers.js' %}"></script>
 {% endblock %}

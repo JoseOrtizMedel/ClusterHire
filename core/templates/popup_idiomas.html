@@ -5,28 +5,29 @@
 <div class="modal" id="idiModal" tabindex="-1" aria-labelledby="idiModal" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-            <form action="" method="POST" id="formularioPerfilCompe">
+            <form action="" method="POST" id="formularioPerfilIdi">
                 <div class="modal-body">
                     {% csrf_token %}
-                    <div class="card mb-4">
-                        <div class="card-body text-center">
-                            <h4 id="tituloCard1">Idioma</h4>
-                            <div class="row">
-                                <div class="col-lg-4" style="display: none;">
-                                    <div class="form-group">
-                                        <label for="{{ idioma_form.fk_id_usuario.id_for_label }}" style="color: #003e77;">ID Usuario</label>
-                                        <input type="text" class="form-control" name="fk_id_usuario" id="fk_id_usuario" readonly value="{{ request.user.id }}">
+                        <div class="card mb-4">
+                            <div class="card-body text-center">
+                                <h4 id="tituloCard1">Idioma</h4>
+                                <div class="row text-left">
+                                    <div class="col-lg-4" style="display: none;">
+                                        <div class="form-group">
+                                            <label for="{{ idioma_form.fk_id_usuario.id_for_label }}" style="color: #003e77;">ID Usuario</label>
+                                            <input type="text" class="form-control" name="fk_id_usuario" id="fk_id_usuario" readonly value="{{ request.user.id }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="{{ idioma_form.fk_id_idioma.id_for_label }}" style="color: #003e77;">Seleccione:</label>
+                                            {{ idioma_form.fk_id_idioma }}
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label for="{{ idioma_form.fk_id_idioma.id_for_label }}" style="color: #003e77;">Seleccione:</label>
-                                        {{ idioma_form.fk_id_idioma }}
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="col-auto">
-                            <input type="submit" class="btn btn-custom" id="enviarPerfilExp" value="Guardar">
+                            <div class="col-4" style="display: grid; margin: auto;">
+                                <input type="submit" class="btn btn-custom" id="enviarPerfilIdioma" value="Guardar">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -40,5 +41,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- <script src="{% static 'js/validacionPerfilExp.js' %}"></script> -->
+<script src="{% static 'js/validacionPopupIdioma.js' %}"></script>
 {% endblock %}

@@ -296,7 +296,6 @@ def read_csv(request, id_oferta):
         print("Hay menos de 3")
         
 
-
     df['NOM_MODALIDAD'] = df['NOM_MODALIDAD'].replace(['Presencial','Online','Hibrido','N/A'],[1,2,3,4])
 
     X = np.array(df[["ANHOS_EXPERIENCIA_USER","ptj_formacion","ptj_titulo","ptj_habilidades", "ptj_idiomas", "ptj_cargo", "ptj_competencia"]])

@@ -1,4 +1,4 @@
-{% extends 'layout3.html' %}
+{% extends 'layout_admin.html' %}
 <!-- Como se muestra arriba es como se carga parte del codigo, en esta hoja solo se trabajaria el body -->
 
 {% load static %}
@@ -15,7 +15,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <a href="{% url 'ofertas_admin' %}"  class="btn btn-danger" id="boton_volver">Volver</a> <!-- Botón de retroceso -->
+            <a href="{% url 'ofertas_admin' %}"  class="btn btn-danger" id="boton_volver"><i class="fa-solid fa-left-long"></i></a> <!-- Botón de retroceso -->
 
 
             <!-- Formulario para Oferta -->

@@ -6,95 +6,109 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="POST" action="" id="formularioPerfilPers">
+                <div class="modal-body">
                 {% csrf_token %}
-            <div class="card mb-4">
-                <div class="card-body text-center">
-                    <h3 id="tituloCard1">Datos personales</h3>
-                      <div class="row">
-                        <div class="col-lg-4">
-                          <div class="form-group">
-                              <label for="" style="color: #003e77;">Rut:</label>
-                              {{ u_dires_form.rut_usuario}}
-                          </div>
-                      </div>
-                        <div class="col-lg-4">
-                          <div class="form-group">
-                              <label for="" style="color: #003e77;">DV:</label>
-                              {{ u_dires_form.dv_usuario}}
-                          </div>
-                      </div>
-                        <div class="col-lg-4">
-                          <div class="form-group">
-                              <label for="" style="color: #003e77;">Primer nombre:</label>
-                              {{ u_dires_form.nombre }}
-                          </div>
-                      </div>
-                      <div class="col-lg-4">
-                          <div class="form-group">
-                              <label for="" style="color: #003e77;">Segundo nombre:</label>
-                              {{ u_dires_form.segundo_nombre }}
-                          </div>
-                      </div>
-                      <div class="col-lg-4">
-                          <div class="form-group">
-                              <label for="" style="color: #003e77;">Primer apellido:</label>
-                              {{ u_dires_form.primer_apellido }}
-                          </div>
-                      </div>
-                      <div class="col-lg-4">
-                          <div class="form-group">
-                              <label for="" style="color: #003e77;">Segundo apellido:</label>
-                              {{ u_dires_form.segundo_apellido }}
-                          </div>
-                      </div>
-                      <div class="col-lg-4">
-                          <div class="form-group">
-                              <label for="" style="color: #003e77;">Fecha nacimiento:</label>
-                              {{ u_dires_form.fecha_nacimiento }}
-                          </div>
-                      </div>
-                      <div class="col-lg-4">
-                          <div class="form-group">
-                              <label for="" style="color: #003e77;">Nacionalidad:</label>
-                              {{ u_dires_form.nacionalidad }}
-                          </div>
-                      </div>
-                      <div class="col-lg-4">
-                          <div class="form-group">
-                              <label for="" style="color: #003e77;">Teléfono:</label>
-                              {{ u_dires_form.telefono }}
-                          </div>
-                      </div>
-                      <div class="col-lg-4">
-                          <div class="form-group">
-                              <label for="" style="color: #003e77;">Email:</label>
-                              {{ u_dires_form.correo }}
-                          </div>
-                      </div>
-                      <div class="col-lg-4" style="display: none;">
-                          <div class="form-group">
-                              <label for="" style="color: #003e77;">ID Direccion:</label>
-                              {{ u_dires_form.fk_id_direccion }}
-                          </div>
-                      </div>
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <h3 id="tituloCard1">Datos personales</h3>
+                        <div class="row text-left">
+                            <div class="col-lg-6" style="display: none;">
+                                <div class="form-group">
+                                    <label for="" style="color: #003e77;">ID Usuario:</label><br>
+                                    {{ request.user.id}}
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="" style="color: #003e77;">Rut:</label>
+                                <input type="text" class="form-control" name="rut_usuario" id="rut_usuario" placeholder="Ej: 11222333" required/>
+<!--                                 {{ u_dires_form.rut_usuario}} -->
+                            </div>
+                        </div>
+                            <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="" style="color: #003e77;">DV:</label>
+                                <input type="text" class="form-control" name="dv_usuario" id="dv_usuario" placeholder="Ej: (0-9) - k" required/>
+<!--                                 {{ u_dires_form.dv_usuario}} -->
+                            </div>
+                        </div>
+                            <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="" style="color: #003e77;">Primer nombre:</label>
+                                <input type="text" class="form-control" name="nombre" id="nombre" required readonly value="{{ request.user.first_name }}"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="" style="color: #003e77;">Segundo nombre:</label>
+                                <input type="text" class="form-control" name="segundo_nombre" id="segundo_nombre"  placeholder="Ej: antonio" required/>
+<!--                                 {{ u_dires_form.segundo_nombre }} -->
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="" style="color: #003e77;">Primer apellido:</label>
+                                <input type="text" class="form-control" name="primer_apellido" id="primer_apellido" required readonly value="{{ request.user.last_name }}"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="" style="color: #003e77;">Segundo apellido:</label>
+                                <input type="text" class="form-control" name="segundo_apellido" id="segundo_apellido" placeholder="Ej: fernandez" required/>
+<!--                                 {{ u_dires_form.segundo_apellido }} -->
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="" style="color: #003e77;">Fecha nacimiento:</label>
+                                <input type="text" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" placeholder="Ej: YYYY-MM-DD" required/>
+<!--                                 {{ u_dires_form.fecha_nacimiento }} -->
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="" style="color: #003e77;">Nacionalidad:</label>
+                                <input type="text" class="form-control" name="nacionalidad" id="nacionalidad" placeholder="Ej: chileno" required/>
+<!--                                 {{ u_dires_form.nacionalidad }} -->
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="" style="color: #003e77;">Teléfono:</label>
+                                <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Ej: chileno" required/>
+<!--                                 {{ u_dires_form.telefono }} -->
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="" style="color: #003e77;">Email:</label><br>
+                                <input type="text" class="form-control" name="correo" id="correo" required readonly value="{{ request.user.email }}"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" style="display: none;">
+                            <div class="form-group">
+                                <label for="" style="color: #003e77;">ID Direccion:</label>
+                               <!--  <input type="text" class="form-control" name="u_dires_form.fk_id_direccion" id="fk_id_direccion" required/> -->
+                                {{ u_dires_form.fk_id_direccion }}
+                            </div>
+                        </div>
+                        </div>
+                            <div class="col-4" style="display: grid; margin: auto;">
+                                <input type="submit" class="btn btn-primary" id="enviarPerfilPers" value="Guardar">
+                            </div>
+                        </div>
                     </div>
-
-          <div class="col-auto">
-            <input type="submit" class="btn btn-primary" id="enviarPerfilPers" value="Guardar cambios">
-<!--               <input type="reset" class="btn btn-secondary" id="limpiar" value="Limpiar"> -->
-        </div>
-<!-- BOTON ENVIAR FORMULARIO -->
-
-</form>
+                </div>
+            </form>
 <!-- FIN FORMULARIO GENERAL -->
         </div>
     </div>
-  </div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- <script src="{% static 'js/validacionPerfilExp.js' %}"></script> -->
+<script src="{% static 'js/validacionPopupPersonal.js' %}"></script>
 {% endblock %}

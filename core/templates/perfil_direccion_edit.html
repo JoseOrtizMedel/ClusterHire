@@ -12,24 +12,26 @@
                   {% csrf_token %}
               <div class="card mb-4">
                   <div class="card-body text-center">
-                      <h3 id="tituloCard1">Educación</h3>
-                        <div class="row">
+                      <h3 id="tituloCard1">Dirección</h3>
+                        <div class="row text-left">
 
-                          <div class="col-lg-4">
+                          <div class="col-lg-4 formDireccionEdit">
                             <div class="form-group">
                                 <label for="" style="color: #003e77;">Numeración:</label>
+<!--                                 <input type="text" class="form-control" name="numeracion" id="numeracion" required/> -->
                                 {{ form.numeracion}}
                             </div>
                         </div>
 
-                          <div class="col-lg-4">
+                          <div class="col-lg-4 formDireccionEdit">
                             <div class="form-group">
                                 <label for="" style="color: #003e77;">Calle:</label>
+<!--                                 <input type="text" class="form-control" name="nombre_calle" id="nombre_calle" required/> -->
                                 {{ form.nombre_calle}}
                             </div>
                         </div>
 
-                          <div class="col-lg-4">
+                          <div class="col-lg-4 formDireccionEdit">
                             <div class="form-group">
                                 <label for="" style="color: #003e77;">Comuna:</label>
                                 {{ form.fk_d_comuna }}
@@ -39,7 +41,6 @@
 
             <div class="col-auto">
               <input type="submit" class="btn btn-primary" id="enviarPerfilPers" value="Editar">
-              <input type="reset" class="btn btn-secondary" id="limpiar" value="Limpiar">
           </div>
 <!-- BOTON ENVIAR FORMULARIO -->
 
@@ -56,5 +57,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- <script src="{% static 'js/validacionPerfilExp.js' %}"></script> -->
+<script src="{% static 'js/ValidacionPerfilDireccionEdit.js' %}"></script>
 {% endblock %}

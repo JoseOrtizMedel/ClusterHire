@@ -1,0 +1,35 @@
+{% load static %}
+
+<!-- Navbar o parte superior de la pagina, parte del codigo lo deje por si a caso, hay que arreglar cosas -->
+
+<!-- Image and text -->
+<nav class="navbar" style="background-color: #003e77;">
+  <a class="navbar-brand" href="">
+    <img src="{% static 'imagenes/logo.png' %}" height="50" class="d-inline-block align-top" alt="">
+  </a>
+  <div class="ml-auto"> <!-- Agregamos la clase ml-auto para alinear a la derecha -->
+
+    <!-- <a class="btn btn-primary mr-2" type="button" href="{% url 'login' %}">Iniciar Sesión</a>
+    <a class="btn btn-primary" type="button" href="{% url 'register' %}">Registrarse</a> -->
+
+    <nav class="nav">
+
+      <!-- <a class="btn btn-primary mr-2" type="button" href="{#}"><i class="bi bi-house-fill"></i>Inicio</a> -->
+
+      {% if request.user.is_authenticated and if request.user.is_superuser %}
+
+      <a class="btn btn-primary mr-2" type="button" href=""><b>@{{ request.user.username }}</b></a><!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+<!--         <a class="btn btn-primary mr-2" type="button" href="{% url 'ofertas_user' %}"></i>Ver Ofertas</a> -->
+      <a class="btn btn-primary mr-2" type="button" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i></a>
+
+      {% else %}
+
+      <a class="btn btn-primary mr-2" type="button" href="{% url 'home' %}"></i>Iniciar Sesión</a>
+      <a class="btn btn-primary mr-2" type="button" href="{% url 'register' %}"></i>Registrarse</a>
+
+      {% endif %}
+
+    </nav>
+
+  </div>
+</nav>

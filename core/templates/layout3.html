@@ -41,10 +41,22 @@
 
     {% include 'partials/navbar-ofertas-user.html' %}
 
+    {% if request.user.is_authenticated %}
+
     <div class="container">
         {% block content %}
         {% endblock %}
     </div>
+
+    {% else %}
+
+    <body>
+        <div class="col-md-12 text-center" style="padding: 10px;">
+            <img src="{% static 'imagenes/401-error.png' %}" alt="" style="border-radius: 10%;">
+        </div>
+    </body>
+
+    {% endif %}
 
     {% include 'partials/footer.html' %}
     

@@ -37,17 +37,31 @@
 
 </head>
 
-<body class="text-light">
+<body class="text-light" style="max-width: 100%;">
 
     {% include 'partials/navbar.html' %}
 
-    <div class="container-fluid" style="max-width: 100%;">
+    {% if request.user.is_authenticated %}
+
+    <div class="container-fluid">
         {% block content %}
         {% endblock %}
     </div>
 
+    {% else %}
+
+    <body>
+        <div class="col-md-12 text-center" style="padding: 10px;">
+            <img src="{% static 'imagenes/401-error.png' %}" alt="" style="border-radius: 10%;">
+        </div>
+    </body>
+
+    {% endif %}
+
     {% include 'partials/footer.html' %}
     
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </html>
