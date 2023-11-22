@@ -17,7 +17,7 @@ $(document).ready(function () {
         var regEx = /^\d{4}-\d{2}-\d{2}$/;
         if (!fecha_inicio_exp.match(regEx)) return false; 
         var fecha = new Date(fecha_inicio_exp);
-        if (!fecha.getTime() && d.getTime() !== 0) return false;
+        if (!fecha.getTime() && fecha.getTime() !== 0) return false;
         return fecha.toISOString().slice(0, 10) === fecha_inicio_exp;
       }
   
@@ -25,7 +25,7 @@ $(document).ready(function () {
         var regEx = /^\d{4}-\d{2}-\d{2}$/;
         if (!fecha_termino_exp.match(regEx)) return false; 
         var fecha = new Date(fecha_termino_exp);
-        if (!fecha.getTime() && d.getTime() !== 0) return false;
+        if (!fecha.getTime() && fecha.getTime() !== 0) return false;
         return fecha.toISOString().slice(0, 10) === fecha_termino_exp;
       }
   

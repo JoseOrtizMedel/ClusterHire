@@ -55,8 +55,8 @@ $(document).ready(function () {
       },
       telefono: {
         required: true,
-        minlength: 8,
-        maxlength: 8,
+        minlength: 9,
+        maxlength: 9,
       },
       correo: {
         required: true,

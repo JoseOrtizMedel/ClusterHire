@@ -1,97 +1,161 @@
 $(document).ready(function () {
 
-    // Esta función se ejecutará después de que se haya recargado la página
-    function resetSubmitButton() {
-        var button = document.getElementById("enviarPerfilPers");
-        if (button) {
-        button.disabled = false;
-        button.value = "Guardar"; // Restablece el texto del botón
+    function isValidDV(dv_usuario) {
+      if (dv_usuario.length !== 1) {
+        return false;
+      }
+      const regex = /^[0-9kK]{1}$/;
+      return regex.test(dv_usuario);
+    }
+      // Función para verificar si una fecha es válida
+      function isValidDate(fecha_nacimiento) {
+        var regEx = /^\d{4}-\d{2}-\d{2}$/;
+        if (!fecha_nacimiento.match(regEx)) return false;
+        var fecha = new Date(fecha_nacimiento);
+        if (!fecha.getTime() && fecha.getTime() !== 0) return false;
+        return fecha.toISOString().slice(0, 10) === fecha_nacimiento;
+      }
+  
+    $("#formularioPerfilPers").validate({
+      rules: {
+        rut_usuario: {
+          required: true,
+          minlength: 8,
+          maxlength: 9,
+        },
+        dv_usuario: {
+          required: true,
+          minlength: 1,
+          maxlength: 1,
+        },
+        nombre: {
+          required: true,
+          minlength: 2,
+          maxlength: 50,
+        },
+        segundo_nombre: {
+          minlength: 2,
+          maxlength: 50,
+        },
+        primer_apellido: {
+          required: true,
+          minlength: 2,
+          maxlength: 50,
+        },
+        segundo_apellido: {
+          minlength: 2,
+          maxlength: 50,
+        },
+        fecha_nacimiento: {
+          required: true,
+          date: true,
+        },
+        nacionalidad: {
+          required: true,
+        },
+        telefono: {
+          required: true,
+          minlength: 9,
+          maxlength: 9,
+        },
+        correo: {
+          required: true,
+          email: true,
+        },
+      },
+      messages: {
+        rut_usuario: {
+          required: "El rut es obligatorio",
+          minlength: "El RUT debe tener al menos 8 dígitos",
+          maxlength: "El RUT no debe tener más de 8 dígitos",
+        },
+        dv_usuario: {
+          required: "El dv es obligatorio",
+          minlength: "El DV debe tener un solo carácter",
+          maxlength: "El DV no debe tener más de un carácter",
+        },
+        nombre: {
+          required: "El primer nombre es obligatorio",
+          minlength: "El nombre debe tener al menos 2 caracteres",
+          maxlength: "El nombre no debe tener más de 50 caracteres",
+        },
+        segundo_nombre: {
+          required: "El segundo nombre es obligatorio",
+          minlength: "El segundo nombre debe tener al menos 2 caracteres",
+          maxlength: "El segundo nombre no debe tener más de 50 caracteres",
+        },
+        primer_apellido: {
+          required: "El primer apellido es obligatorio",
+          minlength: "El primer apellido debe tener al menos 2 caracteres",
+          maxlength: "El primer apellido no debe tener más de 50 caracteres",
+        },
+        segundo_apellido: {
+          required: "El segundo apellido es obligatorio",
+          minlength: "El segundo apellido debe tener al menos 2 caracteres",
+          maxlength: "El segundo apellido no debe tener más de 50 caracteres",
+        },
+        fecha_nacimiento: {
+          required: "La fecha de nacimiento es obligatoria",
+          date: "Ingrese un formato de fecha válido (YYYY-MM-DD)",
+        },
+        nacionalidad: {
+          required: "La nacionalidad es obligatoria",
+        },
+        telefono: {
+          required: "El teléfono es obligatorio",
+          minlength: "El teléfono debe tener al menos 8 dígitos",
+          maxlength: "El teléfono no debe tener más de 8 dígitos",
+        },
+        correo: {
+          required: "El correo es obligatorio",
+          email: "Ingrese un correo electrónico válido",
+        },
+      },
+      submitHandler: function (form) {
+  
+        // Validamos la fecha antes de enviarla
+        var fecha = $("#fecha_nacimiento").val();
+        var dv = $("#dv_usuario").val();
+        if (!isValidDate(fecha)) {
+          // La fecha no es válida, muestra un mensaje de error
+          Swal.fire({
+            icon: 'error',
+            title: 'Error en la fecha',
+            text: 'Ingresa una fecha válida en el formato YYYY-MM-DD.',
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Entendido",
+          });
+  
+          return false; // Evita que se envíe el formulario
+  
         }
-    }
-        // Esta función se llama cuando se hace clic en el botón de enviar
-    function disableSubmitButton(button) {
-        // Deshabilita el botón
-        button.disabled = true;
+  
+        if (!isValidDV(dv)) {
+          // El dv no es válido, muestra un mensaje de error
+          Swal.fire({
+            icon: 'error',
+            title: 'Error en el DV',
+            text: 'Ingresa un DV válido (números entre 1-9 o letra k).',
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Entendido",
+          });
+  
+          return false; // Evita que se envíe el formulario
+  
+          }
+  
+          Swal.fire({
+            title: 'Datos personales guardados con éxito',
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar",
+        })
+            form.submit();
 
-        // Cambia el texto del botón para indicar que se está procesando
-        button.value = "Enviando...";
-
-        // Puedes mostrar un mensaje de espera aquí si lo deseas
-
-        // Establece un temporizador para restablecer el botón después de un tiempo determinado
-        setTimeout(resetSubmitButton, 5000); // 5000 milisegundos (5 segundos) como ejemplo
-    }
-
-    $('#formularioPerfilPers').validate({
-        rules: {
-            'rut_usuario': {
-                required: true,
-                minlength: 7,
-                maxlength: 8,
-            },
-            'dv_usuario': {
-                required: true,
-                minlength: 1,
-                maxlength: 1,
-            },
-            'nombre': 'required',
-            'primer_apellido': 'required',
-            'fecha_nacimiento': 'required',
-            'nacionalidad': 'required',
-            'telefono': {
-                required: true,
-                minlength: 9,
-                maxlength: 9,
-            },
-            'correo': {
-                required: true,
-                email: true,
-            },
-        },
-        messages: {
-            'rut_usuario': {
-                required: 'Por favor, ingresa tu Rut',
-                minlength: 'El Rut debe tener al menos 7 caracteres',
-                maxlength: 'El Rut no debe exceder los 8 caracteres',
-            },
-            'dv_usuario': {
-                required: 'Por favor, ingresa tu DV',
-                minlength: 'El DV debe tener al menos 1 caracter',
-                maxlength: 'El DV no debe exceder los 1 caracteres',
-            },
-            'nombre': 'Por favor, ingresa tu primer nombre',
-            'primer_apellido': 'Por favor, ingresa tu primer apellido',
-            'fecha_nacimiento': 'Por favor, ingresa tu fecha de nacimiento',
-            'fecha_nacimiento': 'Ingresa una fecha válida en el formato YYYY-MM-DD',
-            'nacionalidad': 'Por favor, ingresa tu nacionalidad',
-            'telefono': {
-                required: 'Por favor, ingresa tu número de teléfono',
-                minlength: 'El número de teléfono debe tener al menos 9 dígitos',
-                maxlength: 'El número de teléfono no debe exceder los 9 dígitos',
-            },
-            'correo': {
-                required: 'Por favor, ingresa tu correo electrónico',
-                email: 'Por favor, ingresa una dirección de correo electrónico válida',
-            },
-        },
-        submitHandler: function (form) {
-            // Aquí puedes mostrar la confirmación con SweetAlert2
-            Swal.fire({
-                title: "¡Datos personales agregados correctamente!",
-                icon: "success",
-                showCancelButton: false,
-                confirmButtonColor: "#3085d6",
-                confirmButtonText: "Continuar",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Aquí puedes enviar el formulario si es necesario
-                    form.submit();
-
-                    // Deshabilita el botón y muestra "Enviando..."
-                    disableSubmitButton($("#enviarPerfilPers")[0]);
-
-                }
-            });
-        },
+            // Deshabilita el botón y muestra "Enviando..."
+            disableSubmitButton($("#enviarPerfilPers")[0]);
+      },
     });
-});
+  });
+  
