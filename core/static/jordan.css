@@ -7,6 +7,10 @@ body{
   background-color: #e5e5e5;
 }
 
+#cards {
+  margin-bottom: 10px; /* Puedes ajustar este valor según tus necesidades */
+}
+
 #titulo{
   font-size: 60px;
   text-align: center;
@@ -14,10 +18,24 @@ body{
   font-family: 'fellows';
   }  
 
+.titulo3{
+  background-color:#003e77;
+  text-align: center;
+  color: white !important;
+  font-family: 'fellows';
+  font-weight: bold;
+  
+}
+
+
+
  #titulo2{
     text-align: center;
     color: #003e77;
     font-family: 'fellows';
+
+    font-weight: bold;
+
     }  
   
 #df-container {
@@ -178,7 +196,10 @@ body{
 }
 #ver {
   width: auto !important;
+  height: 20px !important; /* Ajusta la altura según tus preferencias */
   font-size: 13px !important; /* Ajusta el tamaño del icono "+" */
+  text-align: center !important; /* Centra el contenido del botón */
+  line-height: 5px !important; /* Centra verticalmente el contenido */
   text-align: center !important; /* Centra el contenido del botón */
   background-color: #0076bc !important; /* Cambia el color de fondo según tus preferencias */
   color: white !important; /* Cambia el color del texto según tus preferencias */
@@ -191,9 +212,11 @@ body{
   color: #003e77;
 }
 
+
 #enviar2:hover {
   color: #0076bc;
 }
+
 
 #ver-t {
   width: auto;

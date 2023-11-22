@@ -1,10 +1,17 @@
 
+
+import locale
+from random import randint
 from django import forms
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 
+
+from .models import Ciudad, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, Habilidad, HabilidadUsuario, Idioma, IdiomaUsuario, ModalidadTrabajo, Oferta, Formulario, TipoCargo, TipoEmpleo, Usuario, Competencia, UsuarioLogro
+
 from .models import Ciudad, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, Formulario, HabilidadUsuario, IdiomaUsuario, Oferta, Usuario, Competencia, UsuarioLogro
+
 
 from .models import CompetenciaOferta, CompetenciaUsuario, Direccion, Educacion, Experiencia, HabilidadUsuario, IdiomaUsuario, Oferta, Usuario, Competencia, UsuarioLogro
 
@@ -195,19 +202,49 @@ def ofertas_user(request):
     print(ofertas)  # Imprime las ofertas en la consola para depuración
     return render(request, 'ofertas_user.html', {'ofertas': ofertas}) 
  
+
+import traceback
 @login_required
 @csrf_exempt
 def eliminar_oferta(request, id_oferta):
     if request.method == 'POST':
         try:
             oferta = Oferta.objects.get(id_oferta=id_oferta)
+
+            # Eliminar formularios asociados a la oferta
+            Formulario.objects.filter(fk_id_oferta=oferta).delete()
+
             # Eliminar las relaciones CompetenciaOferta relacionadas
             CompetenciaOferta.objects.filter(fk_id_oferta=oferta).delete()
+
+            # Finalmente, elimina la oferta
             oferta.delete()
+
             return JsonResponse({'success': True})
         except Oferta.DoesNotExist:
             return JsonResponse({'success': False, 'error': 'Oferta no encontrada'})
+        except Exception as e:
+            traceback.print_exc()
+            return JsonResponse({'success': False, 'error': str(e)})
     return JsonResponse({'success': False})
+
+
+@login_required
+def perfil_admin(request, id_usuario, id_oferta):
+    locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+    
+    try:
+        id_user = id_usuario
+        usuarios = Usuario.objects.get(id_usuario = id_user)
+
+        id_dire = usuarios.fk_id_direccion_id
+        direcciones =Direccion.objects.get(id_direccion = id_dire)
+
+        id_comu = direcciones.fk_d_comuna_id
+        comunas = Comuna.objects.get(id_comuna = id_comu)
+
+        id_ciu = comunas.fk_id_ciudad_id
+        ciudades = Ciudad.objects.get(id_ciudad = id_ciu)
 
 
 @login_required
@@ -229,7 +266,24 @@ def perfil_admin(request, id_usuario, id_oferta):
 
         compesuser = CompetenciaUsuario.objects.filter(fk_id_usuario=id_user)
         competencias = Competencia.objects.filter(competenciausuario__in=compesuser)
+
+        habiuser = HabilidadUsuario.objects.filter(fk_id_usuario=id_user)
+        habilidades = Habilidad.objects.filter(habilidadusuario__in=habiuser)
+
+        idiouser = IdiomaUsuario.objects.filter(fk_id_usuario=id_user)
+        idiomas = Idioma.objects.filter(idiomausuario__in=idiouser)
    
+        experiencias = Experiencia.objects.filter(fk_id_usuario=id_user)
+
+        fkempleos = experiencias.values_list('fk_id_tipo_empleo', flat=True)
+        empleos = TipoEmpleo.objects.filter(id_tipo_empleo__in=fkempleos)
+
+        fkcargos = experiencias.values_list('fk_id_tipo_cargo', flat=True)
+        cargos = TipoCargo.objects.filter(id_tipo_cargo__in=fkcargos)
+
+        fkmodalidad = experiencias.values_list('fk_id_modalidad', flat=True)
+        modalidades = ModalidadTrabajo.objects.filter(id_modalidad__in = fkmodalidad)
+
 
     except Usuario.DoesNotExist:
         # Manejar el caso en el que el usuario no se encuentre
@@ -242,11 +296,23 @@ def perfil_admin(request, id_usuario, id_oferta):
         'direcciones' : direcciones,
         'comunas' : comunas,
         'ciudades' : ciudades,
-        'compesuser': compesuser,
-        'competencias': competencias
+        'compesuser' : compesuser,
+        'competencias' : competencias,
+        'habilidades' : habilidades,
+        'idiomas' : idiomas,
+        'experiencias' : experiencias,
+        'empleos' : empleos,
+        'cargos' : cargos,
+        'modalidades' : modalidades
     }
 
-    print()
+
+    if empleos.exists():
+        modalidades = modalidades.first()
+        print(modalidades.nom_modalidad)
+    else:        
+        print("No se encontró información sobre el tipo de empleo.")
+
 
     return render(request, 'perfil_admin.html', datos)
 

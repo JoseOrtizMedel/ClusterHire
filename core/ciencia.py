@@ -1,4 +1,5 @@
 
+from itertools import count
 from django.shortcuts import render, redirect
 import pandas as pd
 import numpy as np
@@ -32,6 +33,8 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 # Configuración warnings
 import warnings
+
+from core.models import Formulario, Oferta
 warnings.filterwarnings('ignore')
 from sklearn.cluster import KMeans
 from sklearn.metrics import pairwise_distances_argmin_min
@@ -41,8 +44,8 @@ def exportar_csv(request, id_oferta, nom_oferta ):
     # Reemplaza estos valores con tu información de conexión
     username = 'usuario'
     password = 'usuario'
-    #database = 'localhost:1521/xe'
-    database = 'localhost:1521/orcl' #alvi
+    database = 'localhost:1521/xe'
+    #database = 'localhost:1521/orcl' #alvi
 
 
     # Crea una conexión a la base de datos
@@ -265,19 +268,34 @@ def read_csv(request, id_oferta):
 
     resultado['NOM_MODALIDAD'].fillna('N/A', inplace=True)
 
-    columnas_seleccionadas = ['ID_OFERTA','NOM_OFERTA'
-                          ,'ID_FORMULARIO','FECHA_FORMULARIO'
-                          ,'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO',
-                          'ANHOS_EXPERIENCIA_USER','TIPO_CARGO_EXP','ptj_formacion', 'ptj_titulo','ptj_habilidades', 'ptj_idiomas', 'ptj_cargo',
-                          'ptj_competencia', 'COMPETENCIA_USER','COMPETENCIA_OFERTA', 'NOM_MODALIDAD'
-                          ]
-    resultado.drop_duplicates()
+    columnas_seleccionadas = ['ID_OFERTA','NOM_OFERTA', 'ID_FORMULARIO','FECHA_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO',
+                            'ANHOS_EXPERIENCIA_USER','TIPO_CARGO_EXP','ptj_formacion', 'ptj_titulo','ptj_habilidades', 'ptj_idiomas', 'ptj_cargo',
+                            'ptj_competencia', 'COMPETENCIA_USER','COMPETENCIA_OFERTA', 'NOM_MODALIDAD']
+
+    # Seleccionar columnas
     df = resultado[columnas_seleccionadas]
-    df = df.groupby(['ID_OFERTA','NOM_OFERTA','ID_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO', 'NOM_MODALIDAD'
-                            , 'ANHOS_EXPERIENCIA_USER', 'ptj_formacion', 'ptj_titulo', 'ptj_habilidades', 'ptj_idiomas', 'ptj_cargo'])['ptj_competencia'].sum().reset_index()
+
+    # Ordenar por 'FECHA_FORMULARIO' en orden descendente
+    df = df.sort_values(by='FECHA_FORMULARIO', ascending=False)
+
+    # Eliminar duplicados, conservando la primera ocurrencia (la más reciente)
+    df = df.drop_duplicates(subset='ID_USUARIO', keep='first')
+
+    # Realizar el agrupamiento y suma
+    df = df.groupby(['ID_OFERTA','NOM_OFERTA','ID_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO', 'NOM_MODALIDAD',
+                    'ANHOS_EXPERIENCIA_USER', 'ptj_formacion', 'ptj_titulo', 'ptj_habilidades', 'ptj_idiomas', 'ptj_cargo'
+                 ])['ptj_competencia'].sum().reset_index()
 
 #----------------------------------------------------K-MEANS------------------------------------------------------
-    
+    conteo_formularios = df['ID_FORMULARIO'].count()
+
+    if conteo_formularios  >= 3:
+        print(conteo_formularios)
+
+    else:
+        print("Hay menos de 3")
+        
+
     df['NOM_MODALIDAD'] = df['NOM_MODALIDAD'].replace(['Presencial','Online','Hibrido','N/A'],[1,2,3,4])
 
     X = np.array(df[["ANHOS_EXPERIENCIA_USER","ptj_formacion","ptj_titulo","ptj_habilidades", "ptj_idiomas", "ptj_cargo", "ptj_competencia"]])
@@ -298,13 +316,12 @@ def read_csv(request, id_oferta):
         asignar.append(colores[row])
     ax.scatter(X[:, 0], X[:, 1], X[:, 2], c=asignar,s=60)
 
-    random_seed = 42
-    kmeans = KMeans(n_clusters=2, random_state=random_seed).fit(X)
-    centroids = kmeans.cluster_centers_
+    
 
     
-    from sklearn.metrics import silhouette_samples, silhouette_score    
-    km = KMeans(n_clusters=3, random_state=42)
+    from sklearn.metrics import silhouette_samples, silhouette_score
+    random_seed = 42    
+    km = KMeans(n_clusters=2, random_state=random_seed).fit(X)
 
     km.fit_predict(X)
 
@@ -312,9 +329,9 @@ def read_csv(request, id_oferta):
 
 
     # Obtenemos las etiquetas de cada punto de nuestros datos
-    labels = kmeans.predict(X)
+    labels = km.predict(X)
     # Obtenemos los centroids
-    C = kmeans.cluster_centers_
+    C = km.cluster_centers_
     colores=['blue','green']
     asignar=[]
     for row in labels:
@@ -337,12 +354,12 @@ def read_csv(request, id_oferta):
     df['cluster']=labels
 
     # Primer grupo
-    grupo_mejor_recomendado = df.sort_values(by=['cluster'])[0:(cantidadGrupo['cantidad'][0])]
-    grupo_mejor_recomendado
+    grupo_menor_recomendado = df.sort_values(by=['cluster'])[0:(cantidadGrupo['cantidad'][0])]
+    grupo_menor_recomendado
 
     # Segundo grupo
-    grupo_menor_recomendado = df.sort_values(by=['cluster'])[(cantidadGrupo['cantidad'][0]):(cantidadGrupo['cantidad'][0] + cantidadGrupo['cantidad'][1])]
-    grupo_menor_recomendado
+    grupo_mejor_recomendado = df.sort_values(by=['cluster'])[(cantidadGrupo['cantidad'][0]):(cantidadGrupo['cantidad'][0] + cantidadGrupo['cantidad'][1])]
+    grupo_mejor_recomendado
     
 #-----------------------------------------------------------------------------------------------------------------
     
