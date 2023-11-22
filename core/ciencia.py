@@ -44,8 +44,8 @@ def exportar_csv(request, id_oferta, nom_oferta ):
     # Reemplaza estos valores con tu información de conexión
     username = 'usuario'
     password = 'usuario'
-    database = 'localhost:1521/xe'
-    #database = 'localhost:1521/orcl' #alvi
+    #database = 'localhost:1521/xe'
+    database = 'localhost:1521/orcl' #alvi
 
 
     # Crea una conexión a la base de datos
@@ -354,12 +354,12 @@ def read_csv(request, id_oferta):
     df['cluster']=labels
 
     # Primer grupo
-    grupo_menor_recomendado = df.sort_values(by=['cluster'])[0:(cantidadGrupo['cantidad'][0])]
-    grupo_menor_recomendado
+    grupo_mejor_recomendado = df.sort_values(by=['cluster'])[0:(cantidadGrupo['cantidad'][0])]
+    grupo_mejor_recomendado
 
     # Segundo grupo
-    grupo_mejor_recomendado = df.sort_values(by=['cluster'])[(cantidadGrupo['cantidad'][0]):(cantidadGrupo['cantidad'][0] + cantidadGrupo['cantidad'][1])]
-    grupo_mejor_recomendado
+    grupo_menor_recomendado = df.sort_values(by=['cluster'])[(cantidadGrupo['cantidad'][0]):(cantidadGrupo['cantidad'][0] + cantidadGrupo['cantidad'][1])]
+    grupo_menor_recomendado
     
 #-----------------------------------------------------------------------------------------------------------------
     

@@ -1,4 +1,4 @@
-{% extends 'layout3.html' %}
+{% extends 'layout_admin.html' %}
 {% load static %}
 
 {% block content %}
@@ -36,15 +36,14 @@
     <br>   
     
 
-    <div class="card" >
-        <br>
-        <div id="titulo">
+    <div class="card" style="border-radius: 0.5rem;">
+        <div class="mt-3" id="titulo">
             <h3>
                 Postulantes más recomendados
             </h3>
         </div>
-        <div class="table-responsive-lg">
-            <table class="dataframe table table-reponsive-md miTabla">      
+        <div class="table-responsive-lg" style="margin-bottom: -15px;">
+            <table class="dataframe table table-striped miTabla">      
                 <tr>
                     <th></th>
                     <th>ID Usuario</th>
@@ -56,7 +55,7 @@
                 </tr>
                 {% for _, row in df_filtrado.iterrows %}
                     <tr>
-                        <td><a href="{% url 'perfil_admin' id_usuario=row.ID_USUARIO|floatformat:0 id_oferta=id_oferta %}" id="ver" class="btn btn-custom">Ver perfil</a></td>
+                        <td><a href="{% url 'perfil_admin' id_usuario=row.ID_USUARIO|floatformat:0 id_oferta=id_oferta %}" id="ver" class="btn btn-custom"><i class="fa-solid fa-user"></i></a></td>
                         <td>{{ row.ID_USUARIO }}</td>
                         <td>{{ row.NOMBRE|title }}</td>
                         <td>{{ row.PRIMER_APELLIDO|title }}</td>
@@ -70,15 +69,14 @@
     </div>
     <br>
 
-    <div class="card">
-        <br>
-        <div id="titulo">
+    <div class="card" style="border-radius: 0.5rem;">
+        <div class="mt-3" id="titulo">
             <h3>
                 Postulantes menos recomendados
             </h3>
         </div>
-        <div class="table-responsive-lg">
-            <table class="dataframe table table-reponsive-md miTabla">
+        <div class="table-responsive-lg" style="margin-bottom: -15px;">
+            <table class="dataframe table table-striped miTabla">
                 <tr>
                     <th></th>
                     <th>ID Usuario</th>
@@ -90,7 +88,7 @@
                 </tr>
                 {% for _, row in df_filtrado2.iterrows %}
                     <tr>
-                        <td><a href="{% url 'perfil_admin' id_usuario=row.ID_USUARIO|floatformat:0 id_oferta=id_oferta %}" id="ver" class="btn btn-custom">Ver perfil</a></td>
+                        <td><a href="{% url 'perfil_admin' id_usuario=row.ID_USUARIO|floatformat:0 id_oferta=id_oferta %}" id="ver" class="btn btn-custom"><i class="fa-solid fa-user"></i></a></td>
                         <td>{{ row.ID_USUARIO }}</td>
                         <td>{{ row.NOMBRE|title }}</td>
                         <td>{{ row.PRIMER_APELLIDO|title }}</td>

@@ -228,25 +228,6 @@ def eliminar_oferta(request, id_oferta):
             return JsonResponse({'success': False, 'error': str(e)})
     return JsonResponse({'success': False})
 
-
-@login_required
-def perfil_admin(request, id_usuario, id_oferta):
-    locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
-    
-    try:
-        id_user = id_usuario
-        usuarios = Usuario.objects.get(id_usuario = id_user)
-
-        id_dire = usuarios.fk_id_direccion_id
-        direcciones =Direccion.objects.get(id_direccion = id_dire)
-
-        id_comu = direcciones.fk_d_comuna_id
-        comunas = Comuna.objects.get(id_comuna = id_comu)
-
-        id_ciu = comunas.fk_id_ciudad_id
-        ciudades = Ciudad.objects.get(id_ciudad = id_ciu)
-
-
 @login_required
 def perfil_admin(request, id_usuario, id_oferta):
     locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')

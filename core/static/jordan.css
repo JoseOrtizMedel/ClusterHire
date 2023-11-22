@@ -4,7 +4,7 @@
   /* Puedes agregar más formatos si tienes disponibles (TTF, OTF, EOT, etc.) */
 }
 body{
-  background-color: #e5e5e5;
+  background-color: #e5e5e5 !important;
 }
 
 #cards {
@@ -149,11 +149,6 @@ body{
   margin-right: 0.1cm; /* Margen a la derecha de 1 cm */
 }
 
-#boton_volver {
-  margin-bottom: 10px;
-}
-
-
 #enviar {
   color: #ffffff;
   background-color: #0076bc;
@@ -196,15 +191,8 @@ body{
 }
 #ver {
   width: auto !important;
-  height: 20px !important; /* Ajusta la altura según tus preferencias */
-  font-size: 13px !important; /* Ajusta el tamaño del icono "+" */
-  text-align: center !important; /* Centra el contenido del botón */
-  line-height: 5px !important; /* Centra verticalmente el contenido */
-  text-align: center !important; /* Centra el contenido del botón */
   background-color: #0076bc !important; /* Cambia el color de fondo según tus preferencias */
   color: white !important; /* Cambia el color del texto según tus preferencias */
-  border: none !important; /* Elimina el borde del botón */
-  cursor: pointer !important; /* Cambia el cursor al pasar sobre el botón */
 }
 
 #enviar2 {
