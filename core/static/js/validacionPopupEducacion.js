@@ -1,4 +1,17 @@
 $(document).ready(function () {
+
+    $.validator.addMethod(
+        "greaterThan",
+        function (value, element, param) {
+          var target = $(param).val();
+          if (value && target) {
+            return parseInt(value) > parseInt(target);
+          }
+          return true;
+        },
+        "El año de término debe ser mayor que el año de inicio."
+      );
+
     // Esta función se ejecutará después de que se haya recargado la página
     function resetSubmitButton() {
         var button = document.getElementById("enviarPerfilEduc");

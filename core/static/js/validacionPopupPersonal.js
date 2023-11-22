@@ -27,7 +27,7 @@ $(document).ready(function () {
             'rut_usuario': {
                 required: true,
                 minlength: 7,
-                maxlength: 12,
+                maxlength: 8,
             },
             'dv_usuario': {
                 required: true,
@@ -41,7 +41,7 @@ $(document).ready(function () {
             'telefono': {
                 required: true,
                 minlength: 9,
-                maxlength: 15,
+                maxlength: 9,
             },
             'correo': {
                 required: true,
@@ -52,7 +52,7 @@ $(document).ready(function () {
             'rut_usuario': {
                 required: 'Por favor, ingresa tu Rut',
                 minlength: 'El Rut debe tener al menos 7 caracteres',
-                maxlength: 'El Rut no debe exceder los 12 caracteres',
+                maxlength: 'El Rut no debe exceder los 8 caracteres',
             },
             'dv_usuario': {
                 required: 'Por favor, ingresa tu DV',
@@ -66,8 +66,8 @@ $(document).ready(function () {
             'nacionalidad': 'Por favor, ingresa tu nacionalidad',
             'telefono': {
                 required: 'Por favor, ingresa tu número de teléfono',
-                minlength: 'El número de teléfono debe tener al menos 10 dígitos',
-                maxlength: 'El número de teléfono no debe exceder los 15 dígitos',
+                minlength: 'El número de teléfono debe tener al menos 9 dígitos',
+                maxlength: 'El número de teléfono no debe exceder los 9 dígitos',
             },
             'correo': {
                 required: 'Por favor, ingresa tu correo electrónico',

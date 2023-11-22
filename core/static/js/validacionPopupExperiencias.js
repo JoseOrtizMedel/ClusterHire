@@ -54,47 +54,48 @@ $(document).ready(function () {
 
   $("#formularioPerfilExp").validate({
       rules: {
-          nombre_empleo: "required",
+        nombre_empleo: {
+            required: true,
+            minlength: 5,
+            maxlength: 50
+          },
           fecha_inicio_exp: {
-              required: true,
-              date: true
+            required: true,
+            dateISO: true
           },
           fecha_termino_exp: {
               required: true,
-              date: true
+              dateISO: true,
+              greaterThan: "#fecha_inicio_exp"
           },
           descripcion: {
             required: true,
             minlength: 20, 
             maxlength: 70,
-            // Añadimos la nueva regla
-            wrap: 35
-          },
-          fk_id_comuna: "required",
-          fk_id_tipo_empleo: "required",
-          fk_id_modalidad: "required",
-          fk_id_tipo_cargo: "required"
+          }
       },
       messages: {
-          nombre_empleo: "Por favor, ingrese el nombre del empleo",
+        nombre_empleo: {
+            required: "El nombre del empleo es obligatorio",
+            minlength: "El nombre del empleo debe tener al menos 5 caracteres",
+            maxlength: "El nombre del empleo no debe tener más de 50 caracteres"
+          },
           fecha_inicio_exp: {
-              required: "Por favor, ingrese la fecha de inicio",
-              date: "Ingrese una fecha válida"
+            required: "La fecha de inicio de la experiencia laboral es obligatoria",
+            dateISO: "Ingrese una fecha válida (YYYY-MM-DD)"
           },
           fecha_termino_exp: {
-              required: "Por favor, ingrese la fecha de término",
-              date: "Ingrese una fecha válida"
+            required: "La fecha de término de la experiencia laboral es obligatoria",
+            dateISO: "Ingrese una fecha válida (YYYY-MM-DD)",
+            greaterThan: "La fecha de término debe ser posterior a la fecha de inicio"
           },
           descripcion: {
-            required: "Por favor, ingrese una descripción",
+            required: "La descripción de la experiencia laboral es obligatoria",
             minlength: "La descripción debe tener al menos 20 caracteres",
-            maxlength: "La descripción no debe tener más de 100 caracteres"
-          },
-          fk_id_tipo_empleo: "Seleccione el tipo de empleo",
-          fk_id_modalidad: "Seleccione la modalidad",
-          fk_id_comuna: "Seleccione la comuna",
-          fk_id_tipo_cargo: "Seleccione el tipo de cargo"
+            maxlength: "La descripción no debe tener más de 70 caracteres"
+          }
       },
+
       submitHandler: function (form) {
 
       // Validamos la fecha antes de enviarla
@@ -135,16 +136,11 @@ $(document).ready(function () {
             showCancelButton: false,
             confirmButtonColor: "#3085d6",
             confirmButtonText: "Continuar",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Aquí puedes enviar el formulario si es necesario
-                form.submit();
+        })
+            form.submit();
 
-                // Deshabilita el botón y muestra "Enviando..."
-                disableSubmitButton($("#enviarPerfilExp")[0]);
-
-                }
-            });
+            // Deshabilita el botón y muestra "Enviando..."
+            disableSubmitButton($("#enviarPerfilExp")[0]);
         },
     });
 });

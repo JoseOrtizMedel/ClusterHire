@@ -11,23 +11,23 @@ $(document).ready(function () {
     "El año de término debe ser mayor que el año de inicio."
   );
 
-function isValidDateInicio(annio_inicio_educ) {
-  // La regex solo coincide con los cuatro números asociados al año
-  var regex = /^[0-9]{4}$/;
-  // Si la cadena no coincide con la regex, el año es inválido
-  if (!regex.test(annio_inicio_educ)) return false;
-  // Si el año es válido, se devuelve true
-  return annio_inicio_educ.length === 4;
-}
-
-function isValidDateFin(annio_fin_educ) {
+  function isValidDateInicio(annio_inicio_educ) {
     // La regex solo coincide con los cuatro números asociados al año
     var regex = /^[0-9]{4}$/;
     // Si la cadena no coincide con la regex, el año es inválido
-    if (!regex.test(annio_fin_educ)) return false;
+    if (!regex.test(annio_inicio_educ)) return false;
     // Si el año es válido, se devuelve true
-    return annio_fin_educ.length === 4;
-}
+    return annio_inicio_educ.length === 4;
+  }
+
+  function isValidDateFin(annio_fin_educ) {
+      // La regex solo coincide con los cuatro números asociados al año
+      var regex = /^[0-9]{4}$/;
+      // Si la cadena no coincide con la regex, el año es inválido
+      if (!regex.test(annio_fin_educ)) return false;
+      // Si el año es válido, se devuelve true
+      return annio_fin_educ.length === 4;
+  }
 
   
   $("#formularioPerfilEduc").validate({

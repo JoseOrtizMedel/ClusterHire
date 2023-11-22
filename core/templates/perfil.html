@@ -32,6 +32,11 @@
                                         </tr>
                                         {% endfor %}
                                     {% else %}
+                                    <style>
+                                        #btnModal{
+                                            display: none;
+                                        }
+                                    </style>
                                     <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#direModal" id="btnDireModal">Agregar dirección</a></th>
                                         <p><i style="color: #003e77;">Indicanos tu dirección porfavor... ¡Este es el primer paso para encontrar el trabajo de tus sueños!</i></p>
                                     {% endif %}
@@ -70,7 +75,7 @@
                                            <td>{{ usuario.primer_apellido }} {{ usuario.segundo_apellido}}</td>
                                            <td>{{ usuario.fecha_nacimiento }}</td>
                                            <td>{{ usuario.nacionalidad }}</td>
-                                           <td>+56 9 {{ usuario.telefono }}</td>
+                                           <td>+56 {{ usuario.telefono }}</td>
                                            <td>{{ usuario.correo }}</td>
                                            <td>
                                                <a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_personal' usuario.id_usuario %}" style="float: right; margin-right: 10px;"><i class="fa-solid fa-pen-to-square"></i></a>
@@ -79,7 +84,6 @@
                                        {% endfor %}
                                    {% else %}
                                    <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#persModal" id="btnPersModal" style="display: none;">Agregar datos</a></th>
-                                        <!-- <p><i style="color: #003e77;">Luego de agregar tu dirección, indicanos tus datos personales para iniciar tu experiencia en ClusterHire</i></p> -->
                                    {% endif %}
                                </div>
                                {% include 'popup_personal.html' %}
@@ -98,11 +102,11 @@
                         <table class="table table-border">
                             <tr>
                                 <th class="table-primary">Competencia</th>
-                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#compeModal" style="float: right; margin-right: 10px;"><i class="fa-solid fa-plus"></i></a></th>
+                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#compeModal" style="float: right; margin-right: 10px;" id="btnModal"><i class="fa-solid fa-plus"></i></a></th>
                             </tr>
                             <div class="row">
                                 <div class="col-sm-6"> 
-                                    <h4>Competencias (Ingrese máximo 3 competencias)</h4>
+                                    <h4>Competencias</h4>
                                     {% if competencias %}
                                         {% for competencia in competencias %}
                                         <tr>
@@ -132,11 +136,11 @@
                         <table class="table table-border">
                             <tr>
                                 <th class="table-primary">Habilidad</th>
-                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#habiModal" style="float: right; margin-right: 10px;"><i class="fa-solid fa-plus"></i></a></th>
+                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#habiModal" style="float: right; margin-right: 10px;" id="btnModal"><i class="fa-solid fa-plus"></i></a></th>
                             </tr>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <h4>Habilidades (Ingrese máximo 3 habilidades)</h4>
+                                    <h4>Habilidades</h4>
                                     {% if habilidades %}
                                         {% for habilidad in habilidades %}
                                         <tr>
@@ -166,11 +170,11 @@
                         <table class="table table-border">
                             <tr>
                                 <th class="table-primary">Idioma</th>
-                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#idiModal" style="float: right; margin-right: 10px;"><i class="fa-solid fa-plus"></i></a></th>
+                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#idiModal" style="float: right; margin-right: 10px;" id="btnModal"><i class="fa-solid fa-plus"></i></a></th>
                             </tr>
                             <div class="row">
                                 <div class="col-sm-6"> 
-                                    <h4>Idiomas (Ingrese máximo 3 idiomas)</h4>
+                                    <h4>Idiomas</h4>
                                     {% if idiomas %}
                                         {% for idioma in idiomas %}
                                         <tr>
@@ -206,7 +210,7 @@
                                 <th class="table-primary">Año inicio</th>
                                 <th class="table-primary">Año término</th>
                                 <th></th>
-                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#educModal" style="float: right; margin-right: 10px;"><i class="fa-solid fa-plus"></i></a></th>
+                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#educModal" style="float: right; margin-right: 10px;" id="btnModal"><i class="fa-solid fa-plus"></i></a></th>
                             </tr>
                             <div class="row">
                                 <div class="col-md-12">
@@ -245,7 +249,7 @@
                         <table class="table table-border">
                             <tr>
                                 <th class="table-primary">Logro</th>
-                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#logroModal" style="float: right; margin-right: 10px;"><i class="fa-solid fa-plus"></i></a></th>
+                                <th><a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#logroModal" style="float: right; margin-right: 10px;" id="btnModal"><i class="fa-solid fa-plus"></i></a></th>
                             </tr>
                             <div class="row">
                                 <div class="col-md-12">
@@ -288,7 +292,7 @@
                                 <th class="table-primary">Fecha término</th>
                                 <th></th>
                                 <th>
-                                    <a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#expModal" style="float: right; margin-right: 10px;"style="float: right; margin-right: 10px;"><i class="fa-solid fa-plus"></i></a>
+                                    <a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#expModal" style="float: right; margin-right: 10px;"style="float: right; margin-right: 10px;" id="btnModal"><i class="fa-solid fa-plus"></i></a>
                                 </th>
                             </tr>
                             <div class="row">

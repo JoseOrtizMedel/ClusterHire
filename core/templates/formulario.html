@@ -5,7 +5,7 @@
 {% block content %}
 <br>
 
-<div id="titulo">    <h1>{{ nom_oferta }}</h1>      </div>
+<div id="titulo">    <h3>Estás postulando a: <br><h1>{{ nom_oferta }}</h1></h3>      </div>
 <script>
     // Obtén el elemento h1 dentro del div con id "titulo"
     var h1Element = document.querySelector('#titulo h1');
@@ -24,7 +24,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <a href="{% url 'ofertas_user' %}"  class="btn btn-danger" id="boton_volver">Volver</a> <!-- Botón de retroceso -->
+            <a href="{% url 'ofertas_user' %}"  class="btn btn-danger" id="boton_volver"><i class="fa-solid fa-left-long"></i></a> <!-- Botón de retroceso -->
 
             <form method="POST" action="{% url 'formulario' id_oferta nom_oferta %}" id="formularioPostulacion">
 

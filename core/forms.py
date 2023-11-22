@@ -11,6 +11,12 @@ from .models import Oferta, TipoCargo, Usuario, Direccion, Comuna, Ciudad, Formu
 
 from django.shortcuts import render, redirect
 
+def capitalize_first_letter(value):
+  if value:
+    return value[0].upper() + value[1:]
+  else:
+    return value
+
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -19,9 +25,6 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 # JORDAAAAAAAN--------------------------------------------------------------
-
-
-
 
 class OfertaForm(forms.ModelForm):
     class Meta:
@@ -66,7 +69,10 @@ class OfertaForm(forms.ModelForm):
 
     def label_from_comuna_instance(self, obj):
         return obj.nom_comuna
-    
+
+    def clean_nom_oferta(self):
+        value = self.cleaned_data['nom_oferta']
+        return capitalize_first_letter(value)
 
     
 class CompeOfeForm (forms.ModelForm):
@@ -103,6 +109,10 @@ class FormularioForm(forms.ModelForm):
             'info_adicional', 'fk_id_usuario', 'fk_id_oferta'
         ]
 
+    def clean_info_adicional(self):
+        value = self.cleaned_data['info_adicional']
+        return capitalize_first_letter(value)
+
 
 
 # JORDAAAAAAAN--------------------------------------------------------------
@@ -136,6 +146,8 @@ class DireccionForm(forms.ModelForm):
     def label_from_comuna_instance(self, obj):
         return obj.nom_comuna
 
+
+
 class UsuarioForm(forms.ModelForm):
     class Meta:
         model = Usuario
@@ -156,7 +168,43 @@ class UsuarioForm(forms.ModelForm):
 
     def label_from_direccion_instance(self, obj):
         return obj.id_direccion
-        
+    
+    def label_from_comuna_instance(self, obj):
+        return obj.nom_comuna
+
+    def label_from_usuario_instance(self, obj):
+        return obj.id_usuario
+
+    def label_from_modalidad_instance(self, obj):
+        return obj.nom_modalidad
+    
+    def label_from_tipo_empleo_instance(self, obj):
+        return obj.nom_tipo_empleo
+    
+    def label_from_tipoCargo_instance(self, obj):
+        return obj.nom_cargo
+    
+    def clean_nombre(self):
+        value = self.cleaned_data['nombre']
+        return capitalize_first_letter(value)
+    
+    def clean_segundo_nombre(self):
+        value = self.cleaned_data['segundo_nombre']
+        return capitalize_first_letter(value)
+
+    def clean_primer_apellido(self):
+        value = self.cleaned_data['primer_apellido']
+        return capitalize_first_letter(value)
+    
+    def clean_segundo_apellido(self):
+        value = self.cleaned_data['segundo_apellido']
+        return capitalize_first_letter(value)
+    
+    def clean_nacionalidad(self):
+        value = self.cleaned_data['nacionalidad']
+        return capitalize_first_letter(value)
+
+
 class FormularioForm(forms.ModelForm):
     class Meta:
         model = Formulario
@@ -222,6 +270,7 @@ class ExperienciaForm(forms.ModelForm):
     
     def label_from_tipoCargo_instance(self, obj):
         return obj.nom_cargo
+    
     
 class InstitucionForm(forms.ModelForm):
     class Meta:
@@ -376,13 +425,7 @@ class CompetenciaForm(forms.ModelForm):
 
     def label_from_usuario_instance(self, obj):
         return obj.id_usuario
-    
-    def clean(self):
-        # Valida que solo se puedan ingresar como máximo 3 competencias
-        competencias = CompetenciaUsuario.objects.filter(fk_id_usuario=self.cleaned_data['fk_id_usuario'])
-        if len(competencias) >= 3:
-            raise forms.ValidationError("Solo se pueden ingresar como máximo 3 competencias")
-        return super().clean()
+            
 
 class IdiomaForm(forms.ModelForm):
     class Meta:
@@ -411,13 +454,7 @@ class IdiomaForm(forms.ModelForm):
 
     def label_from_idioma_instance(self, obj):
         return obj.nombre_idioma
-    
-    def clean(self):
-        # Valida que solo se puedan ingresar como máximo 3 idiomas
-        idiomas = IdiomaUsuario.objects.filter(fk_id_usuario=self.cleaned_data['fk_id_usuario'])
-        if len(idiomas) >= 3:
-            raise forms.ValidationError("Solo se pueden ingresar como máximo 3 idiomas")
-        return super().clean()
+
 
 class HabilidadForm(forms.ModelForm):
     class Meta:
@@ -447,13 +484,7 @@ class HabilidadForm(forms.ModelForm):
     def label_from_usuario_instance(self, obj):
         return obj.nombre
     
-    def clean(self):
-        # Valida que solo se puedan ingresar como máximo 3 habilidades
-        habilidades = HabilidadUsuario.objects.filter(fk_id_usuario=self.cleaned_data['fk_id_usuario'])
-        if len(habilidades) >= 3:
-            raise forms.ValidationError("Solo se pueden ingresar como máximo 3 habilidades")
-        return super().clean()
-    
+
 class PerfilEdit(forms.ModelForm):
 
     class Meta:
@@ -500,6 +531,26 @@ class PerfilEdit(forms.ModelForm):
             #"fk_id_direccion": forms.ModelChoiceField(queryset=Comuna.objects.all(),forms.Select(attrs={'class': 'form-control'}))
         }
 
+    def clean_nombre(self):
+        value = self.cleaned_data['nombre']
+        return capitalize_first_letter(value)
+    
+    def clean_segundo_nombre(self):
+        value = self.cleaned_data['segundo_nombre']
+        return capitalize_first_letter(value)
+
+    def clean_primer_apellido(self):
+        value = self.cleaned_data['primer_apellido']
+        return capitalize_first_letter(value)
+    
+    def clean_segundo_apellido(self):
+        value = self.cleaned_data['segundo_apellido']
+        return capitalize_first_letter(value)
+    
+    def clean_nacionalidad(self):
+        value = self.cleaned_data['nacionalidad']
+        return capitalize_first_letter(value)
+
 class DireccionEdit(forms.ModelForm):
 
     class Meta:
@@ -533,6 +584,10 @@ class DireccionEdit(forms.ModelForm):
 
     def label_from_comuna_instance(self, obj):
         return obj.nom_comuna
+    
+    def clean_nombre_calle(self):
+        value = self.cleaned_data['nombre_calle']
+        return capitalize_first_letter(value)
 
 
 class EducEdit(forms.ModelForm):
@@ -692,3 +747,7 @@ class ExpEdit(forms.ModelForm):
     
     def label_from_tipoCargo_instance(self, obj):
         return obj.nom_cargo
+    
+    def clean_descripcion(self):
+        value = self.cleaned_data['descripcion']
+        return capitalize_first_letter(value)

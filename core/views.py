@@ -75,7 +75,6 @@ def obtener_id_usuario(request):
     user_id = request.user.id
     return HttpResponse(f'ID del usuario autenticado: {user_id}')
 
-@user_passes_test(is_superadmin)
 def nueva_oferta(request):
 
     datos = {
@@ -137,7 +136,6 @@ def compe_oferta(request, id_oferta, nom_oferta):
 
 
 
-@login_required
 def formulario(request, id_oferta, nom_oferta, ):
     datos = {'form': FormularioForm(request)}
     message_error = ''
@@ -170,7 +168,6 @@ def formulario(request, id_oferta, nom_oferta, ):
     return render(request, 'formulario.html', {'id_oferta': id_oferta, 'nom_oferta': nom_oferta, 'message_error': message_error})
     
 
-@login_required
 def ciencia(request, id_oferta, nom_oferta, ):
     context = {
         'id_oferta': id_oferta,
@@ -193,7 +190,6 @@ def ofertas_admin(request):
 
     return render(request, 'ofertas_admin.html', {'ofertas': ofertas})
 
-@login_required
 def ofertas_user(request):
     ofertas = Oferta.objects.all().select_related('fk_id_tipo_cargo').prefetch_related('competenciaoferta_set__fk_id_competencia')
     print(ofertas)  # Imprime las ofertas en la consola para depuración
@@ -370,7 +366,6 @@ def perfilEduc(request):
     return render(request, 'perfil_educacion.html', datos)
 
 # Vista GET para Usuario en Perfil.html
-@login_required
 def perfil(request):
 
     # Obtiene las competencias del usuario
@@ -534,11 +529,24 @@ def perfil(request):
 
         if form_logro.is_valid():
 
-            form_logro.save()
+            # Obtiene la competencia del formulario
+            logro = form_logro.cleaned_data['fk_id_logro_academico']
 
-            datos['mensaje'] = "Guardado Correctamente"
-            time.sleep(2.5)
-            return redirect('perfil')
+            # Verifica si la competencia ya existe
+            logro_existente = UsuarioLogro.objects.filter(fk_id_usuario=request.user.id, fk_id_logro_academico=logro).first()
+
+            # Verifica si la competencia es nueva
+            if not logro_existente:
+                # La competencia es nueva
+                form_logro.save()
+
+                datos['mensaje'] = "Guardado Correctamente"
+                time.sleep(2.5)
+                return redirect('perfil')
+            else:
+                # La competencia ya existe
+                # Muestra un mensaje de validación
+                datos['mensaje'] = "La competencia ya existe"
         
         if form_experiencia.is_valid():
 
@@ -551,7 +559,6 @@ def perfil(request):
     return render(request, 'perfil2.html', datos)
 
 # Vista GET para Usuario en Perfil.html
-@login_required
 def perfil2(request):
 
     # Obtiene las competencias del usuario
