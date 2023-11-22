@@ -272,7 +272,14 @@ class ExperienciaForm(forms.ModelForm):
     def label_from_tipoCargo_instance(self, obj):
         return obj.nom_cargo
     
+    def clean_nombre_empleo(self):
+        value = self.cleaned_data['nombre_empleo']
+        return capitalize_first_letter(value)
     
+    def clean_descripcion(self):
+        value = self.cleaned_data['descripcion']
+        return capitalize_first_letter(value)  
+
 class InstitucionForm(forms.ModelForm):
     class Meta:
         model = Institucion

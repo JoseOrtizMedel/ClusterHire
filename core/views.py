@@ -228,7 +228,6 @@ def eliminar_oferta(request, id_oferta):
             return JsonResponse({'success': False, 'error': str(e)})
     return JsonResponse({'success': False})
 
-@login_required
 def perfil_admin(request, id_usuario, id_oferta):
     locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
     
@@ -635,8 +634,6 @@ def perfil2(request):
     # Obtiene la direccion
     #usuarios = Usuario.objects.filter(fk_id_direccion = Direccion.objects.last())
 
-    message_error = ''
-
     datos = {
         'competencia_form': CompetenciaForm(),
         'habilidad_form': HabilidadForm(),
@@ -704,48 +701,62 @@ def perfil2(request):
             competencia = form_competencia.cleaned_data['fk_id_competencia']
 
             # Verifica si la competencia ya existe
-            competencia_existente = CompetenciaOferta.objects.filter(fk_id_usuario=request.user.id, fk_id_competencia=competencia).first()
+            competencia_existente = CompetenciaUsuario.objects.filter(fk_id_usuario=request.user.id, fk_id_competencia=competencia).first()
 
-            # Si la competencia no existe, la guarda
+            # Verifica si la competencia es nueva
             if not competencia_existente:
-                # Guarda el formulario
+                # La competencia es nueva
                 form_competencia.save()
 
-                # Redirecciona al usuario a la página de administración de ofertas
-                return redirect('perfil')
-
-            # Si la competencia existe, muestra un mensaje de error
-            else:
-                # Muestra el mensaje de error
-                message_error = 'La competencia ya existe'
-
-            datos['mensaje'] = "Guardado Correctamente"
-            time.sleep(2.5)
-            return render(request, 'perfil', {'message_error': message_error})
-
-        if form_habilidad.is_valid():
-
-            form_habilidad.save()
-
-            datos['mensaje'] = "Guardado Correctamente"
-            time.sleep(2.5)
-            return redirect('perfil')
-        
-        if form_idioma.is_valid():
-
-            # Obtiene el número de idiomas del usuario
-            num_idiomas = len(idiomas)
-
-            if num_idiomas >= 3:
-                # El usuario ya tiene 3 idiomas
-                # Muestra un mensaje de validación
-                datos['mensaje'] = "Solo se pueden ingresar como máximo 3 idiomas"
-
-            else:
-                form_idioma.save()
                 datos['mensaje'] = "Guardado Correctamente"
                 time.sleep(2.5)
                 return redirect('perfil')
+            else:
+                # La competencia ya existe
+                # Muestra un mensaje de validación
+                datos['mensaje'] = "La competencia ya existe"
+
+        if form_habilidad.is_valid():
+
+            # Obtiene la competencia del formulario
+            habilidad = form_habilidad.cleaned_data['fk_id_habilidad']
+
+            # Verifica si la competencia ya existe
+            habilidad_existente = HabilidadUsuario.objects.filter(fk_id_usuario=request.user.id, fk_id_habilidad=habilidad).first()
+
+            # Verifica si la competencia es nueva
+            if not habilidad_existente:
+                # La competencia es nueva
+                form_habilidad.save()
+
+                datos['mensaje'] = "Guardado Correctamente"
+                time.sleep(2.5)
+                return redirect('perfil')
+            else:
+                # La competencia ya existe
+                # Muestra un mensaje de validación
+                datos['mensaje'] = "La habilidad ya existe"
+
+        if form_idioma.is_valid():
+
+            # Obtiene la competencia del formulario
+            idioma = form_idioma.cleaned_data['fk_id_idioma']
+
+            # Verifica si la competencia ya existe
+            idioma_existente = IdiomaUsuario.objects.filter(fk_id_usuario=request.user.id, fk_id_idioma=idioma).first()
+
+            # Verifica si la competencia es nueva
+            if not idioma_existente:
+                # La competencia es nueva
+                form_idioma.save()
+
+                datos['mensaje'] = "Guardado Correctamente"
+                time.sleep(2.5)
+                return redirect('perfil')
+            else:
+                # La competencia ya existe
+                # Muestra un mensaje de validación
+                datos['mensaje'] = "El idioma ya existe"
     
         if form_educacion.is_valid():
 
@@ -757,11 +768,24 @@ def perfil2(request):
 
         if form_logro.is_valid():
 
-            form_logro.save()
+            # Obtiene la competencia del formulario
+            logro = form_logro.cleaned_data['fk_id_logro_academico']
 
-            datos['mensaje'] = "Guardado Correctamente"
-            time.sleep(2.5)
-            return redirect('perfil')
+            # Verifica si la competencia ya existe
+            logro_existente = UsuarioLogro.objects.filter(fk_id_usuario=request.user.id, fk_id_logro_academico=logro).first()
+
+            # Verifica si la competencia es nueva
+            if not logro_existente:
+                # La competencia es nueva
+                form_logro.save()
+
+                datos['mensaje'] = "Guardado Correctamente"
+                time.sleep(2.5)
+                return redirect('perfil')
+            else:
+                # La competencia ya existe
+                # Muestra un mensaje de validación
+                datos['mensaje'] = "La competencia ya existe"
         
         if form_experiencia.is_valid():
 
