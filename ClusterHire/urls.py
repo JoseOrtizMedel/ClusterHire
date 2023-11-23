@@ -47,17 +47,9 @@ urlpatterns = [
     path('eliminar_oferta/<id_oferta>/', views.eliminar_oferta, name='eliminar_oferta'),    
     path('formulario/<int:id_oferta>/<str:nom_oferta>/', views.formulario, name='formulario'),
     path('compe_oferta/<int:id_oferta>/<str:nom_oferta>/', views.compe_oferta, name='compe_oferta'),
-
     path('exportar_csv/<int:id_oferta>/<str:nom_oferta>/', ciencia.exportar_csv, name='exportar_csv'),
     path('ciencia/<int:id_oferta>/<str:nom_oferta>/', views.ciencia, name='ciencia'),
     path('read_csv/<int:id_oferta>/', ciencia.read_csv, name='read_csv'),
-    
-    
-    path('perfil_direccion/', views.perfilDire, name='perfil_direccion'),
-    path('perfil_personal/', views.perfilPers, name='perfil_personal'),
-    path('perfil_experiencia/', views.perfilExp, name='perfil_experiencia'),
-    #path('perfil_competencias/', views.perfilCompe, name='perfil_competencias'),
-    path('perfil_educacion/', views.perfilEduc, name='perfil_educacion'),
     path('perfil/', views.perfil, name='perfil'),
     path('perfil2/', views.perfil2, name='perfil2'),
     path('perfil_admin/<int:id_usuario>/<int:id_oferta>/', views.perfil_admin, name='perfil_admin'),

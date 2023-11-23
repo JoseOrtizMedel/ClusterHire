@@ -190,101 +190,6 @@ body{
 
 }
 
-@media (max-width: 820px) {
-
-  #logoLogin {
-    margin-top: 55px;
-    margin-left: -10px;
-    width: 350px;
-    height: 350px;
-  }
-
-  #tituloForm {
-    margin-top: 70px;
-    margin-left: 50px;
-  }
-
-  #btnEntrar {
-    margin-left: 10px;
-    margin-top: 60px;
-  }
-
-  #btnRegistrar {
-    margin-left: 40px;
-    margin-top: 60px;
-  }
-
-  #recuperarPw {
-    margin-left: 0px
-  }
-
-}
-
-@media (max-width: 765px) {
-
-  #fluid-login {
-    margin-top: 30px;
-  }
-
-  #row {
-    margin-top: 0px;
-    flex-wrap: wrap;
-  }
-
-  #izq {
-    border-radius: 5px 5px 0px 0px;
-    width: 100%;
-  }
-
-  #formulario {
-    width: 100%;
-  }
-
-  #logoLogin {
-    width: 0px;
-    height: 0px;
-    opacity: 1;
-  }
-
-  #logoLogin2 {
-    margin-left: 150px;
-    margin-top: 20px;
-    margin-bottom: -20px;
-    width: 200px;
-    height: 200px;
-  }
-
-  #tituloLogin {
-    margin-top: 30px;
-    margin-bottom: -30px;
-    margin-left: 55px;
-    font-size: 30px;
-    color: white;
-  }
-
-  #tituloForm {
-    margin-top: 0px;
-    margin-left: 0px;
-    font-size: 0px;
-    opacity: 1;
-  }
-
-  #btnEntrar {
-    margin-left: 120px;
-    margin-top: -67px;
-  }
-
-  #btnRegistrar {
-    margin-left: 270px;
-    margin-top: 25px;
-  }
-
-  #recuperarPw {
-    margin-left: 0px;
-  }
-
-}
-
 @media (max-width: 430px) {
 
   #fluid-login {
@@ -364,67 +269,6 @@ body{
 
 }
 
-@media (max-width: 360px) {
-
-  #row {
-    margin-top: 0px;
-    flex-wrap: wrap;
-  }
-
-  #izq {
-    border-radius: 5px 5px 0px 0px;
-    width: 400px;
-  }
-
-  #login {
-    width: 100%;
-  }
-
-  #logoLogin {
-    margin-left: 35px;
-    width: 0px;
-    height: 0px;
-    opacity: 1;
-  }
-
-  #logoLogin2 {
-    margin-left: 60px;
-    margin-top: 20px;
-    margin-bottom: -50px;
-    width: 200px;
-    height: 200px;
-  }
-
-  #tituloLogin {
-    margin-top: 30px;
-    margin-bottom: -30px;
-    margin-left: 45px;
-    font-size: 30px;
-    color: white;
-  }
-
-  #tituloForm {
-    margin-top: 0px;
-    margin-left: 0px;
-    font-size: 0px;
-    opacity: 1;
-  }
-
-  #btnEntrar {
-    margin-left: 35px;
-    margin-top: -67px;
-  }
-
-  #btnRegistrar {
-    margin-left: 180px;
-    margin-top: 25px;
-  }
-
-  #recuperarPw {
-    margin-left: 0px;
-  }
-
-}
 
 @media (max-width: 290px) {
 
@@ -547,11 +391,6 @@ body{
     margin-left: 130px;
   }
 
-  #btnRegistrar {
-    margin-left: 100px;
-    margin-top: 60px;
-  }
-
   #recuperarPw {
     margin-left: 0px
   }
@@ -645,8 +484,8 @@ body{
 @media (max-width: 820px) {
 
   #logoLoginReg {
-    margin-top: 210px;
-    margin-left: 5px;
+    margin-top: 180px;
+    margin-left: 10px;
     width: 300px;
     height: 300px;
   }
@@ -657,12 +496,13 @@ body{
   }
 
   #btnEntrar {
-    margin-left: 10px;
-    margin-top: 60px;
+    margin-left: 20px;
+    margin-top: 30px;
   }
 
   #btnRegistrarse {
-    margin-left: 110px;
+    margin-left: 100px;
+    margin-top: 30px;
   }
 
   #recuperarPw {
@@ -670,12 +510,12 @@ body{
   }
 
   #registro span {
-    font-size: 10.5px;
+    font-size: 10px;
   }
 
 }
 
-@media (max-width: 765px) {
+@media (max-width: 766px) {
 
   #fluid-login {
     margin-top: 30px;
@@ -700,6 +540,15 @@ body{
     width: 0px;
     height: 0px;
     opacity: 1;
+  }
+
+  #logoLogin2 {
+    padding: 10px;
+    margin-left: 100px;
+    margin-top: 0px;
+    margin-bottom: -50px;
+    width: 300px;
+    height: 300px;
   }
 
   #logoLoginReg {
@@ -727,12 +576,88 @@ body{
   }
 
   #btnEntrar {
-    margin-left: 120px;
+    margin-left: 260px;
     margin-top: -67px;
   }
 
-  #btnRegistrarse {
-    margin-left: 190px;
+  #btnRegistrar {
+    margin-left: 130px;
+    margin-top: 25px;
+  }
+
+  #recuperarPw {
+    margin-left: 0px;
+  }
+
+}
+
+@media (max-width: 680px) {
+
+  #fluid-login {
+    margin-top: 30px;
+  }
+
+  #row {
+    margin-top: 0px;
+    flex-wrap: wrap;
+  }
+
+  #izq {
+    border-radius: 5px 5px 0px 0px;
+    width: 100%;
+    height: 80px;
+  }
+
+  #formulario {
+    width: 100%;
+  }
+
+  #logoLogin {
+    width: 0px;
+    height: 0px;
+    opacity: 1;
+  }
+
+  #logoLogin2 {
+    padding: 10px;
+    margin-left: 100px;
+    margin-top: 0px;
+    margin-bottom: -50px;
+    width: 300px;
+    height: 300px;
+  }
+
+  #logoLoginReg {
+    margin-left: 150px;
+    margin-top: 20px;
+    margin-bottom: -20px;
+    width: 200px;
+    height: 200px;
+    display: none;
+  }
+
+  #tituloLogin {
+    margin-top: 30px;
+    margin-bottom: -30px;
+    margin-left: 55px;
+    font-size: 30px;
+    color: white;
+  }
+
+  #tituloForm {
+    margin-top: 0px;
+    margin-left: 0px;
+    font-size: 0px;
+    opacity: 1;
+  }
+
+  #btnEntrar {
+    margin-left: 260px;
+    margin-top: -67px;
+  }
+
+  #btnRegistrar {
+    margin-left: 130px;
     margin-top: 25px;
   }
 
@@ -771,7 +696,7 @@ body{
 
   #logoLogin2 {
     padding: 10px;
-    margin-left: 70px;
+    margin-left: 80px;
     margin-top: 0px;
     margin-bottom: -50px;
     width: 300px;
@@ -794,12 +719,12 @@ body{
   }
 
   #btnEntrar {
-    margin-left: 60px;
-    margin-top: -67px;
+    margin-left: 0px;
+    margin-top: 25px;
   }
 
-  #btnRegistrarse {
-    margin-left: 160px;
+  #btnRegistrar {
+    margin-left: 100px;
     margin-top: 25px;
   }
 
@@ -809,6 +734,24 @@ body{
 
   #registro span {
     font-size: 11.5px;
+  }
+
+}
+
+@media (max-width: 450px) {
+
+  #logoLogin2 {
+    margin-left: 60px;
+  }
+
+  #btnEntrar {
+    margin-left: 70px;
+    margin-top: -66px;
+  }
+
+  #btnRegistrar {
+    margin-left: 220px;
+    margin-top: 25px;
   }
 
 }
@@ -842,7 +785,7 @@ body{
 
   #logoLogin2 {
     padding: 10px;
-    margin-left: 90px;
+    margin-left: 100px;
     margin-top: 0px;
     margin-bottom: -50px;
     width: 200px;
@@ -869,8 +812,8 @@ body{
     margin-top: -67px;
   }
 
-  #btnRegistrarse {
-    margin-left: 140px;
+  #btnRegistrar {
+    margin-left: 200px;
     margin-top: 25px;
   }
 
@@ -967,140 +910,48 @@ body{
 
 }
 
+
 @media (max-width: 360px) {
 
-  #row {
-    margin-top: 0px;
-    flex-wrap: wrap;
-  }
-
-  #izq {
-    border-radius: 5px 5px 0px 0px;
-    width: 100%;
-    height: 80px;
-  }
-
-  #login {
-    width: 100%;
-  }
-
-  #logoLogin {
-    margin-left: 35px;
-    width: 0px;
-    height: 0px;
-    opacity: 1;
-  }
-
   #logoLogin2 {
-    margin-left: 60px;
+    margin-left: 40px;
     margin-top: 20px;
     margin-bottom: -50px;
     width: 200px;
     height: 200px;
   }
 
-  #tituloLogin {
-    margin-top: 30px;
-    margin-bottom: -30px;
-    margin-left: 45px;
-    font-size: 30px;
-    color: white;
-  }
-
-  #tituloForm {
-    margin-top: 0px;
-    margin-left: 0px;
-    font-size: 0px;
-    opacity: 1;
-  }
-
   #btnEntrar {
-    margin-left: 35px;
+    margin-left: 10px;
     margin-top: -67px;
   }
 
-  #btnRegistrarse {
-    margin-left: 110px;
+  #btnRegistrar {
+    margin-left: 150px;
     margin-top: 25px;
-  }
-
-  #recuperarPw {
-    margin-left: 0px;
-  }
-
-  #registro span {
-    font-size: 10px;
   }
 
 }
 
 @media (max-width: 290px) {
 
-  #row {
-    margin-top: 0px;
-    flex-wrap: wrap;
-  }
-
-  #izq {
-    border-radius: 5px 5px 0px 0px;
-    width: 100%;
-    height: 70px;
-  }
-
-  #login {
-    width: 100%;
-  }
-
-  #logoLogin {
-    margin-left: 35px;
-    width: 0px;
-    height: 0px;
-    opacity: 1;
-  }
-
   #logoLogin2 {
-    margin-left: 50px;
-    margin-bottom: 20px;
-    width: 150px;
-    height: 150px;
-  }
-
-  #tituloLogin {
-    margin-top: 30px;
-    margin-bottom: -30px;
-    margin-left: 45px;
-    font-size: 30px;
-    color: white;
-    display: none;
-  }
-
-  #tituloForm {
-    margin-top: 0px;
-    margin-left: 0px;
-    font-size: 0px;
-    opacity: 1;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: -50px;
+    width: 200px;
+    height: 200px;
   }
 
   #btnEntrar {
-    width: auto;
-    font-size: 10px;
-    margin-left: 30px;
+    margin-left: 20px;
     margin-top: -57px;
   }
 
-  #btnRegistrarse {
-    width: auto;
-    font-size: 10px;
-    margin-left: 85px;
+  #btnRegistrar {
+    margin-left: 130px;
     margin-top: 25px;
   }
 
-  #recuperarPw {
-    margin-left: 0px;
-  }
-
-  #registro span {
-    font-size: 7.5px;
-  }
 
 }
