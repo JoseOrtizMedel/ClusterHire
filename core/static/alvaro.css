@@ -13,12 +13,34 @@
     color: #000000;
   }
   
+  #cards {
+    margin-bottom: 10px; /* Puedes ajustar este valor según tus necesidades */
+  }
+  
   #titulo{
     font-size: 60px;
     text-align: center;
     color: #003e77;
     font-family: 'fellows';
     }  
+  
+  .titulo3{
+    background-color:#003e77;
+    text-align: center;
+    color: white !important;
+    font-family: 'fellows';
+    font-weight: bold;
+    
+  }
+  
+  #titulo2{
+    text-align: center;
+    color: #003e77;
+    font-family: 'fellows';
+
+    font-weight: bold;
+
+  }  
 
   #imgPerfil {
     display: grid; 

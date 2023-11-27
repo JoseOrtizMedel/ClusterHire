@@ -358,6 +358,7 @@ def perfil_user(request):
         'modalidades' : modalidades
     }
 
+
     return render(request, 'perfil_user.html', datos)
 
 # Vista GET para Usuario en Perfil.html

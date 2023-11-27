@@ -8,16 +8,15 @@
 <section >
     <div class="row">
         <div class="col-lg-4">
-            {% if usuarios %}
-                {% for usuario in usuarios %}
             <div class="card mb-4">
                 <div class="card-body text-center">
                     <br>
                     <img src="{% static 'imagenes/perfil.png' %}"
                         alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-                    <h5 id="titulo2" class="my-3">{{ usuario.nombre|title }} {{ usuario.primer_apellido|title }}</h5>
-                    <p class="text-muted mb-1">{{ usuario.rut_usuario }}-{{ usuario.dv_usuario }}</p> 
-                    <p class="text-muted mb-4">{{ usuario.fk_id_direccion.nombre_calle }} #{{ usuario.fk_id_direccion.numeracion }}, {{ usuario.fk_id_direccion.fk_d_comuna.nom_comuna }}, {{ ciudades.nom_ciudad }}.</p> 
+                    <h5 id="titulo2" class="my-3">{{ usuarios.nombre|title }} {{ usuarios.primer_apellido|title }}</h5>
+                    <p class="text-muted mb-1">{{ usuarios.rut_usuario }}-{{ usuarios.dv_usuario }}</p> 
+                    <p class="text-muted mb-4">{{direcciones.nombre_calle}} #{{direcciones.numeracion}}, {{comunas.nom_comuna}}, {{ciudades.nom_ciudad}}.</p>
+                    <a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_direccion' usuarios.fk_id_direccion.id_direccion %}" style="float: center; ">Editar Dirección <i class="fa-solid fa-pen-to-square"></i></a>
                 </div>
             </div>          
         </div>
@@ -26,7 +25,7 @@
             <div class="card">
                 <div class="card"> 
                     <div class = "titulo3">
-                        <h5  class="titulo3 mb-3 mt-3">Datos personales</h5>    
+                        <h5  class="titulo3 mb-3 mt-3">Datos personales <a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_personal' usuarios.id_usuario %}" style="float: right; margin-top: -5px;"><i class="fa-solid fa-pen-to-square"></i></a></h5>    
                     </div> 
                 </div>
                 <div class="card-body mb-0 mt-0">
@@ -81,8 +80,7 @@
                     
                 </div>
             </div>
-                {% endfor %}
-            {% endif %}   
+            
         </div>
         <div class="col-lg-12">
             {% if experiencias %}
@@ -202,7 +200,7 @@
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                         <i class="fa-solid fa-award" style="color: rgb(201, 188, 18)"></i>
                                         <div class="col-sm-12 d-flex align-items-center justify-content-start">
-                                            <h5 id="titulo2" class="align-self-center mb-0">{{ compesuser.fk_id_competencia.nombre_competencia|title }}</h5>
+                                            <h5 id="titulo2" class="align-self-center mb-0">{{ compesuser.fk_id_competencia.nombre_competencia|title }}<a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_compes' compesuser.id_compe_usuario %}" style="float: right;"><i class="fa-solid fa-trash"></i></a></h5>
                                         </div>                            
                                     </li>         
                                 </ul>                                                            
