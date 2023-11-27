@@ -51,8 +51,7 @@ def exportar_csv(request, id_oferta, nom_oferta ):
     # Crea una conexión a la base de datos
     conn = cx_Oracle.connect(username, password, database)
 
-    sql_query = "SELECT use.id_usuario, use.nombre, use.primer_apellido, use.segundo_apellido, use.telefono, use.correo, com.nom_comuna as COMUNA_USER, insti.nombre_institucion, insti.tipo_institucion, forma.tipo_formacion, titu.nombre_titulo, habi.nombre_habilidad, idio.nombre_idioma, logroac.nom_logro, exp.id_experiencia, exp.nombre_empleo, exp.fecha_inicio_exp, exp.fecha_termino_exp, exp.descripcion, comu.nom_comuna as COMUNA_INSTITU, tipemp.nom_tipo_empleo as TIPO_EMPLEO_EXP, tipcarg.nom_cargo as TIPO_CARGO_EXP, moda.nom_modalidad, compe.nombre_competencia as COMPETENCIA_USER, form.id_formulario, form.fecha_formulario, form.pretencion_renta, form.info_adicional, ofe.id_oferta, ofe.nom_oferta, ofe.fecha_oferta, ofe.anhos_experiencia as ANHOS_EXPERIENCIA_OFERTA, tipcargo.nom_cargo as NOM_CARGO_OFERTA, modal.nom_modalidad as MODALIDAD_OFERTA, comun.nom_comuna as COMUNA_OFERTA, compet.nombre_competencia as COMPETENCIA_OFERTA FROM usuario use LEFT JOIN direccion dire ON use.fk_id_direccion = dire.id_direccion LEFT JOIN comuna com ON dire.fk_d_comuna = com.id_comuna LEFT JOIN educacion edu ON use.id_usuario = edu.fk_id_usuario LEFT JOIN institucion insti ON edu.fk_id_institucion = insti.id_institucion LEFT JOIN formacion_academica forma ON forma.id_formacion = edu.fk_id_formacion LEFT JOIN titulo_prof titu ON titu.id_titulo = edu.fk_id_titulo LEFT JOIN habilidad_usuario habiu ON use.id_usuario = habiu.fk_id_usuario LEFT JOIN habilidad habi ON habiu.fk_id_habilidad = habi.id_habilidad LEFT JOIN idioma_usuario idious ON use.id_usuario = idious.fk_id_usuario LEFT JOIN idioma idio ON idious.fk_id_idioma = idio.id_idioma LEFT JOIN usuario_logro usulo ON use.id_usuario = usulo.fk_id_usuario LEFT JOIN logro_academico logroac ON usulo.fk_id_logro_academico = logroac.id_logro_academico LEFT JOIN experiencia exp ON use.id_usuario = exp.fk_id_usuario LEFT JOIN tipo_empleo tipemp ON exp.fk_id_tipo_empleo = tipemp.id_tipo_empleo LEFT JOIN comuna comu ON exp.fk_id_comuna = comu.id_comuna LEFT JOIN tipo_cargo tipcarg ON exp.fk_id_tipo_cargo = tipcarg.id_tipo_cargo LEFT JOIN modalidad_trabajo moda ON exp.fk_id_modalidad = moda.id_modalidad RIGHT JOIN formulario form ON use.id_usuario = form.fk_id_usuario RIGHT JOIN oferta ofe ON form.fk_id_oferta = ofe.id_oferta LEFT JOIN competencia_oferta compof ON ofe.id_oferta = compof.fk_id_oferta LEFT JOIN competencia compet ON compof.fk_id_competencia = compet.id_competencia LEFT JOIN competencia_usuario compus ON use.id_usuario = compus.fk_id_usuario LEFT JOIN competencia compe ON compus.fk_id_competencia = compe.id_competencia LEFT JOIN tipo_cargo tipcargo ON ofe.fk_id_tipo_cargo = tipcargo.id_tipo_cargo LEFT JOIN modalidad_trabajo modal ON ofe.fk_id_modalidad = modal.id_modalidad LEFT JOIN comuna comun ON ofe.fk_id_comuna = comun.id_comuna"
-
+    sql_query = "SELECT use.id_usuario, use.nombre, use.primer_apellido, use.segundo_apellido, use.telefono, use.correo, com.nom_comuna as COMUNA_USER, insti.nombre_institucion, insti.tipo_institucion, forma.tipo_formacion, titu.nombre_titulo, habi.nombre_habilidad, idio.nombre_idioma, logroac.nom_logro, exp.id_experiencia, exp.nombre_empleo, exp.fecha_inicio_exp, exp.fecha_termino_exp, exp.descripcion, comu.nom_comuna as COMUNA_INSTITU, tipemp.nom_tipo_empleo as TIPO_EMPLEO_EXP, tipcarg.nom_cargo as TIPO_CARGO_EXP, moda.nom_modalidad, compe.nombre_competencia as COMPETENCIA_USER, compus.nivel  ,form.id_formulario, form.fecha_formulario, form.pretencion_renta, form.info_adicional, ofe.id_oferta, ofe.nom_oferta, ofe.fecha_oferta, ofe.anhos_experiencia as ANHOS_EXPERIENCIA_OFERTA, tipcargo.nom_cargo as NOM_CARGO_OFERTA, modal.nom_modalidad as MODALIDAD_OFERTA, comun.nom_comuna as COMUNA_OFERTA, compet.nombre_competencia as COMPETENCIA_OFERTA FROM usuario use LEFT JOIN direccion dire ON use.fk_id_direccion = dire.id_direccion LEFT JOIN comuna com ON dire.fk_d_comuna = com.id_comuna LEFT JOIN educacion edu ON use.id_usuario = edu.fk_id_usuario LEFT JOIN institucion insti ON edu.fk_id_institucion = insti.id_institucion LEFT JOIN formacion_academica forma ON forma.id_formacion = edu.fk_id_formacion LEFT JOIN titulo_prof titu ON titu.id_titulo = edu.fk_id_titulo LEFT JOIN habilidad_usuario habiu ON use.id_usuario = habiu.fk_id_usuario LEFT JOIN habilidad habi ON habiu.fk_id_habilidad = habi.id_habilidad LEFT JOIN idioma_usuario idious ON use.id_usuario = idious.fk_id_usuario LEFT JOIN idioma idio ON idious.fk_id_idioma = idio.id_idioma LEFT JOIN usuario_logro usulo ON use.id_usuario = usulo.fk_id_usuario LEFT JOIN logro_academico logroac ON usulo.fk_id_logro_academico = logroac.id_logro_academico LEFT JOIN experiencia exp ON use.id_usuario = exp.fk_id_usuario LEFT JOIN tipo_empleo tipemp ON exp.fk_id_tipo_empleo = tipemp.id_tipo_empleo LEFT JOIN comuna comu ON exp.fk_id_comuna = comu.id_comuna LEFT JOIN tipo_cargo tipcarg ON exp.fk_id_tipo_cargo = tipcarg.id_tipo_cargo LEFT JOIN modalidad_trabajo moda ON exp.fk_id_modalidad = moda.id_modalidad RIGHT JOIN formulario form ON use.id_usuario = form.fk_id_usuario RIGHT JOIN oferta ofe ON form.fk_id_oferta = ofe.id_oferta LEFT JOIN competencia_oferta compof ON ofe.id_oferta = compof.fk_id_oferta LEFT JOIN competencia compet ON compof.fk_id_competencia = compet.id_competencia LEFT JOIN competencia_usuario compus ON use.id_usuario = compus.fk_id_usuario LEFT JOIN competencia compe ON compus.fk_id_competencia = compe.id_competencia LEFT JOIN tipo_cargo tipcargo ON ofe.fk_id_tipo_cargo = tipcargo.id_tipo_cargo LEFT JOIN modalidad_trabajo modal ON ofe.fk_id_modalidad = modal.id_modalidad LEFT JOIN comuna comun ON ofe.fk_id_comuna = comun.id_comuna"
     # Ejecuta la consulta y recupera los resultados
     cursor = conn.cursor()
     cursor.execute(sql_query)
@@ -207,6 +206,24 @@ def read_csv(request, id_oferta):
     # Elimina las filas duplicadas basadas en todas las columnas del DataFrame
     resultado = resultado.drop_duplicates()
 
+
+    # Define la función para asignar puntajes de nivel
+    def asignar_puntaje_nivel(nivel):
+        if nivel == "bajo":
+            return 1
+        elif nivel == "medio":
+            return 2
+        elif nivel == "alto":
+            return 3
+        else:
+            return 0  # Maneja otros valores si es necesario
+
+    # Aplica la función a la columna 'NIVEL' para crear la nueva columna 'ptj_nivel'
+    resultado['ptj_nivel'] = resultado['NIVEL'].apply(asignar_puntaje_nivel)
+
+    # Elimina la columna 'NIVEL' original
+    resultado = resultado.drop('NIVEL', axis=1)
+
     # Crea una nueva columna 'ptj_cargo' con valor inicial de 0 en el DataFrame filtrado
     resultado['ptj_cargo'] = 0
 
@@ -269,8 +286,8 @@ def read_csv(request, id_oferta):
     resultado['NOM_MODALIDAD'].fillna('N/A', inplace=True)
 
     columnas_seleccionadas = ['ID_OFERTA','NOM_OFERTA', 'ID_FORMULARIO','FECHA_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO',
-                            'ANHOS_EXPERIENCIA_USER','TIPO_CARGO_EXP','ptj_formacion', 'ptj_titulo','ptj_habilidades', 'ptj_idiomas', 'ptj_cargo',
-                            'ptj_competencia', 'COMPETENCIA_USER','COMPETENCIA_OFERTA', 'NOM_MODALIDAD']
+                          'ANHOS_EXPERIENCIA_USER','TIPO_CARGO_EXP','ptj_formacion', 'ptj_titulo','ptj_habilidades', 'ptj_idiomas', 'ptj_cargo',
+                          'ptj_competencia', 'ptj_nivel', 'COMPETENCIA_USER','COMPETENCIA_OFERTA', 'NOM_MODALIDAD']
 
     # Seleccionar columnas
     df = resultado[columnas_seleccionadas]
@@ -283,8 +300,8 @@ def read_csv(request, id_oferta):
 
     # Realizar el agrupamiento y suma
     df = df.groupby(['ID_OFERTA','NOM_OFERTA','ID_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO', 'NOM_MODALIDAD',
-                    'ANHOS_EXPERIENCIA_USER', 'ptj_formacion', 'ptj_titulo', 'ptj_habilidades', 'ptj_idiomas', 'ptj_cargo'
-                 ])['ptj_competencia'].sum().reset_index()
+                    'ANHOS_EXPERIENCIA_USER', 'ptj_formacion', 'ptj_titulo', 'ptj_habilidades', 'ptj_idiomas', 'ptj_cargo', 'ptj_nivel'
+                    ])['ptj_competencia'].sum().reset_index()
 
 #----------------------------------------------------K-MEANS------------------------------------------------------
     conteo_formularios = df['ID_FORMULARIO'].count()
