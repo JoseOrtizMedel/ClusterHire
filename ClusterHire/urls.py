@@ -52,6 +52,7 @@ urlpatterns = [
     path('read_csv/<int:id_oferta>/', ciencia.read_csv, name='read_csv'),
     path('perfil/', views.perfil, name='perfil'),
     path('perfil2/', views.perfil2, name='perfil2'),
+    path('perfil_user/<pk>/', views.perfil_user, name='perfil_user'),
     path('perfil_admin/<int:id_usuario>/<int:id_oferta>/', views.perfil_admin, name='perfil_admin'),
 
 ]

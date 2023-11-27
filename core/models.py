@@ -40,6 +40,7 @@ class CompetenciaUsuario(models.Model):
     id_compe_usuario = models.BigAutoField(primary_key=True)
     fk_id_competencia = models.ForeignKey(Competencia, models.DO_NOTHING, db_column='fk_id_competencia')
     fk_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='fk_id_usuario')
+    nivel = models.CharField(max_length=20)
 
     class Meta:
         managed = False
