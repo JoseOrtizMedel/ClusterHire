@@ -409,7 +409,7 @@ class CiudadForm(forms.ModelForm):
 class CompetenciaForm(forms.ModelForm):
     class Meta:
         model = CompetenciaUsuario
-        fields = ['id_compe_usuario', 'fk_id_competencia', 'fk_id_usuario']
+        fields = ['id_compe_usuario', 'fk_id_competencia', 'fk_id_usuario', 'nivel']
 
     fk_id_competencia = forms.ModelChoiceField(
         queryset=Competencia.objects.all(),
@@ -438,7 +438,7 @@ class CompetenciaForm(forms.ModelForm):
 class IdiomaForm(forms.ModelForm):
     class Meta:
         model = IdiomaUsuario
-        fields = ['id_idioma_usuario', 'fk_id_idioma', 'fk_id_usuario']
+        fields = ['id_idioma_usuario', 'fk_id_idioma', 'fk_id_usuario', 'nivel']
 
     fk_id_idioma = forms.ModelChoiceField(
         queryset=Idioma.objects.all(),

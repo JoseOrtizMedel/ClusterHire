@@ -34,10 +34,9 @@
   }
   
   #titulo2{
-    text-align: center;
+/*     text-align: center; */
     color: #003e77;
     font-family: 'fellows';
-
     font-weight: bold;
 
   }  
@@ -65,7 +64,7 @@
   }
 
   #formularioPerfilDire {
-      padding: 20px;
+/*       padding: 20px; */
       background: rgb(255, 255, 255);
       color: rgb(0, 0, 0) !important;
 /*       box-shadow:
@@ -80,7 +79,7 @@
     }
 
   #formularioPerfilPers {
-    padding: 20px;
+/*     padding: 20px; */
     background: rgb(255, 255, 255);
     color: rgb(0, 0, 0) !important;
 /*     box-shadow:
@@ -95,7 +94,7 @@
   }
 
   #formularioPerfilEduc{
-    padding: 20px;
+/*     padding: 20px; */
     background: rgb(255, 255, 255);
     color: rgb(0, 0, 0) !important;
 /*       box-shadow:
@@ -110,7 +109,7 @@
   }
 
   #formularioPerfilLogro{
-    padding: 20px;
+/*     padding: 20px; */
     background: rgb(255, 255, 255);
     color: rgb(0, 0, 0) !important;
 /*       box-shadow:
@@ -125,7 +124,7 @@
   }
 
   #formularioPerfilExp {
-    padding: 20px;
+/*     padding: 20px; */
     background: rgb(255, 255, 255);
     color: rgb(0, 0, 0) !important;
 /*     box-shadow:
@@ -140,7 +139,7 @@
   }
   
   #formularioPerfilCompe {
-    padding: 20px;
+/*     padding: 20px; */
     background: rgb(255, 255, 255);
     color: rgb(0, 0, 0) !important;
 /*     box-shadow:
@@ -155,7 +154,7 @@
   }
 
   #formularioPerfilHab {
-    padding: 20px;
+/*     padding: 20px; */
     background: rgb(255, 255, 255);
     color: rgb(0, 0, 0) !important;
 /*       box-shadow:
@@ -170,7 +169,7 @@
   }
 
   #formularioPerfilIdi {
-    padding: 20px;
+/*     padding: 20px; */
     background: rgb(255, 255, 255);
     color: rgb(0, 0, 0) !important;
 /*       box-shadow:

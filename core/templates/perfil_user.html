@@ -9,12 +9,11 @@
     <div class="row">
         <div class="col-lg-4">
             <div class="card mb-4">
-                <div class="card-body text-center">
+                <div class="card-body text-center" style="padding: 46px;">
                     <br>
                     <img src="{% static 'imagenes/perfil.png' %}"
                         alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-                    <h5 id="titulo2" class="my-3">{{ usuarios.nombre|title }} {{ usuarios.primer_apellido|title }}</h5>
-                    <p class="text-muted mb-1">{{ usuarios.rut_usuario }}-{{ usuarios.dv_usuario }}</p> 
+                    <h4 id="titulo2" class="my-3">{{ usuarios.nombre|title }} {{ usuarios.primer_apellido|title }}</h4>
                     <p class="text-muted mb-4">{{direcciones.nombre_calle}} #{{direcciones.numeracion}}, {{comunas.nom_comuna}}, {{ciudades.nom_ciudad}}.</p>
                     <a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_direccion' usuarios.fk_id_direccion.id_direccion %}" style="float: center; ">Editar Dirección <i class="fa-solid fa-pen-to-square"></i></a>
                 </div>
@@ -25,10 +24,19 @@
             <div class="card">
                 <div class="card"> 
                     <div class = "titulo3">
-                        <h5  class="titulo3 mb-3 mt-3">Datos personales <a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_personal' usuarios.id_usuario %}" style="float: right; margin-top: -5px;"><i class="fa-solid fa-pen-to-square"></i></a></h5>    
+                        <h4  class="titulo3 mb-3 mt-3">Datos personales <a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_personal' usuarios.id_usuario %}" style="float: right; margin-top: -5px;"><i class="fa-solid fa-pen-to-square"></i></a></h4>    
                     </div> 
                 </div>
                 <div class="card-body mb-0 mt-0">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p id="titulo2" class="mb-0">Rut</p>
+                        </div>
+                        <div class="col-sm-9"> 
+                            <p class="text-muted mb-0">{{ usuarios.rut_usuario }}-{{ usuarios.dv_usuario }}</p>
+                        </div>
+                    </div>
+                    <hr>
                     <div class="row">
                         <div class="col-sm-3">
                             <p id="titulo2" class="mb-0">Nombre completo</p>
@@ -71,9 +79,9 @@
                         </div>
                         <div class="col-sm-9">
                             {% if usuarios.fecha_nacimiento %}
-                                <p class="text-muted mb-0">{{ usuarios.fecha_nacimiento }}.</p>
+                                <p class="text-muted mb-0">{{ usuarios.fecha_nacimiento }}</p>
                             {% else %}
-                                <p class="text-muted mb-0">{{ usuarios.fecha_nacimiento }}.</p>
+                                <p class="text-muted mb-0">{{ usuarios.fecha_nacimiento }}</p>
                             {% endif %}
                         </div>
                     </div>
@@ -83,16 +91,18 @@
             
         </div>
         <div class="col-lg-12">
-            {% if experiencias %}
+            <form method="POST" action="" id="formularioPerfilExp">
+                {% csrf_token %}
                 <div class="card mb-2 mt-3"> 
                     <div class = "titulo3">
-                        <h5  class="titulo3 mb-3 mt-3">Experiencia laboral</h5>    
+                        <h4  class="titulo3 mb-3 mt-3">Experiencia laboral  <a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#expModal" style="float: right; margin-top: -5px;"style="float: right;" id="btnModal"><i class="fa-solid fa-plus"></i></a></h4>    
                     </div> 
                 </div>
+                {% if experiencias %}
                 {% for experiencia in experiencias %}
                     <div class="card mb-2">
                         <div class="card-body"> 
-                            <h5 id="titulo2" class="mb-0">{{ experiencia.nombre_empleo|title }}.</h5>
+                            <h4 id="titulo2" class="mb-0">{{ experiencia.nombre_empleo|title }} <a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_exps' experiencia.id_experiencia %}" style="float: right; margin-top: -5px;"><i class="fa-solid fa-trash"></i></a>&nbsp;<a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_experiencia' experiencia.id_experiencia %}" style="float: right; margin-top: -5px;"><i class="fa-solid fa-pen-to-square"></i></a></h4>
                             <hr>
                             <div class="row">   
                                 <div class="col-sm-2">
@@ -100,7 +110,7 @@
                                 </div>
                                 <div class="col-sm-10">
                                     {% if experiencia.fk_id_tipo_cargo %}
-                                        <p class="text-muted mb-0">{{ experiencia.fk_id_tipo_cargo.nom_cargo }}.</p>
+                                        <p class="text-muted mb-0">{{ experiencia.fk_id_tipo_cargo.nom_cargo }}</p>
                                     {% else %}
                                         <p class="text-muted mb-0">No se encontró información sobre el tipo de cargo.</p>
                                     {% endif %}                             
@@ -112,7 +122,7 @@
                                     <p id="titulo2" class="mb-0">Descripcion</p>
                                 </div>
                                 <div class="col-sm-10">
-                                    <p class="text-muted mb-0">{{ experiencia.descripcion|title }}.</p>                                    
+                                    <p class="text-muted mb-0">{{ experiencia.descripcion|title }}</p>                                    
                                 </div>
                             </div>  
 
@@ -123,9 +133,9 @@
                                 </div>
                                 <div class="col-sm-4">
                                     {% if experiencia.fecha_inicio_exp|time %}
-                                        <p class="text-muted mb-0">{{ experiencia.fecha_inicio_exp }}.</p>
+                                        <p class="text-muted mb-0">{{ experiencia.fecha_inicio_exp }}</p>
                                     {% else %}
-                                        <p class="text-muted mb-0">{{  experiencia.fecha_inicio_exp }}.</p>
+                                        <p class="text-muted mb-0">{{  experiencia.fecha_inicio_exp }}</p>
                                     {% endif %}
                                 </div>
                                 <div class="col-sm-2">
@@ -133,9 +143,9 @@
                                 </div>
                                 <div class="col-sm-4">
                                     {% if experiencia.fecha_termino_exp|time %}
-                                        <p class="text-muted mb-0">{{ experiencia.fecha_termino_exp }}.</p>
+                                        <p class="text-muted mb-0">{{ experiencia.fecha_termino_exp }}</p>
                                     {% else %}
-                                        <p class="text-muted mb-0">{{  experiencia.fecha_termino_exp }}.</p>
+                                        <p class="text-muted mb-0">{{  experiencia.fecha_termino_exp }}</p>
                                     {% endif %}
                                 </div>
                             </div>
@@ -146,9 +156,9 @@
                                 </div>
                                 <div class="col-sm-4">
                                     {% if experiencia.fk_id_tipo_empleo %}
-                                        <p class="text-muted mb-0">{{ experiencia.fk_id_tipo_empleo.nom_tipo_empleo }}.</p>
+                                        <p class="text-muted mb-0">{{ experiencia.fk_id_tipo_empleo.nom_tipo_empleo }}</p>
                                     {% else %}
-                                        <p class="text-muted mb-0">No se encontró información sobre el tipo de empleo.</p>
+                                        <p class="text-muted mb-0">No se encontró información sobre el tipo de empleo</p>
                                     {% endif %}                             
                                 </div>  
                                 <div class="col-sm-2">
@@ -156,9 +166,9 @@
                                 </div>
                                 <div class="col-sm-4">
                                     {% if experiencia.fk_id_modalidad %}
-                                        <p class="text-muted mb-0">{{ experiencia.fk_id_modalidad.nom_modalidad }}.</p>
+                                        <p class="text-muted mb-0">{{ experiencia.fk_id_modalidad.nom_modalidad }}</p>
                                     {% else %}
-                                        <p class="text-muted mb-0">No se encontró información sobre la modalidad.</p>
+                                        <p class="text-muted mb-0">No se encontró información sobre la modalidad</p>
                                     {% endif %}                             
                                 </div>
                             </div> 
@@ -170,7 +180,7 @@
             <div class="card mb-4">
                 
                 <div class = "titulo3">
-                    <h5  class="titulo3 mb-3 mt-3">Experiencia laboral</h5>    
+                    <h4  class="titulo3 mb-3 mt-3">Experiencia laboral</h4>    
                 </div> 
                 <div class="card-body">    
                     <div class="row">   
@@ -182,45 +192,163 @@
             </div>
 
         {% endif %}
+        {% include 'popup_experiencias.html' %}
             
         </div>
 
+        <div class="col-lg-12">
+            <form method="POST" action="" id="formularioPerfilEduc">
+                {% csrf_token %}
+                <div class="card mb-2 mt-3"> 
+                    <div class = "titulo3">
+                        <h4  class="titulo3 mb-3 mt-3">Datos académicos <a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#educModal" style="float: right; margin-top: -5px;"style="float: right;" id="btnModal"><i class="fa-solid fa-plus"></i></a></h4>    
+                    </div> 
+                </div>
+                {% if educaciones %}
+                {% for educacion in educaciones %}
+                    <div class="card mb-2">
+                        <div class="card-body"> 
+                            <h4 id="titulo2" class="mb-0">{{ educacion.fk_id_titulo.nombre_titulo|title }} <a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_educacion' educacion.id_educacion %}" style="float: right; margin-right: 10px;"><i class="fa-solid fa-trash"></i></a>&nbsp;<a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_educacion' educacion.id_educacion %}" style="float: right; margin-top: 0px;"><i class="fa-solid fa-pen-to-square"></i></a></h4>
+                            <hr>
+                            <div class="row">   
+                                <div class="col-sm-2">
+                                    <p id="titulo2" class="mb-0">Casa de estudio</p>
+                                </div>
+                                <div class="col-sm-10">
+                                    {% if educacion.fk_id_institucion.nombre_institucion %}
+                                        <p class="text-muted mb-0">{{ educacion.fk_id_institucion.nombre_institucion }}</p>
+                                    {% else %}
+                                        <p class="text-muted mb-0">No se encontró información sobre la casa de estudios.</p>
+                                    {% endif %}                             
+                                </div>
+                            </div>                              
+                            <hr>
+                            <div class="row">   
+                                <div class="col-sm-2">
+                                    <p id="titulo2" class="mb-0">Tipo educación</p>
+                                </div>
+                                <div class="col-sm-10">
+                                    <p class="text-muted mb-0">{{ educacion.fk_id_formacion.tipo_formacion  }}</p>                                    
+                                </div>
+                            </div>  
+
+                            <hr>   
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <p id="titulo2" class="mb-0">Año de inicio</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    {% if educacion.annio_inicio_educ %}
+                                        <p class="text-muted mb-0">{{ educacion.annio_inicio_educ }}</p>
+                                    {% else %}
+                                        <p class="text-muted mb-0">{{ educacion.annio_inicio_educ }}</p>
+                                    {% endif %}
+                                </div>
+                                <div class="col-sm-2">
+                                    <p id="titulo2" class="mb-0">Año de término</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    {% if educacion.annio_fin_educ %}
+                                        <p class="text-muted mb-0">{{ educacion.annio_fin_educ }}</p>
+                                    {% else %}
+                                        <p class="text-muted mb-0">{{ educacion.annio_fin_educ }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+
+            <div class="card mb-4">
+                
+                <div class = "titulo3">
+                    <h4  class="titulo3 mb-3 mt-3">Datos académicos</h4>    
+                </div> 
+                <div class="card-body">    
+                    <div class="row">   
+                        <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                            <p class="text-muted mb-0">No se encontró información sobre datos académicos para este usuario.</p>
+                        </div>                        
+                    </div>                         
+                </div>
+            </div>
+
+        {% endif %}
+        {% include 'popup_educacion.html' %}
+        </div>
        
 
         <div class="col-lg-12">
             <div class="row">
-                <div id="cards" class="col-lg-4 custom-card">
-                    <div class="card mt-4 mb-4">
-                        <div class = "titulo3">
-                            <h5  class="mb-3 mt-3">Competencias</h5>    
-                        </div>
-                        {% if competencias %}             
-                            {% for compesuser in compesuser.all %}
+                <div id="cards" class="col-lg-6 custom-card">
+                    <form action="" method="POST" id="formularioPerfilCompe">
+                        {% csrf_token %}
+                        <div class="card mb-4 mt-4">
+                            <div class = "titulo3">
+                                <h4 id="titulo3" class="mb-3 mt-3">Competencias <a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#compeModal" style="float: right; margin-top: -5px;" id="btnModal"><i class="fa-solid fa-plus"></i></a></h4>    
+                            </div>
+                            {% if compesuser %}             
+                                {% for compesuser in compesuser.all %}
+                                    <ul class="list-group list-group-flush rounded-3">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                            <i class="fa-solid fa-award" style="color: rgb(201, 188, 18)"></i>
+                                            <div class="col-sm-12 d-flex align-items-center justify-content-start">
+                                                <h6 id="titulo2" class="mb-0">{{ compesuser.fk_id_competencia.nombre_competencia|title }}&nbsp;&nbsp;-&nbsp;&nbsp;  Nivel: {{ compesuser.nivel }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_compes' compesuser.id_compe_usuario %}" style="float: right; margin-top: -5px;"><i class="fa-solid fa-trash"></i></a></h6>
+                                            </div>                            
+                                        </li>         
+                                    </ul>                                                            
+                                {% endfor %}
+                            {% else %}
                                 <ul class="list-group list-group-flush rounded-3">
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                         <i class="fa-solid fa-award" style="color: rgb(201, 188, 18)"></i>
-                                        <div class="col-sm-12 d-flex align-items-center justify-content-start">
-                                            <h5 id="titulo2" class="align-self-center mb-0">{{ compesuser.fk_id_competencia.nombre_competencia|title }}<a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_compes' compesuser.id_compe_usuario %}" style="float: right;"><i class="fa-solid fa-trash"></i></a></h5>
-                                        </div>                            
+                                        <h6 id="titulo2" class="mb-0 align-self-center">No registra competencias</h6>                      
                                     </li>         
-                                </ul>                                                            
-                            {% endfor %}
-                        {% else %}
-                            <ul class="list-group list-group-flush rounded-3">
-                                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                    <i class="fa-solid fa-award" style="color: rgb(201, 188, 18)"></i>
-                                    <h5 id="titulo2" class="mb-0 align-self-center">No registra competencias</h5>                      
-                                </li>         
-                            </ul>   
-                        {% endif %}  
-                    </div>
+                                </ul>   
+                            {% endif %}  
+                            {% include 'popup_competencias.html' %}
+                        </div>
+                    </form>
                 </div>
                 
+                <div id="cards" class="col-lg-6 custom-card">
+                    <form action="" method="POST" id="formularioPerfilIdi">
+                        {% csrf_token %}
+                        <div class="card mt-4 mb-4">
+                            <div class = "titulo3">
+                                <h4  class="mb-3 mt-3">Idiomas <a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#idiModal" style="float: right; margin-top: -5px;" id="btnModal"><i class="fa-solid fa-plus"></i></a></h4>    
+                            </div>         
+                            {% if idiouser %}
+                                {% for idiouser in idiouser %}
+                                    <ul class="list-group list-group-flush rounded-3">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                            <i class="fa-solid fa-language" style="color: rgb(201, 188, 18)"></i>
+                                            <div class="col-sm-12 d-flex align-items-center justify-content-start">
+                                                <h6 id="titulo2" class="align-self-center mb-0">{{ idiouser.fk_id_idioma.nombre_idioma|title }}  &nbsp;&nbsp;-&nbsp;&nbsp;  Nivel: {{ idiouser.nivel }}</h6>
+                                            </div>                            
+                                        </li>         
+                                    </ul>                                       
+                                {% endfor %}
+                            {% else %}
+                                <ul class="list-group list-group-flush rounded-3">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                        <i class="fa-solid fa-language" style="color: rgb(201, 188, 18)"></i>
+                                        <h6 id="titulo2" class="mb-0 align-self-center">No registra idiomas</h6>                             
+                                    </li>         
+                                </ul>
+                            {% endif %} 
+                            {% include 'popup_idiomas.html' %}
+                        </div>
+                    </form>
+                </div>
 
-                <div id="cards" class="col-lg-4 custom-card">
+                <div id="cards" class="col-lg-6 custom-card">
+                    <form method="POST" action="" id="formularioPerfilHab">
+                        {% csrf_token %}
                     <div class="card mt-4  mb-4">
                         <div class = "titulo3">
-                            <h5  class="mb-3 mt-3">Habilidades</h5>    
+                            <h4  class="mb-3 mt-3">Habilidades <a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#habiModal" style="float: right; margin-top: -5px;" id="btnModal"><i class="fa-solid fa-plus"></i></a></h4>    
                         </div>      
                         {% if habilidades %}
                             {% for habilidad in habilidades %}
@@ -228,7 +356,7 @@
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                         <i class="fa-solid fa-star" style="color: rgb(201, 188, 18)"></i>
                                         <div class="col-sm-12 d-flex align-items-center justify-content-start">
-                                            <h5 id="titulo2" class="align-self-center mb-0">{{ habilidad.nombre_habilidad|title }}</h5>
+                                            <h6 id="titulo2" class="align-self-center mb-0">{{ habilidad.nombre_habilidad|title }}</h6>
                                         </div>                            
                                     </li>         
                                 </ul>                                       
@@ -237,42 +365,45 @@
                             <ul class="list-group list-group-flush rounded-3">
                                 <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                     <i class="fa-solid fa-star" style="color: rgb(201, 188, 18)"></i>
-                                    <h5 id="titulo2" class="mb-0 align-self-center">No registra habilidades</h5>                        
+                                    <h6 id="titulo2" class="mb-0 align-self-center">No registra habilidades</h6>                        
                                 </li>         
                             </ul>                             
                         {% endif %}
+                        {% include 'popup_habilidades.html' %}
                     </div>
-                </div>
-                
-                
-                
-                <div id="cards" class="col-lg-4 custom-card">
-                    <div class="card mt-4 mb-4">
-                        <div class = "titulo3">
-                            <h5  class="mb-3 mt-3">Idiomas</h5>    
-                        </div>         
-                        {% if idiomas %}
-                            {% for idioma in idiomas %}
+                </form>
+            </div>
+
+                <div id="cards" class="col-lg-6 custom-card">
+                    <form method="POST" action="" id="formularioPerfilLogro">
+                        {% csrf_token %}
+                        <div class="card mt-4  mb-4">
+                            <div class = "titulo3">
+                                <h4  class="mb-3 mt-3">Logros académicos <a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#logroModal" style="float: right; margin-top: -5px;" id="btnModal"><i class="fa-solid fa-plus"></i></a></h4>    
+                            </div>      
+                            {% if logros %}
+                                {% for logro in logros %}
+                                    <ul class="list-group list-group-flush rounded-3">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                            <i class="fa-solid fa-star" style="color: rgb(201, 188, 18)"></i>
+                                            <div class="col-sm-12 d-flex align-items-center justify-content-start">
+                                                <h6 id="titulo2" class="align-self-center mb-0">{{ logro.fk_id_logro_academico.nom_logro|title }}</h6>
+                                            </div>                            
+                                        </li>         
+                                    </ul>                                       
+                                {% endfor %}
+                            {% else %}
                                 <ul class="list-group list-group-flush rounded-3">
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fa-solid fa-language" style="color: rgb(201, 188, 18)"></i>
-                                        <div class="col-sm-12 d-flex align-items-center justify-content-start">
-                                            <h5 id="titulo2" class="align-self-center mb-0">{{ idioma.nombre_idioma|title }}</h5>
-                                        </div>                            
+                                        <i class="fa-solid fa-star" style="color: rgb(201, 188, 18)"></i>
+                                        <h6 id="titulo2" class="mb-0 align-self-center">No registra logros académicos.</h6>                        
                                     </li>         
-                                </ul>                                       
-                            {% endfor %}
-                        {% else %}
-                            <ul class="list-group list-group-flush rounded-3">
-                                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                    <i class="fa-solid fa-language" style="color: rgb(201, 188, 18)"></i>
-                                    <h5 id="titulo2" class="mb-0 align-self-center">No registra idiomas</h5>                             
-                                </li>         
-                            </ul>
-                        {% endif %} 
-                    </div>
+                                </ul>                             
+                            {% endif %}
+                            {% include 'popup_logros.html' %}
+                        </div>
+                    </form>
                 </div>
-                 
 
             </div>
         </div>

@@ -153,6 +153,7 @@ class IdiomaUsuario(models.Model):
     id_idioma_usuario = models.BigAutoField(primary_key=True)
     fk_id_idioma = models.ForeignKey(Idioma, models.DO_NOTHING, db_column='fk_id_idioma')
     fk_id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='fk_id_usuario')
+    nivel = models.CharField(max_length=20)
 
     class Meta:
         managed = False

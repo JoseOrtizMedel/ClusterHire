@@ -337,6 +337,12 @@ def perfil_user(request):
         fkmodalidad = experiencias.values_list('fk_id_modalidad', flat=True)
         modalidades = ModalidadTrabajo.objects.filter(id_modalidad__in = fkmodalidad)
 
+        # Obtiene la educación del usuario
+        educaciones = Educacion.objects.filter(fk_id_usuario=request.user.id)
+
+        # Obtiene la educación del usuario
+        logros = UsuarioLogro.objects.filter(fk_id_usuario=request.user.id)
+
 
     except Usuario.DoesNotExist:
         # Manejar el caso en el que el usuario no se encuentre
@@ -349,15 +355,166 @@ def perfil_user(request):
         'comunas' : comunas,
         'ciudades' : ciudades,
         'compesuser' : compesuser,
-        'competencias' : competencias,
-        'habilidades' : habilidades,
-        'idiomas' : idiomas,
+        'competencia_form': CompetenciaForm(),
+        'habilidad_form' : HabilidadForm(),
+        'idiouser': idiouser,
+        'idioma_form': IdiomaForm(),
         'experiencias' : experiencias,
+        'exps_form' : ExperienciaForm(),
         'empleos' : empleos,
         'cargos' : cargos,
-        'modalidades' : modalidades
+        'modalidades' : modalidades,
+        'educaciones' : educaciones,
+        'educacion_form' : EducacionForm(),
+        'logros_form' : Usuario_logroForm(),
     }
 
+    # Agrega las competencias a los datos
+    datos['competencias'] = competencias
+    datos['habilidades'] = habilidades
+    datos['idiomas'] = idiomas
+    datos['educaciones'] = educaciones
+    datos['logros'] = logros
+    datos['experiencias'] = experiencias
+    datos['usuarios'] = usuarios
+    datos['direcciones'] = direcciones
+
+    if request.method == 'POST':
+        form_competencia = CompetenciaForm(request.POST)
+        form_habilidad = HabilidadForm(request.POST)
+        form_idioma = IdiomaForm(request.POST)
+        form_educacion = EducacionForm(request.POST)
+        form_logro = Usuario_logroForm(request.POST)
+        form_experiencia = ExperienciaForm(request.POST)
+        form_u_direccion = UsuarioForm(request.POST)
+        form_direccion = DireccionForm(request.POST)
+        #form_usuario = UsuarioForm(request.POST)
+        
+        if form_u_direccion.is_valid():
+
+            # Asigna la instancia de Usuario
+            form_usuario_instance = form_u_direccion.save(commit=False)
+
+            # Asigna el valor request.user.id a la propiedad id_usuario
+            form_usuario_instance.id_usuario = request.user.id
+
+            form_usuario_instance.fk_id_direccion = Direccion.objects.last()
+
+            # Ahora guarda la instancia de Usuario
+            #print(form_usuario_instance.fk_id_direccion)
+            form_usuario_instance.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil_user')
+        
+        if form_direccion.is_valid():
+
+            form_direccion.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil_user')
+        
+        if form_competencia.is_valid():
+
+            # Obtiene la competencia del formulario
+            competencia = form_competencia.cleaned_data['fk_id_competencia']
+
+            # Verifica si la competencia ya existe
+            competencia_existente = CompetenciaUsuario.objects.filter(fk_id_usuario=request.user.id, fk_id_competencia=competencia).first()
+
+            # Verifica si la competencia es nueva
+            if not competencia_existente:
+                # La competencia es nueva
+                form_competencia.save()
+
+                datos['mensaje'] = "Guardado Correctamente"
+                time.sleep(2.5)
+                return redirect('perfil_user')
+            else:
+                # La competencia ya existe
+                # Muestra un mensaje de validación
+                datos['mensaje'] = "La competencia ya existe"
+
+        if form_habilidad.is_valid():
+
+            # Obtiene la competencia del formulario
+            habilidad = form_habilidad.cleaned_data['fk_id_habilidad']
+
+            # Verifica si la competencia ya existe
+            habilidad_existente = HabilidadUsuario.objects.filter(fk_id_usuario=request.user.id, fk_id_habilidad=habilidad).first()
+
+            # Verifica si la competencia es nueva
+            if not habilidad_existente:
+                # La competencia es nueva
+                form_habilidad.save()
+
+                datos['mensaje'] = "Guardado Correctamente"
+                time.sleep(2.5)
+                return redirect('perfil_user')
+            else:
+                # La competencia ya existe
+                # Muestra un mensaje de validación
+                datos['mensaje'] = "La habilidad ya existe"
+
+        if form_idioma.is_valid():
+
+            # Obtiene la competencia del formulario
+            idioma = form_idioma.cleaned_data['fk_id_idioma']
+
+            # Verifica si la competencia ya existe
+            idioma_existente = IdiomaUsuario.objects.filter(fk_id_usuario=request.user.id, fk_id_idioma=idioma).first()
+
+            # Verifica si la competencia es nueva
+            if not idioma_existente:
+                # La competencia es nueva
+                form_idioma.save()
+
+                datos['mensaje'] = "Guardado Correctamente"
+                time.sleep(2.5)
+                return redirect('perfil_user')
+            else:
+                # La competencia ya existe
+                # Muestra un mensaje de validación
+                datos['mensaje'] = "El idioma ya existe"
+    
+        if form_educacion.is_valid():
+
+            form_educacion.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil_user')
+
+        if form_logro.is_valid():
+
+            # Obtiene la competencia del formulario
+            logro = form_logro.cleaned_data['fk_id_logro_academico']
+
+            # Verifica si la competencia ya existe
+            logro_existente = UsuarioLogro.objects.filter(fk_id_usuario=request.user.id, fk_id_logro_academico=logro).first()
+
+            # Verifica si la competencia es nueva
+            if not logro_existente:
+                # La competencia es nueva
+                form_logro.save()
+
+                datos['mensaje'] = "Guardado Correctamente"
+                time.sleep(2.5)
+                return redirect('perfil_user')
+            else:
+                # La competencia ya existe
+                # Muestra un mensaje de validación
+                datos['mensaje'] = "La competencia ya existe"
+        
+        if form_experiencia.is_valid():
+
+            form_experiencia.save()
+
+            datos['mensaje'] = "Guardado Correctamente"
+            time.sleep(2.5)
+            return redirect('perfil_user')
 
     return render(request, 'perfil_user.html', datos)
 
@@ -756,7 +913,7 @@ def eliminar_compes(request, pk):
 
     var.delete()
 
-    return redirect(to="perfil")
+    return redirect(to="perfil_user")
 
 #Vista para eliminar Habilidades
 @login_required
@@ -766,7 +923,7 @@ def eliminar_habis(request, pk):
 
     var.delete()
 
-    return redirect(to="perfil")
+    return redirect(to="perfil_user")
 
 #Vista para eliminar Idiomas
 @login_required
@@ -776,7 +933,7 @@ def eliminar_idiomas(request, pk):
 
     var.delete()
 
-    return redirect(to="perfil")
+    return redirect(to="perfil_user")
 
 #Vista para eliminar Educación
 @login_required
@@ -786,7 +943,7 @@ def eliminar_educacion(request, pk):
 
     var.delete()
 
-    return redirect(to="perfil")
+    return redirect(to="perfil_user")
 
 #Vista para eliminar Logros Académicos
 @login_required
@@ -796,7 +953,7 @@ def eliminar_logros(request, pk):
 
     var.delete()
 
-    return redirect(to="perfil")
+    return redirect(to="perfil_user")
 
 #Vista para eliminar Experiencia Laboral
 @login_required
@@ -806,7 +963,7 @@ def eliminar_exps(request, pk):
 
     var.delete()
 
-    return redirect(to="perfil")
+    return redirect(to="perfil_user")
 
 
 #---- Editar Educación:
@@ -822,7 +979,7 @@ def edit_educacion(request, pk):
         formulario_edit = EducEdit(request.POST, request.FILES, instance=educacion)
         if formulario_edit.is_valid:
             formulario_edit.save()
-            return redirect(to="perfil")
+            return redirect(to="perfil_user")
 
     else:
         datos = {
@@ -843,7 +1000,7 @@ def edit_experiencia(request, pk):
         formulario_edit = ExpEdit(request.POST, request.FILES, instance=experiencia)
         if formulario_edit.is_valid:
             formulario_edit.save()
-            return redirect(to="perfil")
+            return redirect(to="perfil_user")
 
     else:
         datos = {
@@ -864,7 +1021,7 @@ def edit_direccion(request, pk):
         formulario_edit = DireccionEdit(request.POST, request.FILES, instance=direccion)
         if formulario_edit.is_valid:
             formulario_edit.save()
-            return redirect(to="perfil")
+            return redirect(to="perfil_user")
 
     else:
         datos = {
@@ -886,7 +1043,7 @@ def edit_personal(request, pk):
         formulario = PerfilEdit(data=request.POST, files=request.FILES, instance=personal)
         if formulario.is_valid():
             formulario.save()
-            return redirect('perfil')
+            return redirect('perfil_user')
             
         else:
             datos = {
