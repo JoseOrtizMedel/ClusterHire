@@ -1,8 +1,8 @@
 from django.urls import path
 
-from .views import perfil_admin, ciencia, edit_direccion, edit_educacion, edit_experiencia, edit_personal, eliminar_compes, eliminar_educacion, eliminar_exps, eliminar_habis, eliminar_idiomas, eliminar_logros, nueva_oferta, ofertas_admin, ofertas_user, perfil, perfil_user, register, eliminar_oferta, formulario, compe_oferta
+from .views import perfil_admin, ciencia, edit_direccion, edit_educacion, edit_experiencia, edit_personal, eliminar_compes, eliminar_educacion, eliminar_exps, eliminar_habis, eliminar_idiomas, eliminar_logros, nueva_oferta, ofertas_admin, ofertas_user, perfil_user, perfil_user2, register, eliminar_oferta, formulario, compe_oferta
 
-from .views import  ciencia, edit_direccion, edit_educacion, edit_experiencia, edit_personal, eliminar_compes, eliminar_educacion, eliminar_exps, eliminar_habis, eliminar_idiomas, eliminar_logros, error_404, nueva_oferta, ofertas_admin, ofertas_user, perfil, perfil2, perfil_admin, register, eliminar_oferta, formulario, compe_oferta, user_login
+from .views import  ciencia, edit_direccion, edit_educacion, edit_experiencia, edit_personal, eliminar_compes, eliminar_educacion, eliminar_exps, eliminar_habis, eliminar_idiomas, eliminar_logros, error_404, nueva_oferta, ofertas_admin, ofertas_user, perfil_admin, register, eliminar_oferta, formulario, compe_oferta, user_login
 
 from .ciencia import  read_csv, exportar_csv
 
@@ -20,8 +20,7 @@ urlpatterns = [
     path('eliminar_oferta/<id_oferta>/', eliminar_oferta, name='eliminar_oferta'),
     path('formulario/<int:id_oferta>/<str:nom_oferta>/', formulario, name='formulario'),
     path('compe_oferta/<int:id_oferta>/<str:nom_oferta>/', compe_oferta, name='compe_oferta'),
-    path('perfil/', perfil, name='perfil'),
-    path('perfil2/', perfil2, name='perfil2'),
+    path('perfil_user2/', perfil_user2, name='perfil_user2'),
     path('perfil_user/', perfil_user, name='perfil_user'),
     path('perfil_admin/<int:id_usuario>/<int:id_oferta>/', perfil_admin, name='perfil_admin'),
     path('eliminar-competencia/<pk>/', eliminar_compes, name="eliminar_compes"),

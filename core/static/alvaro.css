@@ -5,7 +5,7 @@
   }
   
   body{
-    background-color: #e5e5e5;
+    background-color: #e5e5e5 !important;
     max-width: 100%;
   }
 
@@ -65,13 +65,8 @@
 
   #formularioPerfilDire {
 /*       padding: 20px; */
-      background: rgb(255, 255, 255);
+/*       background: rgb(255, 255, 255); */
       color: rgb(0, 0, 0) !important;
-/*       box-shadow:
-      0 0 10px rgba(0, 0, 0, 0.0),
-      0 0 20px rgba(0, 0, 0, 0.0),
-      0 0 40px rgb(173, 173, 173, 1); */
-    
       -moz-border-radius: 4px;
       -webkit-border-radius: 4px;
       border-radius: 4px;
@@ -80,13 +75,8 @@
 
   #formularioPerfilPers {
 /*     padding: 20px; */
-    background: rgb(255, 255, 255);
-    color: rgb(0, 0, 0) !important;
-/*     box-shadow:
-    0 0 10px rgba(0, 0, 0, 0.0),
-    0 0 20px rgba(0, 0, 0, 0.0),
-    0 0 40px rgb(173, 173, 173, 1); */
-  
+/*     background: rgb(255, 255, 255); */
+    color: rgb(0, 0, 0) !important;  
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
@@ -95,13 +85,8 @@
 
   #formularioPerfilEduc{
 /*     padding: 20px; */
-    background: rgb(255, 255, 255);
+/*     background: rgb(255, 255, 255); */
     color: rgb(0, 0, 0) !important;
-/*       box-shadow:
-    0 0 10px rgba(0, 0, 0, 0.0),
-    0 0 20px rgba(0, 0, 0, 0.0),
-    0 0 40px rgb(173, 173, 173, 1); */
-  
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
@@ -110,13 +95,8 @@
 
   #formularioPerfilLogro{
 /*     padding: 20px; */
-    background: rgb(255, 255, 255);
+/*     background: rgb(255, 255, 255); */
     color: rgb(0, 0, 0) !important;
-/*       box-shadow:
-    0 0 10px rgba(0, 0, 0, 0.0),
-    0 0 20px rgba(0, 0, 0, 0.0),
-    0 0 40px rgb(173, 173, 173, 1); */
-  
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
@@ -125,13 +105,8 @@
 
   #formularioPerfilExp {
 /*     padding: 20px; */
-    background: rgb(255, 255, 255);
+/*     background: rgb(255, 255, 255); */
     color: rgb(0, 0, 0) !important;
-/*     box-shadow:
-    0 0 10px rgba(0, 0, 0, 0.0),
-    0 0 20px rgba(0, 0, 0, 0.0),
-    0 0 40px rgb(173, 173, 173, 1); */
-  
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
@@ -140,13 +115,8 @@
   
   #formularioPerfilCompe {
 /*     padding: 20px; */
-    background: rgb(255, 255, 255);
+/*     background: rgb(255, 255, 255); */
     color: rgb(0, 0, 0) !important;
-/*     box-shadow:
-    0 0 10px rgba(0, 0, 0, 0.0),
-    0 0 20px rgba(0, 0, 0, 0.0),
-    0 0 40px rgb(173, 173, 173, 1); */
-  
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
@@ -155,13 +125,8 @@
 
   #formularioPerfilHab {
 /*     padding: 20px; */
-    background: rgb(255, 255, 255);
+/*     background: rgb(255, 255, 255); */
     color: rgb(0, 0, 0) !important;
-/*       box-shadow:
-    0 0 10px rgba(0, 0, 0, 0.0),
-    0 0 20px rgba(0, 0, 0, 0.0),
-    0 0 40px rgb(173, 173, 173, 1); */
-  
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
@@ -170,13 +135,8 @@
 
   #formularioPerfilIdi {
 /*     padding: 20px; */
-    background: rgb(255, 255, 255);
+/*     background: rgb(255, 255, 255); */
     color: rgb(0, 0, 0) !important;
-/*       box-shadow:
-    0 0 10px rgba(0, 0, 0, 0.0),
-    0 0 20px rgba(0, 0, 0, 0.0),
-    0 0 40px rgb(173, 173, 173, 1); */
-  
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;

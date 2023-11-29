@@ -5,6 +5,7 @@
 }
 body{
   background-color: #e5e5e5 !important;
+  max-width: 100%;
 }
 
 #cards {
@@ -30,7 +31,6 @@ body{
 
 
  #titulo2{
-    text-align: center;
     color: #003e77;
     font-family: 'fellows';
 

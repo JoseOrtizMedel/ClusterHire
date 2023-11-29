@@ -37,13 +37,13 @@
 
 </head>
 
-<body class="text-light" style="max-width: 100%;">
+<body class="text-light">
 
     {% include 'partials/navbar.html' %}
 
     {% if request.user.is_authenticated %}
 
-    <div class="container-fluid">
+    <div class="container">
         {% block content %}
         {% endblock %}
     </div>

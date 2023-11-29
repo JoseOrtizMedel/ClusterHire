@@ -12,11 +12,7 @@ from .models import Oferta, TipoCargo, Usuario, Direccion, Comuna, Ciudad, Formu
 from django.shortcuts import render, redirect
 
 def capitalize_first_letter(value):
-  if value:
-    return value[0].upper() + value[1:]
-  else:
-    return value
-
+    return value.capitalize()
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -755,6 +751,10 @@ class ExpEdit(forms.ModelForm):
     
     def label_from_tipoCargo_instance(self, obj):
         return obj.nom_cargo
+    
+    def clean_descripcion(self):
+        value = self.cleaned_data['nombre_empleo']
+        return capitalize_first_letter(value)
     
     def clean_descripcion(self):
         value = self.cleaned_data['descripcion']

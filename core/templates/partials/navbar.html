@@ -9,7 +9,7 @@
 
     {% if request.user.is_authenticated %}
 
-    <a class="navbar-brand" href="{% url 'perfil2' %}">
+    <a class="navbar-brand" href="{% url 'perfil_user' %}">
       <img src="{% static 'imagenes/logo.png' %}" height="50" class="d-inline-block align-top" alt="" style="padding-bottom: 10px;">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@
 
       {% else %}
 
-      <a class="navbar-brand" href="{% url 'perfil2' %}">
+      <a class="navbar-brand" href="{% url 'perfil_user2' %}">
         <img src="{% static 'imagenes/logo.png' %}" height="50" class="d-inline-block align-top" alt="" style="padding-bottom: 10px;">
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

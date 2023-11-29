@@ -207,6 +207,44 @@ def read_csv(request, id_oferta):
     # Elimina las filas duplicadas basadas en todas las columnas del DataFrame
     resultado = resultado.drop_duplicates()
 
+
+
+    # Define la función para asignar puntajes de nivel
+    def asignar_puntaje_nivel(nivel, competencias_oferta, competencias_usuario):
+        # Verifica si 'competencias_usuario' es una cadena antes de intentar dividirla
+        if isinstance(competencias_usuario, str):
+            # Calcula el puntaje basado en las coincidencias de competencias
+            puntaje_competencia = sum(1 for competencia in competencias_usuario.split(';') if competencia in competencias_oferta)
+            puntaje_nivel = 0  # Inicializa el puntaje en 0 por defecto
+
+            # Asigna el puntaje al nivel dependiendo de las competencias
+            if nivel == "bajo" and puntaje_competencia > 0:
+                puntaje_nivel = 1
+            elif nivel == "medio" and puntaje_competencia > 0:
+                puntaje_nivel = 2
+            elif nivel == "alto" and puntaje_competencia > 0:
+                puntaje_nivel = 3
+
+            return puntaje_nivel
+        else:
+            return 0  # Si 'competencias_usuario' no es una cadena, asigna 0 como puntaje
+
+    # Itera a través de las filas del DataFrame
+    for index, row in resultado.iterrows():
+        competencias_oferta = []  # Define las competencias de la oferta como una lista vacía
+        # Verifica si 'COMPETENCIA_OFERTA' es una cadena antes de intentar dividirla
+        if pd.notna(row['COMPETENCIA_OFERTA']) and isinstance(row['COMPETENCIA_OFERTA'], str):
+            competencias_oferta = row['COMPETENCIA_OFERTA'].split(';')
+
+        # Llama a la función para asignar puntaje a 'ptj_nivel'
+        resultado.at[index, 'ptj_nivel'] = asignar_puntaje_nivel(row['NIVEL'], competencias_oferta, row['COMPETENCIA_USER'])
+
+    # Elimina las columnas 'NIVEL' y 'TIPO_CARGO_EXP' originales si es necesario
+    resultado = resultado.drop(['NIVEL'], axis=1)
+
+
+
+
     # Crea una nueva columna 'ptj_cargo' con valor inicial de 0 en el DataFrame filtrado
     resultado['ptj_cargo'] = 0
 
@@ -259,7 +297,7 @@ def read_csv(request, id_oferta):
             puntaje = sum(1 for competencia in competencias_usuario.split(';') if competencia in competencias_oferta)
 
             # Asigna el puntaje al usuario en el DataFrame filtrado
-            resultado.at[index, 'ptj_competencia'] = puntaje * 2
+            resultado.at[index, 'ptj_competencia'] = puntaje * 1
         else:
             # Si 'COMPETENCIA_USER' no es una cadena, asigna 0 como puntaje
             resultado.at[index, 'ptj_competencia'] = 0
@@ -270,7 +308,7 @@ def read_csv(request, id_oferta):
 
     columnas_seleccionadas = ['ID_OFERTA','NOM_OFERTA', 'ID_FORMULARIO','FECHA_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO',
                             'ANHOS_EXPERIENCIA_USER','TIPO_CARGO_EXP','ptj_formacion', 'ptj_titulo','ptj_habilidades', 'ptj_idiomas', 'ptj_cargo',
-                            'ptj_competencia', 'COMPETENCIA_USER','COMPETENCIA_OFERTA', 'NOM_MODALIDAD']
+                            'ptj_competencia', 'ptj_nivel', 'COMPETENCIA_USER','COMPETENCIA_OFERTA']
 
     # Seleccionar columnas
     df = resultado[columnas_seleccionadas]
@@ -278,13 +316,18 @@ def read_csv(request, id_oferta):
     # Ordenar por 'FECHA_FORMULARIO' en orden descendente
     df = df.sort_values(by='FECHA_FORMULARIO', ascending=False)
 
+    # Realizar el agrupamiento y suma
+    df = df.groupby(['ID_OFERTA','NOM_OFERTA','ID_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO','ANHOS_EXPERIENCIA_USER',
+                    'ptj_formacion', 'ptj_titulo', 'ptj_habilidades', 'ptj_idiomas', 'ptj_cargo'
+                    ])[['ptj_competencia','ptj_nivel']].sum().reset_index()
+
+    df = df.groupby(['ID_OFERTA','NOM_OFERTA','ID_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO',
+                    'ptj_formacion', 'ptj_titulo', 'ptj_habilidades', 'ptj_idiomas', 'ptj_cargo', 'ptj_competencia','ptj_nivel'
+                    ])[['ANHOS_EXPERIENCIA_USER']].sum().reset_index()
+
+
     # Eliminar duplicados, conservando la primera ocurrencia (la más reciente)
     df = df.drop_duplicates(subset='ID_USUARIO', keep='first')
-
-    # Realizar el agrupamiento y suma
-    df = df.groupby(['ID_OFERTA','NOM_OFERTA','ID_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO', 'NOM_MODALIDAD',
-                    'ANHOS_EXPERIENCIA_USER', 'ptj_formacion', 'ptj_titulo', 'ptj_habilidades', 'ptj_idiomas', 'ptj_cargo'
-                 ])['ptj_competencia'].sum().reset_index()
 
 #----------------------------------------------------K-MEANS------------------------------------------------------
     conteo_formularios = df['ID_FORMULARIO'].count()
@@ -296,10 +339,9 @@ def read_csv(request, id_oferta):
         print("Hay menos de 3")
         
 
-    df['NOM_MODALIDAD'] = df['NOM_MODALIDAD'].replace(['Presencial','Online','Hibrido','N/A'],[1,2,3,4])
 
     X = np.array(df[["ANHOS_EXPERIENCIA_USER","ptj_formacion","ptj_titulo","ptj_habilidades", "ptj_idiomas", "ptj_cargo", "ptj_competencia"]])
-    y = np.array(df['NOM_MODALIDAD'])
+    y = np.array(df['ptj_cargo'])
     X.shape
 
     Nc = range(1, 3)
@@ -345,7 +387,7 @@ def read_csv(request, id_oferta):
     # contamos cuantos usuarios hay en cada grupo
     copy =  pd.DataFrame()
     copy['NOMBRE']=df['NOMBRE'].values
-    copy['NOM_MODALIDAD']=df['NOM_MODALIDAD'].values
+    copy['ptj_cargo']=df['ptj_cargo'].values
     copy['label'] = labels;
     cantidadGrupo =  pd.DataFrame()
     cantidadGrupo['color']=colores
@@ -388,8 +430,3 @@ def read_csv(request, id_oferta):
 
 
     
-
-
-
-
-

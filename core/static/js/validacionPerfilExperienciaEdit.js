@@ -47,7 +47,8 @@ $(document).ready(function() {
         descripcion: {
           required: true,
           minlength: 20, 
-          maxlength: 70
+          maxlength: 70,
+          capitalize: true
         }
       },
       messages: {

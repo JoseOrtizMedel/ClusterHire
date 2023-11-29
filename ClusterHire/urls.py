@@ -50,8 +50,7 @@ urlpatterns = [
     path('exportar_csv/<int:id_oferta>/<str:nom_oferta>/', ciencia.exportar_csv, name='exportar_csv'),
     path('ciencia/<int:id_oferta>/<str:nom_oferta>/', views.ciencia, name='ciencia'),
     path('read_csv/<int:id_oferta>/', ciencia.read_csv, name='read_csv'),
-    path('perfil/', views.perfil, name='perfil'),
-    path('perfil2/', views.perfil2, name='perfil2'),
+    path('perfil_user2/', views.perfil_user2, name='perfil_user2'),
     path('perfil_user/<pk>/', views.perfil_user, name='perfil_user'),
     path('perfil_admin/<int:id_usuario>/<int:id_oferta>/', views.perfil_admin, name='perfil_admin'),
 
