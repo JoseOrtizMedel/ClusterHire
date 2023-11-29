@@ -1,4 +1,4 @@
-{% extends 'layout2.html' %}
+{% extends 'layout_user2.html' %}
 
 {% load static %}
 
@@ -10,13 +10,15 @@
         <div class="col-lg-4">
             <div class="card mb-4">
                 <div class="card-body text-center" style="padding: 46px;">
-                    {% if direcciones %}
+                    {% if usuarios %}
+                        {% for usuario in usuarios %}
                     <br>
                     <img src="{% static 'imagenes/perfil.png' %}"
                         alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-                    <h4 id="titulo2" class="my-3">Datos personales: Completar formulario</h4>
-                    <p class="text-muted mb-4">Dirección: <br>{{ direcciones.nombre_calle }} #{{ direcciones.numeracion }}, {{ direcciones.fk_d_comuna.nom_comuna }}</p>
-                    <a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_direccion' direcciones.id_direccion %}" style="float: center; ">Editar Dirección <i class="fa-solid fa-pen-to-square"></i></a>
+                    <h4 id="titulo2" class="my-3">{{ usuario.nombre|title }} {{ usuario.primer_apellido|title }}</h4>
+                    <p class="text-muted mb-4">Dirección: <br>{{ usuario.fk_id_direccion.nombre_calle }} #{{ usuario.fk_id_direccion.numeracion }}, {{ usuario.fk_id_direccion.fk_d_comuna.nom_comuna }}, {{ usuario.fk_id_direccion.fk_d_comuna.fk_id_ciudad.nom_ciudad }}.</p>
+                    <a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_direccion' usuario.fk_id_direccion.id_direccion %}" style="float: center; ">Editar Dirección <i class="fa-solid fa-pen-to-square"></i></a>
+                        {% endfor %}
                     {% else %}
                     <img src="{% static 'imagenes/not-found.png' %}"
                     alt="avatar" class="img-fluid" style="width: 150px;">
@@ -34,7 +36,7 @@
                     {% endif %}
                 </div>
                 {% include 'popup_direccion.html' %}
-            </div>          
+            </div>        
         </div>
         
         <div class="col-lg-8">

@@ -47,8 +47,7 @@ $(document).ready(function() {
         descripcion: {
           required: true,
           minlength: 20, 
-          maxlength: 70,
-          capitalize: true
+          maxlength: 100,
         }
       },
       messages: {
@@ -75,36 +74,36 @@ $(document).ready(function() {
 
       submitHandler: function(form) {
 
-      // Validamos la fecha antes de enviarla
-      var fechaInicio = $("#fecha_inicio_exp").val();
-      var fechaFin = $("#fecha_termino_exp").val();
-      if (!isValidDateInicio(fechaInicio)) {
-        // La fecha no es válida, muestra un mensaje de error
-        Swal.fire({
-          icon: 'error',
-          title: 'Error en la fecha de inicio',
-          text: 'Ingresa una fecha válida en el formato YYYY-MM-DD.',
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Entendido",
-        });
+        // Validamos la fecha antes de enviarla
+        var fechaInicio = $("#fecha_inicio_exp").val();
+        var fechaFin = $("#fecha_termino_exp").val();
+        if (!isValidDateInicio(fechaInicio)) {
+          // La fecha no es válida, muestra un mensaje de error
+          Swal.fire({
+            icon: 'error',
+            title: 'Error en la fecha de inicio',
+            text: 'Ingresa una fecha válida en el formato YYYY-MM-DD.',
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Entendido",
+          });
 
-        return false; // Evita que se envíe el formulario
+          return false; // Evita que se envíe el formulario
 
-      }
+        }
 
-      if (!isValidDateFin(fechaFin)) {
-        // La fecha no es válida, muestra un mensaje de error
-        Swal.fire({
-          icon: 'error',
-          title: 'Error en la fecha de término',
-          text: 'Ingresa una fecha válida en el formato YYYY-MM-DD.',
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Entendido",
-        });
+        if (!isValidDateFin(fechaFin)) {
+          // La fecha no es válida, muestra un mensaje de error
+          Swal.fire({
+            icon: 'error',
+            title: 'Error en la fecha de término',
+            text: 'Ingresa una fecha válida en el formato YYYY-MM-DD.',
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Entendido",
+          });
 
-        return false; // Evita que se envíe el formulario
+          return false; // Evita que se envíe el formulario
 
-      }
+        }
 
         Swal.fire({
           title: "¿Está seguro de que desea editar sus datos laborales?",

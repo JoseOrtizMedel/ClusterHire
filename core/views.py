@@ -47,7 +47,7 @@ def user_login(request):
                     return redirect('ofertas_admin')
                 if user.is_active:
                     login(request, user)
-                    return redirect('perfil_user')
+                    return redirect('perfil_user2')
                 else:
                     return HttpResponse("Cuenta deshabilitada")
             else:
@@ -72,7 +72,7 @@ def register(request):
             user = authenticate(
                 username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
             login(request, user)
-            return redirect('perfil2')
+            return redirect('perfil_user2')
     return render(request, 'registration/register.html', data)
 
 # JORDAAAAAAAN--------------------------------------------------------------
@@ -325,7 +325,7 @@ def perfil_user(request):
     usuarios = Usuario.objects.filter(id_usuario=request.user.id)
 
     # Obtiene la direccion
-    direcciones = Direccion.objects.filter()
+    direcciones = Direccion.objects.last()
 
 
     datos = {
@@ -385,7 +385,7 @@ def perfil_user(request):
 
             datos['mensaje'] = "Guardado Correctamente"
             time.sleep(2.5)
-            return redirect('perfil_user2')
+            return redirect('perfil_user')
         
         if form_competencia.is_valid():
 
@@ -514,7 +514,7 @@ def perfil_user2(request):
     u_direcciones = Usuario.objects.filter(id_usuario=request.user.id)
 
     # Obtiene la direccion
-    direcciones = Direccion.objects.last()
+    direcciones = Direccion.objects.filter()
 
     # Obtiene la direccion
     #usuarios = Usuario.objects.filter(fk_id_direccion = Direccion.objects.last())
