@@ -9,32 +9,30 @@
     <div class="row">
         <div class="col-lg-4">
             <div class="card mb-4">
-                <div class="card-body text-center" style="padding: 46px;">
-                    {% if direcciones %}
+                <div class="card-body text-center" style="padding: 47.5px;">
+                    {% if usuarios %}
+                        {% for usuario in usuarios %}
                     <br>
                     <img src="{% static 'imagenes/perfil.png' %}"
                         alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-                    <h4 id="titulo2" class="my-3">Datos personales: Completar formulario</h4>
-                    <p class="text-muted mb-4">Dirección: <br>{{ direcciones.nombre_calle }} #{{ direcciones.numeracion }}, {{ direcciones.fk_d_comuna.nom_comuna }}, {{ direcciones.fk_d_comuna.fk_id_ciudad.nom_ciudad }}.</p>
-                    <a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_direccion' direcciones.id_direccion %}" style="float: center; ">Editar Dirección <i class="fa-solid fa-pen-to-square"></i></a>
+                    <h4 id="titulo2" class="my-3">{{ usuario.nombre|title }} {{ usuario.primer_apellido|title }}</h4>
+                    <p class="text-muted mb-0">Email: {{ usuario.correo }}</p>
+                        {% endfor %}
                     {% else %}
                     <img src="{% static 'imagenes/not-found.png' %}"
                     alt="avatar" class="img-fluid" style="width: 150px;">
                     <h4 id="titulo2" class="my-3">Ups! :(</h4>
-                    <p class="text-muted mb-4">No se ha encontrado información relacionada a su perfil de usuario.<br>¡Da el primer paso ingresando tu dirección particular!</p>
-                    <a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#direModal" id="btnDireModal">Ingresar dirección</a>
+                    <p class="text-muted mb-4">No se ha encontrado información relacionada a su perfil de usuario.<br>¡Da el primer paso ingresando tus datos personales!</p>
+                    <a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#persModal" id="btnPersModal">Ingresar datos personales</a>
                     <style>
-                        #btnPersModal {
-                            display: none;
-                        }
                         #btnModal {
                             display: none;
                         }
                     </style>
                     {% endif %}
                 </div>
-                {% include 'popup_direccion.html' %}
-            </div>          
+                {% include 'popup_personal.html' %}
+            </div>        
         </div>
         
         <div class="col-lg-8">
@@ -86,15 +84,6 @@
                     <hr>
                     <div class="row">
                         <div class="col-sm-3">
-                            <p id="titulo2" class="mb-0">Correo electrónico</p>
-                        </div>
-                        <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ usuario.correo }}</p>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
                             <p id="titulo2" class="mb-0">Fecha nacimiento</p>
                         </div>
                         <div class="col-sm-9">
@@ -108,7 +97,7 @@
             {% else %}
             <div class="card"> 
                 <div class = "titulo3">
-                    <h4  class="titulo3 mb-3 mt-3">Datos personales <a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#persModal" id="btnPersModal"  style="float: right; margin-top: -5px;"><i class="fa-solid fa-plus"></i></a></h4>    
+                    <h4  class="titulo3 mb-3 mt-3">Datos personales</h4>    
                 </div> 
             </div>
             <div class="card mb-0">

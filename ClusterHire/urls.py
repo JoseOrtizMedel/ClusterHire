@@ -51,7 +51,6 @@ urlpatterns = [
     path('ciencia/<int:id_oferta>/<str:nom_oferta>/', views.ciencia, name='ciencia'),
     path('read_csv/<int:id_oferta>/', ciencia.read_csv, name='read_csv'),
     path('perfil_user/', views.perfil_user, name='perfil_user'),
-    path('perfil_user2/', views.perfil_user2, name='perfil_user2'),
     path('perfil_admin/<int:id_usuario>/<int:id_oferta>/', views.perfil_admin, name='perfil_admin'),
 
 ]

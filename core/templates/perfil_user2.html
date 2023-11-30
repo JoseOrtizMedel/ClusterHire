@@ -9,33 +9,29 @@
     <div class="row">
         <div class="col-lg-4">
             <div class="card mb-4">
-                <div class="card-body text-center" style="padding: 46px;">
+                <div class="card-body text-center" style="padding: 47.5px;">
                     {% if usuarios %}
                         {% for usuario in usuarios %}
                     <br>
                     <img src="{% static 'imagenes/perfil.png' %}"
                         alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
                     <h4 id="titulo2" class="my-3">{{ usuario.nombre|title }} {{ usuario.primer_apellido|title }}</h4>
-                    <p class="text-muted mb-4">Dirección: <br>{{ usuario.fk_id_direccion.nombre_calle }} #{{ usuario.fk_id_direccion.numeracion }}, {{ usuario.fk_id_direccion.fk_d_comuna.nom_comuna }}, {{ usuario.fk_id_direccion.fk_d_comuna.fk_id_ciudad.nom_ciudad }}.</p>
-                    <a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_direccion' usuario.fk_id_direccion.id_direccion %}" style="float: center; ">Editar Dirección <i class="fa-solid fa-pen-to-square"></i></a>
+                    <p class="text-muted mb-0">Email: {{ usuario.correo }}</p>
                         {% endfor %}
                     {% else %}
                     <img src="{% static 'imagenes/not-found.png' %}"
                     alt="avatar" class="img-fluid" style="width: 150px;">
                     <h4 id="titulo2" class="my-3">Ups! :(</h4>
-                    <p class="text-muted mb-4">No se ha encontrado información relacionada a su perfil de usuario.<br>¡Da el primer paso ingresando tu dirección particular!</p>
-                    <a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#direModal" id="btnDireModal">Ingresar dirección</a>
+                    <p class="text-muted mb-4">No se ha encontrado información relacionada a su perfil de usuario.<br>¡Da el primer paso ingresando tus datos personales!</p>
+                    <a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#persModal" id="btnPersModal">Ingresar datos personales</a>
                     <style>
-                        #btnPersModal {
-                            display: none;
-                        }
                         #btnModal {
                             display: none;
                         }
                     </style>
                     {% endif %}
                 </div>
-                {% include 'popup_direccion.html' %}
+                {% include 'popup_personal.html' %}
             </div>        
         </div>
         
@@ -88,15 +84,6 @@
                     <hr>
                     <div class="row">
                         <div class="col-sm-3">
-                            <p id="titulo2" class="mb-0">Correo electrónico</p>
-                        </div>
-                        <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ usuario.correo }}</p>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
                             <p id="titulo2" class="mb-0">Fecha nacimiento</p>
                         </div>
                         <div class="col-sm-9">
@@ -110,7 +97,7 @@
             {% else %}
             <div class="card"> 
                 <div class = "titulo3">
-                    <h4  class="titulo3 mb-3 mt-3">Datos personales <a class="btn btn-primary mr-2" type="button" data-bs-toggle="modal" data-bs-target="#persModal" id="btnPersModal"  style="float: right; margin-top: -5px;"><i class="fa-solid fa-plus"></i></a></h4>    
+                    <h4  class="titulo3 mb-3 mt-3">Datos personales</h4>    
                 </div> 
             </div>
             <div class="card mb-0">
@@ -129,9 +116,8 @@
             </style>
             {% endif %}
         </div>
-        {% include 'popup_personal.html' %}
-            
-        </div>
+    </div>
+        
 
         <div class="col-lg-12">
             <div class="card mb-2 mt-3"> 
@@ -145,25 +131,35 @@
                         <div class="card-body"> 
                             <h4 id="titulo2" class="mb-0">{{ experiencia.nombre_empleo|title }} <a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_exps' experiencia.id_experiencia %}" style="float: right; margin-top: -5px;"><i class="fa-solid fa-trash"></i></a>&nbsp;<a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_experiencia' experiencia.id_experiencia %}" style="float: right; margin-top: -5px;"><i class="fa-solid fa-pen-to-square"></i></a></h4>
                             <hr>
-                            <div class="row">   
+                            <div class="row">
                                 <div class="col-sm-2">
                                     <p id="titulo2" class="mb-0">Cargo ejercido</p>
                                 </div>
-                                <div class="col-sm-10">
+                                <div class="col-sm-4">
                                     {% if experiencia.fk_id_tipo_cargo %}
                                         <p class="text-muted mb-0">{{ experiencia.fk_id_tipo_cargo.nom_cargo }}</p>
                                     {% else %}
                                         <p class="text-muted mb-0">No se encontró información sobre el tipo de cargo.</p>
                                     {% endif %}                             
                                 </div>
-                            </div>                              
+                                <div class="col-sm-2">
+                                    <p id="titulo2" class="mb-0">Tipo de contrato</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    {% if experiencia.fk_id_tipo_empleo %}
+                                        <p class="text-muted mb-0">{{ experiencia.fk_id_tipo_empleo.nom_tipo_empleo }}</p>
+                                    {% else %}
+                                        <p class="text-muted mb-0">No se encontró información sobre el tipo de empleo</p>
+                                    {% endif %}                             
+                                </div>     
+                            </div>
                             <hr>
                             <div class="row">   
                                 <div class="col-sm-2">
                                     <p id="titulo2" class="mb-0">Descripcion</p>
                                 </div>
                                 <div class="col-sm-10">
-                                    <p class="text-muted mb-0">{{ experiencia.descripcion|title }}</p>                                    
+                                    <p class="text-muted mb-0">{{ experiencia.descripcion }}</p>                                    
                                 </div>
                             </div>  
 
@@ -193,16 +189,6 @@
                             <hr>
                             <div class="row">   
                                 <div class="col-sm-2">
-                                    <p id="titulo2" class="mb-0">Tipo de contrato</p>
-                                </div>
-                                <div class="col-sm-4">
-                                    {% if experiencia.fk_id_tipo_empleo %}
-                                        <p class="text-muted mb-0">{{ experiencia.fk_id_tipo_empleo.nom_tipo_empleo }}</p>
-                                    {% else %}
-                                        <p class="text-muted mb-0">No se encontró información sobre el tipo de empleo</p>
-                                    {% endif %}                             
-                                </div>  
-                                <div class="col-sm-2">
                                     <p id="titulo2" class="mb-0">Modalidad</p>
                                 </div>
                                 <div class="col-sm-4">
@@ -211,7 +197,17 @@
                                     {% else %}
                                         <p class="text-muted mb-0">No se encontró información sobre la modalidad</p>
                                     {% endif %}                             
+                                </div> 
+                                <div class="col-sm-2">
+                                    <p id="titulo2" class="mb-0">Comuna</p>
                                 </div>
+                                <div class="col-sm-4">
+                                    {% if experiencia.fk_id_comuna %}
+                                        <p class="text-muted mb-0">{{ experiencia.fk_id_comuna.nom_comuna }}</p>
+                                    {% else %}
+                                        <p class="text-muted mb-0">No se encontró información sobre la ubicación del empleo</p>
+                                    {% endif %}                             
+                                </div>  
                             </div> 
                         </div>
                     </div>
@@ -227,10 +223,8 @@
                     </div>                         
                 </div>
             </div>
-
             {% endif %}
             {% include 'popup_experiencias.html' %}
-            
         </div>
 
         <div class="col-lg-12">

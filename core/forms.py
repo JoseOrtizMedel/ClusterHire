@@ -151,21 +151,8 @@ class UsuarioForm(forms.ModelForm):
         fields = [
             'id_usuario', 'rut_usuario', 'dv_usuario', 'nombre', 'segundo_nombre',
             'primer_apellido', 'segundo_apellido', 'fecha_nacimiento', 'nacionalidad',
-            'telefono', 'correo', 'fk_id_direccion']
-        
-    fk_id_direccion = forms.ModelChoiceField(
-        queryset=Direccion.objects.all(),
-        empty_label=None,
-        widget=forms.Select(attrs={'class': 'form-control'})
-    )
+            'telefono', 'correo']
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['fk_id_direccion'].label_from_instance = self.label_from_direccion_instance
-
-    def label_from_direccion_instance(self, obj):
-        return obj.id_direccion
-    
     def label_from_comuna_instance(self, obj):
         return obj.nom_comuna
 
@@ -504,7 +491,6 @@ class PerfilEdit(forms.ModelForm):
             "nacionalidad",
             "telefono",
             "correo",
-            "fk_id_direccion",
         ]
 
         labels = {
@@ -518,7 +504,6 @@ class PerfilEdit(forms.ModelForm):
             'nacionalidad': ('Nacionalidad'),
             'telefono': ('Teléfono'),
             'correo': ('Correo'),
-            'fk_id_direccion': ('Dirección'),
         }
 
         widgets = {
@@ -532,7 +517,6 @@ class PerfilEdit(forms.ModelForm):
             "nacionalidad": forms.TextInput(attrs={'placeholder': 'Ej: Chileno', 'name': 'nacionalidad', 'id': 'nacionalidad', 'class': 'input-class_name'}),
             "telefono": forms.NumberInput(attrs={'placeholder': 'Ej: 32762572', 'name': 'telefono', 'id': 'telefono', 'class': 'input-class_name'}),
             "correo": forms.TextInput(attrs={'placeholder': 'Ej: micorreo@gmail.com', 'name': 'correo', 'id': 'correo', 'class': 'input-class_name'}),
-            #"fk_id_direccion": forms.ModelChoiceField(queryset=Comuna.objects.all(),forms.Select(attrs={'class': 'form-control'}))
         }
 
     def clean_nombre(self):
