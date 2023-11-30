@@ -244,7 +244,6 @@ class Usuario(models.Model):
     nacionalidad = models.CharField(max_length=250, blank=True, null=True)
     telefono = models.IntegerField()
     correo = models.CharField(max_length=200)
-    fk_id_direccion = models.ForeignKey(Direccion, models.DO_NOTHING, db_column='fk_id_direccion')
 
     class Meta:
         managed = False

@@ -508,7 +508,6 @@ class PerfilEdit(forms.ModelForm):
             "nacionalidad",
             "telefono",
             "correo",
-            "fk_id_direccion",
         ]
 
         labels = {
