@@ -12,7 +12,7 @@
                     <div class="card-body text-center">
                         <h3 id="tituloCard1">Datos personales</h3>
                         <div class="row text-left">
-                            <div class="col-lg-6">
+                            <div class="col-lg-6" style="display: none;">
                                 <div class="form-group">
                                     <label for="id_usuario" style="color: #003e77;">ID Usuario:</label><br>
                                     <input type="text" class="form-control" name="id_usuario" id="id_usuario" required readonly value="{{ request.user.id }}"/>
@@ -61,7 +61,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="fecha_nacimiento" style="color: #003e77;">Fecha nacimiento:</label>
-                                <input type="text" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" placeholder="Ej: 1998-07-17" required/>
+                                <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" required/>
 <!--                                 {{ u_dires_form.fecha_nacimiento }} -->
                             </div>
                         </div>

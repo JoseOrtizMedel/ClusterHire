@@ -408,18 +408,25 @@ def read_csv(request, id_oferta):
     grupo_menor_recomendado = df.sort_values(by=['cluster'])[(cantidadGrupo['cantidad'][0]):(cantidadGrupo['cantidad'][0] + cantidadGrupo['cantidad'][1])]
     grupo_menor_recomendado
     
-    # Ordenar por 'ptj_competencia' en orden descendente
-    grupo_menor_recomendado = grupo_menor_recomendado.sort_values(by='ptj_competencia', ascending=False)
-
     # Ordenar por 'ptj_nivel' en orden descendente
     grupo_menor_recomendado = grupo_menor_recomendado.sort_values(by='ptj_nivel', ascending=False)
 
     # Ordenar por 'ptj_competencia' en orden descendente
-    grupo_mejor_recomendado = grupo_mejor_recomendado.sort_values(by='ptj_competencia', ascending=False)
+    grupo_menor_recomendado = grupo_menor_recomendado.sort_values(by='ptj_competencia', ascending=False)
+
+    # Ordenar por 'ANHOS_EXPERIENCIA_USER' en orden descendente
+    grupo_menor_recomendado = grupo_menor_recomendado.sort_values(by='ANHOS_EXPERIENCIA_USER', ascending=False)
+
+#------------------------------------------------------------------------------------------------
 
     # Ordenar por 'ptj_nivel' en orden descendente
     grupo_mejor_recomendado = grupo_mejor_recomendado.sort_values(by='ptj_nivel', ascending=False)
 
+    # Ordenar por 'ptj_competencia' en orden descendente
+    grupo_mejor_recomendado = grupo_mejor_recomendado.sort_values(by='ptj_competencia', ascending=False)
+
+    # Ordenar por 'ANHOS_EXPERIENCIA_USER' en orden descendente
+    grupo_mejor_recomendado = grupo_mejor_recomendado.sort_values(by='ANHOS_EXPERIENCIA_USER', ascending=False)
 
 
 #-----------------------------------------------------------------------------------------------------------------

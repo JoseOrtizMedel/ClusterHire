@@ -1,17 +1,5 @@
 $(document).ready(function () {
 
-    $.validator.addMethod(
-        "greaterThan",
-        function (value, element, param) {
-          var target = $(param).val();
-          if (value && target) {
-            return parseInt(value) > parseInt(target);
-          }
-          return true;
-        },
-        "El año de término debe ser mayor que el año de inicio."
-      );
-
     // Función para verificar si una fecha es válida
     function isValidFechaInicio(fecha_inicio_exp) {
         var regEx = /^\d{4}-\d{2}-\d{2}$/;
@@ -29,6 +17,20 @@ $(document).ready(function () {
         return fecha.toISOString().slice(0, 10) === fecha_termino_exp;
       }
   
+      function validarFechaTermino(fecha_inicio, fecha_termino) {
+        // Crea objetos Date a partir de los valores de los inputs
+        var date1 = new Date(fecha_inicio);
+        var date2 = new Date(fecha_termino);
+      
+        // Compara los componentes de la fecha
+        return date1.getFullYear() < date2.getFullYear() ||
+          (date1.getFullYear() === date2.getFullYear() &&
+            date1.getMonth() < date2.getMonth()) ||
+          (date1.getFullYear() === date2.getFullYear() &&
+            date1.getMonth() === date2.getMonth() &&
+            date1.getDate() < date2.getDate());
+      }
+      
 
     // Esta función se ejecutará después de que se haya recargado la página
     function resetSubmitButton() {
@@ -66,12 +68,11 @@ $(document).ready(function () {
           fecha_termino_exp: {
               required: true,
               dateISO: true,
-              greaterThan: "#fecha_inicio_exp"
           },
           descripcion: {
             required: true,
             minlength: 20, 
-            maxlength: 70,
+            maxlength: 100,
           }
       },
       messages: {
@@ -128,6 +129,21 @@ $(document).ready(function () {
             return false; // Evita que se envíe el formulario
 
         }
+
+        if (!validarFechaTermino(fechaInicio, fechaFin)) {
+          // La fecha no es válida, muestra un mensaje de error
+          Swal.fire({
+            icon: 'error',
+            title: 'Error en la fecha de término',
+            text: 'La fecha de término debe ser posterior a la fecha de inicio.',
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Entendido",
+          });
+
+          return false; // Evita que se envíe el formulario
+        }
+
+        // ...
 
         // Mostrar mensaje de éxito con SweetAlert2
         Swal.fire({

@@ -131,7 +131,7 @@ class DireccionForm(forms.ModelForm):
         fields = ['id_direccion','numeracion', 'nombre_calle', 'fk_d_comuna']
 
     fk_d_comuna = forms.ModelChoiceField(
-        queryset=Comuna.objects.all(),
+        queryset=Comuna.objects.order_by('nom_comuna'),
         empty_label=None,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
@@ -200,10 +200,10 @@ class FormularioForm(forms.ModelForm):
 class ExperienciaForm(forms.ModelForm):
     class Meta:
         model = Experiencia
-        fields = ['nombre_empleo', 'fecha_inicio_exp', 'fecha_termino_exp', 'descripcion', 'fk_id_comuna', 'fk_id_tipo_empleo', 'fk_id_usuario', 'fk_id_modalidad', 'fk_id_tipo_cargo']
+        fields = ['nombre_empresa', 'fecha_inicio_exp', 'fecha_termino_exp', 'descripcion', 'fk_id_comuna', 'fk_id_tipo_empleo', 'fk_id_usuario', 'fk_id_modalidad', 'fk_id_tipo_cargo']
 
     fk_id_comuna = forms.ModelChoiceField(
-        queryset=Comuna.objects.all(),
+        queryset=Comuna.objects.order_by('nom_comuna'),
         empty_label=None,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
@@ -227,7 +227,7 @@ class ExperienciaForm(forms.ModelForm):
     )
 
     fk_id_tipo_cargo = forms.ModelChoiceField(
-        queryset=TipoCargo.objects.all(),
+        queryset=TipoCargo.objects.order_by('nom_cargo'),
         empty_label=None,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
@@ -256,7 +256,7 @@ class ExperienciaForm(forms.ModelForm):
         return obj.nom_cargo
     
     def clean_nombre_empleo(self):
-        value = self.cleaned_data['nombre_empleo']
+        value = self.cleaned_data['nombre_empresa']
         return capitalize_first_letter(value)
     
     def clean_descripcion(self):
@@ -395,7 +395,7 @@ class CompetenciaForm(forms.ModelForm):
         fields = ['id_compe_usuario', 'fk_id_competencia', 'fk_id_usuario', 'nivel']
 
     fk_id_competencia = forms.ModelChoiceField(
-        queryset=Competencia.objects.all(),
+        queryset=Competencia.objects.order_by('nombre_competencia'),
         empty_label=None,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
@@ -424,7 +424,7 @@ class IdiomaForm(forms.ModelForm):
         fields = ['id_idioma_usuario', 'fk_id_idioma', 'fk_id_usuario', 'nivel']
 
     fk_id_idioma = forms.ModelChoiceField(
-        queryset=Idioma.objects.all(),
+        queryset=Idioma.objects.order_by('nombre_idioma'),
         empty_label=None,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
@@ -453,7 +453,7 @@ class HabilidadForm(forms.ModelForm):
         fields = ['id_habilidad_usuario', 'fk_id_habilidad', 'fk_id_usuario']
 
     fk_id_habilidad = forms.ModelChoiceField(
-        queryset=Habilidad.objects.all(),
+        queryset=Habilidad.objects.order_by('nombre_habilidad'),
         empty_label=None,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
@@ -653,7 +653,7 @@ class ExpEdit(forms.ModelForm):
     class Meta:
         model = Experiencia
         fields = [
-            "nombre_empleo",
+            "nombre_empresa",
             "fecha_inicio_exp",
             "fecha_termino_exp",
             "fk_id_comuna",
@@ -665,7 +665,7 @@ class ExpEdit(forms.ModelForm):
         ]
 
         labels = {
-            'nombre_empleo': ('Fecha de inicio'),
+            'nombre_empresa': ('Fecha de inicio'),
             'fecha_inicio_exp': ('Fecha de término'),
             'fecha_termino_exp': ('Usuario'),
             'fk_id_comuna': ('Comuna'),
@@ -677,7 +677,7 @@ class ExpEdit(forms.ModelForm):
         }
 
         widgets = {
-            "nombre_empleo": forms.TextInput(attrs={'placeholder': 'Ej: Jefe Operaciones Middleware', 'name': 'nombre_empleo', 'id': 'nombre_empleo', 'class': 'input-class_name'}),
+            "nombre_empresa": forms.TextInput(attrs={'placeholder': 'Ej: Walmart', 'name': 'nombre_empresa', 'id': 'nombre_empresa', 'class': 'input-class_name'}),
             "fecha_inicio_exp": forms.TextInput(attrs={'placeholder': 'Ej: 15/07/2019', 'name': 'fecha_inicio_exp', 'id': 'fecha_inicio_exp', 'class': 'input-class_name'}),
             "fecha_termino_exp": forms.TextInput(attrs={'placeholder': 'Ej: 28/10/2023', 'name': 'fecha_termino_exp', 'id': 'fecha_termino_exp', 'class': 'input-class_name'}),
             "descripcion": forms.Textarea(attrs={'placeholder': 'Ej: Agrega una descripción acerca de esta experiencia laboral...', 'name': 'descripcion', 'id': 'descripcion', 'class': 'input-class_name'})
@@ -737,7 +737,7 @@ class ExpEdit(forms.ModelForm):
         return obj.nom_cargo
     
     def clean_descripcion(self):
-        value = self.cleaned_data['nombre_empleo']
+        value = self.cleaned_data['nombre_empresa']
         return capitalize_first_letter(value)
     
     def clean_descripcion(self):

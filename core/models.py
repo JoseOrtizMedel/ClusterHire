@@ -84,7 +84,7 @@ class Educacion(models.Model):
 
 class Experiencia(models.Model):
     id_experiencia = models.BigAutoField(primary_key=True)
-    nombre_empleo = models.CharField(max_length=250)
+    nombre_empresa = models.CharField(max_length=250)
     fecha_inicio_exp = models.DateField()
     fecha_termino_exp = models.DateField()
     descripcion = models.TextField()

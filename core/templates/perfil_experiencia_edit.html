@@ -17,25 +17,16 @@
 
                             <div class="col-lg-4 formExpEdit">
                                 <div class="form-group">
-                                    <label for="" style="color: #003e77;">Empleo:</label>
+                                    <label for="" style="color: #003e77;">Cargo:</label>
+                                    {{ form.fk_id_tipo_cargo}}
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 formExpEdit">
+                                <div class="form-group">
+                                    <label for="" style="color: #003e77;">Empresa:</label>
 <!--                                     <input type="text" class="form-control" name="nombre_empleo" id="nombre_empleo" required/> -->
-                                    {{ form.nombre_empleo }}
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 formExpEdit">
-                                <div class="form-group">
-                                    <label for="" style="color: #003e77;">Fecha inicio:</label>
-<!--                                     <input type="text" class="form-control" name="fecha_inicio_exp" id="fecha_inicio_exp" required/> -->
-                                    {{ form.fecha_inicio_exp }}
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 formExpEdit">
-                                <div class="form-group">
-                                    <label for="" style="color: #003e77;">Fecha término:</label>
-<!--                                     <input type="text" class="form-control" name="fecha_termino_exp" id="fecha_termino_exp" required/> -->
-                                    {{ form.fecha_termino_exp }}
+                                    {{ form.nombre_empresa }}
                                 </div>
                             </div>
 
@@ -48,8 +39,23 @@
 
                             <div class="col-lg-2 formExpEdit">
                                 <div class="form-group">
-                                    <label for="" style="color: #003e77;">Tipo empleo:</label>
-                                    {{ form.fk_id_tipo_empleo }}
+                                    <label for="" style="color: #003e77;">Modalidad:</label>
+                                    {{ form.fk_id_modalidad}}
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 formExpEdit">
+                                <div class="form-group">
+                                    <label for="" style="color: #003e77;">Fecha inicio:</label>
+                                    {{ form.fecha_inicio_exp }}
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 formExpEdit">
+                                <div class="form-group">
+                                    <label for="" style="color: #003e77;">Fecha término:</label>
+<!--                                     <input type="text" class="form-control" name="fecha_termino_exp" id="fecha_termino_exp" required/> -->
+                                    {{ form.fecha_termino_exp }}
                                 </div>
                             </div>
 
@@ -60,17 +66,10 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-2 formExpEdit">
-                                <div class="form-group">
-                                    <label for="" style="color: #003e77;">Modalidad:</label>
-                                    {{ form.fk_id_modalidad}}
-                                </div>
-                            </div>
-
                             <div class="col-lg-4 formExpEdit">
                                 <div class="form-group">
-                                    <label for="" style="color: #003e77;">Cargo:</label>
-                                    {{ form.fk_id_tipo_cargo}}
+                                    <label for="" style="color: #003e77;">Tipo empleo:</label>
+                                    {{ form.fk_id_tipo_empleo }}
                                 </div>
                             </div>
 

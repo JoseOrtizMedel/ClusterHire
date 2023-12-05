@@ -28,7 +28,7 @@
 
         <form id="exportarForm" action="{% url 'read_csv' id_oferta=id_oferta %}" method="post">
             {% csrf_token %}
-            <button type="submit" class="btn btn-success">Analizar datos</button>
+            <button type="submit" class="btn btn-success"><b>Analizar datos </b><i class="fa-solid fa-circle-nodes"></i></button>
         </form>        
     </div>
       
