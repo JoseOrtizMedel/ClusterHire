@@ -42,10 +42,10 @@ pd.set_option('display.max_columns', None)                                      
 
 def exportar_csv(request, id_oferta, nom_oferta ):
     # Reemplaza estos valores con tu información de conexión
-    username = 'usuario'
-    password = 'usuario'
-    #database = 'localhost:1521/xe'
-    database = 'localhost:1521/orcl' #alvi
+    username = 'admin'
+    password = 'Clusterhire1.'
+    database = 'oracle-db.c67u6eugv3td.sa-east-1.rds.amazonaws.com:1521/xe/clustdb'
+    #database = 'localhost:1521/orcl' #alvi
 
 
     # Crea una conexión a la base de datos
