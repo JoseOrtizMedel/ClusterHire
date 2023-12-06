@@ -7,9 +7,9 @@ import cx_Oracle
 import csv
 
 # Reemplaza estos valores con tu información de conexión
-username = 'usuario'
-password = 'usuario'
-database = 'localhost:1521/xe'
+username = 'admin'
+password = 'Clusterhire1.'
+database = 'oracle-db.c67u6eugv3td.sa-east-1.rds.amazonaws.com:1521/clustdb'
 
 try:
     # Crea una conexión a la base de datos
