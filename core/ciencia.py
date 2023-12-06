@@ -218,11 +218,11 @@ def read_csv(request, id_oferta):
             puntaje_nivel = 0  # Inicializa el puntaje en 0 por defecto
 
             # Asigna el puntaje al nivel dependiendo de las competencias
-            if nivel == "bajo" and puntaje_competencia > 0:
+            if nivel == "basico" and puntaje_competencia > 0:
                 puntaje_nivel = 1
-            elif nivel == "medio" and puntaje_competencia > 0:
+            elif nivel == "intermedio" and puntaje_competencia > 0:
                 puntaje_nivel = 2
-            elif nivel == "alto" and puntaje_competencia > 0:
+            elif nivel == "avanzado" and puntaje_competencia > 0:
                 puntaje_nivel = 3
 
             return puntaje_nivel
@@ -316,8 +316,11 @@ def read_csv(request, id_oferta):
     # Ordenar por 'ptj_competencia' en orden descendente
     df = df.sort_values(by='ptj_competencia', ascending=False)
 
+    # Ordenar por 'ptj_nivel' en orden descendente
+    df = df.sort_values(by='ptj_competencia', ascending=False)
+
     # Ordenar por 'annhos_experiencia' en orden descendente
-    df = df.sort_values(by='ANHOS_EXPERIENCIA_USER', ascending=False)
+    df = df.sort_values(by='ptj_nivel', ascending=False)
 
     # Realizar el agrupamiento y suma
     df = df.groupby(['ID_OFERTA','NOM_OFERTA','ID_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO','ANHOS_EXPERIENCIA_USER',
@@ -405,6 +408,21 @@ def read_csv(request, id_oferta):
     # Segundo grupo
     grupo_menor_recomendado = df.sort_values(by=['cluster'])[(cantidadGrupo['cantidad'][0]):(cantidadGrupo['cantidad'][0] + cantidadGrupo['cantidad'][1])]
     grupo_menor_recomendado
+
+    # Ordenar por 'ptj_competencia' en orden descendente
+    grupo_mejor_recomendado = grupo_mejor_recomendado.sort_values(by='ptj_competencia', ascending=False)
+    # Ordenar por 'ptj_nivel' en orden descendente
+    grupo_mejor_recomendado = grupo_mejor_recomendado.sort_values(by='ptj_nivel', ascending=False)
+    # Ordenar por 'annhos_experiencia' en orden descendente
+    grupo_mejor_recomendado = grupo_mejor_recomendado.sort_values(by='ANHOS_EXPERIENCIA_USER', ascending=False)
+
+
+    # Ordenar por 'ptj_competencia' en orden descendente
+    grupo_menor_recomendado = grupo_menor_recomendado.sort_values(by='ptj_competencia', ascending=False)
+    # Ordenar por 'ptj_nivel' en orden descendente
+    grupo_menor_recomendado = grupo_menor_recomendado.sort_values(by='ptj_nivel', ascending=False)
+    # Ordenar por 'annhos_experiencia' en orden descendente
+    grupo_menor_recomendado = grupo_menor_recomendado.sort_values(by='ANHOS_EXPERIENCIA_USER', ascending=False)
     
 #-----------------------------------------------------------------------------------------------------------------
     
