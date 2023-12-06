@@ -44,7 +44,7 @@ def exportar_csv(request, id_oferta, nom_oferta ):
     # Reemplaza estos valores con tu información de conexión
     username = 'admin'
     password = 'Clusterhire1.'
-    database = 'oracle-db.c67u6eugv3td.sa-east-1.rds.amazonaws.com:1521/xe/clustdb'
+    database = 'oracle-db.c67u6eugv3td.sa-east-1.rds.amazonaws.com:1521/clustdb'
     #database = 'localhost:1521/orcl' #alvi
 
 
