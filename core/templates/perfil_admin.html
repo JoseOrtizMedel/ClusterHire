@@ -353,13 +353,13 @@
                             <div class = "titulo3">
                                 <h5  class="mb-3 mt-3">Idiomas</h5>    
                             </div>         
-                            {% if idiomas %}
-                                {% for idioma in idiomas %}
+                            {% if idiouser %}
+                                {% for idioma in idiouser %}
                                     <ul class="list-group list-group-flush rounded-3">
                                         <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                            <i class="fa-solid fa-language" style="color: rgb(201, 188, 18)"></i>
+                                            <i class="fa-solid fa-earth-americas" style="color: rgb(201, 188, 18)"></i>
                                             <div class="col-sm-12 d-flex align-items-center justify-content-start">
-                                                <h6 id="titulo2" class="align-self-center mb-0">{{ idioma.nombre_idioma|title }}  &nbsp;&nbsp;-&nbsp;&nbsp;  Nivel: {{ idioma.nivel }}</h6>
+                                                <h6 id="titulo2" class="align-self-center mb-0">{{ idioma.fk_id_idioma.nombre_idioma|title }}  &nbsp;&nbsp;-&nbsp;&nbsp;  Nivel: {{ idioma.nivel }}</h6>
                                             </div>                            
                                         </li>         
                                     </ul>                                       
@@ -367,7 +367,7 @@
                             {% else %}
                                 <ul class="list-group list-group-flush rounded-3">
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fa-solid fa-language" style="color: rgb(201, 188, 18)"></i>
+                                        <i class="fa-solid fa-earth-americas" style="color: rgb(201, 188, 18)"></i>
                                         <h5 id="titulo2" class="mb-0 align-self-center">No registra idiomas</h5>                             
                                     </li>         
                                 </ul>
