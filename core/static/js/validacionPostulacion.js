@@ -41,7 +41,7 @@ $(document).ready(function() {
       pretencion_renta: {
         required: true,
         min: 460000,
-        max: 4000000
+        max: 10000000
       },
     },
     messages: {
@@ -52,7 +52,7 @@ $(document).ready(function() {
       pretencion_renta: {
         required: "Este campo es obligatorio",
         min: "La pretensión de renta debe ser mayor o igual a 460000",
-        max: "La pretensión de renta debe ser mayor o igual a 4000000"
+        max: "La pretensión de renta debe ser mayor o igual a 10000000"
     },
   },
 
