@@ -120,7 +120,7 @@ class LoginForm(forms.Form):
     usuario = forms.CharField(max_length=50, required=True,
         label="Usuario",
         error_messages={'required': 'El usuario es obligatorio'})
-    password = forms.CharField(widget=forms.PasswordInput, max_length=20,
+    password = forms.CharField(widget=forms.PasswordInput, max_length=250,
         label="Contraseña", required=True, 
         error_messages={'required': 'La contraseña es obligatoria'})
         
