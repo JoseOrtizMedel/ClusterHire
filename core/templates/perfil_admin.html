@@ -10,7 +10,7 @@
 <br>    
 <section >
     <div class="d-flex justify-content-between align-items-center">
-        <a class="btn btn-custom mb-2" href="{% url 'ofertas_admin' %}" style="background-color: #0076bc; color: #ffffff;">Ver Ofertas</a>
+        <a href="{% url 'read_csv' id_oferta %}" class="btn btn-danger mb-2" id="boton_volver"><i class="fa-solid fa-left-long"></i></a>
     </div>
     <div class="row">
         <div class="col-lg-4">
@@ -210,59 +210,69 @@
                 </div> 
             </div>
                 {% if educaciones %}
-                {% for educacion in educaciones %}
-                    <div class="card mb-2">
-                        <div class="card-body"> 
-                            <h4 id="titulo2" class="mb-0">{{ educacion.fk_id_titulo.nombre_titulo|title }}</h4>
-                            <hr>
-                            <div class="row">   
-                                <div class="col-sm-2">
-                                    <p id="titulo2" class="mb-0">Casa de estudio</p>
-                                </div>
-                                <div class="col-sm-10">
-                                    {% if educacion.fk_id_institucion.nombre_institucion %}
-                                        <p class="text-muted mb-0">{{ educacion.fk_id_institucion.nombre_institucion }}</p>
-                                    {% else %}
-                                        <p class="text-muted mb-0">No se encontró información sobre la casa de estudios.</p>
-                                    {% endif %}                             
-                                </div>
-                            </div>                              
-                            <hr>
-                            <div class="row">   
-                                <div class="col-sm-2">
-                                    <p id="titulo2" class="mb-0">Tipo educación</p>
-                                </div>
-                                <div class="col-sm-10">
-                                    <p class="text-muted mb-0">{{ educacion.fk_id_formacion.tipo_formacion  }}</p>                                    
-                                </div>
-                            </div>  
+                    {% for educacion in educaciones %}
+                        <div class="card mb-2">
+                            <div class="card-body"> 
+                                <div class="row"> 
+                                    <div class="col-sm-2">
+                                        <p id="titulo2" class="mb-0">Titulo </p>
+                                    </div>
+                                    <div class="col-sm-10">  
+                                        {% if educacion.fk_id_titulo %}
+                                            <p class="text-muted mb-0">{{ educacion.fk_id_titulo.nombre_titulo|title }}</p>
+                                        {% else %}
+                                            <p class="text-muted mb-0">No se encontró información sobre el titulo.</p>
+                                        {% endif %}                             
+                                    </div>
+                                </div> 
 
-                            <hr>   
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <p id="titulo2" class="mb-0">Año de inicio</p>
-                                </div>
-                                <div class="col-sm-4">
-                                    {% if educacion.annio_inicio_educ %}
-                                        <p class="text-muted mb-0">{{ educacion.annio_inicio_educ }}</p>
-                                    {% else %}
-                                        <p class="text-muted mb-0">{{ educacion.annio_inicio_educ }}</p>
-                                    {% endif %}
-                                </div>
-                                <div class="col-sm-2">
-                                    <p id="titulo2" class="mb-0">Año de término</p>
-                                </div>
-                                <div class="col-sm-4">
-                                    {% if educacion.annio_fin_educ %}
-                                        <p class="text-muted mb-0">{{ educacion.annio_fin_educ }}</p>
-                                    {% else %}
-                                        <p class="text-muted mb-0">{{ educacion.annio_fin_educ }}</p>
-                                    {% endif %}
+                                <hr>
+                                <div class="row">                                     
+                                    <div class="col-sm-2">
+                                        <p id="titulo2" class="mb-0">Casa de estudio</p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {% if educacion.fk_id_institucion.nombre_institucion %}
+                                            <p class="text-muted mb-0">{{ educacion.fk_id_institucion.nombre_institucion }}</p>
+                                        {% else %}
+                                            <p class="text-muted mb-0">No se encontró información sobre la casa de estudios.</p>
+                                        {% endif %}                             
+                                    </div>
+  
+                                    <div class="col-sm-2">
+                                        <p id="titulo2" class="mb-0">Tipo educación</p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <p class="text-muted mb-0">{{ educacion.fk_id_formacion.tipo_formacion  }}</p>                                    
+                                    </div>
+                                </div>  
+
+                                <hr>   
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <p id="titulo2" class="mb-0">Año de inicio</p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {% if educacion.annio_inicio_educ %}
+                                            <p class="text-muted mb-0">{{ educacion.annio_inicio_educ }}</p>
+                                        {% else %}
+                                            <p class="text-muted mb-0">{{ educacion.annio_inicio_educ }}</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <p id="titulo2" class="mb-0">Año de término</p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {% if educacion.annio_fin_educ %}
+                                            <p class="text-muted mb-0">{{ educacion.annio_fin_educ }}</p>
+                                        {% else %}
+                                            <p class="text-muted mb-0">{{ educacion.annio_fin_educ }}</p>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
 
                 {% else %}
 

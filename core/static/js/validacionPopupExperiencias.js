@@ -51,7 +51,7 @@ $(document).ready(function () {
         // Puedes mostrar un mensaje de espera aquí si lo deseas
 
         // Establece un temporizador para restablecer el botón después de un tiempo determinado
-        setTimeout(resetSubmitButton, 5000); // 5000 milisegundos (5 segundos) como ejemplo
+        setTimeout(resetSubmitButton, 15000); // 15000 milisegundos (5 segundos) como ejemplo
     }
 
   $("#formularioPerfilExp").validate({
@@ -72,7 +72,7 @@ $(document).ready(function () {
           descripcion: {
             required: true,
             minlength: 20, 
-            maxlength: 100,
+            maxlength: 2000,
           }
       },
       messages: {
@@ -93,7 +93,7 @@ $(document).ready(function () {
           descripcion: {
             required: "La descripción de la experiencia laboral es obligatoria",
             minlength: "La descripción debe tener al menos 20 caracteres",
-            maxlength: "La descripción no debe tener más de 70 caracteres"
+            maxlength: "La descripción no debe tener más de 2000 caracteres"
           }
       },
 

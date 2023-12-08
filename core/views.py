@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 
 
-from .models import Ciudad, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, Habilidad, HabilidadUsuario, Idioma, IdiomaUsuario, ModalidadTrabajo, Oferta, Formulario, TipoCargo, TipoEmpleo, Usuario, Competencia, UsuarioLogro
+from .models import Ciudad, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, FormacionAcademica, Habilidad, HabilidadUsuario, Idioma, IdiomaUsuario, Institucion, ModalidadTrabajo, Oferta, Formulario, TipoCargo, TipoEmpleo, TituloProf, Usuario, Competencia, UsuarioLogro
 
 from .models import Ciudad, CompetenciaUsuario, Comuna, Direccion, Educacion, Experiencia, Formulario, HabilidadUsuario, IdiomaUsuario, Oferta, Usuario, Competencia, UsuarioLogro
 
@@ -265,6 +265,20 @@ def perfil_admin(request, id_usuario, id_oferta):
         modalidades = ModalidadTrabajo.objects.filter(id_modalidad__in = fkmodalidad)
 
 
+        educaciones = Educacion.objects.filter(fk_id_usuario=id_user)
+
+        fkforma = educaciones.values_list('fk_id_formacion', flat=True)
+        formaciones = FormacionAcademica.objects.filter(id_formacion__in=fkforma)
+
+        fktitu = educaciones.values_list('fk_id_titulo', flat=True)
+        titulos = TituloProf.objects.filter(id_titulo__in=fktitu)
+
+        fkinsti = educaciones.values_list('fk_id_institucion', flat=True).first()
+        instituciones = Institucion.objects.filter(id_institucion=fkinsti)
+
+
+
+
     except Usuario.DoesNotExist:
         # Manejar el caso en el que el usuario no se encuentre
         print("No se encontró un usuario")
@@ -283,7 +297,11 @@ def perfil_admin(request, id_usuario, id_oferta):
         'experiencias' : experiencias,
         'empleos' : empleos,
         'cargos' : cargos,
-        'modalidades' : modalidades
+        'modalidades' : modalidades,
+        'educaciones' : educaciones,
+        'formaciones' : formaciones,
+        'titulos' : titulos,
+        'instituciones' : instituciones
     }
 
 
