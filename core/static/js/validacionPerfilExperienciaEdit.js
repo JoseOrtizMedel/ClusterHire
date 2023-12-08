@@ -72,7 +72,7 @@ $("#formularioPerfilExp").validate({
         descripcion: {
           required: true,
           minlength: 20, 
-          maxlength: 100,
+          maxlength: 2000,
         }
     },
     messages: {
@@ -93,7 +93,7 @@ $("#formularioPerfilExp").validate({
         descripcion: {
           required: "La descripción de la experiencia laboral es obligatoria",
           minlength: "La descripción debe tener al menos 20 caracteres",
-          maxlength: "La descripción no debe tener más de 70 caracteres"
+          maxlength: "La descripción no debe tener más de 2000 caracteres"
         }
     },
 

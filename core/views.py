@@ -292,8 +292,10 @@ def perfil_admin(request, id_usuario, id_oferta):
         #'ciudades' : ciudades,
         'compesuser' : compesuser,
         'competencias' : competencias,
+        'habiuser' : habiuser,
         'habilidades' : habilidades,
         'idiomas' : idiomas,
+        'idiouser' : idiouser,
         'experiencias' : experiencias,
         'empleos' : empleos,
         'cargos' : cargos,
@@ -305,11 +307,11 @@ def perfil_admin(request, id_usuario, id_oferta):
     }
 
 
-    if empleos.exists():
-        modalidades = modalidades.first()
-        print(modalidades.nom_modalidad)
+    if idiomas.exists():
+        idiomas = idiomas.first()
+        print(idiomas.nombre_idioma)
     else:        
-        print("No se encontró información sobre el tipo de empleo.")
+        print("No se encontró idioma")
 
 
     return render(request, 'perfil_admin.html', datos)

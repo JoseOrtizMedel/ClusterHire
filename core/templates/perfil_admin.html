@@ -189,7 +189,7 @@
                 {% endfor %}
             {% else %}
 
-            <div class="card mb-4">
+            <div class="card mb-3">
                 <div class="card-body">    
                     <div class="row">   
                         <div class="col-sm-12 d-flex align-items-center justify-content-center">
@@ -289,118 +289,95 @@
                 {% endif %}
             </div>
 
-        <div class="col-lg-12">
-            <div class="row">
-                <div id="cards" class="col-lg-6 custom-card">
-                    <div class="card mb-4 mt-4">
-                        <div class = "titulo3">
-                            <h4 id="titulo3" class="mb-3 mt-3">Competencias</h4>    
-                        </div>
-                        {% if compesuser %}             
-                            {% for compesuser in compesuser.all %}
+            <div class="col-lg-12">
+                <div class="row">
+                    <div id="cards" class="col-lg-4 custom-card">
+                        <div class="card mt-4 mb-4">
+                            <div class = "titulo3">
+                                <h5  class="mb-3 mt-3">Competencias</h5>    
+                            </div>
+                            {% if competencias %}             
+                                {% for compesuser in compesuser.all %}
+                                    <ul class="list-group list-group-flush rounded-3">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                            <i class="fa-solid fa-award" style="color: rgb(201, 188, 18)"></i>
+                                            <div class="col-sm-12 d-flex align-items-center justify-content-start">
+                                                <h6 id="titulo2" class="align-self-center mb-0">{{ compesuser.fk_id_competencia.nombre_competencia|title }}&nbsp;&nbsp;-&nbsp;&nbsp;  Nivel: {{ compesuser.nivel|title }} &nbsp;&nbsp;&nbsp;&nbsp;</h6>                                       
+                                            </div>                            
+                                        </li>         
+                                    </ul>                                                            
+                                {% endfor %}
+                            {% else %}
                                 <ul class="list-group list-group-flush rounded-3">
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                         <i class="fa-solid fa-award" style="color: rgb(201, 188, 18)"></i>
-                                        <div class="col-sm-12 d-flex align-items-center justify-content-start">
-                                            <h6 id="titulo2" class="mb-0">{{ compesuser.fk_id_competencia.nombre_competencia|title }}&nbsp;&nbsp;-&nbsp;&nbsp;  Nivel: {{ compesuser.nivel }} &nbsp;&nbsp;&nbsp;&nbsp;</h6>
-                                        </div>                            
+                                        <h5 id="titulo2" class="mb-0 align-self-center">No registra competencias</h5>                      
                                     </li>         
-                                </ul>                                                            
-                            {% endfor %}
-                        {% else %}
-                            <ul class="list-group list-group-flush rounded-3">
-                                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                    <i class="fa-solid fa-award" style="color: rgb(201, 188, 18)"></i>
-                                    <h6 id="titulo2" class="mb-0 align-self-center">No registra competencias</h6>                      
-                                </li>         
-                            </ul>   
-                        {% endif %}  
+                                </ul>   
+                            {% endif %}  
+                        </div>
                     </div>
-                </div>
-                
-                <div id="cards" class="col-lg-6 custom-card">
-                    <div class="card mt-4 mb-4">
-                        <div class="titulo3">
-                            <h4  class="mb-3 mt-3">Idiomas</h4>    
-                        </div>         
-                        {% if idiouser %}
-                            {% for idiouser in idiouser %}
+                    
+    
+                    <div id="cards" class="col-lg-4 custom-card">
+                        <div class="card mt-4  mb-4">
+                            <div class = "titulo3">
+                                <h5  class="mb-3 mt-3">Habilidades</h5>    
+                            </div>      
+                            {% if habilidades %}
+                                {% for habilidad in habilidades %}
+                                    <ul class="list-group list-group-flush rounded-3">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                            <i class="fa-solid fa-star" style="color: rgb(201, 188, 18)"></i>
+                                            <div class="col-sm-12 d-flex align-items-center justify-content-start">
+                                                <h6 id="titulo2" class="align-self-center mb-0">{{ habilidad.nombre_habilidad|title }}</h6>
+                                            </div>                            
+                                        </li>         
+                                    </ul>                                       
+                                {% endfor %}
+                            {% else %}
                                 <ul class="list-group list-group-flush rounded-3">
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fa-solid fa-earth-americas" style="color: rgb(201, 188, 18)"></i>
-                                        <div class="col-sm-12 d-flex align-items-center justify-content-start">
-                                            <h6 id="titulo2" class="align-self-center mb-0">{{ idiouser.fk_id_idioma.nombre_idioma|title }}  &nbsp;&nbsp;-&nbsp;&nbsp;  Nivel: {{ idiouser.nivel }}</h6>
-                                        </div>                            
+                                        <i class="fa-solid fa-star" style="color: rgb(201, 188, 18)"></i>
+                                        <h5 id="titulo2" class="mb-0 align-self-center">No registra habilidades</h5>                        
                                     </li>         
-                                </ul>                                       
-                            {% endfor %}
-                        {% else %}
-                            <ul class="list-group list-group-flush rounded-3">
-                                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                    <i class="fa-solid fa-earth-americas" style="color: rgb(201, 188, 18)"></i>
-                                    <h6 id="titulo2" class="mb-0 align-self-center">No registra idiomas</h6>                             
-                                </li>         
-                            </ul>
-                        {% endif %} 
+                                </ul>                             
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-
-            <div id="cards" class="col-lg-6 custom-card">
-                <div class="card mt-4  mb-4">
-                    <div class="titulo3">
-                        <h4  class="mb-3 mt-3">Habilidades</h4>    
-                    </div>      
-                    {% if habiuser %}
-                        {% for habiuser in habiuser %}
-                            <ul class="list-group list-group-flush rounded-3">
-                                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                    <i class="fa-solid fa-star" style="color: rgb(201, 188, 18)"></i>
-                                    <div class="col-sm-12 d-flex align-items-center justify-content-start">
-                                        <h6 id="titulo2" class="align-self-center mb-0"></h6>
-                                    </div>                            
-                                </li>         
-                            </ul>                                       
-                        {% endfor %}
-                    {% else %}
-                        <ul class="list-group list-group-flush rounded-3">
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fa-solid fa-star" style="color: rgb(201, 188, 18)"></i>
-                                <h6 id="titulo2" class="mb-0 align-self-center">No registra habilidades</h6>                        
-                            </li>         
-                        </ul>                             
-                    {% endif %}
-                </div>
-            </div>
-
-                <div id="cards" class="col-lg-6 custom-card">
-                    <div class="card mt-4  mb-4">
-                        <div class = "titulo3">
-                            <h4  class="mb-3 mt-3">Logros académicos</h4>    
-                        </div>      
-                        {% if logros %}
-                            {% for logro in logros %}
+                    
+                    
+                    
+                    <div id="cards" class="col-lg-4 custom-card">
+                        <div class="card mt-4 mb-4">
+                            <div class = "titulo3">
+                                <h5  class="mb-3 mt-3">Idiomas</h5>    
+                            </div>         
+                            {% if idiomas %}
+                                {% for idioma in idiomas %}
+                                    <ul class="list-group list-group-flush rounded-3">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                            <i class="fa-solid fa-language" style="color: rgb(201, 188, 18)"></i>
+                                            <div class="col-sm-12 d-flex align-items-center justify-content-start">
+                                                <h6 id="titulo2" class="align-self-center mb-0">{{ idioma.nombre_idioma|title }}  &nbsp;&nbsp;-&nbsp;&nbsp;  Nivel: {{ idioma.nivel }}</h6>
+                                            </div>                            
+                                        </li>         
+                                    </ul>                                       
+                                {% endfor %}
+                            {% else %}
                                 <ul class="list-group list-group-flush rounded-3">
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fa-solid fa-graduation-cap" style="color: rgb(201, 188, 18)"></i>
-                                        <div class="col-sm-12 d-flex align-items-center justify-content-start">
-                                            <h6 id="titulo2" class="align-self-center mb-0">{{ logro.fk_id_logro_academico.nom_logro|title }}</h6>
-                                        </div>                            
+                                        <i class="fa-solid fa-language" style="color: rgb(201, 188, 18)"></i>
+                                        <h5 id="titulo2" class="mb-0 align-self-center">No registra idiomas</h5>                             
                                     </li>         
-                                </ul>                                       
-                            {% endfor %}
-                        {% else %}
-                            <ul class="list-group list-group-flush rounded-3">
-                                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                    <i class="fa-solid fa-graduation-cap" style="color: rgb(201, 188, 18)"></i>
-                                    <h6 id="titulo2" class="mb-0 align-self-center">No registra logros académicos.</h6>                        
-                                </li>         
-                            </ul>                             
-                        {% endif %}
+                                </ul>
+                            {% endif %} 
+                        </div>
                     </div>
+                     
+    
                 </div>
-
             </div>
-        </div>
 
 
 
