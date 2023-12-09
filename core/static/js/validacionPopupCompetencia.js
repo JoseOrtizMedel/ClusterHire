@@ -3,11 +3,12 @@ $(document).ready(function () {
     function resetSubmitButton() {
         var button = document.getElementById("enviarPerfilCompe");
         if (button) {
-        button.disabled = false;
-        button.value = "Guardar"; // Restablece el texto del botón
+            button.disabled = false;
+            button.value = "Guardar"; // Restablece el texto del botón
         }
     }
-        // Esta función se llama cuando se hace clic en el botón de enviar
+
+    // Esta función se llama cuando se hace clic en el botón de enviar
     function disableSubmitButton(button) {
         // Deshabilita el botón
         button.disabled = true;
@@ -15,20 +16,37 @@ $(document).ready(function () {
         // Cambia el texto del botón para indicar que se está procesando
         button.value = "Enviando...";
 
-        // Puedes mostrar un mensaje de espera aquí si lo deseas
-
         // Establece un temporizador para restablecer el botón después de un tiempo determinado
-        setTimeout(resetSubmitButton, 30000); // 30000 milisegundos (5 segundos) como ejemplo
+        setTimeout(resetSubmitButton, 30000); // 30000 milisegundos (30 segundos) como ejemplo
     }
 
     $('#formularioPerfilCompe').validate({
         rules: {
             fk_id_competencia: "required",
+            nivel: "required"
         },
         messages: {
             fk_id_competencia: {
-                required: 'Por favor ingresa una competencia',
+                required: 'Por favor ingresa una competencia.',
+            },
+            nivel: {
+                required: 'Por favor elija seleccione su nivel.',
             }
+        },
+        errorPlacement: function (error, element) {
+            if (element.attr("name") == "nivel") {
+                error.insertAfter(element.closest('.row'));
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+            $(".form-check-inline").addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+            $(".form-check-inline").removeClass('is-invalid');
         },
         submitHandler: function (form) {
             // Aquí puedes mostrar la confirmación con SweetAlert2
@@ -44,7 +62,6 @@ $(document).ready(function () {
                     form.submit();
                     // Deshabilita el botón y muestra "Enviando..."
                     disableSubmitButton($("#enviarPerfilCompe")[0]);
-
                 }
             });
         },
