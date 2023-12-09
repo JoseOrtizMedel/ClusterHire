@@ -130,9 +130,31 @@
                     {% for experiencia in experiencias %}
                     <div class="card mb-2">
                         <div class="card-body"> 
-                            <h4 id="titulo2" class="mb-0">{{ experiencia.fk_id_tipo_cargo.nom_cargo|title }} <a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_exps' experiencia.id_experiencia %}" style="float: right; margin-top: -5px;"><i class="fa-solid fa-trash"></i></a>&nbsp;<a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_experiencia' experiencia.id_experiencia %}" style="float: right; margin-top: -5px;"><i class="fa-solid fa-pen-to-square"></i></a></h4>
+                            <h4 id="titulo2" class="mb-0">{{ experiencia.nombre_empleo|title }}</h4>
+                            <div class="container-fluid pb-2" style="align-items: center;">
+                                <a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_exps' experiencia.id_experiencia %}" style="float: right; margin-right: 0px;"><i class="fa-solid fa-trash"></i></a>&nbsp;<a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_experiencia' experiencia.id_experiencia %}" style="float: right; margin-bottom: 5px;"><i class="fa-solid fa-pen-to-square"></i></a>
+                            </div>
+                            <hr>
+                            <div class="row">   
+                                <div class="col-sm-2">
+                                    <p id="titulo2" class="mb-0">Empresa</p>
+                                </div>
+                                <div class="col-sm-10">
+                                    <p class="text-muted mb-0">{{ experiencia.nombre_empresa }}</p>                                    
+                                </div>
+                            </div>
                             <hr>
                             <div class="row">
+                                <div class="col-sm-2">
+                                    <p id="titulo2" class="mb-0">Cargo ejercido</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    {% if experiencia.fk_id_tipo_cargo %}
+                                        <p class="text-muted mb-0">{{ experiencia.fk_id_tipo_cargo.nom_cargo }}</p>
+                                    {% else %}
+                                        <p class="text-muted mb-0">No se encontró información sobre el tipo de cargo.</p>
+                                    {% endif %}                             
+                                </div>
                                 <div class="col-sm-2">
                                     <p id="titulo2" class="mb-0">Tipo de contrato</p>
                                 </div>
@@ -144,6 +166,29 @@
                                     {% endif %}                             
                                 </div>     
                             </div>
+                            <hr>
+                            <div class="row">   
+                                <div class="col-sm-2">
+                                    <p id="titulo2" class="mb-0">Modalidad</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    {% if experiencia.fk_id_modalidad %}
+                                        <p class="text-muted mb-0">{{ experiencia.fk_id_modalidad.nom_modalidad }}</p>
+                                    {% else %}
+                                        <p class="text-muted mb-0">No se encontró información sobre la modalidad</p>
+                                    {% endif %}                             
+                                </div> 
+                                <div class="col-sm-2">
+                                    <p id="titulo2" class="mb-0">Comuna</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    {% if experiencia.fk_id_comuna %}
+                                        <p class="text-muted mb-0">{{ experiencia.fk_id_comuna.nom_comuna }}</p>
+                                    {% else %}
+                                        <p class="text-muted mb-0">No se encontró información sobre la ubicación del empleo</p>
+                                    {% endif %}                             
+                                </div>  
+                            </div> 
                             <hr>
                             <div class="row">
                                 <div class="col-sm-2">
@@ -170,35 +215,12 @@
                             <hr>
                             <div class="row">   
                                 <div class="col-sm-2">
-                                    <p id="titulo2" class="mb-0">Modalidad</p>
-                                </div>
-                                <div class="col-sm-4">
-                                    {% if experiencia.fk_id_modalidad %}
-                                        <p class="text-muted mb-0">{{ experiencia.fk_id_modalidad.nom_modalidad }}</p>
-                                    {% else %}
-                                        <p class="text-muted mb-0">No se encontró información sobre la modalidad</p>
-                                    {% endif %}                             
-                                </div> 
-                                <div class="col-sm-2">
-                                    <p id="titulo2" class="mb-0">Comuna</p>
-                                </div>
-                                <div class="col-sm-4">
-                                    {% if experiencia.fk_id_comuna %}
-                                        <p class="text-muted mb-0">{{ experiencia.fk_id_comuna.nom_comuna }}</p>
-                                    {% else %}
-                                        <p class="text-muted mb-0">No se encontró información sobre la ubicación del empleo</p>
-                                    {% endif %}                             
-                                </div>  
-                            </div> 
-                            <hr>
-                            <div class="row">   
-                                <div class="col-sm-2">
                                     <p id="titulo2" class="mb-0">Descripción</p>
                                 </div>
                                 <div class="col-sm-10">
                                     <p class="text-muted mb-0">{{ experiencia.descripcion }}</p>                                    
                                 </div>
-                            </div>
+                            </div> 
                         </div>
                     </div>
                 {% endfor %}
@@ -226,9 +248,21 @@
                 {% if educaciones %}
                 {% for educacion in educaciones %}
                     <div class="card mb-2">
-                        <div class="card-body"> 
-                            <h4 id="titulo2" class="mb-0">{{ educacion.fk_id_titulo.nombre_titulo|title }} <a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_educacion' educacion.id_educacion %}" style="float: right; margin-right: 10px;"><i class="fa-solid fa-trash"></i></a>&nbsp;<a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_educacion' educacion.id_educacion %}" style="float: right; margin-top: 0px;"><i class="fa-solid fa-pen-to-square"></i></a></h4>
-                            <hr>
+                        <div class="card-body">
+                            <div class="container-fluid pb-2" style="align-items: center;">
+                                <a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_educacion' educacion.id_educacion %}" style="float: right; margin-right: 0px;"><i class="fa-solid fa-trash"></i></a>&nbsp;<a class="btn btn-secondary mr-2" type="button" href="{% url 'edit_educacion' educacion.id_educacion %}" style="float: right; margin-bottom: 5px;"><i class="fa-solid fa-pen-to-square"></i></a>
+                            </div>
+                            <hr> 
+                            <div class="row">   
+                                <div class="col-sm-2">
+                                    <p id="titulo2" class="mb-0">Título</p>
+                                </div>
+                                <div class="col-sm-10">
+                                    <p class="text-muted mb-0">{{ educacion.fk_id_titulo.nombre_titulo }}</p>                                    
+                                </div>
+                            </div>  
+
+                            <hr>   
                             <div class="row">   
                                 <div class="col-sm-2">
                                     <p id="titulo2" class="mb-0">Casa de estudio</p>
@@ -305,8 +339,8 @@
                                 <ul class="list-group list-group-flush rounded-3">
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                         <i class="fa-solid fa-award" style="color: rgb(201, 188, 18)"></i>
-                                        <div class="col-sm-12 d-flex align-items-center justify-content-start">
-                                            <h6 id="titulo2" class="mb-0"><a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_compes' competencia.id_compe_usuario %}" style="float: right; position: absolute; right: 0; margin-top: -7px;"><i class="fa-solid fa-trash"></i></a>{{ competencia.fk_id_competencia.nombre_competencia|title }}&nbsp;&nbsp;-&nbsp;&nbsp;  Nivel: {{ competencia.nivel }} &nbsp;&nbsp;&nbsp;&nbsp;</h6>
+                                        <div class="col-lg-12 d-flex align-items-center justify-content-start">
+                                            <p id="titulo2" class="mb-0 mr-2" style="font-size: 15px"><a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_compes' competencia.id_compe_usuario %}" style="float: right; position: absolute; right: 0; margin-top: -7px;"><i class="fa-solid fa-trash"></i></a>{{ competencia.fk_id_competencia.nombre_competencia|title }}&nbsp;{{ competencia.nivel }} &nbsp;&nbsp;&nbsp;&nbsp;</p>
                                         </div>                            
                                     </li>         
                                 </ul>                                                            
@@ -334,7 +368,7 @@
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                 <i class="fa-solid fa-earth-americas" style="color: rgb(201, 188, 18)"></i>
                                 <div class="col-sm-12 d-flex align-items-center justify-content-start">
-                                    <h6 id="titulo2" class="align-self-center mb-0"><a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_idiomas' idioma.id_idioma_usuario %}" style="float: right; position: absolute; right: 0; margin-top: -7px;"><i class="fa-solid fa-trash"></i></a>{{ idioma.fk_id_idioma.nombre_idioma|title }}  &nbsp;&nbsp;-&nbsp;&nbsp;  Nivel: {{ idioma.nivel }}</h6>
+                                    <h6 id="titulo2" class="align-self-center mb-0"><a class="btn btn-danger mr-2" type="button" href="{% url 'eliminar_idiomas' idioma.id_idioma_usuario %}" style="float: right; position: absolute; right: 0; margin-top: -7px;"><i class="fa-solid fa-trash"></i></a>{{ idioma.fk_id_idioma.nombre_idioma|title }}&nbsp;{{ idioma.nivel }}</h6>
                                 </div>                            
                             </li>         
                         </ul>                                       
