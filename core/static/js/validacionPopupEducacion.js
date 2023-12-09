@@ -31,7 +31,7 @@ $(document).ready(function () {
         // Puedes mostrar un mensaje de espera aquí si lo deseas
 
         // Establece un temporizador para restablecer el botón después de un tiempo determinado
-        setTimeout(resetSubmitButton, 15000); // 15000 milisegundos (5 segundos) como ejemplo
+        setTimeout(resetSubmitButton, 30000); // 30000 milisegundos (5 segundos) como ejemplo
     }
 
     $('#formularioPerfilEduc').validate({
