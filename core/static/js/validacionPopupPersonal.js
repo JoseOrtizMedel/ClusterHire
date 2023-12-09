@@ -33,10 +33,6 @@ $(document).ready(function () {
           minlength: 2,
           maxlength: 50,
         },
-        segundo_nombre: {
-          minlength: 2,
-          maxlength: 50,
-        },
         primer_apellido: {
           required: true,
           minlength: 2,
@@ -49,9 +45,6 @@ $(document).ready(function () {
         fecha_nacimiento: {
           required: true,
           date: true,
-        },
-        nacionalidad: {
-          required: true,
         },
         telefono: {
           required: true,
@@ -79,11 +72,6 @@ $(document).ready(function () {
           minlength: "El nombre debe tener al menos 2 caracteres",
           maxlength: "El nombre no debe tener más de 50 caracteres",
         },
-        segundo_nombre: {
-          required: "El segundo nombre es obligatorio",
-          minlength: "El segundo nombre debe tener al menos 2 caracteres",
-          maxlength: "El segundo nombre no debe tener más de 50 caracteres",
-        },
         primer_apellido: {
           required: "El primer apellido es obligatorio",
           minlength: "El primer apellido debe tener al menos 2 caracteres",
@@ -97,9 +85,6 @@ $(document).ready(function () {
         fecha_nacimiento: {
           required: "La fecha de nacimiento es obligatoria",
           date: "Ingrese un formato de fecha válido (YYYY-MM-DD)",
-        },
-        nacionalidad: {
-          required: "La nacionalidad es obligatoria",
         },
         telefono: {
           required: "El teléfono es obligatorio",
