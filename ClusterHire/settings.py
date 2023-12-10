@@ -84,10 +84,12 @@ WSGI_APPLICATION = 'ClusterHire.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'oracle-db.c67u6eugv3td.sa-east-1.rds.amazonaws.com:1521/clustdb',
-        #'NAME': 'localhost:1521/orcl', #alvi
-        'USER': 'admin',
-        'PASSWORD': 'Clusterhire1.',
+        #'NAME': 'oracle-db.c67u6eugv3td.sa-east-1.rds.amazonaws.com:1521/clustdb',
+        'NAME': 'localhost:1521/orcl', #alvi
+        #'USER': 'admin',
+        'USER': 'usuario',
+        #'PASSWORD': 'Clusterhire1.',
+        'PASSWORD': 'usuario',
         'TEST': {
             'USER': 'default_test',
             'TBLSPACE': 'default_test_tbls',

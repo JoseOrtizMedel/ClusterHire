@@ -42,10 +42,12 @@ pd.set_option('display.max_columns', None)                                      
 
 def exportar_csv(request, id_oferta, nom_oferta ):
     # Reemplaza estos valores con tu información de conexión
-    username = 'admin'
-    password = 'Clusterhire1.'
-    database = 'oracle-db.c67u6eugv3td.sa-east-1.rds.amazonaws.com:1521/clustdb'
-    #database = 'localhost:1521/orcl' #alvi
+    #username = 'admin'
+    #password = 'Clusterhire1.'
+    #database = 'oracle-db.c67u6eugv3td.sa-east-1.rds.amazonaws.com:1521/clustdb'
+    username = 'usuario'
+    password = 'usuario'
+    database = 'localhost:1521/orcl' #alvi
 
 
     # Crea una conexión a la base de datos
@@ -305,7 +307,7 @@ def read_csv(request, id_oferta):
 
     resultado['NOM_MODALIDAD'].fillna('N/A', inplace=True)
 
-    columnas_seleccionadas = ['ID_OFERTA','NOM_OFERTA', 'ID_FORMULARIO','FECHA_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO',
+    columnas_seleccionadas = ['ID_OFERTA','NOM_OFERTA', 'ID_FORMULARIO','FECHA_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO', 'NOMBRE_EMPRESA',
                             'ANHOS_EXPERIENCIA_USER','TIPO_CARGO_EXP','ptj_formacion', 'ptj_titulo','ptj_habilidades', 'ptj_idiomas', 'ptj_cargo',
                             'ptj_competencia', 'ptj_nivel', 'COMPETENCIA_USER','COMPETENCIA_OFERTA']
 
@@ -322,7 +324,7 @@ def read_csv(request, id_oferta):
     df = df.sort_values(by='ANHOS_EXPERIENCIA_USER', ascending=False)
 
     # Realizar el agrupamiento y suma
-    df = df.groupby(['ID_OFERTA','NOM_OFERTA','ID_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO','ANHOS_EXPERIENCIA_USER',
+    df = df.groupby(['ID_OFERTA','NOM_OFERTA','ID_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO','NOMBRE_EMPRESA','ANHOS_EXPERIENCIA_USER',
                     'ptj_formacion', 'ptj_titulo', 'ptj_habilidades', 'ptj_idiomas', 'ptj_cargo'
                     ])[['ptj_competencia','ptj_nivel']].sum().reset_index()
 

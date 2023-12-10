@@ -33,7 +33,7 @@ $(document).ready(function () {
         submitHandler: function (form) {
             // Aquí puedes mostrar la confirmación con SweetAlert2
             Swal.fire({
-                title: "Habilidad agregada correctamente!",
+                title: "¡Habilidad agregada correctamente!",
                 icon: "success",
                 showCancelButton: false,
                 confirmButtonColor: "#3085d6",
