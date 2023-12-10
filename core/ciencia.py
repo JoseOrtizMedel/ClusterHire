@@ -112,15 +112,15 @@ def read_csv(request, id_oferta):
     resultado = df2[df2['ID_OFERTA'] == oferta_id]
     #------------------------------------------------------------Desarrollo
 
-    # Identifica los usuarios con más de un cargo de experiencia distinto
-    usuarios_con_multiples_cargos = resultado.groupby('ID_USUARIO')['TIPO_CARGO_EXP'].nunique()
-    usuarios_multiples_cargos = usuarios_con_multiples_cargos[usuarios_con_multiples_cargos > 1].index
+    """     # Identifica los usuarios con más de un cargo de experiencia distinto
+        usuarios_con_multiples_cargos = resultado.groupby('ID_USUARIO')['TIPO_CARGO_EXP'].nunique()
+        usuarios_multiples_cargos = usuarios_con_multiples_cargos[usuarios_con_multiples_cargos > 1].index
 
-    # Filtra el DataFrame resultado para dejar solo las filas donde TIPO_CARGO_EXP coincide con NOM_CARGO_OFERTA
-    resultado = resultado[~((resultado['ID_USUARIO'].isin(usuarios_multiples_cargos)) & (resultado['TIPO_CARGO_EXP'] != resultado['NOM_CARGO_OFERTA']))]
+        # Filtra el DataFrame resultado para dejar solo las filas donde TIPO_CARGO_EXP coincide con NOM_CARGO_OFERTA
+        resultado = resultado[~((resultado['ID_USUARIO'].isin(usuarios_multiples_cargos)) & (resultado['TIPO_CARGO_EXP'] != resultado['NOM_CARGO_OFERTA']))]
 
-    # Elimina las filas duplicadas basadas en todas las columnas del DataFrame
-    resultado = resultado.drop_duplicates()
+        # Elimina las filas duplicadas basadas en todas las columnas del DataFrame
+        resultado = resultado.drop_duplicates() """
 
     # Convierte las columnas de fechas en formato datetime
     resultado['FECHA_INICIO_EXP'] = pd.to_datetime(df2['FECHA_INICIO_EXP'])
@@ -303,8 +303,25 @@ def read_csv(request, id_oferta):
             # Si 'COMPETENCIA_USER' no es una cadena, asigna 0 como puntaje
             resultado.at[index, 'ptj_competencia'] = 0
 
-
-
+    resultado['ID_OFERTA'].fillna('N/A', inplace=True)
+    resultado['NOM_OFERTA'].fillna('N/A', inplace=True)
+    resultado['ID_FORMULARIO'].fillna('N/A', inplace=True)
+    resultado['FECHA_FORMULARIO'].fillna('N/A', inplace=True)
+    resultado['ID_USUARIO'].fillna('N/A', inplace=True)
+    resultado['NOMBRE'].fillna('N/A', inplace=True)
+    resultado['PRIMER_APELLIDO'].fillna('N/A', inplace=True)
+    resultado['NOMBRE_EMPRESA'].fillna('N/A', inplace=True)
+    resultado['ANHOS_EXPERIENCIA_USER'].fillna('N/A', inplace=True)
+    resultado['TIPO_CARGO_EXP'].fillna('N/A', inplace=True)
+    resultado['ptj_formacion'].fillna('N/A', inplace=True)
+    resultado['ptj_titulo'].fillna('N/A', inplace=True)
+    resultado['ptj_habilidades'].fillna('N/A', inplace=True)
+    resultado['ptj_idiomas'].fillna('N/A', inplace=True)
+    resultado['ptj_cargo'].fillna('N/A', inplace=True)
+    resultado['ptj_competencia'].fillna('N/A', inplace=True)
+    resultado['ptj_nivel'].fillna('N/A', inplace=True)
+    resultado['COMPETENCIA_USER'].fillna('N/A', inplace=True)
+    resultado['COMPETENCIA_OFERTA'].fillna('N/A', inplace=True)
     resultado['NOM_MODALIDAD'].fillna('N/A', inplace=True)
 
     columnas_seleccionadas = ['ID_OFERTA','NOM_OFERTA', 'ID_FORMULARIO','FECHA_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO', 'NOMBRE_EMPRESA',
@@ -333,8 +350,23 @@ def read_csv(request, id_oferta):
                     ])[['ANHOS_EXPERIENCIA_USER']].sum().reset_index()
 
 
-    # Eliminar duplicados, conservando la primera ocurrencia (la más reciente)
-    df = df.drop_duplicates(subset='ID_USUARIO', keep='first')
+    """     # Eliminar duplicados, conservando la primera ocurrencia (la más reciente)
+        df = df.drop_duplicates(subset='ID_USUARIO', keep='first') """
+
+
+
+    #Identificar las filas duplicadas en la columna 'Nombre'
+    duplicadas = df[df.duplicated(subset='ID_USUARIO', keep=False)]
+
+    #Filtrar el DataFrame eliminando las filas que cumplen la condición
+    df = df[~((df['ID_USUARIO'].isin(duplicadas['ID_USUARIO'])) & (df['ptj_cargo'] == 0))]
+    df = df.groupby(['ID_OFERTA','NOM_OFERTA','ID_FORMULARIO', 'ID_USUARIO','NOMBRE', 'PRIMER_APELLIDO',
+                    'ptj_formacion', 'ptj_titulo', 'ptj_habilidades', 'ptj_idiomas', 'ptj_cargo', 'ptj_competencia','ptj_nivel'
+                    ])[['ANHOS_EXPERIENCIA_USER']].sum().reset_index()
+
+
+    #Eliminar duplicados, conservando la primera ocurrencia (la más reciente)
+    ''' df = df.drop_duplicates(subset='ID_USUARIO', keep='first') '''
 
 #----------------------------------------------------K-MEANS------------------------------------------------------
     conteo_formularios = df['ID_FORMULARIO'].count()
@@ -437,8 +469,8 @@ def read_csv(request, id_oferta):
     columnas_a_mostrar = ['ID_OFERTA', 'NOM_OFERTA', 'ID_USUARIO', 'NOMBRE', 'PRIMER_APELLIDO', 'ANHOS_EXPERIENCIA_USER']
 
     # Filtra el DataFrame para incluir solo las columnas deseadas
-    df_filtrado = grupo_mejor_recomendado[columnas_a_mostrar]  
-    df_filtrado2 = grupo_menor_recomendado[columnas_a_mostrar] 
+    df_filtrado = grupo_menor_recomendado[columnas_a_mostrar]  
+    df_filtrado2 = grupo_mejor_recomendado[columnas_a_mostrar] 
 
 
     #nuevos_nombres = {'ID_OFERTA': 'ID Oferta', 'NOM_OFERTA': 'Nombre oferta', 'ID_USUARIO': 'ID Usuario', 'NOMBRE': 'Nombre', 'PRIMER_APELLIDO': 'Apellido', 'ANHOS_EXPERIENCIA_USER': 'Años de experiencia'}
