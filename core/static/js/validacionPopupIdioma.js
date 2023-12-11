@@ -30,7 +30,7 @@ $(document).ready(function () {
                 required: 'Por favor ingresa un idioma.',
             },
             nivel: {
-                required: 'Por favor elija seleccione su nivel.',
+                required: 'Por favor seleccione su nivel.',
             }
         },
         errorPlacement: function (error, element) {

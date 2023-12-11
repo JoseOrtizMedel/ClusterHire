@@ -448,7 +448,7 @@ def read_csv(request, id_oferta):
     # Ordenar por 'ptj_competencia' en orden descendente
     grupo_menor_recomendado = grupo_menor_recomendado.sort_values(by='ptj_competencia', ascending=False)
 
-    # Ordenar por 'ANHOS_EXPERIENCIA_USER' en orden descendente
+    # Ordenar por 'ptj_nivel' en orden descendente
     grupo_menor_recomendado = grupo_menor_recomendado.sort_values(by='ANHOS_EXPERIENCIA_USER', ascending=False)
 
 #------------------------------------------------------------------------------------------------
@@ -459,9 +459,8 @@ def read_csv(request, id_oferta):
     # Ordenar por 'ptj_competencia' en orden descendente
     grupo_mejor_recomendado = grupo_mejor_recomendado.sort_values(by='ptj_competencia', ascending=False)
 
-    # Ordenar por 'ANHOS_EXPERIENCIA_USER' en orden descendente
+    # Ordenar por 'ptj_nivel' en orden descendente
     grupo_mejor_recomendado = grupo_mejor_recomendado.sort_values(by='ANHOS_EXPERIENCIA_USER', ascending=False)
-
 
 #-----------------------------------------------------------------------------------------------------------------
     
@@ -469,8 +468,8 @@ def read_csv(request, id_oferta):
     columnas_a_mostrar = ['ID_OFERTA', 'NOM_OFERTA', 'ID_USUARIO', 'NOMBRE', 'PRIMER_APELLIDO', 'ANHOS_EXPERIENCIA_USER']
 
     # Filtra el DataFrame para incluir solo las columnas deseadas
-    df_filtrado = grupo_menor_recomendado[columnas_a_mostrar]  
-    df_filtrado2 = grupo_mejor_recomendado[columnas_a_mostrar] 
+    df_filtrado = grupo_mejor_recomendado[columnas_a_mostrar]  
+    df_filtrado2 = grupo_menor_recomendado[columnas_a_mostrar] 
 
 
     #nuevos_nombres = {'ID_OFERTA': 'ID Oferta', 'NOM_OFERTA': 'Nombre oferta', 'ID_USUARIO': 'ID Usuario', 'NOMBRE': 'Nombre', 'PRIMER_APELLIDO': 'Apellido', 'ANHOS_EXPERIENCIA_USER': 'Años de experiencia'}

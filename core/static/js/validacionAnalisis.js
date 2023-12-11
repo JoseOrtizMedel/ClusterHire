@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     icon: 'error',
                     title: '¡No se puede analizar esta oferta!',
                     text: 'Para poder realizar el analisis, debe tener al menos 3 postulantes.',
-                    showCloseButton: true // Mostrar el botón de cierre manual
+                    showCloseButton: true, // Mostrar el botón de cierre manual
+                    confirmButtonColor: "#3085d6"
                 });
             }
         });

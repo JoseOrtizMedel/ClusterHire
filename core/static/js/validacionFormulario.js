@@ -65,8 +65,8 @@ $(document).ready(function() {
       // Si la validación es exitosa, muestra una notificación de éxito
       Swal.fire({
         icon: 'success',
-        title: 'Oferta ingresada correctamente!',
-        text: 'Tu oferta se ha guardado con éxito.',
+        title: '¡Oferta ingresada correctamente!',
+        text: '¡Tu oferta se ha guardado con éxito.',
         showCloseButton: true, // Mostrar el botón de cierre manual
         confirmButtonColor: "#3085d6",
         
